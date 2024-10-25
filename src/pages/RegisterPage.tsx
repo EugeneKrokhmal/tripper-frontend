@@ -5,6 +5,7 @@ import Button from '../components/elements/Button';
 import { useNavigate, useLocation } from 'react-router-dom';
 import LoginImage from '../images/login.jpg';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const RegisterPage: React.FC = () => {
     const [name, setName] = useState<string>('');
@@ -83,7 +84,7 @@ const RegisterPage: React.FC = () => {
 
                 {/* Login Link */}
                 <p className="text-center text-gray-600 dark:text-gray-300  mt-6">
-                    {t('alreadyHaveAnAccount')} <a href="/login" className="text-blue-600 hover:underline">{t('login')}</a>
+                    {t('alreadyHaveAnAccount')} <Link to="/login" className="text-blue-600 hover:underline">{t('login')}</Link>
                 </p>
             </div>
         </div>

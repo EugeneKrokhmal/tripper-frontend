@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import InputField from '../components/elements/InputField';
 import Button from '../components/elements/Button';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -98,7 +99,7 @@ const LoginPage: React.FC = () => {
 
                 {/* Sign up Link */}
                 <p className="text-center text-gray-600 dark:text-gray-300  mt-6">
-                    {t('dontHaveAnAccount')} <a href="/register" className="text-blue-600 hover:underline">{t('register')}</a>
+                    {t('dontHaveAnAccount')} <Link to="/register" className="text-blue-600 hover:underline">{t('register')}</Link>
                 </p>
             </div>
         </div>
