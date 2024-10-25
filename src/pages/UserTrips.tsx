@@ -110,22 +110,25 @@ const Dashboard: React.FC = () => {
                 <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
             </div>
 
-            {filteredTrips.length === 0 ? (
-                <p>{t('noTrips')}</p>
-            ) : (
-                <div className="flex flex-col gap-8 md:flex-row-reverse mb-8 px-4">
-                    <div className="w-full md:w-2/4 xl:w-1/4">
-                        <Ad />
-                        <CreateTrip />
-                    </div>
-
-                    <div className="md:w-3/4 content-start grid lg:grid-cols-2 gap-4 px-0">
-                        {filteredTrips.map((trip) => (
-                            <TripCard key={trip._id} trip={trip} loggedInUserId={loggedInUserId || ''} />
-                        ))}
-                    </div>
+            <div className="flex flex-col gap-8 md:flex-row-reverse mb-8 px-4">
+                <div className="w-full md:w-2/4 xl:w-1/4">
+                    <Ad />
+                    <CreateTrip />
                 </div>
-            )}
+
+                <div className="md:w-3/4 content-start grid lg:grid-cols-2 gap-4 px-0">
+                    <>
+                        {filteredTrips.length === 0 ? (
+                            <p>{t('noTrips')}</p>
+                        ) : (
+                            filteredTrips.map((trip) => (
+                                <TripCard key={trip._id} trip={trip} loggedInUserId={loggedInUserId || ''} />
+                            ))
+                        )}
+                    </>
+                </div>
+            </div>
+
         </div>
     );
 };
