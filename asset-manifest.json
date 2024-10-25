@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/tripper/static/css/main.7c133403.css",
-    "main.js": "/tripper/static/js/main.cbea8c4f.js",
-    "static/media/screen1.jpg": "/tripper/static/media/screen1.c3c9043f4655195182b4.jpg",
-    "static/media/7.jpg": "/tripper/static/media/7.86d47d835501650dc2a3.jpg",
-    "static/media/4.jpg": "/tripper/static/media/4.2e7d1bc968d4431e25bd.jpg",
-    "static/media/1.jpg": "/tripper/static/media/1.3c3afa78750b766a39b8.jpg",
-    "static/media/donate.png": "/tripper/static/media/donate.a9a30c8778c3fa9a21c6.png",
-    "static/media/login.jpg": "/tripper/static/media/login.9381e70ed9b02b253109.jpg",
-    "static/media/team.svg": "/tripper/static/media/team.02eea106d57a6dbcf73ec8bb9d344008.svg",
-    "index.html": "/tripper/index.html",
-    "static/media/money.svg": "/tripper/static/media/money.c6e6b799064e29b1249ffe5f76c588a8.svg",
-    "static/media/timeline.svg": "/tripper/static/media/timeline.f941aa6e0b33eca8e085b076f386bd1d.svg",
-    "static/media/edit.svg": "/tripper/static/media/edit.db87029d5226637a9e10cfa22a371912.svg",
-    "static/media/plus.svg": "/tripper/static/media/plus.b4a8c7c08d93383dffe803667acdca2c.svg",
-    "static/media/upload.svg": "/tripper/static/media/upload.07bbfcdfcfd15b6ef884806063219ab1.svg",
-    "static/media/delete.svg": "/tripper/static/media/delete.971f3cfc8005d82e70a3a1e25657d42d.svg",
-    "static/media/history.svg": "/tripper/static/media/history.157957ee3444d8923550103febaa2bb4.svg",
-    "static/media/marker.svg": "/tripper/static/media/marker.d94f9a5a2f8cfa4cb20e479ee33e9b1f.svg",
-    "main.7c133403.css.map": "/tripper/static/css/main.7c133403.css.map",
-    "main.cbea8c4f.js.map": "/tripper/static/js/main.cbea8c4f.js.map"
+    "main.css": "/tripper-frontend/static/css/main.7c133403.css",
+    "main.js": "/tripper-frontend/static/js/main.ccce2088.js",
+    "static/media/screen1.jpg": "/tripper-frontend/static/media/screen1.c3c9043f4655195182b4.jpg",
+    "static/media/7.jpg": "/tripper-frontend/static/media/7.86d47d835501650dc2a3.jpg",
+    "static/media/4.jpg": "/tripper-frontend/static/media/4.2e7d1bc968d4431e25bd.jpg",
+    "static/media/1.jpg": "/tripper-frontend/static/media/1.3c3afa78750b766a39b8.jpg",
+    "static/media/donate.png": "/tripper-frontend/static/media/donate.a9a30c8778c3fa9a21c6.png",
+    "static/media/login.jpg": "/tripper-frontend/static/media/login.9381e70ed9b02b253109.jpg",
+    "static/media/team.svg": "/tripper-frontend/static/media/team.02eea106d57a6dbcf73ec8bb9d344008.svg",
+    "index.html": "/tripper-frontend/index.html",
+    "static/media/money.svg": "/tripper-frontend/static/media/money.c6e6b799064e29b1249ffe5f76c588a8.svg",
+    "static/media/timeline.svg": "/tripper-frontend/static/media/timeline.f941aa6e0b33eca8e085b076f386bd1d.svg",
+    "static/media/edit.svg": "/tripper-frontend/static/media/edit.db87029d5226637a9e10cfa22a371912.svg",
+    "static/media/plus.svg": "/tripper-frontend/static/media/plus.b4a8c7c08d93383dffe803667acdca2c.svg",
+    "static/media/upload.svg": "/tripper-frontend/static/media/upload.07bbfcdfcfd15b6ef884806063219ab1.svg",
+    "static/media/delete.svg": "/tripper-frontend/static/media/delete.971f3cfc8005d82e70a3a1e25657d42d.svg",
+    "static/media/history.svg": "/tripper-frontend/static/media/history.157957ee3444d8923550103febaa2bb4.svg",
+    "static/media/marker.svg": "/tripper-frontend/static/media/marker.d94f9a5a2f8cfa4cb20e479ee33e9b1f.svg",
+    "main.7c133403.css.map": "/tripper-frontend/static/css/main.7c133403.css.map",
+    "main.ccce2088.js.map": "/tripper-frontend/static/js/main.ccce2088.js.map"
   },
   "entrypoints": [
     "static/css/main.7c133403.css",
-    "static/js/main.cbea8c4f.js"
+    "static/js/main.ccce2088.js"
   ]
 }
