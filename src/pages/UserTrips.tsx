@@ -1,0 +1,133 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import TripCard from '../components/trips/TripCard';
+import TripSearchAndFilter from '../components/trips/TripSearchAndFilter';
+import CreateTrip from '../components/trips/CreateTrip';
+import Ad from '../components/structure/Ad';
+import Breadcrumbs from '../components/structure/Breadcrumbs';
+import { useTranslation } from 'react-i18next';
+
+interface User {
+    _id: string;
+    name: string;
+    email: string;
+}
+
+interface Trip {
+    _id: string;
+    name: string;
+    creator: { _id: string; name: string; email: string };
+    participants: { _id: string; name: string; email: string }[];
+    startDate: string;
+    endDate: string;
+    location: { destination: string };
+}
+
+const Dashboard: React.FC = () => {
+    const [trips, setTrips] = useState<Trip[]>([]);
+    const [filteredTrips, setFilteredTrips] = useState<Trip[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const { t } = useTranslation();
+    const token = useSelector((state: RootState) => state.auth.token);
+    const loggedInUserId = useSelector((state: RootState) => state.auth.userId);
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [usersResponse, tripsResponse] = await Promise.all([
+                    axios.get(`${API_BASE_URL}/api/users`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    }),
+                    axios.get(`${API_BASE_URL}/api/user-trips`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    }),
+                ]);
+
+                setUsers(usersResponse.data);
+                setTrips(tripsResponse.data);
+                setFilteredTrips(tripsResponse.data);
+                setLoading(false);
+            } catch (err) {
+                setError('Failed to fetch users or trips');
+                setLoading(false);
+            }
+        };
+
+        if (isAuthenticated) {
+            fetchData();
+        } else {
+            setError('User is not authenticated.');
+            setLoading(false);
+        }
+    }, [API_BASE_URL, token, isAuthenticated]);
+
+    const handleSearch = (query: string) => {
+        const lowerCaseQuery = query.toLowerCase();
+        const filtered = trips.filter((trip) =>
+            trip.name.toLowerCase().includes(lowerCaseQuery) ||
+            trip.location.destination.toLowerCase().includes(lowerCaseQuery)
+        );
+        setFilteredTrips(filtered);
+    };
+
+    const handleFilter = (filters: string[]) => {
+        setFilteredTrips(trips);
+    };
+
+    const breadcrumbs = [
+        { label: t('home'), href: '/' },
+        { label: t('myTrips'), href: '/dashboard' }
+    ];
+
+    if (loading) {
+        return (
+            <div className="container max-w-7xl mx-auto p-4"><p>{t('Loading')}</p></div>
+        )
+    }
+
+    return (
+        <div className="container max-w-7xl mx-auto pt-16">
+            <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4">
+                <img
+                    className="object-cover rounded h-64 w-full mb-4"
+                    src={'https://img.huffingtonpost.com/asset/5e28d0a9240000b403c972af.jpeg?cache=Ui5chf7iyK&ops=1200_630'}
+                />
+            </div>
+            <Breadcrumbs breadcrumbs={breadcrumbs} />
+
+            <div className="px-4 pt-16">
+                <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('myTrips')}</span>
+                </h1>
+                {error && <p className="text-red-500">{error}</p>}
+                <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
+            </div>
+
+            {filteredTrips.length === 0 ? (
+                <p>{t('noTrips')}</p>
+            ) : (
+                <div className="flex flex-col gap-8 md:flex-row-reverse mb-8 px-4">
+                    <div className="w-full md:w-2/4 xl:w-1/4">
+                        <Ad />
+                        <CreateTrip />
+                    </div>
+
+                    <div className="md:w-3/4 content-start grid lg:grid-cols-2 gap-4 px-0">
+                        {filteredTrips.map((trip) => (
+                            <TripCard key={trip._id} trip={trip} loggedInUserId={loggedInUserId || ''} />
+                        ))}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default Dashboard;

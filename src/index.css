@@ -7,7 +7,74 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+ul.leaders {
+  max-width: 40em;
+  padding: 0;
+  overflow-x: hidden;
+  list-style: none
+}
+
+ul.leaders li:before {
+  float: left;
+  width: 0;
+  white-space: nowrap;
+  content:
+    ". . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . "
+}
+
+ul.leaders span:first-child {
+  padding-right: 0.33em;
+}
+
+ul.leaders span+span {
+  float: right;
+  padding-left: 0.33em;
+}
+
+.modal-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+}
+
+.modal-content {
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.modal-content.show {
+  transform: scale(1);
+  opacity: 1;
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'leaflet/dist/leaflet.css';
