@@ -58,15 +58,16 @@ const UsersTable: React.FC<UsersTableProps> = ({
                     {participants.map((participant) => (
                         <tr
                             key={participant._id}
-                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                         >
                             <td className="px-2 py-4 text-sm text-gray-800 dark:text-gray-200 items-center space-x-3">
                                 <div className="flex gap-2 items-center">
                                     {participant ? (
                                         <img
-                                            src=""
+                                            key={participant._id}
+                                            className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                            src={`https://ui-avatars.com/api/?name=${participant.name}&background=random`}
                                             alt={participant.name}
-                                            className="w-8 h-8 rounded-full object-cover"
                                         />
                                     ) : (
                                         <div className="w-8 h-8 hidden md:flex rounded-full bg-gray-300 dark:bg-gray-600 items-center justify-center">
@@ -94,7 +95,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                                     {getInvolvedExpenses(participant._id).length > 0
                                         ? getInvolvedExpenses(participant._id).map((expense, index) => (
                                             <li key={index} className="flex justify-between">
-                                                <span className="mr-auto bg-white dark:bg-gray-900">{expense.name}</span><span className="bg-white dark:bg-gray-900"><Price price={+expense.amount} /></span>
+                                                <span className="mr-auto bg-white dark:bg-gray-800">{expense.name}</span><span className="bg-white dark:bg-gray-800"><Price price={+expense.amount} /></span>
                                             </li>
                                         ))
                                         : ''}

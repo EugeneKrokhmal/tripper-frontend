@@ -169,17 +169,12 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                     >
                                         <td className="px-2 py-4 text-sm text-gray-800 dark:text-gray-200 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
-                                                {debtor.profilePicture ? (
-                                                    <img
-                                                        src={debtor.profilePicture}
-                                                        alt={debtor.name}
-                                                        className="w-8 h-8 rounded-full object-cover"
-                                                    />
-                                                ) : (
-                                                    <div className="w-8 h-8 hidden md:flex rounded-full bg-gray-300 dark:bg-gray-600 items-center justify-center">
-                                                        <span className="text-white text-sm font-medium">{getInitials(debtor.name)}</span>
-                                                    </div>
-                                                )}
+                                                <img
+                                                    key={debtor._id}
+                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                    src={`https://ui-avatars.com/api/?name=${debtor.name}&background=random`}
+                                                    alt={debtor.name}
+                                                />
                                                 <div>
                                                     <p className="font-semibold">{debtor.name}</p>
                                                 </div>
@@ -187,17 +182,12 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                         </td>
                                         <td className="px-2 py-4 text-sm text-gray-800 dark:text-gray-200 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
-                                                {creditor.profilePicture ? (
-                                                    <img
-                                                        src={creditor.profilePicture}
-                                                        alt={creditor.name}
-                                                        className="w-8 h-8 hidden md:block rounded-full object-cover"
-                                                    />
-                                                ) : (
-                                                    <div className="w-8 h-8 hidden md:flex rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                                                        <span className="text-white text-sm font-medium">{getInitials(creditor.name)}</span>
-                                                    </div>
-                                                )}
+                                                <img
+                                                    key={creditor._id}
+                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                    src={`https://ui-avatars.com/api/?name=${creditor.name}&background=random`}
+                                                    alt={creditor.name}
+                                                />
                                                 <div>
                                                     <p className="font-semibold">{creditor.name}</p>
                                                 </div>
@@ -294,17 +284,12 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                     >
                                         <td className="px-2 py-4 text-sm text-gray-300 dark:text-gray-600 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
-                                                {debtor.profilePicture ? (
-                                                    <img
-                                                        src={debtor.profilePicture}
-                                                        alt={debtor.name}
-                                                        className="w-8 h-8 rounded-full object-cover"
-                                                    />
-                                                ) : (
-                                                    <div className="w-8 h-8 hidden md:flex rounded-full bg-gray-300 dark:bg-gray-600 items-center justify-center">
-                                                        <span className="text-white text-sm font-medium">{getInitials(debtor.name)}</span>
-                                                    </div>
-                                                )}
+                                                <img
+                                                    key={debtor._id}
+                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                    src={`https://ui-avatars.com/api/?name=${debtor.name}&background=random`}
+                                                    alt={debtor.name}
+                                                />
                                                 <div>
                                                     <p className="font-semibold">{debtor.name}</p>
                                                 </div>
@@ -312,17 +297,12 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                         </td>
                                         <td className="px-2 py-4 text-sm text-gray-300 dark:text-gray-600 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
-                                                {creditor.profilePicture ? (
-                                                    <img
-                                                        src={creditor.profilePicture}
-                                                        alt={creditor.name}
-                                                        className="w-8 h-8 hidden md:block rounded-full object-cover"
-                                                    />
-                                                ) : (
-                                                    <div className="w-8 h-8 hidden md:flex rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                                                        <span className="text-white text-sm font-medium">{getInitials(creditor.name)}</span>
-                                                    </div>
-                                                )}
+                                                <img
+                                                    key={creditor._id}
+                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                    src={`https://ui-avatars.com/api/?name=${creditor.name}&background=random`}
+                                                    alt={creditor.name}
+                                                />
                                                 <div>
                                                     <p className="font-semibold">{creditor.name}</p>
                                                 </div>

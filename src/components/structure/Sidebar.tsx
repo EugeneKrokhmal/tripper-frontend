@@ -135,7 +135,7 @@ const Sidebar: React.FC = () => {
             </div>
             {/* Bottom navigation for mobile */}
 
-            <div className="z-40 rounded-full backdrop-blur-sm fixed z-50 h-16 border border-gray-200  bottom-4 left-32 right-4 dark:bg-gray-700 dark:border-gray-600 lg:hidden">
+            <div className="z-40 rounded-full backdrop-blur-sm fixed z-50 h-16 border border-gray-200  bottom-4 left-32 right-4 dark:border-gray-600 lg:hidden">
                 <div className="grid h-full max-w-lg grid-cols-4 mx-auto">
                     <button
                         onClick={() => handleScroll('theplace')}

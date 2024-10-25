@@ -368,7 +368,7 @@ const TripDetailsPage: React.FC = () => {
                 {/* Button to open Add Expense modal */}
                 <div
                     onClick={handleAddExpenseClick}
-                    className="bg-gradient-to-r to-transparent from-sky-400 grid justify-center items-center rounded-full backdrop-blur-sm fixed z-50 w-16 h-16 border border-gray-200 bottom-4 left-4 dark:bg-gray-700 dark:border-gray-600 lg:hidden h-16"
+                    className="bg-gradient-to-r to-transparent from-sky-400 grid justify-center items-center rounded-full backdrop-blur-sm fixed z-50 w-16 h-16 border border-gray-200 bottom-4 left-4 dark:border-gray-600 lg:hidden h-16"
                 >
                     <img className="w-6" src={PlusIcon} alt={t('addExpense')} />
                 </div>

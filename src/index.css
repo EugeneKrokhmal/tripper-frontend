@@ -72,6 +72,7 @@ ul.leaders span+span {
   opacity: 1;
 }
 
+.input-min-width-95p {min-width:95%;}
 
 @tailwind base;
 @tailwind components;

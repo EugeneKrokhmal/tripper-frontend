@@ -128,23 +128,27 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                         <ul className="flex -space-x-4 rtl:space-x-reverse justify-end">
                                             {splitters.slice(0, 3).map((splitter) => (
                                                 splitter && (
-                                                    <li key={splitter?._id} className="flex items-center space-x-2 border-2 border-white rounded-full">
+                                                    <li key={splitter?._id} className="flex items-center space-x-2 rounded-full">
                                                         {splitter?.profilePicture ? (
                                                             <img
-                                                                src={splitter?.profilePicture}
+                                                                key={splitter?._id}
+                                                                className="w-10 h-10 rounded-full"
+                                                                src={`https://ui-avatars.com/api/?name=${splitter?.name}&background=random`}
                                                                 alt={splitter?.name}
-                                                                className="min-w-8 h-8 rounded-full object-cover"
                                                             />
                                                         ) : (
-                                                            <div className="min-w-8 h-8 flex items-center justify-center bg-gray-300 rounded-full text-sm font-bold text-gray-700">
-                                                                {splitter?.name?.charAt(0).toUpperCase()}
-                                                            </div>
+                                                            <img
+                                                                key={splitter?._id}
+                                                                className="w-10 h-10 rounded-full"
+                                                                src={`https://ui-avatars.com/api/?name=${splitter?.name}&background=random`}
+                                                                alt={splitter?.name}
+                                                            />
                                                         )}
                                                     </li>
                                                 )
                                             ))}
                                             {splitters.length > 3 && (
-                                                <span className="flex items-center justify-center w-6 h-6 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800">
+                                                <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 rounded-full hover:bg-gray-600">
                                                     +{splitters.length - 3}
                                                 </span>
                                             )}
@@ -163,17 +167,13 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                         {t('responsible')}:
                                     </p>
                                     <div className="flex">
-                                        {responsiblePerson?.profilePicture ? (
-                                            <img
-                                                src={responsiblePerson.profilePicture}
-                                                alt={responsiblePerson.name}
-                                                className="min-w-8 h-8 rounded-full object-cover mr-2"
-                                            />
-                                        ) : (
-                                            <div className="min-w-8 h-8 flex items-center justify-center bg-gray-300 rounded-full text-sm font-bold text-gray-700 mr-2">
-                                                {responsiblePerson?.name.charAt(0).toUpperCase()}
-                                            </div>
-                                        )}
+
+                                        <img
+                                            key={responsiblePerson?._id}
+                                            className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 mr-2"
+                                            src={`https://ui-avatars.com/api/?name=${responsiblePerson?.name}&background=random`}
+                                            alt={responsiblePerson?.name}
+                                        />
                                         <p className="text-xs flex items-center space-x-2 dark:text-gray-400">
                                             {responsiblePerson?.name || 'Unknown'}
                                         </p>
@@ -187,7 +187,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                         <div className="flex gap-2 self-end">
                                             <a
                                                 onClick={() => handleEditExpense(expense._id)}
-                                                className="cursor-pointer text-xs text-base dark:text-gray-300 hover:underline my-2"
+                                                className="cursor-pointer text-xs dark:text-gray-300 hover:underline my-2"
                                             >
                                                 {t('edit')}
                                             </a>
