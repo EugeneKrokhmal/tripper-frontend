@@ -107,7 +107,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
                         type="text"
                         value={expenseName}
                         onChange={(e) => setExpenseName(e.target.value)}
-                        placeholder={t('enterExpenseName')}
                         required
                     />
 
@@ -124,7 +123,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
                         type="number"
                         value={amount.toString()}
                         onChange={(e) => setAmount(e.target.value)}
-                        placeholder={t('enterAmount')}
                         required
                     />
                 </div>

@@ -2,10 +2,12 @@ import React from 'react';
 import Button from '../components/elements/Button';
 import HeroImage from '../images/gallery/7.jpg';
 import HeroImage2 from '../images/gallery/4.jpg';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const LandingPage: React.FC = () => {
-    const { t } = useTranslation(); // Initialize translation
+    const { t } = useTranslation();
+    const navigate = useNavigate();
 
     return (
         <>
@@ -27,7 +29,7 @@ const LandingPage: React.FC = () => {
                         <div className="flex flex-row mt-8 gap-2 md:justify-start">
                             <Button
                                 label={t('planYourTrip')}
-                                onClick={() => { /* Add navigation or functionality here */ }}
+                                onClick={() => { navigate('/dashboard')}}
                                 variant="primary"
                             />
                             <Button
@@ -92,7 +94,7 @@ const LandingPage: React.FC = () => {
                         <div className="flex flex-row mt-8 gap-2 md:justify-start">
                             <Button
                                 label={t('planYourTrip')}
-                                onClick={() => { /* Add navigation or functionality here */ }}
+                                onClick={() => { navigate('/dashboard')}}
                                 variant="primary"
                             />
                             <Button

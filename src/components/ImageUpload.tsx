@@ -26,7 +26,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ tripId, onImageUploadSuccess 
         }
     };
 
-
     const handleUpload = async () => {
         if (!selectedFile) {
             setError('Please select an image first.');
