@@ -82,7 +82,7 @@ const Dashboard: React.FC = () => {
     };
 
     const breadcrumbs = [
-        { label: t('home'), href: '/' },
+        { label: t('home'), href: '#/' },
         { label: t('myTrips'), href: '/dashboard' }
     ];
 
