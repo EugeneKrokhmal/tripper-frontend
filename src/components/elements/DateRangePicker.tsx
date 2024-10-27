@@ -22,7 +22,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ startDate, endDate, o
                 <input
                     id="datepicker-range-start"
                     name="start"
-                    type="text"
+                    type="date"
                     value={startDate}
                     onChange={onStartDateChange}
                     className={'block w-full p-2 border border-gray-300 dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 rounded-md mb-4 text-sm'}
@@ -38,7 +38,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ startDate, endDate, o
                 <input
                     id="datepicker-range-end"
                     name="end"
-                    type="text"
+                    type="date"
                     value={endDate}
                     onChange={onEndDateChange}
                     className={'block w-full p-2 border border-gray-300 dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 rounded-md mb-4 text-sm'}
