@@ -140,6 +140,7 @@ const TripDetailsPage: React.FC = () => {
         destination: string;
         startDate: string;
         endDate: string;
+        coordinates: { lat: number; lng: number };
     }) => {
         try {
             const updatedTripData = {
@@ -147,7 +148,7 @@ const TripDetailsPage: React.FC = () => {
                 description: updatedTrip.tripDescription,
                 location: {
                     destination: updatedTrip.destination,
-                    coordinates: trip.location.coordinates,
+                    coordinates: updatedTrip.coordinates, // Ensure coordinates are updated here
                 },
                 startDate: updatedTrip.startDate,
                 endDate: updatedTrip.endDate,
@@ -212,7 +213,7 @@ const TripDetailsPage: React.FC = () => {
     };
 
     if (!trip) {
-        return <Loader/>;
+        return <Loader />;
     }
 
     const breadcrumbs = [
@@ -270,10 +271,12 @@ const TripDetailsPage: React.FC = () => {
                             initialDestination={destination}
                             initialStartDate={startDate}
                             initialEndDate={endDate}
+                            initialCoordinates={trip.location.coordinates}
                             onSubmit={handleEditTrip}
                             onCancel={() => setEditMode(false)}
                             onDeleteClick={handleDeleteTrip}
                         />
+
                     </>
                 )}
             </div>
@@ -297,7 +300,7 @@ const TripDetailsPage: React.FC = () => {
                         loadingJoinLink={loadingJoinLink}
                         error={error}
                         participants={trip.participants}
-                        coordinates={trip.location.coordinates}
+                        coordinates={trip.location.coordinates} // Updated coordinates passed here
                     />
 
                     <hr className="my-8" />

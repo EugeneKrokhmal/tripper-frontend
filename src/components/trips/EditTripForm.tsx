@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InputField from '../elements/InputField';
 import TextArea from '../elements/TextArea';
 import Button from '../elements/Button';
@@ -7,6 +7,7 @@ import EditIcon from '../../images/icons/edit.svg';
 import ImageUpload from '../ImageUpload';
 import { useTranslation } from 'react-i18next';
 import DateRangePicker from '../elements/DateRangePicker';
+import axios from 'axios';
 
 interface EditTripFormProps {
     id: string;
@@ -15,6 +16,7 @@ interface EditTripFormProps {
     initialDestination: string;
     initialStartDate: string;
     initialEndDate: string;
+    initialCoordinates: { lat: number; lng: number }; // added initialCoordinates prop
     onDeleteClick: () => void;
     onSubmit: (updatedTrip: {
         tripName: string;
@@ -22,6 +24,7 @@ interface EditTripFormProps {
         destination: string;
         startDate: string;
         endDate: string;
+        coordinates: { lat: number; lng: number };
     }) => void;
     onCancel: () => void;
 }
@@ -33,6 +36,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     initialDestination,
     initialStartDate,
     initialEndDate,
+    initialCoordinates,
     onDeleteClick,
     onSubmit,
     onCancel,
@@ -43,8 +47,54 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     const [startDate, setStartDate] = useState<string>(initialStartDate);
     const [endDate, setEndDate] = useState<string>(initialEndDate);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [autocompleteResults, setAutocompleteResults] = useState<any[]>([]);
     const [tripImage, setTripImage] = useState<string | null>(null);
+    const [coordinates, setCoordinates] = useState<{ lat: number; lng: number }>(initialCoordinates);
     const { t } = useTranslation();
+    const OPEN_CAGE_API_KEY = process.env.REACT_APP_OPENCAGE_API_KEY;
+
+    useEffect(() => {
+        // Set initial coordinates if they are available and only when the component mounts
+        setCoordinates(initialCoordinates);
+    }, [initialCoordinates]);
+
+    const debounce = (func: Function, delay: number) => {
+        let debounceTimer: NodeJS.Timeout;
+        return (...args: any[]) => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => func.apply(this, args), delay);
+        };
+    };
+
+    const fetchAutocompleteResults = async (query: string) => {
+        try {
+            if (query.length < 3) return;
+
+            const response = await axios.get(
+                `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${OPEN_CAGE_API_KEY}&limit=5`
+            );
+
+            setAutocompleteResults(response.data.results);
+        } catch (err) {
+            console.error('Error fetching location suggestions', err);
+        }
+    };
+
+    const debouncedFetchAutocomplete = debounce(fetchAutocompleteResults, 300);
+
+    const handleLocationChange = (value: string) => {
+        setDestination(value);
+        debouncedFetchAutocomplete(value);
+    };
+
+    const handleAutocompleteSelect = (result: any) => {
+        setDestination(result.formatted);
+        setCoordinates({
+            lat: result.geometry.lat,
+            lng: result.geometry.lng,
+        });
+        setAutocompleteResults([]);
+    };
 
     const handleSubmit = () => {
         onSubmit({
@@ -53,9 +103,11 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             destination,
             startDate,
             endDate,
+            coordinates, // Pass updated coordinates here
         });
         setModalVisible(false);
     };
+
 
     const handleImageUploadSuccess = (imageUrl: string) => {
         setTripImage(imageUrl);
@@ -84,12 +136,28 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
                             onChange={(e) => setTripName(e.target.value)}
                         />
 
-                        <InputField
-                            type="text"
-                            label={t('destination')}
-                            value={destination}
-                            onChange={(e) => setDestination(e.target.value)}
-                        />
+                        <div className="relative">
+                            <InputField
+                                type="text"
+                                label={t('destination')}
+                                value={destination}
+                                onChange={(e) => handleLocationChange(e.target.value)}
+                            />
+
+                            {autocompleteResults.length > 0 && (
+                                <ul className="absolute top-20 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+                                    {autocompleteResults.map((result, index) => (
+                                        <li
+                                            key={index}
+                                            className="p-2 hover:bg-gray-200 cursor-pointer"
+                                            onClick={() => handleAutocompleteSelect(result)}
+                                        >
+                                            {result.formatted}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
 
                         <DateRangePicker
                             startDate={startDate}

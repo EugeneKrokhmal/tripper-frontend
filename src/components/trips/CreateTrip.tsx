@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import InputField from '../elements/InputField';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
-import DateRangePicker from '../elements/DateRangePicker'; // Import DateRangePicker component
+import DateRangePicker from '../elements/DateRangePicker';
 
 const CreateTrip: React.FC = () => {
     const { t } = useTranslation();

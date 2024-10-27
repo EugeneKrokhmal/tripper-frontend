@@ -91,9 +91,9 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="container max-w-7xl mx-auto pt-16">
-            <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4 hidden lg:block">
+            <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4">
                 <img
-                    className="object-cover rounded h-64 w-full mb-4"
+                    className="object-cover rounded h-32 lg:h-64 w-full mb-4"
                     src={'https://img.huffingtonpost.com/asset/5e28d0a9240000b403c972af.jpeg?cache=Ui5chf7iyK&ops=1200_630'}
                 />
             </div>

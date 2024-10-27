@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';  // Import useTranslation hook
+import { useTranslation } from 'react-i18next';
 import InputField from '../elements/InputField';
 import TextArea from '../elements/TextArea';
 import Button from '../elements/Button';
 import SelectField from '../elements/SelectField';
 import axios from 'axios';
-import { useCurrency } from '../CurrencyContext';  // Import the CurrencyContext to handle currencies
+import { useCurrency } from '../CurrencyContext';
 import CurrencySwitcher from '../CurrencySwitcher';
 
 interface ExpenseFormProps {

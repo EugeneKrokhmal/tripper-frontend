@@ -4,6 +4,7 @@ interface TripMapProps {
     coordinates: { lat: number; lng: number };
 }
 
+
 declare global {
     interface Window {
         H: any;
