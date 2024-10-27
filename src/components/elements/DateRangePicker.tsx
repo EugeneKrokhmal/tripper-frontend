@@ -13,9 +13,9 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ startDate, endDate, o
     const { t } = useTranslation();
 
     return (
-        <div id="date-range-picker" className="flex items-center gap-2">
-            <div className="w-full">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        <div id="date-range-picker" className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-2">
+            <div className="flex-grow w-full sm:w-auto">
+                <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     {t('startDate')}
                     {required && <span className="text-red-500">*</span>}
                 </label>
@@ -25,13 +25,13 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ startDate, endDate, o
                     type="date"
                     value={startDate}
                     onChange={onStartDateChange}
-                    className={'block w-full p-2 border border-gray-300 dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 rounded-md mb-4 text-sm'}
+                    className="block w-full p-2.5 text-gray-900 bg-gray-50 border border-gray-300 rounded-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 focus:ring-emerald-600 focus:border-emerald-600 placeholder-gray-400 dark:placeholder-gray-500 text-sm transition-colors ease-in-out duration-200"
                     required={required}
                 />
             </div>
 
-            <div className="w-full">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <div className="flex-grow w-full sm:w-auto">
+                <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     {t('endDate')}
                     {required && <span className="text-red-500">*</span>}
                 </label>
@@ -41,7 +41,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ startDate, endDate, o
                     type="date"
                     value={endDate}
                     onChange={onEndDateChange}
-                    className={'block w-full p-2 border border-gray-300 dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 rounded-md mb-4 text-sm'}
+                    className="block w-full p-2.5 text-gray-900 bg-gray-50 border border-gray-300 rounded-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 focus:ring-emerald-600 focus:border-emerald-600 placeholder-gray-400 dark:placeholder-gray-500 text-sm transition-colors ease-in-out duration-200"
                     required={required}
                 />
             </div>
