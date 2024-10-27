@@ -10,7 +10,7 @@ const CurrencySwitcher: React.FC = () => {
 
     return (
         <div className="currency-switcher">
-            <select id="currency-select" className="block dark:bg-gray-900 text-xs w-full text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" value={currency} onChange={handleCurrencyChange}>
+            <select id="currency-select" className="block dark:bg-gray-900 w-full text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" value={currency} onChange={handleCurrencyChange}>
                 <option value="$">USD</option>
                 <option value="€">EUR</option>
                 <option value="zł">PLN</option>

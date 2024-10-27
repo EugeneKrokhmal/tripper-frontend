@@ -157,7 +157,7 @@ const ExpenseDetailPage: React.FC<ExpenseDetailPageProps> = ({ participants, tok
                             <SelectField
                                 label={t('responsible')}
                                 value={responsibleUser}
-                                onChange={(e) => setResponsibleUser(e.target.value)}
+                                onChange={(value) => setResponsibleUser(value)}
                                 options={participants.map(participant => ({
                                     value: participant._id,
                                     label: participant.name,

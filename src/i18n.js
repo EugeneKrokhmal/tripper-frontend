@@ -5,6 +5,8 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      currencyConfirmationTitle: "Confirm Currency",
+      currencyConfirmationMessage: "Do you want to continue or change the currency? The current currency is set to: ",
       welcomeToTripper: "WELCOME TO TRIPPER",
       discoverAndPlan: "Discover and plan your perfect trip with Tripper! Organize your adventures with friends and family, split expenses, and create lifelong memories.",
       createTrip: "Create a Trip",
@@ -134,6 +136,8 @@ const resources = {
   },
   uk: {
     translation: {
+      currencyConfirmationTitle: "Підтвердьте валюту",
+      currencyConfirmationMessage: "Бажаєте продовжити чи змінити валюту? Поточна валюта встановлена як: ",    
       uploadConfirmation: "Додайте підтвердження",
       welcomeToTripper: "ЛАСКАВО ПРОСИМО ДО TRIPPER",
       discoverAndPlan: "Відкрийте для себе і сплануйте свою ідеальну подорож з Tripper! Організуйте свої пригоди з друзями та родиною, розподіліть витрати і створіть спогади на все життя.",
@@ -256,6 +260,8 @@ const resources = {
   },
   pl: {
     translation: {
+      currencyConfirmationTitle: "Potwierdź walutę",
+      currencyConfirmationMessage: "Czy chcesz kontynuować, czy zmienić walutę? Obecna waluta to: ",    
       uploadConfirmation: "Dodaj potwierdzenie",
       welcomeToTripper: "WITAJ W TRIPPER",
       discoverAndPlan: "Odkryj i zaplanuj idealną podróż z Tripper! Zorganizuj swoje przygody z przyjaciółmi i rodziną, dziel koszty i twórz wspomnienia na całe życie.",

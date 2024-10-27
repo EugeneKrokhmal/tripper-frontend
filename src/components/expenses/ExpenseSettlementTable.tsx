@@ -213,7 +213,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                             <SelectField
                                                                 label={t('settlementType')}
                                                                 value={paymentMethod}
-                                                                onChange={(e) => setPaymentMethod(e.target.value)}
+                                                                onChange={(value) => setPaymentMethod(value)}
                                                                 options={[
                                                                     { value: 'cash', label: t('cash') },
                                                                     { value: 'paypal', label: t('PayPal') },

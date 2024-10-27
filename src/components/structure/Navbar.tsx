@@ -49,7 +49,10 @@ const Navbar: React.FC = () => {
 
                 <div className="flex items-center md:order-2 space-x-3 rtl:space-x-reverse">
                     <LanguageSwitcher />
-                    <CurrencySwitcher />
+
+                    <div className="text-xs">
+                        <CurrencySwitcher />
+                    </div>
 
                     {isAuthenticated ? (
                         <div className="flex items-center space-x-2 relative">
