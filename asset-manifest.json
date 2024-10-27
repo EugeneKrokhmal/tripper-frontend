@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/tripper-frontend/static/css/main.de39035b.css",
-    "main.js": "/tripper-frontend/static/js/main.e41e7876.js",
+    "main.css": "/tripper-frontend/static/css/main.9d10eefb.css",
+    "main.js": "/tripper-frontend/static/js/main.bcfd36db.js",
     "static/media/screen1.jpg": "/tripper-frontend/static/media/screen1.c3c9043f4655195182b4.jpg",
     "static/media/7.jpg": "/tripper-frontend/static/media/7.86d47d835501650dc2a3.jpg",
     "static/media/4.jpg": "/tripper-frontend/static/media/4.2e7d1bc968d4431e25bd.jpg",
@@ -11,18 +11,18 @@
     "index.html": "/tripper-frontend/index.html",
     "static/media/team.svg": "/tripper-frontend/static/media/team.02eea106d57a6dbcf73ec8bb9d344008.svg",
     "static/media/money.svg": "/tripper-frontend/static/media/money.c6e6b799064e29b1249ffe5f76c588a8.svg",
-    "static/media/timeline.svg": "/tripper-frontend/static/media/timeline.f941aa6e0b33eca8e085b076f386bd1d.svg",
+    "static/media/timeline.svg": "/tripper-frontend/static/media/timeline.2244ad8443a66de09b274be1da3b4773.svg",
     "static/media/edit.svg": "/tripper-frontend/static/media/edit.db87029d5226637a9e10cfa22a371912.svg",
     "static/media/plus.svg": "/tripper-frontend/static/media/plus.b4a8c7c08d93383dffe803667acdca2c.svg",
-    "static/media/upload.svg": "/tripper-frontend/static/media/upload.07bbfcdfcfd15b6ef884806063219ab1.svg",
+    "static/media/upload.svg": "/tripper-frontend/static/media/upload.b0c69db58b0132a4a82b2373cc7444f2.svg",
     "static/media/delete.svg": "/tripper-frontend/static/media/delete.971f3cfc8005d82e70a3a1e25657d42d.svg",
     "static/media/history.svg": "/tripper-frontend/static/media/history.157957ee3444d8923550103febaa2bb4.svg",
     "static/media/marker.svg": "/tripper-frontend/static/media/marker.d94f9a5a2f8cfa4cb20e479ee33e9b1f.svg",
-    "main.de39035b.css.map": "/tripper-frontend/static/css/main.de39035b.css.map",
-    "main.e41e7876.js.map": "/tripper-frontend/static/js/main.e41e7876.js.map"
+    "main.9d10eefb.css.map": "/tripper-frontend/static/css/main.9d10eefb.css.map",
+    "main.bcfd36db.js.map": "/tripper-frontend/static/js/main.bcfd36db.js.map"
   },
   "entrypoints": [
-    "static/css/main.de39035b.css",
-    "static/js/main.e41e7876.js"
+    "static/css/main.9d10eefb.css",
+    "static/js/main.bcfd36db.js"
   ]
 }
