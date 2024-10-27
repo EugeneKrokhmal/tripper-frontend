@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import Button from '../components/elements/Button';
 import MarkerIcon from '../images/icons/marker.svg';
+import Loader from '../components/structure/Loader';
 
 const JoinTripPage: React.FC = () => {
     const { tripId, token } = useParams<{ tripId: string; token: string }>();
@@ -56,7 +57,7 @@ const JoinTripPage: React.FC = () => {
         return new Date(dateString).toLocaleDateString('en-US', options);
     };
 
-    if (!trip) return <p>Loading join trip...</p>;
+    if (!trip) return <Loader/>;
 
     return (
         <>

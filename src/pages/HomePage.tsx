@@ -6,13 +6,14 @@ import TripsSlider from '../components/trips/TripsSlider';
 import HeroImage from '../images/screen1.jpg';
 import LandingPage from './LandingPage';
 import { useTranslation } from 'react-i18next';
+import Loader from '../components/structure/Loader';
 
 const HomePage: React.FC = () => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
 
     if (!i18n.isInitialized) {
-        return <div>Loading...</div>;
+        <Loader/>
     }
 
     return (

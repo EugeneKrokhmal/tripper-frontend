@@ -62,7 +62,7 @@ const ShareTrip: React.FC<ShareTripProps> = ({
     };
 
     return (
-        <div className="z-10 absolute start-4 end-24 top-0 flex justify-end p-3">
+        <div className="z-10 absolute end-4 top-0 flex justify-end p-3">
             <button className="flex gap-2 w-32 justify-center bg-white rounded py-2 px-2" onClick={() => setIsShareModalOpen(true)} title={t('share')}>
                 <img width="16" src={ShareIcon} alt="" />
                 <span className="text-xs">{t('invite')}</span>

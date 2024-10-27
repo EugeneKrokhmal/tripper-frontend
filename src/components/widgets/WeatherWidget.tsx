@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../structure/Loader';
 
 interface WeatherWidgetProps {
     latitude: number;
@@ -45,9 +46,7 @@ const WeatherWidget: React.FC<WeatherWidgetProps> = ({ latitude, longitude }) =>
         }
     }, [latitude, longitude, t]);
 
-    if (loading) {
-        return <p>{t('loadingWeatherData')}</p>; // Use translated loading text
-    }
+    if (loading) return <Loader/>
 
     if (error) {
         return <p>{error}</p>; // Use the translated error message

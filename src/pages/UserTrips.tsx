@@ -8,6 +8,7 @@ import CreateTrip from '../components/trips/CreateTrip';
 import Ad from '../components/structure/Ad';
 import Breadcrumbs from '../components/structure/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
+import Loader from '../components/structure/Loader';
 
 interface User {
     _id: string;
@@ -86,11 +87,7 @@ const Dashboard: React.FC = () => {
         { label: t('myTrips'), href: '/dashboard' }
     ];
 
-    if (loading) {
-        return (
-            <div className="container max-w-7xl mx-auto p-4"><p>{t('Loading')}</p></div>
-        )
-    }
+    if (loading) return <Loader/>
 
     return (
         <div className="container max-w-7xl mx-auto pt-16">

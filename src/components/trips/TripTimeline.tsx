@@ -241,18 +241,16 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                         </div>
 
                         <InputField
-                            label={t('activityName')}
                             type="text"
                             value={newActivity}
                             onChange={(e) => setNewActivity(e.target.value)}
-                            placeholder={t('enterActivityName')}
+                            label={t('enterActivityName')}
                         />
 
                         <TextArea
                             label={t('activityDescription')}
                             value={newDescription}
                             onChange={(e) => setNewDescription(e.target.value)}
-                            placeholder={t('enterActivityDescription')}
                         />
 
                         <InputField
@@ -260,7 +258,6 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                             type="time"
                             value={newTime}
                             onChange={(e) => setNewTime(e.target.value)}
-                            placeholder={t('enterActivityTime')}
                         />
 
                         <Button label={editMode ? t('updateActivity') : t('addActivity')} onClick={handleAddOrUpdateActivity} variant="primary" />

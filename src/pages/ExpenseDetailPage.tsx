@@ -7,6 +7,7 @@ import Button from '../components/elements/Button';
 import SelectField from '../components/elements/SelectField';
 import Breadcrumbs from '../components/structure/Breadcrumbs'
 import { useTranslation } from 'react-i18next';
+import Loader from '../components/structure/Loader';
 
 interface Participant {
     _id: string;
@@ -110,7 +111,8 @@ const ExpenseDetailPage: React.FC<ExpenseDetailPageProps> = ({ participants, tok
         }
     };
 
-    if (loading) return <p>Loading expense details...</p>;
+    if (loading) return <Loader/>
+
     if (error) return <p>{error}</p>;
 
     const breadcrumbs = [

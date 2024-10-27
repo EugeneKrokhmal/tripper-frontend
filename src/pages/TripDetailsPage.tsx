@@ -18,6 +18,7 @@ import Modal from '../components/elements/Modal';
 import Button from '../components/elements/Button';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import PlusIcon from '../images/icons/plus.svg';
+import Loader from '../components/structure/Loader';
 
 interface Settlement {
     _id: string;
@@ -211,7 +212,7 @@ const TripDetailsPage: React.FC = () => {
     };
 
     if (!trip) {
-        return <p>Loading trip details...</p>;
+        return <Loader/>;
     }
 
     const breadcrumbs = [

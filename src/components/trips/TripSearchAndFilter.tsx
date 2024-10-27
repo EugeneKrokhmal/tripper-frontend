@@ -37,7 +37,6 @@ const TripSearchAndFilter: React.FC<TripSearchAndFilterProps> = ({ onSearch, onF
                                 type="text"
                                 value={searchQuery}
                                 onChange={handleSearch}
-                                placeholder={t('searchTrips')}
                             />
                         </div>
                     </div>

@@ -114,7 +114,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
                         label={t('expenseDescription')}
                         value={expenseDescription}
                         onChange={(e) => setExpenseDescription(e.target.value)}
-                        placeholder={t('enterExpenseDescription')}
                     />
                 </div>
                 <div>

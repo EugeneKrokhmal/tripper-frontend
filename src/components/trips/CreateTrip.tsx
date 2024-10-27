@@ -121,21 +121,19 @@ const CreateTrip: React.FC = () => {
             </h3>
             <form onSubmit={handleSubmit}>
                 <InputField
-                    label={t('tripName')} // Use translated label for the trip name
+                    label={t('tripName')}
                     type="text"
                     value={tripName}
                     onChange={(e) => setTripName(e.target.value)}
-                    placeholder={t('enterTripName')}
                     required
                 />
 
                 <div className="relative">
                     <InputField
-                        label={t('destination')} // Use translated label for the destination
+                        label={t('destination')}
                         type="text"
                         value={destination}
                         onChange={(e) => handleLocationChange(e.target.value)}
-                        placeholder={t('enterDestination')}
                         required
                     />
 
@@ -176,10 +174,9 @@ const CreateTrip: React.FC = () => {
                 </div>
 
                 <TextArea
-                    label={t('description')} // Use translated label for the description
+                    label={t('description')}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder={t('enterDescription')}
                     required
                 />
 

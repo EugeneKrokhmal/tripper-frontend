@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import TripCard from '../trips/TripCard';
 import { useTranslation } from 'react-i18next';
+import Loader from '../structure/Loader';
 
 interface User {
     _id: string;
@@ -56,12 +57,7 @@ const TripsSlider: React.FC = () => {
         }
     }, [API_BASE_URL, token, isAuthenticated]);
 
-
-    if (loading) {
-        return (
-            <div className="container max-w-7xl mx-auto p-4"><p>{t('loading')}</p></div>
-        )
-    }
+    if (loading) return <Loader/>
 
     return (
         <div className="mx-auto px-4">

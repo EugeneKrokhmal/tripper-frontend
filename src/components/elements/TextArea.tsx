@@ -5,7 +5,6 @@ interface TextAreaProps {
     value: string;
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     required?: boolean;
-    placeholder?: string;  // Add the placeholder prop here
 }
 
 const TextArea: React.FC<TextAreaProps> = ({ label, value, onChange, required }) => {
