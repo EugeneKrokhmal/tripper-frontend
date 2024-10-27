@@ -4,7 +4,7 @@ import logo from '../images/logo.png';
 const Footer: React.FC = () => {
 
     return (
-        <footer className="pb-28 md:pb-4 mx-4 mt-auto">
+        <footer className="mx-4 mt-auto">
             <div className="bg-gray-100 dark:bg-gray-900 w-full rounded-lg shadow max-w-screen-xl mx-auto p-4 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <a href="https://flowbite.com/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">

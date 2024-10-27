@@ -6,6 +6,7 @@ import Modal from '../elements/Modal';
 import EditIcon from '../../images/icons/edit.svg';
 import ImageUpload from '../ImageUpload';
 import { useTranslation } from 'react-i18next';
+import DateRangePicker from '../elements/DateRangePicker';
 
 interface EditTripFormProps {
     id: string;
@@ -36,14 +37,13 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     onSubmit,
     onCancel,
 }) => {
-    const [trip, setTrip] = useState<any | null>(null);
-    const [tripName, setTripName] = useState(initialTripName);
-    const [tripDescription, setTripDescription] = useState(initialTripDescription);
-    const [destination, setDestination] = useState(initialDestination);
-    const [startDate, setStartDate] = useState(initialStartDate);
-    const [endDate, setEndDate] = useState(initialEndDate);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [tripImage, setTripImage] = useState(trip?.image);
+    const [tripName, setTripName] = useState<string>(initialTripName);
+    const [tripDescription, setTripDescription] = useState<string>(initialTripDescription);
+    const [destination, setDestination] = useState<string>(initialDestination);
+    const [startDate, setStartDate] = useState<string>(initialStartDate);
+    const [endDate, setEndDate] = useState<string>(initialEndDate);
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [tripImage, setTripImage] = useState<string | null>(null);
     const { t } = useTranslation();
 
     const handleSubmit = () => {
@@ -54,11 +54,11 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             startDate,
             endDate,
         });
-        setModalVisible(false); // Close the modal after submitting
+        setModalVisible(false);
     };
 
     const handleImageUploadSuccess = (imageUrl: string) => {
-        setTripImage(imageUrl)
+        setTripImage(imageUrl);
     };
 
     const closeModal = () => {
@@ -91,25 +91,13 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
                             onChange={(e) => setDestination(e.target.value)}
                         />
 
-                        <div className="flex gap-2">
-                            <div className="w-1/2">
-                                <InputField
-                                    label={t('startDate')}
-                                    type="date"
-                                    value={startDate}
-                                    onChange={(e) => setStartDate(e.target.value)}
-                                />
-                            </div>
-
-                            <div className="w-1/2">
-                                <InputField
-                                    label={t('endDate')}
-                                    type="date"
-                                    value={endDate}
-                                    onChange={(e) => setEndDate(e.target.value)}
-                                />
-                            </div>
-                        </div>
+                        <DateRangePicker
+                            startDate={startDate}
+                            endDate={endDate}
+                            onStartDateChange={(e) => setStartDate(e.target.value)}
+                            onEndDateChange={(e) => setEndDate(e.target.value)}
+                            required
+                        />
 
                         <TextArea
                             label={t('description')}
@@ -131,7 +119,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             <div className="flex gap-2 items-start">
                 <ImageUpload tripId={id} onImageUploadSuccess={handleImageUploadSuccess} />
                 <button className="bg-white rounded py-2 px-2" onClick={() => setModalVisible(true)} title={t('edit')}>
-                    <img src={EditIcon} alt="" />
+                    <img src={EditIcon} alt="Edit" />
                 </button>
             </div>
         </div>

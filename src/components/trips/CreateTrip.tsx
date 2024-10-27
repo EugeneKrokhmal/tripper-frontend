@@ -3,13 +3,14 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next'; // Import useTranslation hook
+import { useTranslation } from 'react-i18next';
 import InputField from '../elements/InputField';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
+import DateRangePicker from '../elements/DateRangePicker'; // Import DateRangePicker component
 
 const CreateTrip: React.FC = () => {
-    const { t } = useTranslation(); // Initialize the translation hook
+    const { t } = useTranslation();
     const [tripName, setTripName] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -36,7 +37,7 @@ const CreateTrip: React.FC = () => {
     // Fetch location suggestions from OpenCage API
     const fetchAutocompleteResults = async (query: string) => {
         try {
-            if (query.length < 3) return; // Avoid querying for short inputs
+            if (query.length < 3) return;
 
             const response = await axios.get(
                 `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${OPEN_CAGE_API_KEY}&limit=5`
@@ -63,7 +64,7 @@ const CreateTrip: React.FC = () => {
         setSuccess(null);
 
         if (startDate > endDate) {
-            setError(t('endDateError')); // Use translated text for the error
+            setError(t('endDateError'));
             return;
         }
 
@@ -73,13 +74,13 @@ const CreateTrip: React.FC = () => {
             );
 
             if (locationResponse.data.results.length === 0) {
-                setError(t('locationNotFound')); // Use translated text for location error
+                setError(t('locationNotFound'));
                 return;
             }
 
             const locationData = locationResponse.data.results[0].geometry;
 
-            await axios.post(
+            const createTripResponse = await axios.post(
                 `${API_BASE_URL}/api/trips`,
                 {
                     name: tripName,
@@ -97,15 +98,17 @@ const CreateTrip: React.FC = () => {
                 }
             );
 
-            setSuccess(t('tripCreated')); // Use translated text for success message
+            setSuccess(t('tripCreated'));
             setTripName('');
             setDestination('');
             setStartDate('');
             setEndDate('');
-            navigate('/dashboard');
+
+            const newTripId = createTripResponse.data._id;
+            navigate(`/trip/${newTripId}`);
         } catch (err) {
             console.error('Error creating trip:', err);
-            setError(t('createTripError')); // Use translated text for creation error
+            setError(t('createTripError'));
         }
     };
 
@@ -117,7 +120,7 @@ const CreateTrip: React.FC = () => {
     return (
         <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow-lg">
             <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white md:text-3xl mb-4">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('createTripTitle')}</span> {/* Use translation key */}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('createTripTitle')}</span>
             </h3>
             <form onSubmit={handleSubmit}>
                 <InputField
@@ -153,25 +156,13 @@ const CreateTrip: React.FC = () => {
                     )}
                 </div>
 
-                <div className="flex gap-2">
-                    <div className="w-1/2">
-                        <InputField
-                            label={t('startDate')} // Use translated label for the start date
-                            type="date"
-                            value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="w-1/2">
-                        <InputField
-                            label={t('endDate')} // Use translated label for the end date
-                            type="date"
-                            value={endDate}
-                            onChange={(e) => setEndDate(e.target.value)}
-                        />
-                    </div>
-                </div>
+                <DateRangePicker
+                    startDate={startDate}
+                    endDate={endDate}
+                    onStartDateChange={(e) => setStartDate(e.target.value)}
+                    onEndDateChange={(e) => setEndDate(e.target.value)}
+                    required
+                />
 
                 <TextArea
                     label={t('description')}
@@ -181,7 +172,7 @@ const CreateTrip: React.FC = () => {
                 />
 
                 <div className="flex">
-                    <Button label={t('createTrip')} type="submit" variant="primary" /> {/* Use translated button text */}
+                    <Button label={t('createTrip')} type="submit" variant="primary" />
                 </div>
 
                 {error && <p className="text-red-500">{error}</p>}
