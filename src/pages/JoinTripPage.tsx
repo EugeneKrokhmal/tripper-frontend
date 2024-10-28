@@ -61,7 +61,7 @@ const JoinTripPage: React.FC = () => {
 
     return (
         <>
-        <div className="bg-white dark:bg-gray-900 pt-16">
+        <div className="bg-white dark:bg-gray-900">
             <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4">
                 <img
                     className="object-cover rounded h-64 w-full mb-4"

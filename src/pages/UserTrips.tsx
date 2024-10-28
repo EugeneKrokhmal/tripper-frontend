@@ -96,7 +96,7 @@ const Dashboard: React.FC = () => {
     }
 
     return (
-        <div className="container max-w-7xl mx-auto pt-16">
+        <div className="container max-w-7xl mx-auto">
             <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4">
                 <img
                     className="object-cover rounded h-32 lg:h-64 w-full mb-4"
@@ -113,7 +113,7 @@ const Dashboard: React.FC = () => {
                 <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
             </div>
 
-            <div className="flex flex-col gap-8 md:flex-row-reverse mb-8 px-4">
+            <div className="flex flex-col-reverse gap-8 md:flex-row-reverse mb-8 px-4">
                 <div className="w-full md:w-2/4 xl:w-1/4">
                     <Ad />
                     <CreateTrip />

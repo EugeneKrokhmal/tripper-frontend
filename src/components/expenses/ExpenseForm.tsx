@@ -117,7 +117,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
                         onChange={(e) => setExpenseDescription(e.target.value)}
                     />
                 </div>
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-2">
                     <div className="w-full">
                         <InputField
                             label={`${t('amount')} (${currency})`}

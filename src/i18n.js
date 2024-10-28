@@ -131,13 +131,61 @@ const resources = {
       remainingOwedToYou: "Owed to you",
       pageNotFound: "Page Not Found",
       goBackHome: "Go Back Home",
-      uploadConfirmation: "Upload confirmation"
+      uploadConfirmation: "Upload confirmation",
+      faq: {
+        title: "Frequently Asked Questions",
+        generalQuestions: {
+          title: "General Questions",
+          q1: "What is this platform about?",
+          a1: "This platform is designed to make group expenses and settlements easy...",
+          q2: "How do I create a new trip or event?",
+          a2: "To create a new trip, simply click on the “Create Trip” button on your dashboard...",
+          q3: "Can I invite others to join my trip?",
+          a3: "Yes! You can generate a unique join link for each trip..."
+        },
+        expensesAndSettlements: {
+          title: "Expenses & Settlements",
+          q1: "How do I add an expense?",
+          a1: "Inside each trip, you’ll find an “Add Expense” button...",
+          q2: "How is the expense split among participants?",
+          a2: "When adding an expense, you can choose between splitting it evenly...",
+          q3: "What does “settling an expense” mean?",
+          a3: "Settling an expense means recording that a participant has paid back..."
+        },
+        paymentsAndFairShare: {
+          title: "Payments & Fair Share",
+          q1: "What is “Fair Share”?",
+          a1: "Fair Share is the amount each participant should ideally pay...",
+          q2: "Can I view a history of settled debts?",
+          a2: "Yes, settled debts are saved in the system for reference and tracking...",
+          q3: "How do I mark an expense as settled?",
+          a3: "In the settlements section, click on a particular debt..."
+        },
+        accountAndPrivacy: {
+          title: "Account & Privacy",
+          q1: "Is my data private?",
+          a1: "Absolutely. We prioritize user privacy...",
+          q2: "Can I delete my account?",
+          a2: "Yes, you may delete your account from the account settings...",
+          q3: "Can I remove participants from a trip?",
+          a3: "Only the trip owner can remove participants..."
+        },
+        technicalSupport: {
+          title: "Technical Support",
+          q1: "What should I do if I encounter a bug?",
+          a1: "Please report any bugs by contacting support...",
+          q2: "How do I reset my password?",
+          a2: "Go to the account login page and click on 'Forgot Password'...",
+          q3: "Is there a mobile version of this app?",
+          a3: "Our app is designed to be fully responsive..."
+        }
+      }
     },
   },
   uk: {
     translation: {
       currencyConfirmationTitle: "Підтвердьте валюту",
-      currencyConfirmationMessage: "Бажаєте продовжити чи змінити валюту? Поточна валюта встановлена як: ",    
+      currencyConfirmationMessage: "Бажаєте продовжити чи змінити валюту? Поточна валюта встановлена як: ",
       uploadConfirmation: "Додайте підтвердження",
       welcomeToTripper: "ЛАСКАВО ПРОСИМО ДО TRIPPER",
       discoverAndPlan: "Відкрийте для себе і сплануйте свою ідеальну подорож з Tripper! Організуйте свої пригоди з друзями та родиною, розподіліть витрати і створіть спогади на все життя.",
@@ -255,13 +303,61 @@ const resources = {
       signInError: "Сталася помилка під час реєстрації.",
       remainingOwedToYou: "Борги вам",
       pageNotFound: "Сторінку не знайдено",
-      goBackHome: "Повернутися на головну"
+      goBackHome: "Повернутися на головну",
+      faq: {
+        title: "Поширені питання",
+        generalQuestions: {
+          title: "Загальні питання",
+          q1: "Що це за платформа?",
+          a1: "Ця платформа допомагає легко розподілити витрати...",
+          q2: "Як створити нову подорож?",
+          a2: "Щоб створити нову подорож, натисніть на кнопку 'Створити подорож'...",
+          q3: "Чи можу я запросити інших приєднатися до моєї подорожі?",
+          a3: "Так! Ви можете згенерувати унікальне посилання для кожної подорожі..."
+        },
+        expensesAndSettlements: {
+          title: "Витрати та розрахунки",
+          q1: "Як додати витрату?",
+          a1: "У кожній подорожі є кнопка 'Додати витрату'...",
+          q2: "Як розподіляється витрата серед учасників?",
+          a2: "Коли ви додаєте витрату, можна обрати рівномірний поділ...",
+          q3: "Що означає 'розрахувати витрату'?",
+          a3: "Розрахунок витрати означає запис, що учасник сплатив борг..."
+        },
+        paymentsAndFairShare: {
+          title: "Платежі та справедливий розподіл",
+          q1: "Що таке 'справедливий розподіл'?",
+          a1: "Справедливий розподіл - це сума, яку кожен учасник повинен сплатити...",
+          q2: "Чи можна переглянути історію розрахунків?",
+          a2: "Так, розрахунки зберігаються в системі для відстеження...",
+          q3: "Як відзначити витрату як сплачену?",
+          a3: "У розділі розрахунків натисніть на певний борг..."
+        },
+        accountAndPrivacy: {
+          title: "Обліковий запис та конфіденційність",
+          q1: "Чи є мої дані приватними?",
+          a1: "Так, ми дбаємо про конфіденційність...",
+          q2: "Чи можу я видалити свій обліковий запис?",
+          a2: "Так, ви можете видалити обліковий запис у налаштуваннях...",
+          q3: "Чи можу я видалити учасників з подорожі?",
+          a3: "Тільки власник подорожі може видалити учасників..."
+        },
+        technicalSupport: {
+          title: "Технічна підтримка",
+          q1: "Що робити, якщо я виявив помилку?",
+          a1: "Повідомте про помилку, звернувшись до служби підтримки...",
+          q2: "Як скинути пароль?",
+          a2: "Перейдіть на сторінку входу та натисніть 'Забули пароль?'...",
+          q3: "Чи є мобільна версія цього додатка?",
+          a3: "Наш додаток повністю адаптований для мобільних пристроїв..."
+        }
+      }
     },
   },
   pl: {
     translation: {
       currencyConfirmationTitle: "Potwierdź walutę",
-      currencyConfirmationMessage: "Czy chcesz kontynuować, czy zmienić walutę? Obecna waluta to: ",    
+      currencyConfirmationMessage: "Czy chcesz kontynuować, czy zmienić walutę? Obecna waluta to: ",
       uploadConfirmation: "Dodaj potwierdzenie",
       welcomeToTripper: "WITAJ W TRIPPER",
       discoverAndPlan: "Odkryj i zaplanuj idealną podróż z Tripper! Zorganizuj swoje przygody z przyjaciółmi i rodziną, dziel koszty i twórz wspomnienia na całe życie.",
@@ -386,7 +482,56 @@ const resources = {
       signInError: "Wystąpił błąd podczas rejestracji.",
       remainingOwedToYou: "dług tobie",
       pageNotFound: "Strona nie znaleziona",
-      goBackHome: "Wróć do strony głównej"
+      goBackHome: "Wróć do strony głównej",
+      faq: {
+        title: "Najczęściej zadawane pytania",
+        generalQuestions: {
+          title: "Ogólne pytania",
+          q1: "O co chodzi w tej platformie?",
+          a1: "Platforma ułatwia rozliczanie wspólnych wydatków i rozrachunków, dzięki czemu organizowanie podróży w grupie staje się łatwiejsze.",
+          q2: "Jak utworzyć nową podróż?",
+          a2: "Aby utworzyć nową podróż, kliknij „Utwórz podróż” na swojej stronie głównej.",
+          q3: "Czy mogę zaprosić innych do dołączenia do mojej podróży?",
+          a3: "Tak! Możesz wygenerować unikalny link do dołączenia dla każdej podróży."
+        },
+        expensesAndSettlements: {
+          title: "Wydatki i rozliczenia",
+          q1: "Jak dodać wydatek?",
+          a1: "W każdej podróży znajdziesz przycisk „Dodaj wydatek”. Kliknij, wprowadź szczegóły wydatku, a następnie zatwierdź.",
+          q2: "Jak dzielony jest wydatek między uczestników?",
+          a2: "Podczas dodawania wydatku możesz wybrać podział równy lub niestandardowy, dostosowany do potrzeb.",
+          q3: "Co oznacza „rozliczenie wydatku”?",
+          a3: "Rozliczenie wydatku oznacza, że dany uczestnik spłacił swój udział w koszcie."
+        },
+        paymentsAndFairShare: {
+          title: "Płatności i sprawiedliwy podział",
+          q1: "Co to jest „Sprawiedliwy Podział”?",
+          a1: "Sprawiedliwy Podział to suma, którą każdy uczestnik powinien zapłacić, aby podzielić koszty podróży równomiernie.",
+          q2: "Czy mogę zobaczyć historię spłaconych długów?",
+          a2: "Tak, system przechowuje historię spłaconych długów, którą można przejrzeć w dowolnym momencie.",
+          q3: "Jak oznaczyć wydatek jako rozliczony?",
+          a3: "W sekcji rozliczeń kliknij na dany dług, aby oznaczyć go jako rozliczony."
+        },
+        accountAndPrivacy: {
+          title: "Konto i prywatność",
+          q1: "Czy moje dane są prywatne?",
+          a1: "Tak, dbamy o prywatność użytkowników i chronimy Twoje dane.",
+          q2: "Czy mogę usunąć swoje konto?",
+          a2: "Tak, możesz usunąć swoje konto w ustawieniach konta.",
+          q3: "Czy mogę usunąć uczestników z podróży?",
+          a3: "Tylko właściciel podróży może usuwać uczestników."
+        },
+        technicalSupport: {
+          title: "Wsparcie techniczne",
+          q1: "Co zrobić, jeśli napotkam błąd?",
+          a1: "Zgłoś błąd, kontaktując się z pomocą techniczną.",
+          q2: "Jak zresetować hasło?",
+          a2: "Przejdź na stronę logowania i kliknij „Zapomniałeś hasła?”.",
+          q3: "Czy istnieje wersja mobilna tej aplikacji?",
+          a3: "Nasza aplikacja jest w pełni responsywna i dostępna na urządzeniach mobilnych."
+        }
+      }
+
     },
   },
 };

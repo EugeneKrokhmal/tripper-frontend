@@ -36,7 +36,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId }) => {
             try {
                 const response = await axios.get(`https://api.unsplash.com/search/photos`, {
                     params: {
-                        query: `${trip.location.destination}`,
+                        query: `${trip.location.destination} center`,
                         client_id: UNSPLASH_ACCESS_KEY,
                         per_page: 1,
                     },

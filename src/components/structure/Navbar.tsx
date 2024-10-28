@@ -6,6 +6,7 @@ import { logout } from '../../redux/slices/authSlice';
 import LanguageSwitcher from './LanguageSwitcher';
 import CurrencySwitcher from '../CurrencySwitcher';
 import { useTranslation } from 'react-i18next';
+import BurgerMenu from './BurgerMenu';
 
 const Navbar: React.FC = () => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
@@ -14,6 +15,7 @@ const Navbar: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { t } = useTranslation();
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -22,11 +24,8 @@ const Navbar: React.FC = () => {
         navigate('/login');
     };
 
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-    };
+    const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
-    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -35,9 +34,7 @@ const Navbar: React.FC = () => {
         };
 
         document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
     return (
@@ -52,20 +49,16 @@ const Navbar: React.FC = () => {
                         <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">Home</Link>
                     </li>
                     <li className="mx-4">
-                        <Link to="dashboard" className="flex items-center space-x-1 rtl:space-x-reverse">Trips</Link>
+                        <Link to="/dashboard" className="flex items-center space-x-1 rtl:space-x-reverse">Trips</Link>
                     </li>
                     <li className="mx-4">
-                        <Link to="faq" className="flex items-center space-x-1 rtl:space-x-reverse">How to use</Link>
+                        <Link to="/faq" className="flex items-center space-x-1 rtl:space-x-reverse">How to use</Link>
                     </li>
                 </ul>
 
-
                 <div className="flex items-center md:order-2 space-x-3 rtl:space-x-reverse">
                     <LanguageSwitcher />
-
-                    <div className="text-xs">
-                        <CurrencySwitcher />
-                    </div>
+                    <CurrencySwitcher />
 
                     {isAuthenticated ? (
                         <div className="flex items-center space-x-2 relative">
@@ -73,8 +66,6 @@ const Navbar: React.FC = () => {
                                 type="button"
                                 className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                 id="user-menu-button"
-                                aria-expanded={isDropdownOpen ? 'true' : 'false'}
-                                onClick={toggleDropdown}
                             >
                                 <span className="sr-only">Open user menu</span>
                                 <img
@@ -84,68 +75,54 @@ const Navbar: React.FC = () => {
                                 />
                             </button>
 
-                            {/* Dropdown menu */}
-                            {isDropdownOpen && (
-                                <div
-                                    className="z-50 absolute top-10 right-0 mt-2 w-48 bg-white rounded-lg shadow dark:bg-gray-700"
-                                    id="user-dropdown"
-                                    ref={dropdownRef} // Ref to detect outside clicks
-                                >
-                                    <div className="px-4 py-3">
-                                        <span className="block text-sm text-gray-900 dark:text-white">{userName}</span>
-                                        <span className="block text-sm text-gray-500 dark:text-gray-300 truncate dark:text-gray-400">{userEmail}</span>
-                                    </div>
-                                    <ul className="py-2">
-                                        <li>
-                                            <Link
-                                                to="/"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                onClick={() => setIsDropdownOpen(false)} // Close on item select
-                                            >
-                                                {t('home')}
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link
-                                                to="/dashboard"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                onClick={() => setIsDropdownOpen(false)} // Close on item select
-                                            >
-                                                {t('myTrips')}
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link
-                                                to="/settings"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                onClick={() => setIsDropdownOpen(false)} // Close on item select
-                                            >
-                                                {t('settings')}
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <button
-                                                onClick={() => {
-                                                    handleLogout();
-                                                    setIsDropdownOpen(false); // Close on logout
-                                                }}
-                                                className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                            >
-                                                {t('logout')}
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            )}
+                            <BurgerMenu isOpened={isDrawerOpen} onClick={toggleDrawer} />
+
                         </div>
                     ) : (
-                        <Link
-                            to="/login"
-                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:text-white"
-                        >
+                        <Link to="/login" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:text-white">
                             {t('login')}
                         </Link>
                     )}
+                </div>
+
+                <div className={`fixed inset-0 z-40 flex ${isDrawerOpen ? '' : 'pointer-events-none'}`}>
+                    <div
+                        className={`bg-gray-900 bg-opacity-50 w-full h-full transition-opacity duration-300 ${isDrawerOpen ? 'opacity-100' : 'opacity-0'}`}
+                        onClick={toggleDrawer}
+                    ></div>
+
+                    <div
+                        className={`relative transform transition-transform duration-300 ease-in-out bg-white dark:bg-gray-800 w-64 h-full px-4 pt-16 pb-4  shadow-lg fixed right-0 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
+                            }`}
+                    >
+                        <div className="absolute right-4 top-4">
+                            <svg onClick={toggleDrawer} className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+
+                        <ul className="h-full flex flex-col">
+                            <li className="mb-4">
+                                <Link to="/" onClick={toggleDrawer}>{t('home')}</Link>
+                            </li>
+                            <li className="mb-4">
+                                <Link to="dashboard" onClick={toggleDrawer}>{t('myTrips')}</Link>
+                            </li>
+                            <li className="mb-4">
+                                <Link to="faq" onClick={toggleDrawer}>{t('FAQ')}</Link>
+                            </li>
+                            <li className="mt-auto">
+                                <button
+                                    onClick={() => {
+                                        handleLogout();
+                                        setIsDropdownOpen(false);
+                                    }}
+                                >
+                                    {t('logout')}
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>

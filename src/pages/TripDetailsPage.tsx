@@ -250,7 +250,7 @@ const TripDetailsPage: React.FC = () => {
         : cityImage || `https://ui-avatars.com/api/?name=${trip.name}&background=random`;
 
     return (
-        <section className="bg-white dark:bg-gray-800 pt-16">
+        <section className="bg-white dark:bg-gray-800">
             <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4">
                 <img
                     className="object-cover rounded h-64 w-full mb-4"
@@ -302,7 +302,7 @@ const TripDetailsPage: React.FC = () => {
                         loadingJoinLink={loadingJoinLink}
                         error={error}
                         participants={trip.participants}
-                        coordinates={trip.location.coordinates}
+                        coordinates={trip.location.coordinates} // Updated coordinates passed here
                     />
 
                     <hr className="my-8" />

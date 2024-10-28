@@ -63,7 +63,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
     };
 
     const handleEditExpense = (expenseId: string) => {
-        navigate(`/trips/${tripId}/expenses/${expenseId}/edit`);
+        alert('This feature is coming...')
     };
 
     const handleAddExpense = (newExpense: Expense) => {
@@ -100,7 +100,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                     </p>
                 </>
             )}
-            <ol className="relative border-s border-gray-200 dark:border-gray-700 my-6">
+            <ol className="relative border-s border-gray-200 dark:border-gray-700 dark:border-gray-700 my-6">
                 {displayedExpenses.map((expense) => {
                     const responsiblePerson = getParticipantById(expense.responsibleUserId);
                     const splitters = expense.splitParticipants.map(id => getParticipantById(id));
@@ -161,7 +161,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                 {expense.expenseDescription}
                             </p>
 
-                            <div className="flex justify-between align-end w-full gap-4 pb-4 border-b-2">
+                            <div className="flex justify-between align-end w-full gap-4 pb-4 dark:border-gray-700 border-b-2">
                                 <div className="self-end">
                                     <p className="text-xs text-gray-500 dark:text-gray-300 mb-2">
                                         {t('responsible')}:
@@ -179,8 +179,6 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                         </p>
                                     </div>
                                 </div>
-
-                                <img src={``} alt="" />
 
                                 {userId === expense.responsibleUserId && (
                                     <>
