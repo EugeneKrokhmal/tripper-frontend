@@ -20,7 +20,7 @@ const TextArea: React.FC<TextAreaProps> = ({ label, value, onChange, required })
             <textarea
                 value={value}
                 onChange={onChange}
-                className="block w-full p-2 border border-gray-300 dark:border-gray-900 dark:text-gray-300 dark:bg-gray-900 rounded-md mb-4 text-sm"
+                className="block w-full p-2 border border-gray-300 dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 rounded-md mb-4 text-sm"
             />
         </div>
     );
