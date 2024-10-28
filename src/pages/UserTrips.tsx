@@ -87,7 +87,13 @@ const Dashboard: React.FC = () => {
         { label: t('myTrips'), href: '/dashboard' }
     ];
 
-    if (loading) return <Loader/>
+    if (loading) {
+        return (
+            <div className="h-screen flex tems-center justify-center">
+                <Loader />
+            </div>
+        );
+    }
 
     return (
         <div className="container max-w-7xl mx-auto pt-16">

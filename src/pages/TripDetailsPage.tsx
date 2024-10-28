@@ -302,7 +302,7 @@ const TripDetailsPage: React.FC = () => {
                         loadingJoinLink={loadingJoinLink}
                         error={error}
                         participants={trip.participants}
-                        coordinates={trip.location.coordinates} // Updated coordinates passed here
+                        coordinates={trip.location.coordinates}
                     />
 
                     <hr className="my-8" />
