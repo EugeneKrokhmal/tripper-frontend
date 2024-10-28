@@ -16,7 +16,7 @@ interface EditTripFormProps {
     initialDestination: string;
     initialStartDate: string;
     initialEndDate: string;
-    initialCoordinates: { lat: number; lng: number }; // added initialCoordinates prop
+    initialCoordinates: { lat: number; lng: number };
     onDeleteClick: () => void;
     onSubmit: (updatedTrip: {
         tripName: string;
@@ -54,9 +54,10 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     const OPEN_CAGE_API_KEY = process.env.REACT_APP_OPENCAGE_API_KEY;
 
     useEffect(() => {
-        // Set initial coordinates if they are available and only when the component mounts
         setCoordinates(initialCoordinates);
-    }, [initialCoordinates]);
+        // Load initial image if available
+        if (tripImage === null) setTripImage(`${process.env.REACT_APP_API_BASE_URL}/uploads/${id}/image.jpg`);
+    }, [initialCoordinates, id]);
 
     const debounce = (func: Function, delay: number) => {
         let debounceTimer: NodeJS.Timeout;
@@ -67,13 +68,12 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     };
 
     const fetchAutocompleteResults = async (query: string) => {
-        try {
-            if (query.length < 3) return;
+        if (query.length < 3) return;
 
+        try {
             const response = await axios.get(
                 `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${OPEN_CAGE_API_KEY}&limit=5`
             );
-
             setAutocompleteResults(response.data.results);
         } catch (err) {
             console.error('Error fetching location suggestions', err);
@@ -103,14 +103,13 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             destination,
             startDate,
             endDate,
-            coordinates, // Pass updated coordinates here
+            coordinates,
         });
         setModalVisible(false);
     };
 
-
     const handleImageUploadSuccess = (imageUrl: string) => {
-        setTripImage(imageUrl);
+        setTripImage(imageUrl);  // Update image URL upon successful upload
     };
 
     const closeModal = () => {
@@ -185,7 +184,13 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             )}
 
             <div className="flex gap-2 items-start">
+                {/* Display the uploaded image */}
+
+
+                {/* ImageUpload component to trigger upload */}
                 <ImageUpload tripId={id} onImageUploadSuccess={handleImageUploadSuccess} />
+
+                {/* Edit button to open modal */}
                 <button className="bg-white rounded py-2 px-2" onClick={() => setModalVisible(true)} title={t('edit')}>
                     <img src={EditIcon} alt="Edit" />
                 </button>
