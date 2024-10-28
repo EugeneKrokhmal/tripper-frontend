@@ -180,7 +180,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
                     </div>
                 )}
 
-                <div className="mt-4">
+                {/* <div className="mt-4">
                     <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
                         {t('uploadConfirmation')}
                     </label>
@@ -190,7 +190,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
                         onChange={handleFileChange}
                         className="block w-full p-2 border border-gray-300 dark:border-gray-900 dark:text-gray-300 dark:bg-gray-900 rounded-md mb-4 text-sm block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     />
-                </div>
+                </div> */}
 
                 <Button type="submit" label={loading ? t('addingExpense') : t('addExpense')} variant="primary" disabled={loading} />
             </form>

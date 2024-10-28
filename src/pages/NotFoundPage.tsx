@@ -21,11 +21,6 @@ const NotFoundPage: React.FC = () => {
                 </div>
                 <div className="z-10 justify-center mx-auto h-screen w-full max-w-screen-xl flex flex-col items-center md:flex-row gap-10 px-4 py-32 pb-24 md:py-48 md:pb-32">
                     <div className="md:w-2/3 text-center">
-                        <h1 className="mb-4 text-9xl font-extrabold text-gray-900 dark:text-white">
-                            <span className="opacity-50 absolute w-full text-white left-0 right-0 bottom-0 top-0" style={{'fontSize':'50vw'}}>
-                                {t('404')}
-                            </span>
-                        </h1>
                         <p className="mb-4 text-6xl md:text-9xl font-extrabold text-white dark:text-white">
                             {t('pageNotFound')}
                         </p>

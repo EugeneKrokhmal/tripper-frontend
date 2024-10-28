@@ -13,8 +13,8 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ startDate, endDate, o
     const { t } = useTranslation();
 
     return (
-        <div id="date-range-picker" className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-2">
-            <div className="flex-grow w-full sm:w-auto">
+        <div id="date-range-picker" className="flex flex-row items-start gap-2 mb-4">
+            <div className="flex-grow w-full">
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     {t('startDate')}
                     {required && <span className="text-red-500">*</span>}
@@ -30,7 +30,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ startDate, endDate, o
                 />
             </div>
 
-            <div className="flex-grow w-full sm:w-auto">
+            <div className="flex-grow w-full">
                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                     {t('endDate')}
                     {required && <span className="text-red-500">*</span>}

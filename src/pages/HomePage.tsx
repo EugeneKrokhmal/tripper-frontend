@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
                                 />
                                 <Button
                                     label={t('explore')}
-                                    onClick={() => { /* Add navigation or functionality here */ }}
+                                    onClick={() => navigate('/dashboard')}
                                     variant="secondary"
                                 />
                             </div>

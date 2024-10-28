@@ -22,11 +22,11 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
     participants,
     expenses,
 }) => {
-    const { t } = useTranslation(); // Using translation hook
-    const [showUsersTable, setShowUsersTable] = useState<boolean>(false); // Track if the table is visible
+    const { t } = useTranslation();
+    const [showUsersTable, setShowUsersTable] = useState<boolean>(false);
 
     const toggleUsersTable = () => {
-        setShowUsersTable((prevShow) => !prevShow); // Toggle the visibility
+        setShowUsersTable((prevShow) => !prevShow);
     };
 
     return (
@@ -42,7 +42,6 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                     <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">{t('youAreTheOwnerOfTheTrip')}</p>
                 )}
 
-                {/* Avatar Display */}
                 <div className="flex -space-x-4 rtl:space-x-reverse mb-6">
                     {participants.slice(0, 3).map((participant) => (
                         <img
@@ -58,34 +57,22 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                         </span>
                     )}
                 </div>
-
-                {/* Toggle Button */}
-                <div className="self-start">
-                    <Button
-                        onClick={toggleUsersTable}
-                        label={showUsersTable ? t('showLess') : t('showMore')}
-                        variant={'primary'}
-                    >
-                    </Button>
-                </div>
             </div>
 
-            {/* Conditionally render the UsersTable */}
             {showUsersTable && (
                 <>
                     <UsersTable isOwner={isOwner} participants={participants} expenses={expenses} />
-
-                    {/* Toggle Button */}
-                    <div className="self-start">
-                        <Button
-                            onClick={toggleUsersTable}
-                            label={t('showLess')}
-                            variant={'primary'}
-                        >
-                        </Button>
-                    </div>
                 </>
             )}
+
+            <div className="self-start">
+                <Button
+                    onClick={toggleUsersTable}
+                    label={showUsersTable ? t('showLess') : t('showMore')}
+                    variant={'primary'}
+                >
+                </Button>
+            </div>
         </div>
     );
 };

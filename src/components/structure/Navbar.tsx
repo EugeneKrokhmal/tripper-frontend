@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white md:text-2xl">🎃 Tripper</h3>
                 </Link>
 
-                <ul className="flex mr-auto ml-16">
+                <ul className="hidden md:flex mr-auto ml-16">
                     <li className="mx-4">
                         <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">Home</Link>
                     </li>
@@ -69,16 +69,19 @@ const Navbar: React.FC = () => {
 
                     {isAuthenticated ? (
                         <div className="flex items-center space-x-2 relative">
-                            <span className="text-sm text-gray-800 dark:text-gray-300">{userName}</span>
                             <button
                                 type="button"
                                 className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                 id="user-menu-button"
                                 aria-expanded={isDropdownOpen ? 'true' : 'false'}
-                                onClick={toggleDropdown} // Toggle dropdown
+                                onClick={toggleDropdown}
                             >
                                 <span className="sr-only">Open user menu</span>
-                                <div className="w-8 h-8 grid content-center">🫠</div>
+                                <img
+                                    className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800"
+                                    src={`https://ui-avatars.com/api/?name=${userName}&background=random`}
+                                    alt={userName || ''}
+                                />
                             </button>
 
                             {/* Dropdown menu */}

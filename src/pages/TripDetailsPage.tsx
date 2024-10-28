@@ -63,7 +63,7 @@ const TripDetailsPage: React.FC = () => {
             try {
                 const response = await axios.get(`https://api.unsplash.com/search/photos`, {
                     params: {
-                        query: destination,
+                        query: destination + 'center',
                         client_id: UNSPLASH_ACCESS_KEY,
                         per_page: 1,
                     },
@@ -97,7 +97,7 @@ const TripDetailsPage: React.FC = () => {
             setStartDate(tripData.startDate);
             setEndDate(tripData.endDate);
             setExpenses(tripData.expenses);
-            setJoinLink(tripData.joinToken ? `${window.location.origin}/login?redirect=/join/${tripData._id}/${tripData.joinToken}` : null);
+            setJoinLink(tripData.joinToken ? `${window.location.origin}/tripper-frontend/#/login?redirect=/join/${tripData._id}/${tripData.joinToken}` : null);
             calculateTotalPaidByUser(tripData.expenses);
             calculateTotalCost(tripData.expenses);
             setFairShare(tripData.fairShare || 0);
@@ -124,10 +124,8 @@ const TripDetailsPage: React.FC = () => {
     const calculateTotalCost = (expenses: any[]) => {
         const total = expenses.reduce((total, expense) => {
             if (expense.splitMethod === 'even') {
-                // Expense is split equally between all participants
                 return total + expense.amount / expense.splitParticipants.length;
             } else {
-                // Specific split among selected participants
                 return total + expense.amount;
             }
         }, 0);
@@ -148,7 +146,7 @@ const TripDetailsPage: React.FC = () => {
                 description: updatedTrip.tripDescription,
                 location: {
                     destination: updatedTrip.destination,
-                    coordinates: updatedTrip.coordinates, // Ensure coordinates are updated here
+                    coordinates: updatedTrip.coordinates,
                 },
                 startDate: updatedTrip.startDate,
                 endDate: updatedTrip.endDate,
@@ -252,7 +250,7 @@ const TripDetailsPage: React.FC = () => {
         : cityImage || `https://ui-avatars.com/api/?name=${trip.name}&background=random`;
 
     return (
-        <section className="bg-white dark:bg-gray-900 pt-16">
+        <section className="bg-white dark:bg-gray-800 pt-16">
             <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4">
                 <img
                     className="object-cover rounded h-64 w-full mb-4"
