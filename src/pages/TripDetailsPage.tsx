@@ -213,7 +213,11 @@ const TripDetailsPage: React.FC = () => {
     };
 
     if (!trip) {
-        return <Loader />;
+        return (
+            <div className="h-screen flex tems-center justify-center">
+                <Loader />
+            </div>
+        );
     }
 
     const breadcrumbs = [

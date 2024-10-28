@@ -47,6 +47,19 @@ const Navbar: React.FC = () => {
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white md:text-2xl">🎃 Tripper</h3>
                 </Link>
 
+                <ul className="flex mr-auto ml-16">
+                    <li className="mx-4">
+                        <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">Home</Link>
+                    </li>
+                    <li className="mx-4">
+                        <Link to="dashboard" className="flex items-center space-x-1 rtl:space-x-reverse">Trips</Link>
+                    </li>
+                    <li className="mx-4">
+                        <Link to="faq" className="flex items-center space-x-1 rtl:space-x-reverse">How to use</Link>
+                    </li>
+                </ul>
+
+
                 <div className="flex items-center md:order-2 space-x-3 rtl:space-x-reverse">
                     <LanguageSwitcher />
 

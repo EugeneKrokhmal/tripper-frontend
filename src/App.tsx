@@ -1,5 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from './redux/store';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
@@ -11,18 +13,16 @@ import TripDetailsPage from './pages/TripDetailsPage';
 import JoinTripPage from './pages/JoinTripPage';
 import LandingPage from './pages/LandingPage';
 import ExpenseDetailPage from './pages/ExpenseDetailPage';
-import { useSelector } from 'react-redux';
-import { RootState } from './redux/store';
 
 // ProtectedRoute component to guard protected pages
-const ProtectedRoute = ({ element }: { element: React.ReactNode }) => {
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const token = useSelector((state: RootState) => state.auth.token);
 
     if (!token) {
         return <LoginPage />; // Redirect to login if not authenticated
     }
 
-    return <>{element}</>;
+    return <>{children}</>;
 };
 
 function App() {
@@ -44,18 +44,37 @@ function App() {
                 <Route
                     path="/trips/:tripId/expenses/:expenseId/edit"
                     element={
-                        <ProtectedRoute
-                            element={<ExpenseDetailPage participants={participants} token={token} API_BASE_URL={API_BASE_URL} />}
-                        />
+                        <ProtectedRoute>
+                            <ExpenseDetailPage participants={participants} token={token} API_BASE_URL={API_BASE_URL} />
+                        </ProtectedRoute>
                     }
                 />
 
-                {/* Protected dashboard */}
-                <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
+                <Route
+                    path="/dashboard"
+                    element={
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    }
+                />
 
-                {/* Join trip and trip details are protected routes */}
-                <Route path="/join/:tripId/:token" element={<ProtectedRoute element={<JoinTripPage />} />} />
-                <Route path="/trip/:tripId" element={<ProtectedRoute element={<TripDetailsPage />} />} />
+                <Route
+                    path="/join/:tripId/:token"
+                    element={
+                        <ProtectedRoute>
+                            <JoinTripPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/trip/:tripId"
+                    element={
+                        <ProtectedRoute>
+                            <TripDetailsPage />
+                        </ProtectedRoute>
+                    }
+                />
             </Routes>
             <Footer />
         </Router>

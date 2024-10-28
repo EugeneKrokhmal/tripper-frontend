@@ -57,7 +57,11 @@ const TripsSlider: React.FC = () => {
         }
     }, [API_BASE_URL, token, isAuthenticated]);
 
-    if (loading) return <Loader/>
+    if (loading) return <Loader />
+
+    if (trips.length === 0) {
+        return;
+    }
 
     return (
         <div className="mx-auto px-4">
@@ -69,16 +73,11 @@ const TripsSlider: React.FC = () => {
             <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">
                 {t('createTripTitle')}
             </p>
-
-            {trips.length === 0 ? (
-                <p>{t('noTrips')}</p>
-            ) : (
-                <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {trips.map((trip) => (
-                        <TripCard key={trip._id} trip={trip} loggedInUserId={loggedInUserId || ''} />
-                    ))}
-                </div>
-            )}
+            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {trips.map((trip) => (
+                    <TripCard key={trip._id} trip={trip} loggedInUserId={loggedInUserId || ''} />
+                ))}
+            </div>
         </div>
     );
 };
