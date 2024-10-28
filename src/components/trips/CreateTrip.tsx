@@ -118,7 +118,7 @@ const CreateTrip: React.FC = () => {
     };
 
     return (
-        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+        <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-lg">
             <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white md:text-3xl mb-4">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('createTripTitle')}</span>
             </h3>
