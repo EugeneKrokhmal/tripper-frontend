@@ -186,7 +186,6 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             <div className="flex gap-2 items-start">
                 {/* Display the uploaded image */}
 
-
                 {/* ImageUpload component to trigger upload */}
                 <ImageUpload tripId={id} onImageUploadSuccess={handleImageUploadSuccess} />
 

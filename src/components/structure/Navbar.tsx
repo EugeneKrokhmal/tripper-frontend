@@ -44,22 +44,7 @@ const Navbar: React.FC = () => {
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white md:text-2xl">🎃 Tripper</h3>
                 </Link>
 
-                <ul className="hidden md:flex mr-auto ml-16">
-                    <li className="mx-4">
-                        <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">Home</Link>
-                    </li>
-                    <li className="mx-4">
-                        <Link to="/dashboard" className="flex items-center space-x-1 rtl:space-x-reverse">Trips</Link>
-                    </li>
-                    <li className="mx-4">
-                        <Link to="/faq" className="flex items-center space-x-1 rtl:space-x-reverse">How to use</Link>
-                    </li>
-                </ul>
-
-                <div className="flex items-center md:order-2 space-x-3 rtl:space-x-reverse">
-                    <LanguageSwitcher />
-                    <CurrencySwitcher />
-
+                <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     {isAuthenticated ? (
                         <div className="flex items-center space-x-2 relative">
                             <button
@@ -85,33 +70,49 @@ const Navbar: React.FC = () => {
                     )}
                 </div>
 
-                <div className={`fixed inset-0 z-40 flex ${isDrawerOpen ? '' : 'pointer-events-none'}`}>
+                <div className={`fixed inset-0 z-40 ${isDrawerOpen ? 'backdrop-blur-sm' : 'pointer-events-none'}`}>
                     <div
                         className={`bg-gray-900 bg-opacity-50 w-full h-full transition-opacity duration-300 ${isDrawerOpen ? 'opacity-100' : 'opacity-0'}`}
                         onClick={toggleDrawer}
                     ></div>
 
                     <div
-                        className={`relative transform transition-transform duration-300 ease-in-out bg-white dark:bg-gray-800 w-64 h-full px-4 pt-16 pb-4  shadow-lg fixed right-0 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
+                        className={`flex flex-col absolute top-0 transform transition-transform duration-300 ease-in-out bg-white dark:bg-gray-800 w-64 h-full px-4 pt-8 pb-8 shadow-lg right-0 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
                             }`}
                     >
-                        <div className="absolute right-4 top-4">
-                            <svg onClick={toggleDrawer} className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
+                        <div className="flex w-full justify-between items-center">
+                            <div className="flex gap-2">
+                                <LanguageSwitcher />
+                                <CurrencySwitcher />
+                            </div>
+                            <div className="">
+                                <svg onClick={toggleDrawer} className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </div>
                         </div>
 
-                        <ul className="h-full flex flex-col">
-                            <li className="mb-4">
-                                <Link to="/" onClick={toggleDrawer}>{t('home')}</Link>
+                        <hr className="my-4" />
+
+                        <div className="flex flex-col">
+                            <ul className="flex flex-col">
+                                <li className="mb-2">
+                                    <Link to="/" onClick={toggleDrawer}>{t('home')}</Link>
+                                </li>
+                                <li className="mb-2">
+                                    <Link to="dashboard" onClick={toggleDrawer}>{t('myTrips')}</Link>
+                                </li>
+                                <li className="mb-2">
+                                    <Link to="faq" onClick={toggleDrawer}>{t('FAQ')}</Link>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <ul className="flex flex-col mt-auto">
+                            <li className="mb-2">
+                                <Link to="settings" onClick={toggleDrawer}>{t('settings')}</Link>
                             </li>
-                            <li className="mb-4">
-                                <Link to="dashboard" onClick={toggleDrawer}>{t('myTrips')}</Link>
-                            </li>
-                            <li className="mb-4">
-                                <Link to="faq" onClick={toggleDrawer}>{t('FAQ')}</Link>
-                            </li>
-                            <li className="mt-auto">
+                            <li>
                                 <button
                                     onClick={() => {
                                         handleLogout();
