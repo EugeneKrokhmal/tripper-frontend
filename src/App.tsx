@@ -12,9 +12,9 @@ import NotFoundPage from './pages/NotFoundPage';
 import TripDetailsPage from './pages/TripDetailsPage';
 import JoinTripPage from './pages/JoinTripPage';
 import LandingPage from './pages/LandingPage';
-import ExpenseDetailPage from './pages/ExpenseDetailPage';
 import ScrollToTop from './components/structure/ScrollToTop';
 import FAQ from './pages/FAQ';
+import CreateTripPage from './pages/CreateTripPage';
 
 
 // ProtectedRoute component to guard protected pages
@@ -37,7 +37,7 @@ function App() {
         <Router>
             <ScrollToTop />
             <Navbar />
-            <div className="pt-16">
+            <div className="pt-20">
                 <Routes>
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
@@ -45,6 +45,7 @@ function App() {
                     <Route path="/landing" element={<LandingPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="/faq" element={<FAQ />} />
+                    <Route path="/new-trip" element={<CreateTripPage />} />
 
                     {/* Expense Detail Page with dynamic token and participants */}
                     {/* <Route

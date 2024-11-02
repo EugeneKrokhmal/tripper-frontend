@@ -98,7 +98,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                     const email = debtor.email;
                     const response = await axios.post(`${API_BASE_URL}/api/create-paypal-payout`, {
                         email,
-                        amount: settlementAmount.toFixed(2)
+                        amount: settlementAmount
                     }, {
                         headers: {
                             Authorization: `Bearer ${token}`,

@@ -96,13 +96,7 @@ const Dashboard: React.FC = () => {
     }
 
     return (
-        <div className="container max-w-7xl mx-auto">
-            <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4">
-                <img
-                    className="object-cover rounded h-32 lg:h-64 w-full mb-4"
-                    src={'https://img.huffingtonpost.com/asset/5e28d0a9240000b403c972af.jpeg?cache=Ui5chf7iyK&ops=1200_630'}
-                />
-            </div>
+        <div className="container max-w-7xl mx-auto mt-24">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
 
             <div className="px-4 pt-16">
@@ -116,7 +110,9 @@ const Dashboard: React.FC = () => {
             <div className="flex flex-col-reverse gap-8 md:flex-row-reverse mb-8 px-4">
                 <div className="w-full md:w-2/4 xl:w-1/4">
                     <Ad />
-                    <CreateTrip />
+                    <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-lg">
+                        <CreateTrip />
+                    </div>
                 </div>
 
                 <div className="md:w-3/4 content-start grid lg:grid-cols-2 gap-4 px-0">

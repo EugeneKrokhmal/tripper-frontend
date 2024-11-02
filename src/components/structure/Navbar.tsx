@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { logout } from '../../redux/slices/authSlice';
 import LanguageSwitcher from './LanguageSwitcher';
-import CurrencySwitcher from '../CurrencySwitcher';
 import { useTranslation } from 'react-i18next';
 import BurgerMenu from './BurgerMenu';
 
@@ -47,6 +46,17 @@ const Navbar: React.FC = () => {
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     {isAuthenticated ? (
                         <div className="flex items-center space-x-2 relative">
+                            <ul className="hidden md:flex gap-4 mx-8">
+                                <li>
+                                    <Link to="/">{t('home')}</Link>
+                                </li>
+                                <li>
+                                    <Link to="/new-trip">{t('Create Trip')}</Link>
+                                </li>
+                                <li>
+                                    <Link to="dashboard">{t('myTrips')}</Link>
+                                </li>
+                            </ul>
                             <button
                                 type="button"
                                 className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -83,7 +93,6 @@ const Navbar: React.FC = () => {
                         <div className="flex w-full justify-between items-center">
                             <div className="flex gap-2">
                                 <LanguageSwitcher />
-                                <CurrencySwitcher />
                             </div>
                             <div className="">
                                 <svg onClick={toggleDrawer} className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -98,6 +107,9 @@ const Navbar: React.FC = () => {
                             <ul className="flex flex-col">
                                 <li className="mb-2">
                                     <Link to="/" onClick={toggleDrawer}>{t('home')}</Link>
+                                </li>
+                                <li className="mb-2">
+                                    <Link to="/new-trip" onClick={toggleDrawer}>{t('Create Trip')}</Link>
                                 </li>
                                 <li className="mb-2">
                                     <Link to="dashboard" onClick={toggleDrawer}>{t('myTrips')}</Link>

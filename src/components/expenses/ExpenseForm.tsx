@@ -6,7 +6,6 @@ import Button from '../elements/Button';
 import SelectField from '../elements/SelectField';
 import axios from 'axios';
 import { useCurrency } from '../CurrencyContext';
-import CurrencySwitcher from '../CurrencySwitcher';
 
 interface ExpenseFormProps {
     userId: string;
@@ -117,22 +116,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
                         onChange={(e) => setExpenseDescription(e.target.value)}
                     />
                 </div>
-                <div className="flex gap-2">
-                    <div className="w-full">
-                        <InputField
-                            label={`${t('amount')} (${currency})`}
-                            type="number"
-                            value={amount.toString()}
-                            onChange={(e) => setAmount(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Currency</label>
-                        <div className="mb-2 block w-32 p-2 border border-gray-300 dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 rounded-md text-sm">
-                            <CurrencySwitcher />
-                        </div>
-                    </div>
+                <div className="w-full">
+                    <InputField
+                        label={`${t('amount')} (${currency})`}
+                        type="number"
+                        value={amount.toString()}
+                        onChange={(e) => setAmount(e.target.value)}
+                        required
+                    />
                 </div>
                 <div>
                     <SelectField

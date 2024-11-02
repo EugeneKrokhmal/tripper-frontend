@@ -19,6 +19,7 @@ import Button from '../components/elements/Button';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import PlusIcon from '../images/icons/plus.svg';
 import Loader from '../components/structure/Loader';
+import { useCurrency } from '../components/CurrencyContext';
 
 interface Settlement {
     _id: string;
@@ -33,6 +34,7 @@ const TripDetailsPage: React.FC = () => {
     const [editMode, setEditMode] = useState<boolean>(false);
     const [tripName, setTripName] = useState<string>('');
     const [tripDescription, setTripDescription] = useState<string>('');
+    const { currency, setCurrency } = useCurrency();
     const [destination, setDestination] = useState<string>('');
     const [startDate, setStartDate] = useState<string>('');
     const [endDate, setEndDate] = useState<string>('');
@@ -94,6 +96,7 @@ const TripDetailsPage: React.FC = () => {
             setTripName(tripData.name);
             setTripDescription(tripData.description);
             setDestination(tripData.location.destination);
+            setCurrency(tripData.currency || '');
             setStartDate(tripData.startDate);
             setEndDate(tripData.endDate);
             setExpenses(tripData.expenses);
@@ -338,21 +341,8 @@ const TripDetailsPage: React.FC = () => {
 
                     <hr className="my-8" />
 
-                    <ExpensesList
-                        userId={userId || ''}
-                        expenses={expenses}
-                        participants={trip.participants}
-                        tripId={tripId || ''}
-                        token={token || ''}
-                        onExpenseAdded={handleExpenseAdded}
-                        onExpenseDeleted={handleExpenseDeleted}
-                        onEditExpense={handleEditExpense}
-                    />
-
-                    <hr className="my-8" />
-
                 </div>
-                <div className="hidden md:flex flex-col gap-8 md:w-4/12 lg:w-2/5 xl:w-3/5w w-full lg:mt-0 xl:w-2/5">
+                <div className="md:static md:flex flex-col gap-8 md:w-4/12 lg:w-2/5 xl:w-3/5w w-full lg:mt-0 xl:w-2/5">
                     <div className="md:sticky top-24 flex flex-col">
                         <ExpenseSummary
                             totalPaidByUser={totalPaidByUser}
@@ -368,6 +358,17 @@ const TripDetailsPage: React.FC = () => {
 
                         {/* Button to open Add Expense modal */}
                         <Button label={t('addExpense')} onClick={handleAddExpenseClick} variant="primary" />
+
+                        <ExpensesList
+                            userId={userId || ''}
+                            expenses={expenses}
+                            participants={trip.participants}
+                            tripId={tripId || ''}
+                            token={token || ''}
+                            onExpenseAdded={handleExpenseAdded}
+                            onExpenseDeleted={handleExpenseDeleted}
+                            onEditExpense={handleEditExpense}
+                        />
                     </div>
                 </div>
 

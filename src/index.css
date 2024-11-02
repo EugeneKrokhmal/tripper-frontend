@@ -79,7 +79,8 @@ input[type='time'] {
   display: block;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
-  min-height: 2.5em;
+  min-height: 38px;
+  text-align: left;
   min-width: 90%;
 }
 

@@ -68,22 +68,11 @@ const Sidebar: React.FC = () => {
 
     return (
         <>
-            {/* <button
-                onClick={toggleSidebar}
-                className="fixed left-0 lg:hidden p-2 m-4 text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 rounded-md"
-            >
-                {isSidebarOpen ? t('Close Menu') : t('Open Menu')}
-            </button> */}
-
-            <div className={`fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden ${isSidebarOpen ? 'block' : 'hidden'}`} onClick={toggleSidebar} />
-
             <aside
-                className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-800 z-50 transition-transform transform ${
-                    isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-                } lg:translate-x-0 lg:relative lg:block lg:w-1/4 xl:w-1/5 p-4 lg:p-0`}
+                className={`hidden lg:block h-100 bg-white dark:bg-gray-800 z-10 lg:translate-x-0 lg:relative lg:block lg:w-1/4 xl:w-1/4 p-4 lg:p-0`}
                 aria-label="Sidebar"
             >
-                <div className="w-full h-full rounded px-3 py-4 overflow-y-auto">
+                <div className="sticky top-24 w-full rounded px-3 py-4 overflow-y-auto">
                     <ul className="space-y-2 font-medium">
                         <li>
                             <button

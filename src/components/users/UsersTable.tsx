@@ -34,7 +34,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
             .filter((expense) => expense.splitParticipants.includes(userId))
             .map((expense) => ({
                 name: expense.expenseName,
-                amount: (expense.amount / expense.splitParticipants.length).toFixed(2), // Split amount among participants
+                amount: (expense.amount / expense.splitParticipants.length), // Split amount among participants
             }));
     };
 

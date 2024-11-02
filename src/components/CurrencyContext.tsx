@@ -18,9 +18,9 @@ export const CurrencyProvider: React.FC<CurrencyProviderProps> = ({ children }) 
     const [currency, setCurrency] = useState<string>(() => localStorage.getItem('currency') || '$');
     const [rates, setRates] = useState<{ [key: string]: number }>({
         "$": 1,
-        "€": 0.85,
-        "₴": 36.8,
-        "zł": 4.2
+        "€": 1,
+        "₴": 1,
+        "zł": 1
     });
 
     const convertAmount = (amount: number): number => {
@@ -35,29 +35,8 @@ export const CurrencyProvider: React.FC<CurrencyProviderProps> = ({ children }) 
 
     const convertPrice = (price: number): string => {
         const rate = rates[currency] || rates['$'];
-        return (price * rate).toFixed(2) + currency;
+        return (price * rate) + currency;
     };
-
-    useEffect(() => {
-        // Fetch the latest exchange rates from a public API
-        fetch('https://api.exchangeratesapi.io/latest?base=USD')
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.rates) {
-                    setRates(prevRates => ({
-                        ...prevRates,
-                        "€": data.rates.EUR,
-                        "₴": data.rates.UAH,
-                        "zł": data.rates.PLN
-                    }));
-                }
-            }).catch(error => console.error('Error fetching exchange rates:', error));
-    }, []);
-
-    // Persist currency selection in localStorage
-    useEffect(() => {
-        localStorage.setItem('currency', currency);
-    }, [currency]);
 
     return (
         <CurrencyContext.Provider value={{ currency, setCurrency, convertPrice, convertAmount }}>

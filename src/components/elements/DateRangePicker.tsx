@@ -25,7 +25,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ startDate, endDate, o
                     type="date"
                     value={startDate}
                     onChange={onStartDateChange}
-                    className="block w-full p-2.5 text-gray-900 bg-gray-50 border border-gray-300 rounded-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 focus:ring-emerald-600 focus:border-emerald-600 placeholder-gray-400 dark:placeholder-gray-500 text-sm transition-colors ease-in-out duration-200"
+                    className="block w-full text-xs p-2.5 text-gray-900 bg-gray-50 border border-gray-300 rounded-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 focus:ring-emerald-600 focus:border-emerald-600 placeholder-gray-400 dark:placeholder-gray-500 text-sm transition-colors ease-in-out duration-200"
                     required={required}
                 />
             </div>
@@ -41,7 +41,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ startDate, endDate, o
                     type="date"
                     value={endDate}
                     onChange={onEndDateChange}
-                    className="block w-full p-2.5 text-gray-900 bg-gray-50 border border-gray-300 rounded-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 focus:ring-emerald-600 focus:border-emerald-600 placeholder-gray-400 dark:placeholder-gray-500 text-sm transition-colors ease-in-out duration-200"
+                    className="block w-full text-xs p-2.5 text-gray-900 bg-gray-50 border border-gray-300 rounded-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 focus:ring-emerald-600 focus:border-emerald-600 placeholder-gray-400 dark:placeholder-gray-500 text-sm transition-colors ease-in-out duration-200"
                     required={required}
                 />
             </div>

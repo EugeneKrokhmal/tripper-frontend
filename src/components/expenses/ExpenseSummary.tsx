@@ -75,13 +75,13 @@ const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ totalPaidByUser, totalC
             <div className="flex gap-2 items-normal mb-4">
                 <div className="bg-gray-100 dark:bg-gray-600 rounded p-2">
                     <h5 className="text-l font-bold text-gray-900 dark:text-white">
-                        <Price price={+totalCost.toFixed()} />
+                        <Price price={+totalCost.toFixed(2)} />
                     </h5>
                     <p className="text-xs font-normal text-gray-500 dark:text-gray-300 ">{t('itCostsYou')}</p>
                 </div>
                 <div className="bg-gray-100 dark:bg-gray-600 rounded p-2">
                     <h5 className="text-l font-bold text-gray-900 dark:text-white">
-                        <Price price={+debtToUser.toFixed()} />
+                        <Price price={+debtToUser.toFixed(2)} />
                     </h5>
                     <p className="text-xs font-normal text-gray-500 dark:text-gray-300 ">{t('settlementSummary')}</p>
                 </div>
