@@ -3,7 +3,7 @@ import axios from 'axios';
 import InputField from '../components/elements/InputField';
 import Button from '../components/elements/Button';
 import { useNavigate, useLocation } from 'react-router-dom';
-import LoginImage from '../images/login.jpg';
+import LoginImage from '../images/gallery/11.jpg';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -37,14 +37,8 @@ const RegisterPage: React.FC = () => {
     };
 
     return (
-        <div className="container max-w-7xl h-full mx-auto px-4 flex flex-col-reverse md:flex-row justify-center py-32">
-            {/* Left: Image */}
-            <div className="hidden md:block h-full h-full w-full md:w-1/2 flex">
-                <img className="aspect-square object-cover h-full w-full" src={LoginImage} alt="backpack" />
-            </div>
-
-            {/* Right: Register Form */}
-            <div className="w-full md:w-1/2 flex flex-col md:justify-center md:px-16 py-32">
+        <div className="container max-w-7xl mx-auto h-screen flex flex-wrap justify-center md:justify-start flex-col md:flex-row px-4 pb-32">
+            <div className="z-10 w-full md:w-2/5 flex self-center flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-gray-900 rounded">
                 <h1 className="mb-4 text-5xl font-extrabold text-gray-900 dark:text-white md:text-6xl">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('register')}</span>
                 </h1>
@@ -87,8 +81,19 @@ const RegisterPage: React.FC = () => {
                     {t('alreadyHaveAnAccount')} <Link to="/login" className="text-blue-600 hover:underline">{t('login')}</Link>
                 </p>
             </div>
+
+            <div className="z-0 absolute top-0 left-0 right-0 md:block h-full w-full flex bg-black opacity-50 ">
+                <img
+                    className={`aspect-square object-cover h-full w-full transition-opacity duration-700`}
+                    src={LoginImage}
+                    alt="step image"
+                />
+            </div>
+
+
         </div>
     );
+
 };
 
 export default RegisterPage;

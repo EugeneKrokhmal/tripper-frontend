@@ -95,7 +95,7 @@ const Dashboard: React.FC = () => {
     }
 
     return (
-        <div className="container max-w-7xl mx-auto mt-24">
+        <div className="container max-w-7xl mx-auto mt-8">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
 
             <div className="px-4 pt-16">

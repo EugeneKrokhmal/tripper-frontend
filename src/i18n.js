@@ -94,6 +94,7 @@ const resources = {
       ShareThisLinkToInviteOthersToThisTrip: "Share this link to invite others to this trip.",
       editTrip: "Edit trip",
       goBack: "Go back",
+      next: "Next",
       amount: "Amount",
       planYourTrip: "Plan Your Trip",
       shareWithFriends: "Share With Friends",
@@ -247,6 +248,7 @@ const resources = {
       selectDate: "Оберіть дату",
       updateActivity: "Оновити подію",
       enterActivityName: "Введіть назву події",
+      next: "Далі",
       enterActivityDescription: "Введіть опис події",
       enterActivityTime: "Введіть час події",
       settlementSummary: "Розрахунки",
@@ -356,6 +358,7 @@ const resources = {
   },
   pl: {
     translation: {
+      next: "Dalej",
       currencyConfirmationTitle: "Potwierdź walutę",
       currencyConfirmationMessage: "Czy chcesz kontynuować, czy zmienić walutę? Obecna waluta to: ",
       uploadConfirmation: "Dodaj potwierdzenie",
