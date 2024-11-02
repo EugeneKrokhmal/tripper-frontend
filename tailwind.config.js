@@ -4,7 +4,13 @@ module.exports = {
     './src/**/*.{js,jsx,ts,tsx}', // Add paths to all of your template files
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        fontFamily: {
+          sans: ['"Comfortaa"', 'sans-serif']
+        },
+      },
+    },
   },
   plugins: [
     require('daisyui'),

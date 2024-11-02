@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <a href="https://flowbite.com/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                         {/* <img src={logo} className="h-8" alt="Tripper" /> */}
-                        <h3 className="text-xl font-bold text-zinc-900 dark:text-white md:text-2xl">🎃 Tripper</h3>
+                        <h3 className="text-xl font-bold text-zinc-900 dark:text-white md:text-2xl">Tripper</h3>
 
                     </a>
                     <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-zinc-500 dark:text-zinc-300  sm:mb-0 dark:text-zinc-400">

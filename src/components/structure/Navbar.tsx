@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
         <nav className="z-50 fixed top-0 left-0 w-full bg-white border-zinc-200 dark:bg-zinc-900 shadow">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">
-                    <h3 className="text-xl font-bold text-zinc-900 dark:text-white md:text-2xl">🎃 Tripper</h3>
+                    <h3 className="text-xl font-bold text-zinc-900 dark:text-white md:text-2xl">Tripper</h3>
                 </Link>
 
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">

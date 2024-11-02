@@ -81,7 +81,7 @@ function App() {
                     />
                 </Routes>
             </div>
-            <BottomNav />
+            {/* <BottomNav /> */}
             <Footer />
         </Router>
     );

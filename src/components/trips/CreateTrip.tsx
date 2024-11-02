@@ -157,8 +157,8 @@ const CreateTrip: React.FC = () => {
 
     return (
         <>
-            <div className="container max-w-7xl mx-auto h-screen flex flex-wrap flex-col md:flex-row px-4 pb-32">
-                <ol className="md:h-16 px-2 md:px-4 p-4 md:py-4 bg-white dark:bg-zinc-900 rounded my-4 z-10 self-top relative w-full flex justify-space-around md:justify-center text-zinc-500 dark:border-zinc-700 dark:text-zinc-400 md:p-16 py-8">
+            <div className="container max-w-7xl mx-auto h-screen flex flex-wrap flex-col px-4 pb-32">
+                <ol className="md:h-16 px-2 md:px-4 py-4 md:py-4 bg-white dark:bg-zinc-900 rounded my-4 z-10 self-top relative w-full flex justify-space-around md:justify-center text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
                     {[
                         { title: t('tripName'), step: 1, icon: 'check' },
                         { title: t('destination'), step: 2, icon: 'check' },
@@ -180,7 +180,7 @@ const CreateTrip: React.FC = () => {
                     ))}
                 </ol>
 
-                <div className="z-10 w-full md:w-2/5 flex self-center flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 rounded">
+                <div className="z-10 w-full md:w-2/5 flex flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 rounded">
                     <form onSubmit={(e) => e.preventDefault()}>
                         {currentStep === 1 && (
                             <div>
