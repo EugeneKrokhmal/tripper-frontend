@@ -15,6 +15,7 @@ import LandingPage from './pages/LandingPage';
 import ScrollToTop from './components/structure/ScrollToTop';
 import FAQ from './pages/FAQ';
 import CreateTripPage from './pages/CreateTripPage';
+import BottomNav from './components/structure/BottomNav';
 
 
 // ProtectedRoute component to guard protected pages
@@ -29,10 +30,6 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 };
 
 function App() {
-    const token = useSelector((state: RootState) => state.auth.token || ''); // Fallback to empty string if token is null
-    const participants = useSelector((state: RootState) => state.trips.currentTripParticipants || []);
-    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || ''; // Fallback to empty string if undefined
-
     return (
         <Router>
             <ScrollToTop />
@@ -84,6 +81,7 @@ function App() {
                     />
                 </Routes>
             </div>
+            <BottomNav />
             <Footer />
         </Router>
     );

@@ -84,6 +84,11 @@ input[type='time'] {
   min-width: 90%;
 }
 
+input[type='date']::-webkit-datetime-edit,
+input[type='time']::-webkit-datetime-edit {
+  padding: .5rem;
+}
+
 /* Burger menu */
 
 .menu {
