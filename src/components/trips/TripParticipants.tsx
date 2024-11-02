@@ -32,27 +32,27 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
     return (
         <div className="flex flex-col gap-8">
             <div className="flex flex-col">
-                <h3 id="thecrew" className="mb-2 text-4xl font-extrabold text-gray-900 dark:text-white md:text-3xl md:mt-4">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+                <h3 id="thecrew" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
                         {t('theCrew')}
                     </span>
                 </h3>
 
                 {isOwner && (
-                    <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">{t('youAreTheOwnerOfTheTrip')}</p>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('youAreTheOwnerOfTheTrip')}</p>
                 )}
 
                 <div className="flex -space-x-4 rtl:space-x-reverse mb-6">
                     {participants.slice(0, 3).map((participant) => (
                         <img
                             key={participant._id}
-                            className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                            className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
                             src={`https://ui-avatars.com/api/?name=${participant.name}&background=random`}
                             alt={participant.name}
                         />
                     ))}
                     {participants.length > 3 && (
-                        <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800">
+                        <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-zinc-800">
                             +{participants.length - 3}
                         </span>
                     )}

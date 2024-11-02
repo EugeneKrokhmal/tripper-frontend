@@ -69,7 +69,7 @@ const Sidebar: React.FC = () => {
     return (
         <>
             <aside
-                className={`hidden lg:block h-100 bg-white dark:bg-gray-800 z-10 lg:translate-x-0 lg:relative lg:block lg:w-1/4 xl:w-1/4 p-4 lg:p-0`}
+                className={`hidden lg:block h-100 bg-white dark:bg-zinc-800 z-10 lg:translate-x-0 lg:relative lg:block lg:w-1/4 xl:w-1/4 p-4 lg:p-0`}
                 aria-label="Sidebar"
             >
                 <div className="sticky top-24 w-full rounded px-3 py-4 overflow-y-auto">
@@ -77,7 +77,7 @@ const Sidebar: React.FC = () => {
                         <li>
                             <button
                                 onClick={() => handleScroll('theplace')}
-                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('theplace') ? 'bg-gray-100 dark:bg-gray-600' : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
+                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('theplace') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
                             >
                                 <img className="w-4" src={MarkerIcon} alt={t('thePlace')} />
                                 <span className="ms-3">{t('thePlace')}</span>
@@ -86,7 +86,7 @@ const Sidebar: React.FC = () => {
                         <li>
                             <button
                                 onClick={() => handleScroll('thecrew')}
-                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('thecrew') ? 'bg-gray-100 dark:bg-gray-600' : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
+                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('thecrew') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
                             >
                                 <img className="w-4" src={TeamIcon} alt={t('theCrew')} />
                                 <span className="ms-3">{t('theCrew')}</span>
@@ -95,7 +95,7 @@ const Sidebar: React.FC = () => {
                         <li>
                             <button
                                 onClick={() => handleScroll('timeline')}
-                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('timeline') ? 'bg-gray-100 dark:bg-gray-600' : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
+                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('timeline') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
                             >
                                 <img className="w-4" src={TimeLineIcon} alt={t('timeline')} />
                                 <span className="ms-3">{t('timeline')}</span>
@@ -104,7 +104,7 @@ const Sidebar: React.FC = () => {
                         <li>
                             <button
                                 onClick={() => handleScroll('settlementsummary')}
-                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('settlementsummary') ? 'bg-gray-100 dark:bg-gray-600' : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
+                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('settlementsummary') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
                             >
                                 <img className="w-4" src={SettlementIcon} alt={t('settlementSummary')} />
                                 <span className="ms-3">{t('settlementSummary')}</span>
@@ -113,7 +113,7 @@ const Sidebar: React.FC = () => {
                         <li>
                             <button
                                 onClick={() => handleScroll('history')}
-                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('history') ? 'bg-gray-100 dark:bg-gray-600' : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
+                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('history') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
                             >
                                 <img className="w-4" src={HistoryIcon} alt={t('history')} />
                                 <span className="ms-3">{t('history')}</span>

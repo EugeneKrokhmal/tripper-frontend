@@ -152,21 +152,21 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
 
     return (
         <div className="trip-timeline">
-            <h3 id="timeline" className="mb-2 text-4xl font-extrabold text-gray-900 dark:text-white md:text-3xl md:mt-4">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('timeline')}</span>
+            <h3 id="timeline" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('timeline')}</span>
             </h3>
 
-            <p className="text-sm text-gray-500 dark:text-gray-300  mb-6">{t('toAddActivity')}</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-300  mb-6">{t('toAddActivity')}</p>
 
-            <ol className="relative border-l border-gray-200 dark:border-gray-700 my-6 pb-6">
+            <ol className="relative border-l border-zinc-200 dark:border-zinc-700 my-6 pb-6">
                 {displayedDates.map(date => (
                     <li key={date} className="mb-1 ml-4">
-                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                        <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-300">{formatDate(date)} {t('dayPlan')}:</time>
+                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-zinc-900 dark:bg-zinc-700"></div>
+                        <time className="mb-1 text-sm font-normal leading-none text-zinc-400 dark:text-zinc-300">{formatDate(date)} {t('dayPlan')}:</time>
                         {timeline[date] && timeline[date].length > 0 ? (
-                            <ul className="mb-4 mt-4 text-base font-normal text-gray-500 dark:text-gray-300">
+                            <ul className="mb-4 mt-4 text-base font-normal text-zinc-500 dark:text-zinc-300">
                                 {timeline[date].map((activity, index) => (
-                                    <li key={index} className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                                    <li key={index} className="text-sm text-zinc-600 dark:text-zinc-300 mb-4">
                                         <div className="flex justify-between gap-2">
                                             <div className="flex gap-4 w-10/12">
                                                 <strong className="w-10">{activity.time}</strong>
@@ -190,7 +190,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                                 ))}
                             </ul>
                         ) : (
-                            <p className="text-base font-normal text-gray-500 dark:text-gray-300">{t('noActivities')}</p>
+                            <p className="text-base font-normal text-zinc-500 dark:text-zinc-300">{t('noActivities')}</p>
                         )}
                     </li>
                 ))}
@@ -219,19 +219,19 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
 
             {modalVisible && isOwner && (
                 <Modal onClose={closeModal}>
-                    <h3 className="mb-2 text-4xl font-extrabold text-gray-900 dark:text-white md:text-3xl md:mt-4">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{editMode ? t('editActivity') : t('addActivity')}</span>
+                    <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{editMode ? t('editActivity') : t('addActivity')}</span>
                     </h3>
 
                     <form className="max-h-[70vh] overflow-y-auto">
 
                         <div className="mb-4">
-                            <label htmlFor="date-select" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t('selectDate')}</label>
+                            <label htmlFor="date-select" className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">{t('selectDate')}</label>
                             <select
                                 id="date-select"
                                 value={selectedDate || ''}
                                 onChange={(e) => setSelectedDate(e.target.value)}
-                                className="block w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                className="block w-full p-2.5 bg-gray-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
                             >
                                 <option value="" disabled>{t('selectDate')}</option>
                                 {tripDates.map(date => (

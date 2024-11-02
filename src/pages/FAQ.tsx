@@ -9,7 +9,7 @@ const FAQ = () => {
             <h1 className="text-3xl font-bold mb-8">{t('faq.title')}</h1>
 
             <div className="faq-section mb-12">
-                <h2 className="mb-2 text-4xl font-extrabold text-gray-900 md:text-3xl md:mt-4 text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('faq.generalQuestions.title')}</h2>
+                <h2 className="mb-2 text-4xl font-extrabold text-zinc-900 md:text-3xl md:mt-4 text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('faq.generalQuestions.title')}</h2>
                 <div>
                     <p className="font-semibold">{t('faq.generalQuestions.q1')}</p>
                     <p className="mb-4">{t('faq.generalQuestions.a1')}</p>
@@ -25,7 +25,7 @@ const FAQ = () => {
             </div>
 
             <div className="faq-section mb-12">
-                <h2 className="mb-2 text-4xl font-extrabold text-gray-900 md:text-3xl md:mt-4 text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('faq.expensesAndSettlements.title')}</h2>
+                <h2 className="mb-2 text-4xl font-extrabold text-zinc-900 md:text-3xl md:mt-4 text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('faq.expensesAndSettlements.title')}</h2>
                 <div>
                     <p className="font-semibold">{t('faq.expensesAndSettlements.q1')}</p>
                     <p className="mb-4">{t('faq.expensesAndSettlements.a1')}</p>
@@ -41,7 +41,7 @@ const FAQ = () => {
             </div>
 
             <div className="faq-section mb-12">
-                <h2 className="mb-2 text-4xl font-extrabold text-gray-900 md:text-3xl md:mt-4 text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('faq.paymentsAndFairShare.title')}</h2>
+                <h2 className="mb-2 text-4xl font-extrabold text-zinc-900 md:text-3xl md:mt-4 text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('faq.paymentsAndFairShare.title')}</h2>
                 <div>
                     <p className="font-semibold">{t('faq.paymentsAndFairShare.q1')}</p>
                     <p className="mb-4">{t('faq.paymentsAndFairShare.a1')}</p>
@@ -57,7 +57,7 @@ const FAQ = () => {
             </div>
 
             <div className="faq-section mb-12">
-                <h2 className="mb-2 text-4xl font-extrabold text-gray-900 md:text-3xl md:mt-4 text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('faq.accountAndPrivacy.title')}</h2>
+                <h2 className="mb-2 text-4xl font-extrabold text-zinc-900 md:text-3xl md:mt-4 text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('faq.accountAndPrivacy.title')}</h2>
                 <div>
                     <p className="font-semibold">{t('faq.accountAndPrivacy.q1')}</p>
                     <p className="mb-4">{t('faq.accountAndPrivacy.a1')}</p>
@@ -73,7 +73,7 @@ const FAQ = () => {
             </div>
 
             <div className="faq-section mb-12">
-                <h2 className="mb-2 text-4xl font-extrabold text-gray-900 md:text-3xl md:mt-4 text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('faq.technicalSupport.title')}</h2>
+                <h2 className="mb-2 text-4xl font-extrabold text-zinc-900 md:text-3xl md:mt-4 text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('faq.technicalSupport.title')}</h2>
                 <div>
                     <p className="font-semibold">{t('faq.technicalSupport.q1')}</p>
                     <p className="mb-4">{t('faq.technicalSupport.a1')}</p>

@@ -19,13 +19,13 @@ const SelectField: React.FC<SelectFieldProps> = ({ label, value, onChange, optio
     return (
         <div className="relative">
             {label && (
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">
                     {label}
                     {required && <span className="text-red-500 ml-1">*</span>}
                 </label>
             )}
             <div
-                className="relative block w-full p-2 border border-gray-300 dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 rounded-md mb-2 text-sm cursor-pointer"
+                className="relative block w-full p-2 border border-zinc-300 dark:border-zinc-700 dark:text-zinc-300 dark:bg-zinc-900 rounded-md mb-2 text-sm cursor-pointer"
                 onClick={() => setIsOpen((prev) => !prev)}
             >
                 <svg
@@ -40,13 +40,13 @@ const SelectField: React.FC<SelectFieldProps> = ({ label, value, onChange, optio
                 {value ? options.find(option => option.value === value)?.label : 'Select'}
             </div>
             {isOpen && (
-                <div className="absolute left-0 right-0 z-10 bg-white border border-gray-300 dark:border-gray-700 dark:bg-gray-900 rounded-md mt-1 shadow-lg max-h-60 overflow-auto">
+                <div className="absolute left-0 right-0 z-10 bg-white border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-900 rounded-md mt-1 shadow-lg max-h-60 overflow-auto">
                     {options.map((option) => (
                         <div
                             key={option.value}
                             onClick={() => handleOptionClick(option.value)}
                             className={`text-sm p-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 ${
-                                option.value === value ? 'bg-gray-200 dark:bg-gray-700' : ''
+                                option.value === value ? 'bg-gray-200 dark:bg-zinc-700' : ''
                             }`}
                         >
                             {option.label}

@@ -37,10 +37,10 @@ const Navbar: React.FC = () => {
     }, []);
 
     return (
-        <nav className="z-50 fixed top-0 left-0 w-full bg-white border-gray-200 dark:bg-gray-900 shadow">
+        <nav className="z-50 fixed top-0 left-0 w-full bg-white border-zinc-200 dark:bg-zinc-900 shadow">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white md:text-2xl">🎃 Tripper</h3>
+                    <h3 className="text-xl font-bold text-zinc-900 dark:text-white md:text-2xl">🎃 Tripper</h3>
                 </Link>
 
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
                             >
                                 <span className="sr-only">Open user menu</span>
                                 <img
-                                    className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800"
+                                    className="w-8 h-8 border-2 border-white rounded-full dark:border-zinc-800"
                                     src={`https://ui-avatars.com/api/?name=${userName}&background=random`}
                                     alt={userName || ''}
                                 />
@@ -74,7 +74,7 @@ const Navbar: React.FC = () => {
 
                         </div>
                     ) : (
-                        <Link to="/login" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 dark:hover:text-white">
+                        <Link to="/login" className="block px-4 py-2 text-sm text-zinc-700 dark:text-zinc-200 dark:hover:text-white">
                             {t('login')}
                         </Link>
                     )}
@@ -87,7 +87,7 @@ const Navbar: React.FC = () => {
                     ></div>
 
                     <div
-                        className={`flex flex-col absolute top-0 transform transition-transform duration-300 ease-in-out bg-white dark:bg-gray-800 w-64 h-full px-4 pt-8 pb-8 shadow-lg right-0 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
+                        className={`flex flex-col absolute top-0 transform transition-transform duration-300 ease-in-out bg-white dark:bg-zinc-800 w-64 h-full px-4 pt-8 pb-8 shadow-lg right-0 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
                             }`}
                     >
                         <div className="flex w-full justify-between items-center">

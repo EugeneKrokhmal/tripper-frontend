@@ -29,7 +29,7 @@ const TripSearchAndFilter: React.FC<TripSearchAndFilterProps> = ({ onSearch, onF
     return (
         <section className="mb-2 md:mb-8 flex items-center">
             <div className="mx-auto w-full">
-                <div className="bg-white dark:bg-gray-800 sm:rounded-lg">
+                <div className="bg-white dark:bg-zinc-800 sm:rounded-lg">
                     <div className="flex flex-col items-end justify-between space-y-3 md:flex-row md:space-y-0 md:space-x-4">
                         <div className="w-full">
                             <InputField

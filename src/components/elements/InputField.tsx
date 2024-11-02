@@ -11,7 +11,7 @@ interface InputFieldProps {
 const InputField: React.FC<InputFieldProps> = ({ label, type, value, onChange, required }) => {
     return (
         <div>
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">
                 {label}
                 {required && <span className="text-red-500">*</span>}
             </label>
@@ -19,7 +19,7 @@ const InputField: React.FC<InputFieldProps> = ({ label, type, value, onChange, r
                 type={type}
                 value={value}
                 onChange={onChange}
-                className={'block w-full p-2 border border-gray-300 dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 rounded-md mb-4 text-sm'}
+                className={'block w-full p-2 border border-zinc-300 dark:border-zinc-700 dark:text-zinc-300 dark:bg-zinc-900 rounded-md mb-4 text-sm'}
             />
         </div>
     );

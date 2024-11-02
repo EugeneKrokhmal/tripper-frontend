@@ -53,16 +53,16 @@ const WeatherWidget: React.FC<WeatherWidgetProps> = ({ latitude, longitude }) =>
     }
 
     return (
-        <div className="weather-widget bg-white dark:bg-gray-800 p-4 rounded-b shadow-lg">
-            <h3 className="mb-2 text-lg text-gray:500 dark:text-gray-300 font-semibold">{t('currentWeather')}</h3>
+        <div className="weather-widget bg-white dark:bg-zinc-800 p-4 rounded-b shadow-lg">
+            <h3 className="mb-2 text-lg text-gray:500 dark:text-zinc-300 font-semibold">{t('currentWeather')}</h3>
             {weatherData && weatherData.current_weather ? (
                 <>
                     <div className="flex justify-between">
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-gray-300  ">
+                            <p className="text-sm text-zinc-500 dark:text-zinc-300  ">
                                 <strong>{t('temperature')}:</strong> {weatherData.current_weather.temperature}°C
                             </p>
-                            <p className="text-sm text-gray-500 dark:text-gray-300  ">
+                            <p className="text-sm text-zinc-500 dark:text-zinc-300  ">
                                 <strong>{t('windSpeed')}:</strong> {weatherData.current_weather.windspeed} km/h
                             </p>
                         </div>

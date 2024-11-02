@@ -40,8 +40,8 @@ const UsersTable: React.FC<UsersTableProps> = ({
 
     return (
         <div className="flex flex-col">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
+                <thead className="text-xs text-zinc-700 uppercase bg-gray-50 dark:bg-zinc-700 dark:text-zinc-400">
                     <tr>
                         <th scope="col" className="px-2 py-3 text-xs">
                             {t('involved')}
@@ -58,19 +58,19 @@ const UsersTable: React.FC<UsersTableProps> = ({
                     {participants.map((participant) => (
                         <tr
                             key={participant._id}
-                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                            className="bg-white border-b dark:bg-zinc-800 dark:border-zinc-700"
                         >
-                            <td className="px-2 py-4 text-sm text-gray-800 dark:text-gray-200 items-center space-x-3">
+                            <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center space-x-3">
                                 <div className="flex gap-2 items-center">
                                     {participant ? (
                                         <img
                                             key={participant._id}
-                                            className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                            className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
                                             src={`https://ui-avatars.com/api/?name=${participant.name}&background=random`}
                                             alt={participant.name}
                                         />
                                     ) : (
-                                        <div className="w-8 h-8 hidden md:flex rounded-full bg-gray-300 dark:bg-gray-600 items-center justify-center">
+                                        <div className="w-8 h-8 hidden md:flex rounded-full bg-gray-300 dark:bg-zinc-600 items-center justify-center">
                                             <span className="text-white text-sm font-medium">participant.name</span>
                                         </div>
                                     )}
@@ -95,7 +95,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                                     {getInvolvedExpenses(participant._id).length > 0
                                         ? getInvolvedExpenses(participant._id).map((expense, index) => (
                                             <li key={index} className="flex justify-between">
-                                                <span className="mr-auto bg-white dark:bg-gray-800">{expense.name}</span><span className="bg-white dark:bg-gray-800"><Price price={+expense.amount} /></span>
+                                                <span className="mr-auto bg-white dark:bg-zinc-800">{expense.name}</span><span className="bg-white dark:bg-zinc-800"><Price price={+expense.amount} /></span>
                                             </li>
                                         ))
                                         : ''}

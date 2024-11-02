@@ -65,21 +65,21 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId }) => {
     return (
         <a
             onClick={() => navigate(`/trip/${trip._id}`)}
-            className="cursor-pointer justify-end mb-4 flex items-center bg-white border border-gray-200 rounded-lg shadow md:flex-col-reverse flex-col-reverse hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+            className="cursor-pointer justify-end mb-4 flex items-center bg-white border border-zinc-200 rounded-lg shadow md:flex-col-reverse flex-col-reverse hover:bg-gray-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-gray-700"
         >
-            <div className="w-full h-full flex-col flex px-4 md:px-4 px-4 leading-normal">
-                <h1 className="mb-2 mt-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-3xl">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{trip.name}</span>
+            <div className="w-full h-full flex-col flex px-4 md:px-4 px-4 leading-normal bg-white dark:bg-zinc-900">
+                <h1 className="mb-2 mt-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-3xl">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{trip.name}</span>
                 </h1>
                 <div className="w-full h-full flex flex-col">
                     <div>
-                        <p className="font-normal text-xs text-gray-500 dark:text-gray-300  dark:text-gray-400">
+                        <p className="font-normal text-xs text-zinc-500 dark:text-zinc-300  dark:text-zinc-400">
                             {trip.creator._id === loggedInUserId ? t('youAreTheOwnerOfTheTrip') : t('YouAreAParticipant')}
                         </p>
                         <p className="mb-4">
-                            <span className="mt-2 text-sm text-gray-700 dark:text-gray-400">{new Date(trip.startDate).toLocaleDateString()}</span>
+                            <span className="mt-2 text-sm text-zinc-700 dark:text-zinc-400">{new Date(trip.startDate).toLocaleDateString()}</span>
                             <span> - </span>
-                            <span className="mb-4 text-sm text-gray-700 dark:text-gray-400">{new Date(trip.endDate).toLocaleDateString()}</span>
+                            <span className="mb-4 text-sm text-zinc-700 dark:text-zinc-400">{new Date(trip.endDate).toLocaleDateString()}</span>
                         </p>
                     </div>
                     <div className="flex justify-between mt-auto">
@@ -87,13 +87,13 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId }) => {
                             {trip.participants.slice(0, 3).map((participant) => (
                                 <img
                                     key={participant._id}
-                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
                                     src={`https://ui-avatars.com/api/?name=${participant.name}&background=random`}
                                     alt={participant.name}
                                 />
                             ))}
                             {trip.participants.length > 3 && (
-                                <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800">
+                                <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-zinc-800">
                                     +{trip.participants.length - 3}
                                 </span>
                             )}

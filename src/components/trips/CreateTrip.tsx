@@ -158,15 +158,15 @@ const CreateTrip: React.FC = () => {
     return (
         <>
             <div className="container max-w-7xl mx-auto h-screen flex flex-wrap flex-col md:flex-row px-4 pb-32">
-                <ol className="md:h-16 px-2 md:px-4 p-4 md:py-4 bg-white dark:bg-gray-900 rounded my-4 z-10 self-top relative w-full flex justify-space-around md:justify-center text-gray-500 dark:border-gray-700 dark:text-gray-400 md:p-16 py-8">
+                <ol className="md:h-16 px-2 md:px-4 p-4 md:py-4 bg-white dark:bg-zinc-900 rounded my-4 z-10 self-top relative w-full flex justify-space-around md:justify-center text-zinc-500 dark:border-zinc-700 dark:text-zinc-400 md:p-16 py-8">
                     {[
                         { title: t('tripName'), step: 1, icon: 'check' },
                         { title: t('destination'), step: 2, icon: 'check' },
                         { title: t('description'), step: 3, icon: 'check' },
                     ].map((item) => (
-                        <li key={item.step} className={`w-1/3 flex-col md:flex-row flex text-center items-center gap-2 text-sm mx-4 ${currentStep === item.step ? 'text-gray-900 dark:text-gray-100' : ''}`}>
+                        <li key={item.step} className={`w-1/3 flex-col md:flex-row flex text-center items-center gap-2 text-sm mx-4 ${currentStep === item.step ? 'text-zinc-900 dark:text-zinc-100' : ''}`}>
                             <span
-                                className={`flex items-center justify-center w-4 h-4 md:w-8 md:h-8 ${currentStep >= item.step ? 'bg-gradient-to-r to-emerald-600 from-sky-400' : 'bg-gray-100'} rounded-full -start-2 ring-2 ring-white dark:ring-gray-900 ${currentStep >= item.step ? ' color-white ' : 'dark:bg-gray-700'
+                                className={`flex items-center justify-center w-4 h-4 md:w-8 md:h-8 ${currentStep >= item.step ? 'bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500' : 'bg-gray-100'} rounded-full -start-2 ring-2 ring-white dark:ring-gray-900 ${currentStep >= item.step ? ' color-white ' : 'dark:bg-zinc-700'
                                     }`}
                             >
                                 {item.icon === 'check' && currentStep >= item.step && (
@@ -180,12 +180,12 @@ const CreateTrip: React.FC = () => {
                     ))}
                 </ol>
 
-                <div className="z-10 w-full md:w-2/5 flex self-center flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-gray-900 rounded">
+                <div className="z-10 w-full md:w-2/5 flex self-center flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 rounded">
                     <form onSubmit={(e) => e.preventDefault()}>
                         {currentStep === 1 && (
                             <div>
-                                <h2 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('tripName')}</span>
+                                <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('tripName')}</span>
                                 </h2>
                                 <InputField
                                     label={t('tripName')}
@@ -200,8 +200,8 @@ const CreateTrip: React.FC = () => {
 
                         {currentStep === 2 && (
                             <div className="relative">
-                                <h2 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('destination')}</span>
+                                <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('destination')}</span>
                                 </h2>
                                 <InputField
                                     label={t('destination')}
@@ -212,7 +212,7 @@ const CreateTrip: React.FC = () => {
                                 />
 
                                 {autocompleteResults.length > 0 && (
-                                    <ul className="absolute top-20 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+                                    <ul className="absolute top-20 w-full bg-white border border-zinc-300 rounded-md shadow-lg max-h-60 overflow-auto">
                                         {autocompleteResults.map((result, index) => (
                                             <li
                                                 key={index}
@@ -237,8 +237,8 @@ const CreateTrip: React.FC = () => {
 
                         {currentStep === 3 && (
                             <div>
-                                <h2 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('description')}</span>
+                                <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('description')}</span>
                                 </h2>
                                 <TextArea
                                     label={t('description')}

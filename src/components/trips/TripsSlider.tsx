@@ -65,12 +65,12 @@ const TripsSlider: React.FC = () => {
 
     return (
         <div className="mx-auto px-4">
-            <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+            <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
                     {t('myTrips')}
                 </span>
             </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">
+            <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">
                 {t('createTripTitle')}
             </p>
             <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">

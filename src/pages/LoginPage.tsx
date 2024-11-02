@@ -57,9 +57,9 @@ const LoginPage: React.FC = () => {
 
     return (
         <div className="container max-w-7xl mx-auto h-screen flex flex-wrap flex-col justify-center md:justify-start md:flex-row px-4 pb-32">
-            <div className="z-10 w-full md:w-2/5 flex self-center flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-gray-900 rounded">
-                <h1 className="mb-4 text-5xl font-extrabold text-gray-900 dark:text-white md:text-6xl">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('login')}</span>
+            <div className="z-10 w-full md:w-2/5 flex self-center flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 rounded">
+                <h1 className="mb-4 text-5xl font-extrabold text-zinc-900 dark:text-white md:text-6xl">
+                    <span className="text-transparent dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500 bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('login')}</span>
                 </h1>
 
                 <form onSubmit={handleSubmit}>
@@ -75,12 +75,6 @@ const LoginPage: React.FC = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-
-                    {/* Remember Me Checkbox */}
-                    <div className="mb-4 flex items-center">
-                        <input type="checkbox" id="remember" name="remember" className="text-red-500" />
-                        <label htmlFor="remember" className="text-green-900 ml-2">{t('rememberMe')}</label>
-                    </div>
 
                     {/* Forgot Password Link */}
                     <div className="mb-6 text-blue-500">
@@ -101,7 +95,7 @@ const LoginPage: React.FC = () => {
                 {error && <p className="text-red-500 mb-4">{error}</p>}
 
                 {/* Sign up Link */}
-                <p className="text-center text-gray-600 dark:text-gray-300 mt-6">
+                <p className="text-center text-zinc-600 dark:text-zinc-300 mt-6">
                     {t('dontHaveAnAccount')} <Link to="/register" className="text-blue-600 hover:underline">{t('register')}</Link>
                 </p>
             </div>

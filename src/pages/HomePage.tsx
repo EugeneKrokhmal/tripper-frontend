@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
                     </div>
                     <div className="z-10 justify-center mx-auto h-screen w-full max-w-screen-xl flex flex-col items-center md:flex-row gap-10 px-4">
                         <div className="md:w-2/3 text-center">
-                            <h1 className="mb-4 text-5xl font-extrabold text-gray-900 dark:text-white lg:text-7xl">
+                            <h1 className="mb-4 text-5xl font-extrabold text-zinc-900 dark:text-white lg:text-7xl">
                                 <span className="text-white">
                                     {t('welcomeToTripper')}
                                 </span>

@@ -29,12 +29,12 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
             onClick={handleOutsideClick}
         >
             <div
-                className={`modal-content bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-lg relative ${
+                className={`modal-content bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 w-full max-w-lg relative ${
                     isVisible ? 'show' : ''
                 }`}
             >
                 <button
-                    className="absolute top-6 right-4 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
+                    className="absolute top-6 right-4 text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-white"
                     onClick={() => {
                         setIsVisible(false);
                         setTimeout(onClose, 300);

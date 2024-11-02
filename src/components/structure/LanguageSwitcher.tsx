@@ -25,7 +25,7 @@ const LanguageSwitcher: React.FC = () => {
       <select
         value={selectedLanguage}
         onChange={handleLanguageChange}
-        className="block dark:bg-gray-900 text-xs w-full text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        className="block dark:bg-zinc-900 text-xs w-full text-zinc-700 dark:text-zinc-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
       >
         <option value="en">🇬🇧 EN</option>
         <option value="uk">🇺🇦 УК</option>

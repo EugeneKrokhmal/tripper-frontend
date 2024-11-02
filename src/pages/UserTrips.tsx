@@ -50,9 +50,13 @@ const Dashboard: React.FC = () => {
                     }),
                 ]);
 
+                const sortedTrips = tripsResponse.data.sort(
+                    (a: Trip, b: Trip) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+                );
+
                 setUsers(usersResponse.data);
-                setTrips(tripsResponse.data);
-                setFilteredTrips(tripsResponse.data);
+                setTrips(sortedTrips);
+                setFilteredTrips(sortedTrips);
                 setLoading(false);
             } catch (err) {
                 setError('Failed to fetch users or trips');
@@ -78,7 +82,7 @@ const Dashboard: React.FC = () => {
     };
 
     const handleFilter = (filters: string[]) => {
-        setFilteredTrips(trips);
+        setFilteredTrips(trips); // Adjust to apply filters as needed
     };
 
     const breadcrumbs = [
@@ -88,7 +92,7 @@ const Dashboard: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="h-screen flex tems-center justify-center">
+            <div className="h-screen flex items-center justify-center">
                 <Loader />
             </div>
         );
@@ -99,8 +103,8 @@ const Dashboard: React.FC = () => {
             <Breadcrumbs breadcrumbs={breadcrumbs} />
 
             <div className="px-4 pt-16">
-                <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('myTrips')}</span>
+                <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('myTrips')}</span>
                 </h1>
                 {error && <p className="text-red-500">{error}</p>}
                 <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
@@ -112,18 +116,15 @@ const Dashboard: React.FC = () => {
                 </div>
 
                 <div className="md:w-3/4 content-start grid lg:grid-cols-2 gap-4 px-0">
-                    <>
-                        {filteredTrips.length === 0 ? (
-                            <p>{t('noTrips')}</p>
-                        ) : (
-                            filteredTrips.map((trip) => (
-                                <TripCard key={trip._id} trip={trip} loggedInUserId={loggedInUserId || ''} />
-                            ))
-                        )}
-                    </>
+                    {filteredTrips.length === 0 ? (
+                        <p>{t('noTrips')}</p>
+                    ) : (
+                        filteredTrips.map((trip) => (
+                            <TripCard key={trip._id} trip={trip} loggedInUserId={loggedInUserId || ''} />
+                        ))
+                    )}
                 </div>
             </div>
-
         </div>
     );
 };

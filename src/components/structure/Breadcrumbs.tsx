@@ -18,20 +18,20 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => {
                     {breadcrumbs.map((breadcrumb, index) => (
                         <li key={index} className="inline-flex items-center">
                             {index === 0 ? (
-                                <a href={breadcrumb.href} className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-600 dark:text-gray-300  dark:text-gray-400 dark:hover:text-white">
+                                <a href={breadcrumb.href} className="inline-flex items-center text-sm font-medium text-zinc-700 hover:text-zinc-600 dark:text-zinc-300  dark:text-zinc-400 dark:hover:text-white">
                                     {breadcrumb.label}
                                 </a>
                             ) : (
                                 <div className="flex items-center">
-                                    <svg className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <svg className="rtl:rotate-180 w-3 h-3 text-zinc-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
                                     </svg>
                                     {index === breadcrumbs.length - 1 ? (
-                                        <span className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-300  md:ms-2 dark:text-gray-400">
+                                        <span className="ms-1 text-sm font-medium text-zinc-500 dark:text-zinc-300  md:ms-2 dark:text-zinc-400">
                                             {breadcrumb.label}
                                         </span>
                                     ) : (
-                                        <Link to={breadcrumb.href} className="ms-1 text-sm font-medium text-gray-700 hover:text-gray-600 dark:text-gray-300  md:ms-2 dark:text-gray-400 dark:hover:text-white">
+                                        <Link to={breadcrumb.href} className="ms-1 text-sm font-medium text-zinc-700 hover:text-zinc-600 dark:text-zinc-300  md:ms-2 dark:text-zinc-400 dark:hover:text-white">
                                             {breadcrumb.label}
                                         </Link>
                                     )}

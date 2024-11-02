@@ -141,15 +141,15 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
 
     return (
         <div className="my-6">
-            <h3 id="settlementsummary" className="mb-2 text-4xl font-extrabold text-gray-900 dark:text-white md:text-3xl md:mt-4">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('settlementSummary')}</span>
+            <h3 id="settlementsummary" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('settlementSummary')}</span>
             </h3>
 
-            <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">{t('settlementDescription')}</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('settlementDescription')}</p>
 
             <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mb-8">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table className="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400 mb-8">
+                    <thead className="text-xs text-zinc-700 uppercase bg-gray-50 dark:bg-zinc-700 dark:text-zinc-400">
                         <tr>
                             <th className="px-2 w-4/12 py-3 text-xs">{t('debtor')}</th>
                             <th className="px-2 w-4/12 py-3 text-xs">{t('creditor')}</th>
@@ -165,13 +165,13 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                 return (
                                     <tr
                                         key={settlement._id}
-                                        className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 ${settlement.isSettled ? 'opacity-50' : ''}`}
+                                        className={`bg-white border-b dark:bg-zinc-800 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-gray-600 ${settlement.isSettled ? 'opacity-50' : ''}`}
                                     >
-                                        <td className="px-2 py-4 text-sm text-gray-800 dark:text-gray-200 items-center space-x-3">
+                                        <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
                                                 <img
                                                     key={debtor._id}
-                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
                                                     src={`https://ui-avatars.com/api/?name=${debtor.name}&background=random`}
                                                     alt={debtor.name}
                                                 />
@@ -180,11 +180,11 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-2 py-4 text-sm text-gray-800 dark:text-gray-200 items-center space-x-3">
+                                        <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
                                                 <img
                                                     key={creditor._id}
-                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
                                                     src={`https://ui-avatars.com/api/?name=${creditor.name}&background=random`}
                                                     alt={creditor.name}
                                                 />
@@ -193,22 +193,22 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-2 py-4 text-sm text-gray-800 dark:text-gray-200 text-right">
+                                        <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 text-right">
                                             <Price price={+settlement.amount.toFixed(2)} />
                                         </td>
-                                        <td className="px-2 py-4 text-sm text-gray-800 dark:text-gray-200 text-center">
+                                        <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 text-center">
                                             {!settlement.isSettled ? (
                                                 <>
                                                     <a
-                                                        className="cursor-pointer text-xs text-base dark:text-gray-300 hover:underline"
+                                                        className="cursor-pointer text-xs text-base dark:text-zinc-300 hover:underline"
                                                         onClick={() => setActiveSettlementId(settlement._id)}
                                                     >
                                                         {t('settle')}
                                                     </a>
                                                     {activeSettlementId === settlement._id && (
                                                         <Modal onClose={closeModal}>
-                                                            <h3 className="mb-2 text-4xl font-extrabold text-gray-900 dark:text-white md:text-3xl md:mt-4">
-                                                                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('settleDebt')}</span>
+                                                            <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                                                                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('settleDebt')}</span>
                                                             </h3>
                                                             <SelectField
                                                                 label={t('settlementType')}
@@ -242,7 +242,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
 
                                                 </>
                                             ) : (
-                                                <span className="text-xs text-gray-500">{t('settled')}</span>
+                                                <span className="text-xs text-zinc-500">{t('settled')}</span>
                                             )}
                                         </td>
                                     </tr>
@@ -250,7 +250,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                             })
                         ) : (
                             <tr>
-                                <td colSpan={4} className="px-2 py-4 text-center text-sm text-gray-500 dark:text-gray-300">
+                                <td colSpan={4} className="px-2 py-4 text-center text-sm text-zinc-500 dark:text-zinc-300">
                                     {t('noSettlements')}
                                 </td>
                             </tr>
@@ -259,12 +259,12 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                 </table>
 
                 {/* Settled settlements */}
-                <h3 id="settlementsummary" className="mb-2 text-xl font-extrabold text-gray-900 dark:text-white text-xl mt-4">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('settled')}</span>
+                <h3 id="settlementsummary" className="mb-2 text-xl font-extrabold text-zinc-900 dark:text-white text-xl mt-4">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('settled')}</span>
                 </h3>
 
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table className="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
+                    <thead className="text-xs text-zinc-700 uppercase bg-gray-50 dark:bg-zinc-700 dark:text-zinc-400">
                         <tr>
                             <th className="px-2 py-3 w-4/12 text-xs">{t('debtor')}</th>
                             <th className="px-2 py-3 w-4/12 text-xs">{t('creditor')}</th>
@@ -280,13 +280,13 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                 return (
                                     <tr
                                         key={settlement._id}
-                                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                        className="bg-white border-b dark:bg-zinc-800 dark:border-zinc-700"
                                     >
-                                        <td className="px-2 py-4 text-sm text-gray-300 dark:text-gray-600 items-center space-x-3">
+                                        <td className="px-2 py-4 text-sm text-zinc-300 dark:text-zinc-600 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
                                                 <img
                                                     key={debtor._id}
-                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
                                                     src={`https://ui-avatars.com/api/?name=${debtor.name}&background=random`}
                                                     alt={debtor.name}
                                                 />
@@ -295,11 +295,11 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-2 py-4 text-sm text-gray-300 dark:text-gray-600 items-center space-x-3">
+                                        <td className="px-2 py-4 text-sm text-zinc-300 dark:text-zinc-600 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
                                                 <img
                                                     key={creditor._id}
-                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
+                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
                                                     src={`https://ui-avatars.com/api/?name=${creditor.name}&background=random`}
                                                     alt={creditor.name}
                                                 />
@@ -308,18 +308,18 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-2 py-4 text-sm text-gray-300 dark:text-gray-600 text-right">
+                                        <td className="px-2 py-4 text-sm text-zinc-300 dark:text-zinc-600 text-right">
                                             <Price price={+settlement.amount.toFixed(2)} />
                                         </td>
-                                        <td className="px-2 py-4 text-sm text-gray-300 dark:text-gray-600 text-center">
-                                            <span className="text-xs text-gray-300 dark:text-gray-600">{t('settled')}</span>
+                                        <td className="px-2 py-4 text-sm text-zinc-300 dark:text-zinc-600 text-center">
+                                            <span className="text-xs text-zinc-300 dark:text-zinc-600">{t('settled')}</span>
                                         </td>
                                     </tr>
                                 );
                             })
                         ) : (
                             <tr>
-                                <td colSpan={4} className="px-2 py-4 text-center text-sm text-gray-300 dark:text-gray-600">
+                                <td colSpan={4} className="px-2 py-4 text-center text-sm text-zinc-300 dark:text-zinc-600">
                                     {t('noSettlements')}
                                 </td>
                             </tr>

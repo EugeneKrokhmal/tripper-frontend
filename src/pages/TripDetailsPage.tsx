@@ -253,7 +253,7 @@ const TripDetailsPage: React.FC = () => {
         : cityImage || `https://ui-avatars.com/api/?name=${trip.name}&background=random`;
 
     return (
-        <section className="bg-white dark:bg-gray-800">
+        <section className="bg-white dark:bg-zinc-800">
             <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4">
                 <img
                     className="object-cover rounded h-64 w-full mb-4"
@@ -375,7 +375,7 @@ const TripDetailsPage: React.FC = () => {
                 {/* Button to open Add Expense modal */}
                 <div
                     onClick={handleAddExpenseClick}
-                    className="bg-gradient-to-r to-transparent from-sky-400 grid justify-center items-center rounded-full backdrop-blur-sm fixed z-50 w-16 h-16 border border-gray-200 bottom-4 left-4 dark:border-gray-600 lg:hidden h-16"
+                    className="bg-gradient-to-r to-transparent from-sky-400 grid justify-center items-center rounded-full backdrop-blur-sm fixed z-50 w-16 h-16 border border-zinc-200 bottom-4 left-4 dark:border-zinc-600 lg:hidden h-16"
                 >
                     <img className="w-6" src={PlusIcon} alt={t('addExpense')} />
                 </div>

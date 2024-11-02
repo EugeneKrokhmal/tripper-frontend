@@ -121,8 +121,8 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
         <div className="absolute start-4 top-0 bottom-0 end-4 flex justify-end p-3">
             {modalVisible && (
                 <Modal onClose={closeModal}>
-                    <h3 className="mb-2 text-4xl font-extrabold text-gray-900 dark:text-white md:text-3xl md:mt-4">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+                    <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
                             {t('editTrip')}
                         </span>
                     </h3>
@@ -144,7 +144,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
                             />
 
                             {autocompleteResults.length > 0 && (
-                                <ul className="absolute top-20 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+                                <ul className="absolute top-20 w-full bg-white border border-zinc-300 rounded-md shadow-lg max-h-60 overflow-auto">
                                     {autocompleteResults.map((result, index) => (
                                         <li
                                             key={index}
