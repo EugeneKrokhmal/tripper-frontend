@@ -10,6 +10,9 @@ import TextArea from '../elements/TextArea';
 import DateRangePicker from '../elements/DateRangePicker';
 import CurrencySwitcher from '../CurrencySwitcher';
 import { useCurrency } from '../CurrencyContext';
+import CreateTripImage from '../../images/gallery/5.jpg';
+
+const DEBOUNCE_DELAY = 300;
 
 const CreateTrip: React.FC = () => {
     const { t } = useTranslation();
@@ -21,14 +24,14 @@ const CreateTrip: React.FC = () => {
     const [autocompleteResults, setAutocompleteResults] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
+    const [currentStep, setCurrentStep] = useState(1);
     const token = useSelector((state: RootState) => state.auth.token);
-    const { currency, setCurrency } = useCurrency();
+    const { currency } = useCurrency();
     const navigate = useNavigate();
 
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     const OPEN_CAGE_API_KEY = process.env.REACT_APP_OPENCAGE_API_KEY;
 
-    // Debounce function to prevent rapid API requests
     const debounce = (func: Function, delay: number) => {
         let debounceTimer: NodeJS.Timeout;
         return (...args: any[]) => {
@@ -37,32 +40,53 @@ const CreateTrip: React.FC = () => {
         };
     };
 
-    // Fetch location suggestions from OpenCage API
     const fetchAutocompleteResults = async (query: string) => {
+        if (query.length < 3) return;
         try {
-            if (query.length < 3) return;
-
             const response = await axios.get(
                 `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${OPEN_CAGE_API_KEY}&limit=5`
             );
-
             setAutocompleteResults(response.data.results);
         } catch (err) {
             console.error('Error fetching location suggestions', err);
         }
     };
 
-    // Debounced autocomplete function
-    const debouncedFetchAutocomplete = debounce(fetchAutocompleteResults, 300);
+    const debouncedFetchAutocomplete = debounce(fetchAutocompleteResults, DEBOUNCE_DELAY);
 
-    // Handle location input changes with debouncing
     const handleLocationChange = (value: string) => {
         setDestination(value);
-        debouncedFetchAutocomplete(value);
+        if (value.length >= 3) {
+            debouncedFetchAutocomplete(value);
+        } else {
+            setAutocompleteResults([]);
+        }
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSelectSuggestion = (formatted: string) => {
+        setDestination(formatted);
+        setAutocompleteResults([]);
+    };
+
+    const handleDateChange = (type: 'start' | 'end', value: string) => {
+        if (type === 'start') {
+            setStartDate(value);
+            if (endDate && new Date(value) > new Date(endDate)) {
+                setError(t('endDateError')); // Set error if start date is after end date
+            } else {
+                setError(null); // Clear error if dates are valid
+            }
+        } else {
+            setEndDate(value);
+            if (startDate && new Date(value) < new Date(startDate)) {
+                setError(t('endDateError')); // Set error if end date is before start date
+            } else {
+                setError(null); // Clear error if dates are valid
+            }
+        }
+    };
+
+    const handleSubmit = async () => {
         setError(null);
         setSuccess(null);
 
@@ -73,16 +97,9 @@ const CreateTrip: React.FC = () => {
 
         try {
             const locationResponse = await axios.get(
-                `https://api.opencagedata.com/geocode/v1/json?key=${OPEN_CAGE_API_KEY}&q=${encodeURIComponent(destination)}&pretty=1&no_annotations=1`
+                `https://api.opencagedata.com/geocode/v1/json?key=${OPEN_CAGE_API_KEY}&q=${encodeURIComponent(destination)}`
             );
-
-            if (locationResponse.data.results.length === 0) {
-                setError(t('locationNotFound'));
-                return;
-            }
-
-            const locationData = locationResponse.data.results[0].geometry;
-
+            const locationData = locationResponse.data.results[0]?.geometry;
             const createTripResponse = await axios.post(
                 `${API_BASE_URL}/api/trips`,
                 {
@@ -90,10 +107,7 @@ const CreateTrip: React.FC = () => {
                     description,
                     currency,
                     destination,
-                    coordinates: {
-                        lat: locationData.lat,
-                        lng: locationData.lng,
-                    },
+                    coordinates: locationData,
                     startDate,
                     endDate,
                 },
@@ -107,82 +121,136 @@ const CreateTrip: React.FC = () => {
             setDestination('');
             setStartDate('');
             setEndDate('');
-
-            const newTripId = createTripResponse.data._id;
-            navigate(`/trip/${newTripId}`);
+            navigate(`/trip/${createTripResponse.data._id}`);
         } catch (err) {
             console.error('Error creating trip:', err);
             setError(t('createTripError'));
         }
     };
 
-    const handleAutocompleteSelect = (result: any) => {
-        setDestination(result.formatted);
-        setAutocompleteResults([]);
+    const handleNext = () => setCurrentStep((prev) => prev + 1);
+    const handlePrevious = () => setCurrentStep((prev) => prev - 1);
+
+    const isStepValid = () => {
+        if (currentStep === 1) return tripName.trim() !== '';
+        if (currentStep === 2) return destination.trim() !== '' && startDate !== '' && endDate !== '' && !error;
+        if (currentStep === 3) return description.trim() !== '';
+        return false;
     };
 
     return (
         <>
-            <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white md:text-3xl mb-4">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('createTripTitle')}</span>
-            </h3>
-            <form onSubmit={handleSubmit}>
-                <InputField
-                    label={t('tripName')}
-                    type="text"
-                    value={tripName}
-                    onChange={(e) => setTripName(e.target.value)}
-                    required
-                />
+            <div className="container max-w-7xl mx-auto flex flex-wrap flex-col md:flex-row px-4 pb-32">
+                <ol className="self-top relative w-full flex text-gray-500 dark:border-gray-700 dark:text-gray-400 md:p-16 py-8">
+                    {[
+                        { title: t('tripName'), step: 1, icon: 'check' },
+                        { title: t('destination'), step: 2, icon: 'check' },
+                        { title: t('description'), step: 3, icon: 'check' },
+                    ].map((item) => (
+                        <li key={item.step} className={`flex items-center gap-2 text-sm mr-4 ${currentStep === item.step ? 'text-gray-900' : ''}`}>
+                            <span
+                                className={`flex items-center justify-center w-4 h-4 md:w-8 md:h-8 ${currentStep >= item.step ? 'bg-gradient-to-r to-emerald-600 from-sky-400' : 'bg-gray-100'} rounded-full -start-4 ring-4 ring-white dark:ring-gray-900 ${currentStep >= item.step ? ' color-white ' : 'dark:bg-gray-700'
+                                    }`}
+                            >
+                                {item.icon === 'check' && currentStep >= item.step && (
+                                    <svg className="w-2 h-2 md:w-3.5 md:h-3.5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                                    </svg>
+                                )}
+                            </span>
+                            <h3 className="text-xs md:text-sm leading-tight">{item.title}</h3>
+                        </li>
+                    ))}
+                </ol>
 
-                <div className="relative">
-                    <InputField
-                        label={t('destination')}
-                        type="text"
-                        value={destination}
-                        onChange={(e) => handleLocationChange(e.target.value)}
-                        required
-                    />
+                <div className="w-full md:w-1/2 flex self-center flex-col md:p-16">
+                    <form onSubmit={(e) => e.preventDefault()}>
+                        {currentStep === 1 && (
+                            <div>
+                                <h2 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('tripName')}</span>
+                                </h2>
+                                <InputField
+                                    label={t('tripName')}
+                                    type="text"
+                                    value={tripName}
+                                    onChange={(e) => setTripName(e.target.value)}
+                                    required
+                                />
+                                <CurrencySwitcher />
+                            </div>
+                        )}
 
-                    <CurrencySwitcher />
+                        {currentStep === 2 && (
+                            <div className="relative">
+                                <h2 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('destination')}</span>
+                                </h2>
+                                <InputField
+                                    label={t('destination')}
+                                    type="text"
+                                    value={destination}
+                                    onChange={(e) => handleLocationChange(e.target.value)}
+                                    required
+                                />
 
-                    {/* Autocomplete suggestions */}
-                    {autocompleteResults.length > 0 && (
-                        <ul className="absolute top-20 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
-                            {autocompleteResults.map((result, index) => (
-                                <li
-                                    key={index}
-                                    className="p-2 hover:bg-gray-200 cursor-pointer"
-                                    onClick={() => handleAutocompleteSelect(result)}
-                                >
-                                    {result.formatted}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+                                {autocompleteResults.length > 0 && (
+                                    <ul className="absolute top-20 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+                                        {autocompleteResults.map((result, index) => (
+                                            <li
+                                                key={index}
+                                                className="p-2 hover:bg-gray-200 cursor-pointer"
+                                                onClick={() => handleSelectSuggestion(result.formatted)}
+                                            >
+                                                {result.formatted}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                                <DateRangePicker
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    onStartDateChange={(e) => handleDateChange('start', e.target.value)}
+                                    onEndDateChange={(e) => handleDateChange('end', e.target.value)}
+                                    required
+                                />
+                                {error && <p className="text-red-500 text-sm">{error}</p>}
+                            </div>
+                        )}
+
+                        {currentStep === 3 && (
+                            <div>
+                                <h2 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{t('description')}</span>
+                                </h2>
+                                <TextArea
+                                    label={t('description')}
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                />
+                                {error && <p className="text-red-500 text-sm">{error}</p>}
+                                {success && <p className="text-green-500">{success}</p>}
+                            </div>
+                        )}
+
+                        <div className="flex mt-4 gap-2">
+                            {currentStep > 1 && (
+                                <Button label={t('goBack')} type="button" onClick={handlePrevious} variant="secondary" />
+                            )}
+                            {currentStep < 3 && isStepValid() && (
+                                <Button label={t('next')} type="button" onClick={handleNext} variant="primary" />
+                            )}
+                            {currentStep === 3 && isStepValid() && (
+                                <Button label={t('createTrip')} type="button" onClick={handleSubmit} variant="primary" />
+                            )}
+                        </div>
+                    </form>
                 </div>
 
-                <DateRangePicker
-                    startDate={startDate}
-                    endDate={endDate}
-                    onStartDateChange={(e) => setStartDate(e.target.value)}
-                    onEndDateChange={(e) => setEndDate(e.target.value)}
-                    required
-                />
-
-                <TextArea
-                    label={t('description')}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-
-                <div className="flex">
-                    <Button label={t('createTrip')} type="submit" variant="primary" />
+                <div className="hidden md:block h-full w-full md:w-1/2 flex">
+                    <img className="aspect-square object-cover h-full w-full" src={CreateTripImage} alt="backpack" />
                 </div>
-
-                {error && <p className="text-red-500">{error}</p>}
-                {success && <p className="text-green-500">{success}</p>}
-            </form>
+            </div>
         </>
     );
 };

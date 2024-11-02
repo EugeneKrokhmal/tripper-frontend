@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import TripCard from '../components/trips/TripCard';
 import TripSearchAndFilter from '../components/trips/TripSearchAndFilter';
-import CreateTrip from '../components/trips/CreateTrip';
 import Ad from '../components/structure/Ad';
 import Breadcrumbs from '../components/structure/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
@@ -110,9 +109,6 @@ const Dashboard: React.FC = () => {
             <div className="flex flex-col-reverse gap-8 md:flex-row-reverse mb-8 px-4">
                 <div className="w-full md:w-2/4 xl:w-1/4">
                     <Ad />
-                    <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow-lg">
-                        <CreateTrip />
-                    </div>
                 </div>
 
                 <div className="md:w-3/4 content-start grid lg:grid-cols-2 gap-4 px-0">

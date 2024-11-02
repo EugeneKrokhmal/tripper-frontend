@@ -29,7 +29,7 @@ const LandingPage: React.FC = () => {
                         <div className="flex flex-row mt-8 gap-2 md:justify-start">
                             <Button
                                 label={t('planYourTrip')}
-                                onClick={() => { navigate('/dashboard')}}
+                                onClick={() => { navigate('/new-trip')}}
                                 variant="primary"
                             />
                             <Button
@@ -94,7 +94,7 @@ const LandingPage: React.FC = () => {
                         <div className="flex flex-row mt-8 gap-2 md:justify-start">
                             <Button
                                 label={t('planYourTrip')}
-                                onClick={() => { navigate('/dashboard')}}
+                                onClick={() => { navigate('/new-trip')}}
                                 variant="primary"
                             />
                             <Button

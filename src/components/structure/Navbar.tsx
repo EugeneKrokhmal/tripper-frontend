@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
                                     <Link to="/">{t('home')}</Link>
                                 </li>
                                 <li>
-                                    <Link to="/new-trip">{t('Create Trip')}</Link>
+                                    <Link to="/new-trip">{t('createTrip')}</Link>
                                 </li>
                                 <li>
                                     <Link to="dashboard">{t('myTrips')}</Link>
@@ -109,7 +109,7 @@ const Navbar: React.FC = () => {
                                     <Link to="/" onClick={toggleDrawer}>{t('home')}</Link>
                                 </li>
                                 <li className="mb-2">
-                                    <Link to="/new-trip" onClick={toggleDrawer}>{t('Create Trip')}</Link>
+                                    <Link to="/new-trip" onClick={toggleDrawer}>{t('createTrip')}</Link>
                                 </li>
                                 <li className="mb-2">
                                     <Link to="dashboard" onClick={toggleDrawer}>{t('myTrips')}</Link>

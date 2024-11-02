@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
                             <div className="flex md:flex-row mt-8 gap-2 justify-center max-w-96 mx-auto">
                                 <Button
                                     label={t('createTrip')}
-                                    onClick={() => navigate('/dashboard')}
+                                    onClick={() => navigate('/new-trip')}
                                     variant="primary"
                                 />
                                 <Button
