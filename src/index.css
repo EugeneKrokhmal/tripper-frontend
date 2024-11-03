@@ -13,10 +13,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 html::-webkit-scrollbar {
   display: none;
 }
@@ -83,16 +79,12 @@ ul.leaders span+span {
 input[type='date'],
 input[type='time'] {
   display: block;
+  box-sizing: border-box;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
   min-height: 38px;
   text-align: left;
   min-width: 90%;
-}
-
-input[type='date']::-webkit-datetime-edit,
-input[type='time']::-webkit-datetime-edit {
-  padding: .5rem;
 }
 
 /* Burger menu */

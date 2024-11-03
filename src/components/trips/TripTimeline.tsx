@@ -242,19 +242,19 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                                         <div className="flex justify-between gap-2">
                                             <div className="flex gap-4 w-10/12">
                                                 <strong className="w-10">{activity.time}</strong>
-                                                <div>
+                                                <div className="rounded bg-zinc-100 dark:bg-zinc-600 p-2 w-full">
                                                     <strong>{activity.name}</strong>:
-                                                    <div className="mb-2">{activity.description}</div>
+                                                    <div className="mb-8">{activity.description}</div>
                                                     {activity.bookingLink && (
-                                                        <a href={activity.bookingLink} target="_blank" rel="noopener noreferrer" className="flex text-gradient underline">
-                                                            <img src={BookingIcon} alt="Location" className="inline-block w-4 h-4 mr-2" />
+                                                        <a href={activity.bookingLink} target="_blank" rel="noopener noreferrer" className="flex text-gradient underline text-xs">
+                                                            <img src={BookingIcon} alt="Location" className="inline-block w-4 h-4 mr-2 dark:invert" />
                                                             {t('viewBooking')}
                                                         </a>
                                                     )}
                                                     {activity.transportation && (
                                                         <div className="mt-2">
-                                                            <a className="flex underline text-gradient" target="_blank" href={`https://maps.google.com/?q=${activity.transportation.lat},${activity.transportation.lng}`}>
-                                                                <img src={LocationIcon} alt="Location" className="inline-block w-4 h-4 mr-2" />
+                                                            <a className="flex underline text-xs text-gradient" target="_blank" href={`https://maps.google.com/?q=${activity.transportation.lat},${activity.transportation.lng}`}>
+                                                                <img src={LocationIcon} alt="Location" className="inline-block w-4 h-4 mr-2 dark:invert" />
                                                                 {activity.transportation.title}
                                                             </a>
                                                         </div>
@@ -285,7 +285,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
             <div className="flex flex-row text-center mt-4 gap-2">
                 {isOwner && (
                     <div className="self-start">
-<Button label={t('addActivity')} onClick={() => setModalVisible(true)} variant="primary" />                        
+                        <Button label={t('addActivity')} onClick={() => setModalVisible(true)} variant="primary" />
                     </div>
                 )}
                 {tripDates.length > 3 && (

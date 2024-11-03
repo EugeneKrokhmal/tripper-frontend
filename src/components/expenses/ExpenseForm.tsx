@@ -97,7 +97,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
         <>
             <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                 <span className="text-gradient">
-                    {t('addExpense')} ({currency})
+                    {t('addExpense')}
                 </span>
             </h3>
             <form onSubmit={handleSubmit} className="max-h-[70vh] overflow-y-auto">

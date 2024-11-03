@@ -67,7 +67,11 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
         >
             <div className="w-full flex-col flex px-4 md:px-4 leading-normal bg-white dark:bg-zinc-900 h-2/3">
                 <h1 className="mb-2 mt-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-3xl">
-                    <span className="text-gradient">{trip.name}</span>
+                    <span
+                        onClick={() => navigate(`/trip/${trip._id}`)}
+                        className="text-gradient">
+                        {trip.name}
+                    </span>
                 </h1>
                 <div className="flex flex-col h-full justify-between">
                     <div>

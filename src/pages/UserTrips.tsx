@@ -82,7 +82,7 @@ const Dashboard: React.FC = () => {
     };
 
     const handleFilter = (filters: string[]) => {
-        setFilteredTrips(trips); // Adjust to apply filters as needed
+        setFilteredTrips(trips);
     };
 
     const breadcrumbs = [
@@ -92,7 +92,7 @@ const Dashboard: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="h-screen flex items-center justify-center">
+            <div className="pb-20 h-screen flex items-center justify-center">
                 <Loader />
             </div>
         );

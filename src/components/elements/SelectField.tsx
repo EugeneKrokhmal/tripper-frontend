@@ -45,7 +45,7 @@ const SelectField: React.FC<SelectFieldProps> = ({ label, value, onChange, optio
                         <div
                             key={option.value}
                             onClick={() => handleOptionClick(option.value)}
-                            className={`text-sm p-2 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 ${
+                            className={`text-sm text-zinc-900 dark:text-zinc-100 p-2 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 ${
                                 option.value === value ? 'bg-zinc-200 dark:bg-zinc-700' : ''
                             }`}
                         >

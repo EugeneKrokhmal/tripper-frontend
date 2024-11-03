@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
     const navigate = useNavigate();
 
     if (!i18n.isInitialized) {
-        <Loader/>
+        <Loader />
     }
 
     return (
@@ -54,9 +54,11 @@ const HomePage: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="mx-auto max-w-screen-xl my-16">
-                <TripsSlider />
-                <LandingPage />
+            <div className="overflow-x-hidden">
+                <div className="mx-auto max-w-screen-xl my-16">
+                    <TripsSlider />
+                    <LandingPage />
+                </div>
             </div>
         </>
     );
