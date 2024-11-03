@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
         <nav className="z-50 fixed top-0 left-0 w-full h-20 bg-white border-zinc-200 dark:bg-zinc-900 shadow">
             <div className="max-w-screen-xl h-full flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">
-                    <div className="text-xl font-extrabold text-zinc-900 dark:text-white">
+                    <div className="text-2xl font-extrabold text-zinc-900 dark:text-white">
                         <span className="text-gradient">
                             {t('Tripper')}
                         </span>
