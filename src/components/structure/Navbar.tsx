@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     {isAuthenticated ? (
                         <div className="flex items-center space-x-2 relative">
-                            <ul className="hidden md:flex gap-4 mx-8 text-sm">
+                            <ul className="hidden md:flex gap-4 mx-8 text-sm text-zinc-900 dark:text-zinc-100">
                                 <li>
                                     <Link to="/">{t('home')}</Link>
                                 </li>

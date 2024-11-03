@@ -58,7 +58,7 @@ const TripInfo: React.FC<TripInfoProps> = ({
                     </div>
                 </div>
 
-                <p className="text text-zinc-500 dark:text-zinc-300 mb-6">{tripDescription}</p>
+                <p className="text text-zinc-500 dark:text-zinc-300 mb-6 whitespace-pre-line">{tripDescription}</p>
 
                 <h3 id="theplace" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                     <span className="text-gradient">{t('thePlace')}</span>
