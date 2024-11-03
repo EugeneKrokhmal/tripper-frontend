@@ -142,14 +142,14 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
     return (
         <div className="my-6">
             <h3 id="settlementsummary" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('settlementSummary')}</span>
+                <span className="text-gradient">{t('settlementSummary')}</span>
             </h3>
 
             <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('settlementDescription')}</p>
 
             <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400 mb-8">
-                    <thead className="text-xs text-zinc-700 uppercase bg-gray-50 dark:bg-zinc-700 dark:text-zinc-400">
+                    <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-700 dark:text-zinc-400">
                         <tr>
                             <th className="px-2 w-4/12 py-3 text-xs">{t('debtor')}</th>
                             <th className="px-2 w-4/12 py-3 text-xs">{t('creditor')}</th>
@@ -165,7 +165,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                 return (
                                     <tr
                                         key={settlement._id}
-                                        className={`bg-white border-b dark:bg-zinc-800 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-gray-600 ${settlement.isSettled ? 'opacity-50' : ''}`}
+                                        className={`bg-white border-b dark:bg-zinc-800 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-600 ${settlement.isSettled ? 'opacity-50' : ''}`}
                                     >
                                         <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
@@ -208,7 +208,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                     {activeSettlementId === settlement._id && (
                                                         <Modal onClose={closeModal}>
                                                             <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
-                                                                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('settleDebt')}</span>
+                                                                <span className="text-gradient">{t('settleDebt')}</span>
                                                             </h3>
                                                             <SelectField
                                                                 label={t('settlementType')}
@@ -260,11 +260,11 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
 
                 {/* Settled settlements */}
                 <h3 id="settlementsummary" className="mb-2 text-xl font-extrabold text-zinc-900 dark:text-white text-xl mt-4">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('settled')}</span>
+                    <span className="text-gradient">{t('settled')}</span>
                 </h3>
 
                 <table className="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
-                    <thead className="text-xs text-zinc-700 uppercase bg-gray-50 dark:bg-zinc-700 dark:text-zinc-400">
+                    <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-700 dark:text-zinc-400">
                         <tr>
                             <th className="px-2 py-3 w-4/12 text-xs">{t('debtor')}</th>
                             <th className="px-2 py-3 w-4/12 text-xs">{t('creditor')}</th>

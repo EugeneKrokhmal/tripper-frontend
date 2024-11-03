@@ -38,11 +38,11 @@ const Navbar: React.FC = () => {
     }, []);
 
     return (
-        <nav className="z-50 fixed top-0 left-0 w-full bg-white border-zinc-200 dark:bg-zinc-900 shadow">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <nav className="z-50 fixed top-0 left-0 w-full h-20 bg-white border-zinc-200 dark:bg-zinc-900 shadow">
+            <div className="max-w-screen-xl h-full flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">
                     <div className="text-xl font-extrabold text-zinc-900 dark:text-white">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                        <span className="text-gradient">
                             {t('Tripper')}
                         </span>
                     </div>
@@ -64,12 +64,11 @@ const Navbar: React.FC = () => {
                             </ul>
                             <button
                                 type="button"
-                                className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                                id="user-menu-button"
+                                className="flex text-sm bg-zinc-800 dark:bg-zinc-100 rounded-full focus:ring-4 focus:ring-zinc-300 dark:focus:ring-zinc-600"
                             >
                                 <span className="sr-only">Open user menu</span>
                                 <img
-                                    className="w-8 h-8 border-2 border-white rounded-full dark:border-zinc-800"
+                                    className="w-8 h-8 rounded-full"
                                     src={`https://ui-avatars.com/api/?name=${userName}&background=random`}
                                     alt={userName || ''}
                                 />
@@ -87,7 +86,7 @@ const Navbar: React.FC = () => {
 
                 <div className={`fixed inset-0 z-40 ${isDrawerOpen ? 'backdrop-blur-sm' : 'pointer-events-none'}`}>
                     <div
-                        className={`bg-gray-900 bg-opacity-50 w-full h-full transition-opacity duration-300 ${isDrawerOpen ? 'opacity-100' : 'opacity-0'}`}
+                        className={`bg-zinc-900 bg-opacity-50 w-full h-full transition-opacity duration-300 ${isDrawerOpen ? 'opacity-100' : 'opacity-0'}`}
                         onClick={toggleDrawer}
                     ></div>
 
@@ -101,7 +100,7 @@ const Navbar: React.FC = () => {
                             </div>
                             <DarkModeToggle />
                             <div>
-                                <svg onClick={toggleDrawer} className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <svg onClick={toggleDrawer} className="w-6 h-6 text-zinc-900 dark:text-zinc-100" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </div>
@@ -111,27 +110,28 @@ const Navbar: React.FC = () => {
 
                         <div className="flex flex-col">
                             <ul className="flex flex-col">
-                                <li className="mb-2">
+                                <li className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
                                     <Link to="/" onClick={toggleDrawer}>{t('home')}</Link>
                                 </li>
-                                <li className="mb-2">
+                                <li className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
                                     <Link to="/new-trip" onClick={toggleDrawer}>{t('createTrip')}</Link>
                                 </li>
-                                <li className="mb-2">
+                                <li className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
                                     <Link to="dashboard" onClick={toggleDrawer}>{t('myTrips')}</Link>
                                 </li>
-                                <li className="mb-2">
+                                <li className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
                                     <Link to="faq" onClick={toggleDrawer}>{t('FAQ')}</Link>
                                 </li>
                             </ul>
                         </div>
 
                         <ul className="flex flex-col mt-auto">
-                            <li className="mb-2">
+                            <li className="mb-4 text-zinc-900 dark:text-zinc-100">
                                 <Link to="settings" onClick={toggleDrawer}>{t('settings')}</Link>
                             </li>
                             <li>
                                 <button
+                                    className="text-zinc-900 dark:text-zinc-100"
                                     onClick={() => {
                                         handleLogout();
                                         setIsDropdownOpen(false);

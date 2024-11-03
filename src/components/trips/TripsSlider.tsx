@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -28,6 +28,7 @@ const TripsSlider: React.FC = () => {
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     const { t } = useTranslation();
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+    const sliderRef = useRef<any | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -55,18 +56,20 @@ const TripsSlider: React.FC = () => {
     if (loading) return <Loader />;
     if (trips.length === 0) return null;
 
-    // Custom Dot Component
-    const CustomDot = (props: any) => {
-        const { onClick, isActive } = props;
-        return (
-            <div
-                onClick={onClick}
-                className={`drop-bounce delay-300 w-3 h-3 mx-1 rounded-full cursor-pointer transition-all duration-300 ${
-                    isActive ? 'active bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500' : 'bg-gray-400'
-                }`}
-            />
-        );
+    const goToSlide = (slideIndex: number) => {
+        sliderRef.current?.slickGoTo(slideIndex);
     };
+
+    const CustomDot = ({ isActive, onClick }: { isActive: boolean; onClick: () => void }) => (
+        <div
+            onClick={onClick}
+            className={`drop-bounce delay-300 w-3 h-3 mx-1 rounded-full cursor-pointer transition-all duration-300
+            ${isActive ?
+                    'active bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500' :
+                    'bg-zinc-400'
+                }`}
+        />
+    );
 
     const sliderSettings = {
         dots: true,
@@ -82,7 +85,6 @@ const TripsSlider: React.FC = () => {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                     infinite: true,
-                    dots: true,
                 },
             },
             {
@@ -98,7 +100,11 @@ const TripsSlider: React.FC = () => {
         appendDots: (dots: any) => (
             <div className="flex mt-4 space-x-2">
                 {dots.map((dot: any, index: number) => (
-                    <CustomDot key={index} onClick={dot.props.onClick} isActive={index === activeSlideIndex} />
+                    <CustomDot
+                        key={index}
+                        isActive={index === activeSlideIndex}
+                        onClick={() => goToSlide(index)}
+                    />
                 ))}
             </div>
         ),
@@ -108,16 +114,16 @@ const TripsSlider: React.FC = () => {
     return (
         <div className="mx-auto px-4">
             <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                <span className="text-gradient">
                     {t('myTrips')}
                 </span>
             </h1>
             <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">
                 {t('createTripTitle')}
             </p>
-            <Slider {...sliderSettings} className="trip-slider">
+            <Slider ref={sliderRef} {...sliderSettings} className="trip-slider">
                 {trips.map((trip, index) => (
-                    <div key={trip._id} className="pr-4 min-w-72 max-w-72 md:min-w-full md:max-w-full">
+                    <div key={trip._id} className="h-full pr-4 min-w-72 max-w-72 md:min-w-full md:max-w-full">
                         <TripCard
                             isActive={index >= activeSlideIndex && index < activeSlideIndex + 2}
                             trip={trip}

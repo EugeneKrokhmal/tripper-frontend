@@ -20,6 +20,7 @@ const CreateTrip: React.FC = () => {
     const { t } = useTranslation();
     const [tripName, setTripName] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
+    const [coordinates, setCoordinates] = useState<{ lat: number; lng: number } | null>(null);
     const [description, setDescription] = useState<string>('');
     const [startDate, setStartDate] = useState<string>('');
     const [endDate, setEndDate] = useState<string>('');
@@ -80,8 +81,12 @@ const CreateTrip: React.FC = () => {
         }
     };
 
-    const handleSelectSuggestion = (formatted: string) => {
-        setDestination(formatted);
+    const handleSelectSuggestion = (selectedLocation: any) => {
+        setDestination(selectedLocation.formatted);
+        setCoordinates({
+            lat: selectedLocation.geometry.lat,
+            lng: selectedLocation.geometry.lng,
+        });
         setAutocompleteResults([]);
     };
 
@@ -113,10 +118,6 @@ const CreateTrip: React.FC = () => {
         }
 
         try {
-            const locationResponse = await axios.get(
-                `https://api.opencagedata.com/geocode/v1/json?key=${OPEN_CAGE_API_KEY}&q=${encodeURIComponent(destination)}`
-            );
-            const locationData = locationResponse.data.results[0]?.geometry;
             const createTripResponse = await axios.post(
                 `${API_BASE_URL}/api/trips`,
                 {
@@ -124,7 +125,7 @@ const CreateTrip: React.FC = () => {
                     description,
                     currency,
                     destination,
-                    coordinates: locationData,
+                    coordinates,
                     startDate,
                     endDate,
                 },
@@ -136,6 +137,7 @@ const CreateTrip: React.FC = () => {
             setSuccess(t('tripCreated'));
             setTripName('');
             setDestination('');
+            setCoordinates(null);
             setStartDate('');
             setEndDate('');
             navigate(`/trip/${createTripResponse.data._id}`);
@@ -157,35 +159,34 @@ const CreateTrip: React.FC = () => {
 
     return (
         <>
-            <div className="container max-w-7xl mx-auto h-screen flex flex-wrap flex-col px-4 pb-32">
-                <ol className="md:h-16 px-2 md:px-4 py-4 md:py-4 bg-white dark:bg-zinc-900 rounded my-4 z-10 self-top relative w-full flex justify-space-around md:justify-center text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
-                    {[
-                        { title: t('tripName'), step: 1, icon: 'check' },
-                        { title: t('destination'), step: 2, icon: 'check' },
-                        { title: t('description'), step: 3, icon: 'check' },
-                    ].map((item) => (
-                        <li key={item.step} className={`w-1/3 flex-col md:flex-row flex text-center items-center gap-2 text-sm mx-4 ${currentStep === item.step ? 'text-zinc-900 dark:text-zinc-100' : ''}`}>
-                            <span
-                                className={`flex items-center justify-center w-4 h-4 md:w-8 md:h-8 ${currentStep >= item.step ? 'bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500' : 'bg-gray-100'} rounded-full -start-2 ring-2 ring-white dark:ring-gray-900 ${currentStep >= item.step ? ' color-white ' : 'dark:bg-zinc-700'
-                                    }`}
-                            >
-                                {item.icon === 'check' && currentStep >= item.step && (
-                                    <svg className="w-2 h-2 md:w-3.5 md:h-3.5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5.917 5.724 10.5 15 1.5" />
-                                    </svg>
-                                )}
-                            </span>
-                            <h3 className="text-sm leading-tight">{item.title}</h3>
-                        </li>
-                    ))}
-                </ol>
-
-                <div className="z-10 w-full md:w-2/5 flex flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 rounded">
+            <div className="container max-w-7xl mx-auto h-screen flex flex-wrap justify-center flex-col px-4 pb-32">
+                <div className="z-10 w-full md:w-3/5 lg:w-3/5 xl:w-2/5 flex flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 rounded">
+                    <ol className="mb-4 bg-white dark:bg-zinc-900 w-full flex text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+                        {[
+                            { title: t('tripName'), step: 1, icon: 'check' },
+                            { title: t('destination'), step: 2, icon: 'check' },
+                            { title: t('description'), step: 3, icon: 'check' },
+                        ].map((item) => (
+                            <li key={item.step} className={`flex-row flex items-center gap-2 text-xs md:text-sm mr-2 ${currentStep === item.step ? 'text-zinc-900 dark:text-zinc-100' : ''}`}>
+                                <span
+                                    className={`flex items-center justify-center min-w-4 w-4 h-4 ${currentStep >= item.step ? 'bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500' : 'bg-zinc-100'} rounded-full -start-2 ring-2 ring-white dark:ring-zinc-900 ${currentStep >= item.step ? ' color-white ' : 'dark:bg-zinc-700'
+                                        }`}
+                                >
+                                    {item.icon === 'check' && currentStep >= item.step && (
+                                        <svg className="w-2 h-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                                        </svg>
+                                    )}
+                                </span>
+                                <h3 className="text-sm leading-tight">{item.title}</h3>
+                            </li>
+                        ))}
+                    </ol>
                     <form onSubmit={(e) => e.preventDefault()}>
                         {currentStep === 1 && (
                             <div>
                                 <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('tripName')}</span>
+                                    <span className="text-gradient">{t('tripName')}</span>
                                 </h2>
                                 <InputField
                                     label={t('tripName')}
@@ -201,7 +202,7 @@ const CreateTrip: React.FC = () => {
                         {currentStep === 2 && (
                             <div className="relative">
                                 <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('destination')}</span>
+                                    <span className="text-gradient">{t('destination')}</span>
                                 </h2>
                                 <InputField
                                     label={t('destination')}
@@ -216,8 +217,8 @@ const CreateTrip: React.FC = () => {
                                         {autocompleteResults.map((result, index) => (
                                             <li
                                                 key={index}
-                                                className="p-2 hover:bg-gray-200 cursor-pointer"
-                                                onClick={() => handleSelectSuggestion(result.formatted)}
+                                                className="p-2 hover:bg-zinc-200 cursor-pointer"
+                                                onClick={() => handleSelectSuggestion(result)}
                                             >
                                                 {result.formatted}
                                             </li>
@@ -238,7 +239,7 @@ const CreateTrip: React.FC = () => {
                         {currentStep === 3 && (
                             <div>
                                 <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('description')}</span>
+                                    <span className="text-gradient">{t('description')}</span>
                                 </h2>
                                 <TextArea
                                     label={t('description')}

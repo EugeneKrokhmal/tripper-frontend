@@ -64,29 +64,29 @@ const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ totalPaidByUser, totalC
     return (
         <div className="mb-6 md:max-w-sm w-full bg-white dark:bg-zinc-800">
             <h3 className="mb-4 text-2xl font-extrabold text-zinc-900 dark:text-white">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('expensesOverview')}</span>
+                <span className="text-gradient">{t('expensesOverview')}</span>
             </h3>
-            <div className="mb-2 bg-gray-100 dark:bg-zinc-600 rounded p-2">
+            <div className="mb-2 bg-zinc-100 dark:bg-zinc-600 rounded p-2">
                 <h5 className="text-4xl font-bold text-zinc-900 dark:text-white">
                     <Price price={+totalPaidByUser.toFixed()} />
                 </h5>
                 <p className="text-xs font-normal text-zinc-500 dark:text-zinc-300">{t('youPaid')}</p>
             </div>
             <div className="flex gap-2 items-normal mb-4">
-                <div className="bg-gray-100 dark:bg-zinc-600 rounded p-2">
+                <div className="bg-zinc-100 dark:bg-zinc-600 rounded p-2">
                     <h5 className="text-l font-bold text-zinc-900 dark:text-white">
                         <Price price={+totalCost.toFixed(2)} />
                     </h5>
                     <p className="text-xs font-normal text-zinc-500 dark:text-zinc-300 ">{t('itCostsYou')}</p>
                 </div>
-                <div className="bg-gray-100 dark:bg-zinc-600 rounded p-2">
+                <div className="bg-zinc-100 dark:bg-zinc-600 rounded p-2">
                     <h5 className="text-l font-bold text-zinc-900 dark:text-white">
                         <Price price={+debtToUser.toFixed(2)} />
                     </h5>
                     <p className="text-xs font-normal text-zinc-500 dark:text-zinc-300 ">{t('settlementSummary')}</p>
                 </div>
                 {/* New div for remaining owed to you */}
-                {/* <div className="bg-gray-100 dark:bg-zinc-600 rounded p-2">
+                {/* <div className="bg-zinc-100 dark:bg-zinc-600 rounded p-2">
                     <h5 className="text-l font-bold text-zinc-900 dark:text-white">
                         <Price price={+remainingOwedToUser.toFixed()} />
                     </h5>

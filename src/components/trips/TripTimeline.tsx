@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next'; // Import the useTranslation hook
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import InputField from '../elements/InputField';
 import Button from '../elements/Button';
@@ -7,6 +7,10 @@ import TextArea from '../elements/TextArea';
 import Modal from '../elements/Modal';
 import EditIcon from '../../images/icons/edit.svg';
 import DeleteIcon from '../../images/icons/delete.svg';
+import TripMap from './TripMap';
+import LocationIcon from '../../images/icons/marker.svg';
+import BookingIcon from '../../images/icons/bed.svg';
+
 
 interface TripTimelineProps {
     isOwner: boolean;
@@ -15,13 +19,31 @@ interface TripTimelineProps {
     tripId: string;
     token: string;
     API_BASE_URL: string;
+    OPEN_CAGE_API_KEY: string;
 }
 
 interface Activity {
     name: string;
     description: string;
     time: string;
+    bookingLink?: string;
+    transportation?: { title: string; lat?: number; lng?: number };
 }
+
+const DEBOUNCE_DELAY = 300;
+
+const getAllTripDates = (start: string, end: string): string[] => {
+    const dates = [];
+    let currentDate = new Date(start);
+    const endDate = new Date(end);
+
+    while (currentDate <= endDate) {
+        dates.push(currentDate.toISOString().split('T')[0]);
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return dates;
+};
 
 const TripTimeline: React.FC<TripTimelineProps> = ({
     startDate,
@@ -29,40 +51,26 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     tripId,
     token,
     API_BASE_URL,
+    OPEN_CAGE_API_KEY,
     isOwner,
 }) => {
-    const { t } = useTranslation();  // Initialize the translation hook
+    const { t } = useTranslation();
 
     const [timeline, setTimeline] = useState<{ [key: string]: Activity[] }>({});
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [newActivity, setNewActivity] = useState<string>('');
     const [newDescription, setNewDescription] = useState<string>('');
     const [newTime, setNewTime] = useState<string>('');
-    const [editMode, setEditMode] = useState<boolean>(false);
-    const [editActivityIndex, setEditActivityIndex] = useState<number | null>(null);
+    const [newBookingLink, setNewBookingLink] = useState<string>('');
+    const [newTransportation, setNewTransportation] = useState<{ title: string; lat?: number; lng?: number } | null>(null);
+    const [newTransportationTitle, setNewTransportationTitle] = useState<string>('');
+    const [newLat, setNewLat] = useState<number | null>(null);
+    const [newLng, setNewLng] = useState<number | null>(null);
+    const [autocompleteResults, setAutocompleteResults] = useState<any[]>([]);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [showAll, setShowAll] = useState<boolean>(false);
-
-    const formatDate = (dateString: string): string => {
-        const date = new Date(dateString);
-        return new Intl.DateTimeFormat('en-US', {
-            day: 'numeric',
-            month: 'short',
-        }).format(date);
-    };
-
-    const getAllTripDates = (start: string, end: string): string[] => {
-        const dates = [];
-        let currentDate = new Date(start);
-        const endDate = new Date(end);
-
-        while (currentDate <= endDate) {
-            dates.push(currentDate.toISOString().split('T')[0]);
-            currentDate.setDate(currentDate.getDate() + 1);
-        }
-
-        return dates;
-    };
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [editActivityIndex, setEditActivityIndex] = useState<number | null>(null);
 
     useEffect(() => {
         const fetchTripDetails = async () => {
@@ -79,14 +87,61 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
         fetchTripDetails();
     }, [tripId, token]);
 
+    const debounce = (func: Function, delay: number) => {
+        let debounceTimer: NodeJS.Timeout;
+        return (...args: any[]) => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => func.apply(this, args), delay);
+        };
+    };
+
+    const fetchAutocompleteResults = async (query: string) => {
+        if (query.length < 3) return;
+        try {
+            const response = await axios.get(
+                `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${OPEN_CAGE_API_KEY}&limit=5`
+            );
+            setAutocompleteResults(response.data.results);
+        } catch (err) {
+            console.error('Error fetching location suggestions', err);
+        }
+    };
+
+    const debouncedFetchAutocomplete = debounce(fetchAutocompleteResults, DEBOUNCE_DELAY);
+
+    const handleLocationChange = (value: string) => {
+        setNewTransportationTitle(value);
+        if (value.length >= 3) {
+            debouncedFetchAutocomplete(value);
+        } else {
+            setAutocompleteResults([]);
+        }
+    };
+
+    const handleSelectSuggestion = (suggestion: any) => {
+        setNewTransportationTitle(suggestion.formatted);
+        setNewLat(suggestion.geometry.lat);
+        setNewLng(suggestion.geometry.lng);
+        setAutocompleteResults([]);
+    };
+
     const handleAddOrUpdateActivity = async () => {
         if (!selectedDate || !newActivity || !newDescription || !newTime) return;
 
-        const newActivityObject = {
+        const newActivityObject: Activity = {
             name: newActivity,
             description: newDescription,
             time: newTime,
+            bookingLink: newBookingLink,
+            transportation: newTransportationTitle
+                ? {
+                    title: newTransportationTitle,
+                    lat: newLat !== null ? newLat : undefined,
+                    lng: newLng !== null ? newLng : undefined
+                }
+                : undefined,
         };
+
 
         const updatedTimeline = { ...timeline };
 
@@ -97,14 +152,16 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
         }
 
         try {
-            await axios.put(`${API_BASE_URL}/api/trips/${tripId}/timeline`, { timeline: updatedTimeline }, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            await axios.put(
+                `${API_BASE_URL}/api/trips/${tripId}/timeline`,
+                { timeline: updatedTimeline },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
 
             setTimeline(updatedTimeline);
             closeModal();
         } catch (error) {
-            console.error('Error updating timeline:', error);
+            console.error("Error updating timeline:", error);
         }
     };
 
@@ -117,6 +174,11 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
         setNewActivity('');
         setNewDescription('');
         setNewTime('');
+        setNewBookingLink('');
+        setNewTransportationTitle('');
+        setNewLat(null);
+        setNewLng(null);
+        setNewTransportation(null);
         setSelectedDate(null);
         setEditMode(false);
         setEditActivityIndex(null);
@@ -142,9 +204,19 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
         setNewActivity(activity.name);
         setNewDescription(activity.description);
         setNewTime(activity.time);
+        setNewBookingLink(activity.bookingLink || '');
+        setNewTransportation(activity.transportation || null);
         setEditMode(true);
         setEditActivityIndex(index);
         setModalVisible(true);
+    };
+
+    const formatDate = (dateString: string): string => {
+        const date = new Date(dateString);
+        return new Intl.DateTimeFormat('en-US', {
+            day: 'numeric',
+            month: 'short',
+        }).format(date);
     };
 
     const tripDates = getAllTripDates(startDate, endDate);
@@ -153,16 +225,16 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     return (
         <div className="trip-timeline">
             <h3 id="timeline" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('timeline')}</span>
+                <span className="text-gradient">{t('timeline')}</span>
             </h3>
 
-            <p className="text-sm text-zinc-500 dark:text-zinc-300  mb-6">{t('toAddActivity')}</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('toAddActivity')}</p>
 
             <ol className="relative border-l border-zinc-200 dark:border-zinc-700 my-6 pb-6">
                 {displayedDates.map(date => (
                     <li key={date} className="mb-1 ml-4">
-                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-zinc-900 dark:bg-zinc-700"></div>
-                        <time className="mb-1 text-sm font-normal leading-none text-zinc-400 dark:text-zinc-300">{formatDate(date)} {t('dayPlan')}:</time>
+                        <div className="absolute w-3 h-3 bg-zinc-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-zinc-900 dark:bg-zinc-700"></div>
+                        <time className="mb-1 text-normal font-normal leading-none text-zinc-400 dark:text-zinc-300"><span className="text-gradient font-bold">{formatDate(date)}</span> {t('dayPlan')}:</time>
                         {timeline[date] && timeline[date].length > 0 ? (
                             <ul className="mb-4 mt-4 text-base font-normal text-zinc-500 dark:text-zinc-300">
                                 {timeline[date].map((activity, index) => (
@@ -172,7 +244,21 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                                                 <strong className="w-10">{activity.time}</strong>
                                                 <div>
                                                     <strong>{activity.name}</strong>:
-                                                    <div>{activity.description}</div>
+                                                    <div className="mb-2">{activity.description}</div>
+                                                    {activity.bookingLink && (
+                                                        <a href={activity.bookingLink} target="_blank" rel="noopener noreferrer" className="flex text-gradient underline">
+                                                            <img src={BookingIcon} alt="Location" className="inline-block w-4 h-4 mr-2" />
+                                                            {t('viewBooking')}
+                                                        </a>
+                                                    )}
+                                                    {activity.transportation && (
+                                                        <div className="mt-2">
+                                                            <a className="flex underline text-gradient" target="_blank" href={`https://maps.google.com/?q=${activity.transportation.lat},${activity.transportation.lng}`}>
+                                                                <img src={LocationIcon} alt="Location" className="inline-block w-4 h-4 mr-2" />
+                                                                {activity.transportation.title}
+                                                            </a>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                             {isOwner && (
@@ -196,70 +282,62 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                 ))}
             </ol>
 
-            <div className="flex flex-row text-center mt-4 flex gap-2">
-
+            <div className="flex flex-row text-center mt-4 gap-2">
                 {isOwner && (
                     <div className="self-start">
-                        <Button label={t('addActivity')} onClick={() => setModalVisible(true)} variant="primary" />
+<Button label={t('addActivity')} onClick={() => setModalVisible(true)} variant="primary" />                        
                     </div>
                 )}
                 {tripDates.length > 3 && (
-                    <div className="self-start">
-
-
-                        <Button
-                            label={showAll ? t('showLess') : t('showMore')}
-                            onClick={() => setShowAll(!showAll)}
-                            variant="secondary"
-                        />
-                    </div>
+                    <Button label={showAll ? t('showLess') : t('showMore')} onClick={() => setShowAll(!showAll)} variant="secondary" />
                 )}
-
             </div>
 
             {modalVisible && isOwner && (
                 <Modal onClose={closeModal}>
                     <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{editMode ? t('editActivity') : t('addActivity')}</span>
+                        <span className="text-gradient">{editMode ? t('editActivity') : t('addActivity')}</span>
                     </h3>
 
                     <form className="max-h-[70vh] overflow-y-auto">
-
                         <div className="mb-4">
-                            <label htmlFor="date-select" className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">{t('selectDate')}</label>
+                            <label htmlFor="date-select" className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">{t('selectDate')}<span className="text-red-500">*</span> </label>
                             <select
                                 id="date-select"
                                 value={selectedDate || ''}
                                 onChange={(e) => setSelectedDate(e.target.value)}
-                                className="block w-full p-2.5 bg-gray-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
+                                className="block w-full p-2.5 bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
                             >
                                 <option value="" disabled>{t('selectDate')}</option>
                                 {tripDates.map(date => (
-                                    <option key={date} value={date}>{formatDate(date)}</option>
+                                    <option key={date} value={date}>{date}</option>
                                 ))}
                             </select>
                         </div>
+                        <InputField type="text" value={newActivity} onChange={(e) => setNewActivity(e.target.value)} label={t('enterActivityName')} required />
+                        <TextArea label={t('activityDescription')} value={newDescription} onChange={(e) => setNewDescription(e.target.value)} />
+                        <InputField label={t('activityTime')} type="time" value={newTime} onChange={(e) => setNewTime(e.target.value)} required />
+                        <InputField label={t('bookingLink')} type="url" value={newBookingLink} onChange={(e) => setNewBookingLink(e.target.value)} />
 
                         <InputField
+                            label={t('location')}
                             type="text"
-                            value={newActivity}
-                            onChange={(e) => setNewActivity(e.target.value)}
-                            label={t('enterActivityName')}
+                            value={newTransportationTitle}
+                            onChange={(e) => handleLocationChange(e.target.value)}
                         />
-
-                        <TextArea
-                            label={t('activityDescription')}
-                            value={newDescription}
-                            onChange={(e) => setNewDescription(e.target.value)}
-                        />
-
-                        <InputField
-                            label={t('activityTime')}
-                            type="time"
-                            value={newTime}
-                            onChange={(e) => setNewTime(e.target.value)}
-                        />
-
+                        {autocompleteResults.length > 0 && (
+                            <ul className="absolute top-full mt-1 w-full bg-white border rounded-md shadow-lg max-h-60 overflow-auto">
+                                {autocompleteResults.map((result, index) => (
+                                    <li
+                                        key={index}
+                                        className="p-2 hover:bg-gray-200 cursor-pointer"
+                                        onClick={() => handleSelectSuggestion(result)}
+                                    >
+                                        {result.formatted}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                         <Button label={editMode ? t('updateActivity') : t('addActivity')} onClick={handleAddOrUpdateActivity} variant="primary" />
                     </form>
                 </Modal>

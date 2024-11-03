@@ -33,7 +33,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
         <div className="flex flex-col gap-8">
             <div className="flex flex-col">
                 <h3 id="thecrew" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                    <span className="text-gradient">
                         {t('theCrew')}
                     </span>
                 </h3>
@@ -52,7 +52,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                         />
                     ))}
                     {participants.length > 3 && (
-                        <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-zinc-800">
+                        <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full hover:bg-zinc-600 dark:border-zinc-800">
                             +{participants.length - 3}
                         </span>
                     )}

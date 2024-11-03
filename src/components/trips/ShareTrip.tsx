@@ -74,20 +74,20 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                             <>
 
                                 <h3 className="mb-2 text-2xl font-extrabold text-zinc-900 dark:text-white md:text-2xl mt-4">
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{t('inviteFriends')}</span>
+                                    <span className="text-gradient">{t('inviteFriends')}</span>
                                 </h3>
                                 <div className="relative w-full">
                                     <input
                                         id="share-trip-btn"
                                         type="text"
-                                        className="pr-12 col-span-6 bg-gray-50 border border-zinc-300 text-zinc-500 dark:text-zinc-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-gray-400 dark:text-zinc-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className="pr-12 col-span-6 bg-zinc-50 border border-zinc-300 text-zinc-500 dark:text-zinc-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-zinc-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         value={joinLink || ''}
                                         disabled
                                         readOnly
                                     />
                                     <button
                                         onClick={handleCopyLink}
-                                        className="absolute end-2 top-1/2 -translate-y-1/2 text-zinc-500 dark:text-zinc-300  dark:text-zinc-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg p-2 inline-flex items-center justify-center"
+                                        className="absolute end-2 top-1/2 -translate-y-1/2 text-zinc-500 dark:text-zinc-300  dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg p-2 inline-flex items-center justify-center"
                                     >
                                         {!copySuccess ? (
                                             <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
@@ -100,7 +100,7 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                                         )}
                                     </button>
 
-                                    <div id="tooltip-copy-share-trip-btn" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-zinc-700">
+                                    <div id="tooltip-copy-share-trip-btn" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-zinc-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-zinc-700">
                                         <span id="default-tooltip-message">
                                             {copySuccess ? 'Copied!' : 'Copy to clipboard'}
                                         </span>

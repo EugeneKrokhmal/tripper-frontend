@@ -135,6 +135,8 @@ const resources = {
       uploadConfirmation: "Upload confirmation",
       reportBug: "If you found a bug, please report it",
       testMode: "This app is in test mode",
+      viewBooking: "View Booking",
+      bookingLink: "Booking link",
       faq: {
         title: "Frequently Asked Questions",
         generalQuestions: {
@@ -286,6 +288,7 @@ const resources = {
       specificSplit: "Розділити інакше",
       splitAmong: "Розділити між",
       goBack: "Назад",
+      bookingLink: "Посилання на бронювання",
       whyChooseTripper: "Чому обрати Tripper?",
       organizedItineraries: "Організовані маршрути",
       organizedItinerariesDescription: "Плануйте ваші подорожі з легкістю, створюючи організовані маршрути. Додавайте місця призначення, проживання та активності, щоб все було під контролем.",
@@ -310,6 +313,7 @@ const resources = {
       goBackHome: "Повернутися на головну",
       reportBug: "Якщо ви знайшли помилку, будь ласка, повідомте про це",
       testMode: "Цей додаток у тестовому режимі",
+      viewBooking: "Переглянути бронювання",
       faq: {
         title: "Поширені питання",
         generalQuestions: {
@@ -492,6 +496,8 @@ const resources = {
       goBackHome: "Wróć do strony głównej",
       reportBug: "Jeśli znalazłeś błąd, proszę zgłoś go",
       testMode: "Ta aplikacja jest w trybie testowym",
+      viewBooking: "Pokaż rezerwacji",
+      bookingLink: "Link do rezerwacji",
       faq: {
         title: "Najczęściej zadawane pytania",
         generalQuestions: {

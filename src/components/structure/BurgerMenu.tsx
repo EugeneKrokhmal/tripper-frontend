@@ -12,7 +12,7 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ isOpened, onClick }) => (
         aria-label="Main Menu"
         aria-expanded={isOpened}
     >
-        <svg width="32" height="32" viewBox="0 0 100 100">
+        <svg width="32" height="32" viewBox="0 0 100 100" className="text-zinc-900 dark:text-zinc-100">
             <path
                 className="line line1"
                 stroke="currentColor"

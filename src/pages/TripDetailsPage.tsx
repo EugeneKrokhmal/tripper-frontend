@@ -326,6 +326,7 @@ const TripDetailsPage: React.FC = () => {
                         tripId={tripId || ''}
                         token={token || ''}
                         API_BASE_URL={API_BASE_URL || ''}
+                        OPEN_CAGE_API_KEY={process.env.REACT_APP_OPENCAGE_API_KEY || ''}
                     />
 
                     <hr className="my-8" />

@@ -25,7 +25,7 @@ const SelectField: React.FC<SelectFieldProps> = ({ label, value, onChange, optio
                 </label>
             )}
             <div
-                className="relative block w-full p-2 border bg-gray-50 border-zinc-300 dark:border-zinc-700 dark:text-zinc-300 dark:bg-zinc-900 rounded-md mb-2 text-sm cursor-pointer"
+                className="relative block w-full p-2 border bg-zinc-50 border-zinc-300 dark:border-zinc-700 dark:text-zinc-300 dark:bg-zinc-900 rounded-md mb-2 text-sm cursor-pointer"
                 onClick={() => setIsOpen((prev) => !prev)}
             >
                 <svg
@@ -45,8 +45,8 @@ const SelectField: React.FC<SelectFieldProps> = ({ label, value, onChange, optio
                         <div
                             key={option.value}
                             onClick={() => handleOptionClick(option.value)}
-                            className={`text-sm p-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 ${
-                                option.value === value ? 'bg-gray-200 dark:bg-zinc-700' : ''
+                            className={`text-sm p-2 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 ${
+                                option.value === value ? 'bg-zinc-200 dark:bg-zinc-700' : ''
                             }`}
                         >
                             {option.label}

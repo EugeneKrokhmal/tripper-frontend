@@ -73,7 +73,7 @@ const Sidebar: React.FC = () => {
                         <li>
                             <button
                                 onClick={() => handleScroll('theplace')}
-                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('theplace') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
+                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('theplace') ? 'bg-zinc-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700'} group`}
                             >
                                 <img className="w-4 dark:invert" src={MarkerIcon} alt={t('thePlace')} />
                                 <span className="ms-3">{t('thePlace')}</span>
@@ -82,7 +82,7 @@ const Sidebar: React.FC = () => {
                         <li>
                             <button
                                 onClick={() => handleScroll('thecrew')}
-                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('thecrew') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
+                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('thecrew') ? 'bg-zinc-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700'} group`}
                             >
                                 <img className="w-4 dark:invert" src={TeamIcon} alt={t('theCrew')} />
                                 <span className="ms-3">{t('theCrew')}</span>
@@ -91,7 +91,7 @@ const Sidebar: React.FC = () => {
                         <li>
                             <button
                                 onClick={() => handleScroll('timeline')}
-                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('timeline') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
+                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('timeline') ? 'bg-zinc-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700'} group`}
                             >
                                 <img className="w-4 dark:invert" src={TimeLineIcon} alt={t('timeline')} />
                                 <span className="ms-3">{t('timeline')}</span>
@@ -100,7 +100,7 @@ const Sidebar: React.FC = () => {
                         <li>
                             <button
                                 onClick={() => handleScroll('settlementsummary')}
-                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('settlementsummary') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
+                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('settlementsummary') ? 'bg-zinc-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700'} group`}
                             >
                                 <img className="w-4 dark:invert" src={SettlementIcon} alt={t('settlementSummary')} />
                                 <span className="ms-3">{t('settlementSummary')}</span>
@@ -109,7 +109,7 @@ const Sidebar: React.FC = () => {
                         <li>
                             <button
                                 onClick={() => handleScroll('history')}
-                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('history') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
+                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('history') ? 'bg-zinc-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700'} group`}
                             >
                                 <img className="w-4 dark:invert" src={HistoryIcon} alt={t('history')} />
                                 <span className="ms-3">{t('history')}</span>

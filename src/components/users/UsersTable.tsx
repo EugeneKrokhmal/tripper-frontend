@@ -41,7 +41,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
     return (
         <div className="flex flex-col">
             <table className="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
-                <thead className="text-xs text-zinc-700 uppercase bg-gray-50 dark:bg-zinc-700 dark:text-zinc-400">
+                <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-700 dark:text-zinc-400">
                     <tr>
                         <th scope="col" className="px-2 py-3 text-xs">
                             {t('involved')}
@@ -70,7 +70,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                                             alt={participant.name}
                                         />
                                     ) : (
-                                        <div className="w-8 h-8 hidden md:flex rounded-full bg-gray-300 dark:bg-zinc-600 items-center justify-center">
+                                        <div className="w-8 h-8 hidden md:flex rounded-full bg-zinc-300 dark:bg-zinc-600 items-center justify-center">
                                             <span className="text-white text-sm font-medium">participant.name</span>
                                         </div>
                                     )}

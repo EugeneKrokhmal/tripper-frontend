@@ -19,7 +19,7 @@ const LandingPage: React.FC = () => {
                     </div>
                     <div className="ml-auto place-self-center lg:col-span-7">
                         <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                            <span className="text-gradient">
                                 {t('realTimeSettlements')}
                             </span>
                         </h1>
@@ -46,7 +46,7 @@ const LandingPage: React.FC = () => {
             <section className="py-16 my-16">
                 <div className="max-w-screen-xl mx-auto px-4">
                     <h1 className="text-center mb-12 text-5xl font-extrabold text-zinc-900 dark:text-white md:text-6xl">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                        <span className="text-gradient">
                             {t('whyChooseTripper')}
                         </span>
                     </h1>
@@ -84,7 +84,7 @@ const LandingPage: React.FC = () => {
                 <div className="grid grid gap-8 lg:gap-0 max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
                     <div className="mr-auto place-self-center lg:col-span-7">
                         <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                            <span className="text-gradient">
                                 {t('simplifyGroupTravel')}
                             </span>
                         </h1>

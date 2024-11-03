@@ -39,9 +39,9 @@ const BugReportPopup: React.FC = () => {
                 className={`-mb-2 -mr-2`}
             />
             <div style={{'transitionDelay': '5s'}} className={`w-64 bg-white shadow dark:bg-zinc-900 rounded p-2 transform transition-transform ease-in-out ${isVisible ? 'translate-x-0' : 'translate-x-full'}`}>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white">Psss..</h3>
-                <b className="text-xs text-gray-700 dark:text-gray-300 mt-2">{t('testMode')}</b>
-                <p className="text-xs text-gray-700 dark:text-gray-300 mt-2">{t('reportBug')}</p>
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-white">Psss..</h3>
+                <b className="text-xs text-zinc-700 dark:text-zinc-300 mt-2">{t('testMode')}</b>
+                <p className="text-xs text-zinc-700 dark:text-zinc-300 mt-2">{t('reportBug')}</p>
 
                 <div className="flex justify-end space-x-2 mt-4">
                     <Button

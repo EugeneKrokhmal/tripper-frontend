@@ -122,7 +122,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             {modalVisible && (
                 <Modal onClose={closeModal}>
                     <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                        <span className="text-gradient">
                             {t('editTrip')}
                         </span>
                     </h3>
@@ -148,7 +148,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
                                     {autocompleteResults.map((result, index) => (
                                         <li
                                             key={index}
-                                            className="p-2 hover:bg-gray-200 cursor-pointer"
+                                            className="p-2 hover:bg-zinc-200 cursor-pointer"
                                             onClick={() => handleAutocompleteSelect(result)}
                                         >
                                             {result.formatted}

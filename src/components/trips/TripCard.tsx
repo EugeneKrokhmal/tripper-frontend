@@ -63,11 +63,11 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
 
     return (
         <a
-            className={`transition-all transition-500 justify-end mb-4 flex items-center bg-white border border-zinc-200 dark:border-zinc-900 rounded-lg shadow md:flex-col-reverse flex-col-reverse hover:bg-gray-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-gray-700 ${isActive ? 'opacity-100' : 'blur-sm'}`}
+            className={`overflow-hidden h-full transition-all transition-500 justify-end mb-4 flex items-center bg-white border border-zinc-200 dark:border-zinc-900 rounded-lg shadow md:flex-col-reverse flex-col-reverse hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700 ${isActive ? 'opacity-100' : 'blur-sm'}`}
         >
             <div className="w-full flex-col flex px-4 md:px-4 leading-normal bg-white dark:bg-zinc-900 h-2/3">
                 <h1 className="mb-2 mt-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-3xl">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{trip.name}</span>
+                    <span className="text-gradient">{trip.name}</span>
                 </h1>
                 <div className="flex flex-col h-full justify-between">
                     <div>
@@ -91,7 +91,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                                 />
                             ))}
                             {trip.participants.length > 3 && (
-                                <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-zinc-800">
+                                <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full hover:bg-zinc-600 dark:border-zinc-800">
                                     +{trip.participants.length - 3}
                                 </span>
                             )}

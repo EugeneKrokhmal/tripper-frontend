@@ -91,7 +91,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
             {expenseList.length > 0 && (
                 <>
                     <h3 id="history" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                        <span className="text-gradient">
                             {t('history')}
                         </span>
                     </h3>
@@ -107,7 +107,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
 
                     return (
                         <li key={expense.date} className="mb-8 ms-4">
-                            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-zinc-900 dark:bg-zinc-700"></div>
+                            <div className="absolute w-3 h-3 bg-zinc-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-zinc-900 dark:bg-zinc-700"></div>
                             <div className="flex justify-between items-bottom mb-2 pb-2">
                                 <div>
                                     <time className="mb-1 text-sm font-normal leading-none text-zinc-400 dark:text-zinc-300">
@@ -148,7 +148,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                 )
                                             ))}
                                             {splitters.length > 3 && (
-                                                <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 rounded-full hover:bg-gray-600">
+                                                <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
                                                     +{splitters.length - 3}
                                                 </span>
                                             )}

@@ -73,7 +73,7 @@ const JoinTripPage: React.FC = () => {
             <div className="max-w-screen-xl px-4 mx-auto lg:py-16">
                 {/* Right: Login Form */}
 
-                    <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl"><span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{trip.name}</span></h1>
+                    <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl"><span className="text-gradient">{trip.name}</span></h1>
                     <p className="text-zinc-800 text-s font-medium inline-flex items-center me-2 dark:text-zinc-400 mb-2">
                         <img width="16" src={MarkerIcon} alt="{trip.location.destination}" className="mr-2" /><span>{trip.location.destination}</span>
                     </p>
@@ -82,7 +82,7 @@ const JoinTripPage: React.FC = () => {
                     </p>
 
                     <div className="flex mb-6">
-                        <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-zinc-600 dark:text-zinc-300  ring-1 ring-gray-900/10">
+                        <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-zinc-600 dark:text-zinc-300  ring-1 ring-zinc-900/10">
                             {formatDate(trip.startDate)} - {formatDate(trip.endDate)} <span className="font-semibold text-zinc-600 dark:text-zinc-300 "></span>
                         </div>
                     </div>

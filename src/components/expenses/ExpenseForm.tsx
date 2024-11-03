@@ -96,7 +96,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
     return (
         <>
             <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                <span className="text-gradient">
                     {t('addExpense')} ({currency})
                 </span>
             </h3>
@@ -147,7 +147,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
                             checked={splitMethod === 'specific'}
                             onChange={toggleSplitMethod}
                         />
-                        <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-zinc-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-zinc-600 peer-checked:bg-blue-600"></div>
+                        <div className="relative w-11 h-6 bg-zinc-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-zinc-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-zinc-600 peer-checked:bg-blue-600"></div>
                         <span className="ms-3 text-sm font-medium text-zinc-900 dark:text-zinc-300">{t('specificSplit')}</span>
                     </label>
                 </div>
@@ -161,7 +161,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
                                     type="checkbox"
                                     checked={splitParticipants.includes(participant._id)}
                                     onChange={() => handleParticipantToggle(participant._id)}
-                                    className="w-4 h-4 border border-zinc-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-zinc-700 dark:border-zinc-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                                    className="w-4 h-4 border border-zinc-300 rounded bg-zinc-50 focus:ring-3 focus:ring-blue-300 dark:bg-zinc-700 dark:border-zinc-600 dark:focus:ring-blue-600 dark:ring-offset-zinc-800"
                                 />
                                 <label className="ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">
                                     {participant.name}
@@ -179,7 +179,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ userId, participants, tripId,
                         type="file"
                         accept="image/*"
                         onChange={handleFileChange}
-                        className="block w-full p-2 border border-zinc-300 dark:border-zinc-900 dark:text-zinc-300 dark:bg-zinc-900 rounded-md mb-4 text-sm block w-full text-sm text-zinc-900 border border-zinc-300 rounded-lg cursor-pointer bg-gray-50 dark:text-zinc-400 focus:outline-none dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-gray-400"
+                        className="block w-full p-2 border border-zinc-300 dark:border-zinc-900 dark:text-zinc-300 dark:bg-zinc-900 rounded-md mb-4 text-sm block w-full text-sm text-zinc-900 border border-zinc-300 rounded-lg cursor-pointer bg-zinc-50 dark:text-zinc-400 focus:outline-none dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400"
                     />
                 </div> */}
 
