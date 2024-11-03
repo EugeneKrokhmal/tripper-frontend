@@ -11,10 +11,6 @@ const Sidebar: React.FC = () => {
     const [activeSection, setActiveSection] = useState<string>('');
     const { t } = useTranslation();
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
-
     const handleScroll = (elementId: string) => {
         const element = document.getElementById(elementId);
         if (element) {
@@ -79,7 +75,7 @@ const Sidebar: React.FC = () => {
                                 onClick={() => handleScroll('theplace')}
                                 className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('theplace') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
                             >
-                                <img className="w-4" src={MarkerIcon} alt={t('thePlace')} />
+                                <img className="w-4 dark:invert" src={MarkerIcon} alt={t('thePlace')} />
                                 <span className="ms-3">{t('thePlace')}</span>
                             </button>
                         </li>
@@ -88,7 +84,7 @@ const Sidebar: React.FC = () => {
                                 onClick={() => handleScroll('thecrew')}
                                 className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('thecrew') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
                             >
-                                <img className="w-4" src={TeamIcon} alt={t('theCrew')} />
+                                <img className="w-4 dark:invert" src={TeamIcon} alt={t('theCrew')} />
                                 <span className="ms-3">{t('theCrew')}</span>
                             </button>
                         </li>
@@ -97,7 +93,7 @@ const Sidebar: React.FC = () => {
                                 onClick={() => handleScroll('timeline')}
                                 className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('timeline') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
                             >
-                                <img className="w-4" src={TimeLineIcon} alt={t('timeline')} />
+                                <img className="w-4 dark:invert" src={TimeLineIcon} alt={t('timeline')} />
                                 <span className="ms-3">{t('timeline')}</span>
                             </button>
                         </li>
@@ -106,7 +102,7 @@ const Sidebar: React.FC = () => {
                                 onClick={() => handleScroll('settlementsummary')}
                                 className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('settlementsummary') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
                             >
-                                <img className="w-4" src={SettlementIcon} alt={t('settlementSummary')} />
+                                <img className="w-4 dark:invert" src={SettlementIcon} alt={t('settlementSummary')} />
                                 <span className="ms-3">{t('settlementSummary')}</span>
                             </button>
                         </li>
@@ -115,7 +111,7 @@ const Sidebar: React.FC = () => {
                                 onClick={() => handleScroll('history')}
                                 className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('history') ? 'bg-gray-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'} group`}
                             >
-                                <img className="w-4" src={HistoryIcon} alt={t('history')} />
+                                <img className="w-4 dark:invert" src={HistoryIcon} alt={t('history')} />
                                 <span className="ms-3">{t('history')}</span>
                             </button>
                         </li>

@@ -133,6 +133,8 @@ const resources = {
       pageNotFound: "Page Not Found",
       goBackHome: "Go Back Home",
       uploadConfirmation: "Upload confirmation",
+      reportBug: "If you found a bug, please report it",
+      testMode: "This app is in test mode",
       faq: {
         title: "Frequently Asked Questions",
         generalQuestions: {
@@ -306,6 +308,8 @@ const resources = {
       remainingOwedToYou: "Борги вам",
       pageNotFound: "Сторінку не знайдено",
       goBackHome: "Повернутися на головну",
+      reportBug: "Якщо ви знайшли помилку, будь ласка, повідомте про це",
+      testMode: "Цей додаток у тестовому режимі",
       faq: {
         title: "Поширені питання",
         generalQuestions: {
@@ -486,6 +490,8 @@ const resources = {
       remainingOwedToYou: "dług tobie",
       pageNotFound: "Strona nie znaleziona",
       goBackHome: "Wróć do strony głównej",
+      reportBug: "Jeśli znalazłeś błąd, proszę zgłoś go",
+      testMode: "Ta aplikacja jest w trybie testowym",
       faq: {
         title: "Najczęściej zadawane pytania",
         generalQuestions: {

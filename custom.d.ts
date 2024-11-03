@@ -29,4 +29,6 @@ declare global {
   }
 }
 
+declare module 'react-slick';
+
 let paypal = window.paypal;

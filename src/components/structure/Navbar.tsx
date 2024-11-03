@@ -6,6 +6,7 @@ import { logout } from '../../redux/slices/authSlice';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import BurgerMenu from './BurgerMenu';
+import DarkModeToggle from './DarkModeToggle';
 
 const Navbar: React.FC = () => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
@@ -40,7 +41,11 @@ const Navbar: React.FC = () => {
         <nav className="z-50 fixed top-0 left-0 w-full bg-white border-zinc-200 dark:bg-zinc-900 shadow">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">
-                    <h3 className="text-xl font-bold text-zinc-900 dark:text-white md:text-2xl">Tripper</h3>
+                    <div className="text-xl font-extrabold text-zinc-900 dark:text-white">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                            {t('Tripper')}
+                        </span>
+                    </div>
                 </Link>
 
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -94,7 +99,8 @@ const Navbar: React.FC = () => {
                             <div className="flex gap-2">
                                 <LanguageSwitcher />
                             </div>
-                            <div className="">
+                            <DarkModeToggle />
+                            <div>
                                 <svg onClick={toggleDrawer} className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                 </svg>

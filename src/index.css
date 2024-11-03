@@ -138,3 +138,24 @@ input[type='time']::-webkit-datetime-edit {
 @tailwind utilities;
 
 @import 'leaflet/dist/leaflet.css';
+
+
+/* Slick */
+
+#root .slick-list {
+  overflow: visible;
+}
+
+.slick-dots {
+  display: flex;
+}
+
+@keyframes dropBounce {
+  0% { width: scale(1) translateY(0); }
+  50% { transform: scale(1.5) translateY(0); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+.drop-bounce.active {
+  animation: dropBounce .5s;
+}

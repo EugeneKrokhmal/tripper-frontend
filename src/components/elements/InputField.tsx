@@ -19,7 +19,7 @@ const InputField: React.FC<InputFieldProps> = ({ label, type, value, onChange, r
                 type={type}
                 value={value}
                 onChange={onChange}
-                className={'block w-full p-2 border border-zinc-300 dark:border-zinc-700 dark:text-zinc-300 dark:bg-zinc-900 rounded-md mb-4 text-sm'}
+                className={'block w-full p-2 border bg-gray-50 border-zinc-300 dark:border-zinc-700 dark:text-zinc-300 dark:bg-zinc-900 rounded-md mb-4 text-sm'}
             />
         </div>
     );

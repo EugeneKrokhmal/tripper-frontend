@@ -120,7 +120,7 @@ const Dashboard: React.FC = () => {
                         <p>{t('noTrips')}</p>
                     ) : (
                         filteredTrips.map((trip) => (
-                            <TripCard key={trip._id} trip={trip} loggedInUserId={loggedInUserId || ''} />
+                            <TripCard isActive={true} key={trip._id} trip={trip} loggedInUserId={loggedInUserId || ''} />
                         ))
                     )}
                 </div>

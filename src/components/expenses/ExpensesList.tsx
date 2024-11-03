@@ -205,9 +205,9 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
             </ol>
 
             <div className="flex gap-2">
-                <div className="self-start">
+                {/* <div className="self-start">
                     <Button label={t('addExpense')} onClick={() => setModalVisible(true)} variant="primary" />
-                </div>
+                </div> */}
                 {expenseList.length > 3 && (
                     <div className="self-start">
                         <Button

@@ -2,10 +2,10 @@ import React from 'react';
 
 interface ButtonProps {
     label: string;
-    onClick?: () => void;  // Make onClick optional
-    type?: "button" | "submit";  // Add 'submit' type
-    variant: "primary" | "secondary";  // Assume these are your variants
-    disabled?: boolean
+    onClick?: () => void;
+    type?: "button" | "submit";
+    variant: "primary" | "secondary";
+    disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({ label, onClick, type = 'button', variant, disabled}) => {

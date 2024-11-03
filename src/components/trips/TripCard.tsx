@@ -13,18 +13,18 @@ interface TripCardProps {
         location: { destination: string };
         startDate: string;
         endDate: string;
-        image?: string; // Optional trip image URL (can be null if not set)
+        image?: string;
     };
     loggedInUserId: string;
+    isActive: boolean;
 }
 
-const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId }) => {
+const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) => {
     const [cityImage, setCityImage] = useState<string>('');
     const navigate = useNavigate();
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     const UNSPLASH_ACCESS_KEY = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
     const { t } = useTranslation();
-
 
     useEffect(() => {
         const fetchCityImage = async () => {
@@ -52,7 +52,6 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId }) => {
             }
         };
 
-        // If no trip image, load from Unsplash
         if (!trip.image && trip.location.destination) {
             fetchCityImage();
         }
@@ -64,14 +63,13 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId }) => {
 
     return (
         <a
-            onClick={() => navigate(`/trip/${trip._id}`)}
-            className="cursor-pointer justify-end mb-4 flex items-center bg-white border border-zinc-200 rounded-lg shadow md:flex-col-reverse flex-col-reverse hover:bg-gray-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-gray-700"
+            className={`transition-all transition-500 justify-end mb-4 flex items-center bg-white border border-zinc-200 dark:border-zinc-900 rounded-lg shadow md:flex-col-reverse flex-col-reverse hover:bg-gray-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-gray-700 ${isActive ? 'opacity-100' : 'blur-sm'}`}
         >
-            <div className="w-full h-full flex-col flex px-4 md:px-4 px-4 leading-normal bg-white dark:bg-zinc-900">
+            <div className="w-full flex-col flex px-4 md:px-4 leading-normal bg-white dark:bg-zinc-900 h-2/3">
                 <h1 className="mb-2 mt-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-3xl">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">{trip.name}</span>
                 </h1>
-                <div className="w-full h-full flex flex-col">
+                <div className="flex flex-col h-full justify-between">
                     <div>
                         <p className="font-normal text-xs text-zinc-500 dark:text-zinc-300  dark:text-zinc-400">
                             {trip.creator._id === loggedInUserId ? t('youAreTheOwnerOfTheTrip') : t('YouAreAParticipant')}
@@ -83,7 +81,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId }) => {
                         </p>
                     </div>
                     <div className="flex justify-between mt-auto">
-                        <div className="flex w-full -space-x-4 rtl:space-x-reverse mb-4 self-end">
+                        <div className="flex -space-x-4 rtl:space-x-reverse mb-4 self-end">
                             {trip.participants.slice(0, 3).map((participant) => (
                                 <img
                                     key={participant._id}
@@ -98,11 +96,13 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId }) => {
                                 </span>
                             )}
                         </div>
-                        <Button
-                            label={t('View')}
-                            onClick={() => navigate(`/trip/${trip._id}`)}
-                            variant="primary"
-                        />
+                        <div className="flex">
+                            <Button
+                                label={t('View')}
+                                onClick={() => navigate(`/trip/${trip._id}`)}
+                                variant="primary"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -16,6 +16,7 @@ import ScrollToTop from './components/structure/ScrollToTop';
 import FAQ from './pages/FAQ';
 import CreateTripPage from './pages/CreateTripPage';
 import BottomNav from './components/structure/BottomNav';
+import BugReportPopup from './components/structure/BugReportPopup';
 
 
 // ProtectedRoute component to guard protected pages
@@ -34,7 +35,7 @@ function App() {
         <Router>
             <ScrollToTop />
             <Navbar />
-            <div className="pt-20 relative min-h-screen">
+            <div className="pt-20 relative min-h-screen overflow-x-hidden">
                 <Routes>
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
@@ -83,6 +84,7 @@ function App() {
             </div>
             {/* <BottomNav /> */}
             <Footer />
+            <BugReportPopup />
         </Router>
     );
 }
