@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/tripper-frontend/static/css/main.3b7df217.css",
-    "main.js": "/tripper-frontend/static/js/main.fbe98fee.js",
+    "main.css": "/tripper-frontend/static/css/main.f139f97f.css",
+    "main.js": "/tripper-frontend/static/js/main.37e5f2c6.js",
     "static/media/7.jpg": "/tripper-frontend/static/media/7.86d47d835501650dc2a3.jpg",
     "static/media/4.jpg": "/tripper-frontend/static/media/4.2e7d1bc968d4431e25bd.jpg",
     "static/media/screen1.jpg": "/tripper-frontend/static/media/screen1.91d19fd7378a2c8e8d1c.jpg",
@@ -18,15 +18,16 @@
     "static/media/timeline.svg": "/tripper-frontend/static/media/timeline.2244ad8443a66de09b274be1da3b4773.svg",
     "static/media/edit.svg": "/tripper-frontend/static/media/edit.db87029d5226637a9e10cfa22a371912.svg",
     "static/media/plus.svg": "/tripper-frontend/static/media/plus.b4a8c7c08d93383dffe803667acdca2c.svg",
+    "static/media/bed.svg": "/tripper-frontend/static/media/bed.67491de906c4b4732d5389094d6c89cd.svg",
     "static/media/upload.svg": "/tripper-frontend/static/media/upload.b0c69db58b0132a4a82b2373cc7444f2.svg",
     "static/media/delete.svg": "/tripper-frontend/static/media/delete.971f3cfc8005d82e70a3a1e25657d42d.svg",
     "static/media/history.svg": "/tripper-frontend/static/media/history.157957ee3444d8923550103febaa2bb4.svg",
     "static/media/marker.svg": "/tripper-frontend/static/media/marker.d94f9a5a2f8cfa4cb20e479ee33e9b1f.svg",
-    "main.3b7df217.css.map": "/tripper-frontend/static/css/main.3b7df217.css.map",
-    "main.fbe98fee.js.map": "/tripper-frontend/static/js/main.fbe98fee.js.map"
+    "main.f139f97f.css.map": "/tripper-frontend/static/css/main.f139f97f.css.map",
+    "main.37e5f2c6.js.map": "/tripper-frontend/static/js/main.37e5f2c6.js.map"
   },
   "entrypoints": [
-    "static/css/main.3b7df217.css",
-    "static/js/main.fbe98fee.js"
+    "static/css/main.f139f97f.css",
+    "static/js/main.37e5f2c6.js"
   ]
 }
