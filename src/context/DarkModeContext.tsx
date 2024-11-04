@@ -9,9 +9,11 @@ interface DarkModeContextType {
 const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined);
 
 export const DarkModeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        // Check localStorage first, then fallback to system preference
         const savedTheme = localStorage.getItem('theme');
-        return savedTheme ? savedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme) return savedTheme === 'dark';
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
     });
 
     const toggleDarkMode = () => {
@@ -26,14 +28,9 @@ export const DarkModeProvider: React.FC<{ children: ReactNode }> = ({ children }
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme');
         const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        if (savedTheme) {
-            document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-            setIsDarkMode(savedTheme === 'dark');
-        } else {
-            document.documentElement.classList.toggle('dark', prefersDarkMode);
-            setIsDarkMode(prefersDarkMode);
-        }
+        const initialMode = savedTheme ? savedTheme === 'dark' : prefersDarkMode;
+        document.documentElement.classList.toggle('dark', initialMode);
+        setIsDarkMode(initialMode);
 
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         const handleChange = (e: MediaQueryListEvent) => {
