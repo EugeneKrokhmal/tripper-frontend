@@ -204,7 +204,7 @@ const TripDetailsPage: React.FC = () => {
         calculateTotalPaidByUser([...expenses, newExpense]);
         calculateTotalCost([...expenses, newExpense]);
         fetchTripDetails();
-        closeAddExpenseModal
+        closeAddExpenseModal();
     };
 
     const handleExpenseDeleted = (updatedExpenses: any[]) => {
