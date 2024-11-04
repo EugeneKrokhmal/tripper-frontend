@@ -178,7 +178,6 @@ const CreateTrip: React.FC = () => {
                                         </svg>
                                     )}
                                 </span>
-                                <h3 className="text-sm leading-tight">{item.title}</h3>
                             </li>
                         ))}
                     </ol>

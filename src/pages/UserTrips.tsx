@@ -8,6 +8,7 @@ import Ad from '../components/structure/Ad';
 import Breadcrumbs from '../components/structure/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import Loader from '../components/structure/Loader';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface User {
     _id: string;
@@ -35,7 +36,7 @@ const Dashboard: React.FC = () => {
     const token = useSelector((state: RootState) => state.auth.token);
     const loggedInUserId = useSelector((state: RootState) => state.auth.userId);
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-
+    const navigate = useNavigate();
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
@@ -61,6 +62,7 @@ const Dashboard: React.FC = () => {
             } catch (err) {
                 setError('Failed to fetch users or trips');
                 setLoading(false);
+                navigate('/')
             }
         };
 
@@ -106,7 +108,6 @@ const Dashboard: React.FC = () => {
                 <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
                     <span className="text-gradient">{t('myTrips')}</span>
                 </h1>
-                {error && <p className="text-red-500">{error}</p>}
                 <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
             </div>
 
@@ -123,6 +124,7 @@ const Dashboard: React.FC = () => {
                             <TripCard isActive={true} key={trip._id} trip={trip} loggedInUserId={loggedInUserId || ''} />
                         ))
                     )}
+                    {error && <p className="text-red-500">{error}</p>}
                 </div>
             </div>
         </div>

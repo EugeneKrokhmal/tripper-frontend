@@ -240,21 +240,21 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                                 {timeline[date].map((activity, index) => (
                                     <li key={index} className="text-sm text-zinc-600 dark:text-zinc-300 mb-4">
                                         <div className="flex justify-between gap-2">
-                                            <div className="flex gap-4 w-10/12">
+                                            <div className="flex gap-4 w-11/12">
                                                 <strong className="w-10">{activity.time}</strong>
                                                 <div className="rounded bg-zinc-100 dark:bg-zinc-600 p-2 w-full">
                                                     <strong>{activity.name}</strong>:
                                                     <div className="mb-8">{activity.description}</div>
                                                     {activity.bookingLink && (
                                                         <a href={activity.bookingLink} target="_blank" rel="noopener noreferrer" className="flex text-gradient underline text-xs">
-                                                            <img src={BookingIcon} alt="Location" className="inline-block w-4 h-4 mr-2 dark:invert" />
+                                                            <img src={BookingIcon} alt="Location" className="inline-block w-4 h-4 mr-1 dark:invert" />
                                                             {t('viewBooking')}
                                                         </a>
                                                     )}
                                                     {activity.transportation && (
                                                         <div className="mt-2">
                                                             <a className="flex underline text-xs text-gradient" target="_blank" href={`https://maps.google.com/?q=${activity.transportation.lat},${activity.transportation.lng}`}>
-                                                                <img src={LocationIcon} alt="Location" className="inline-block w-4 h-4 mr-2 dark:invert" />
+                                                                <img src={LocationIcon} alt="Location" className="inline-block w-4 h-4 mr-1 dark:invert" />
                                                                 {activity.transportation.title}
                                                             </a>
                                                         </div>
@@ -262,7 +262,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                                                 </div>
                                             </div>
                                             {isOwner && (
-                                                <div className="w-2/12 flex space-x-2 mt-1 justify-end cursor-pointer">
+                                                <div className="w-1/12 flex flex-col justify-start gap-4 items-end space-x-2 mt-1  cursor-pointer">
                                                     <a onClick={() => handleEditActivity(date, activity, index)}>
                                                         <img src={EditIcon} alt={t('editActivity')} />
                                                     </a>
