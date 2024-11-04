@@ -5,6 +5,8 @@ import Price from '../Price';
 import Modal from '../elements/Modal';
 import Button from '../elements/Button';
 import SelectField from '../elements/SelectField';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 declare const window: {
     paypal: any;
@@ -55,6 +57,8 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
     const [activeSettlementId, setActiveSettlementId] = useState<string | null>(null);
     const [paymentMethod, setPaymentMethod] = useState<string>('cash');
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+    const userId = useSelector((state: RootState) => state.auth.userId);
 
     useEffect(() => {
         if (paymentMethod === 'paypal' && activeSettlementId) {
@@ -197,7 +201,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                             <Price price={+settlement.amount.toFixed(2)} />
                                         </td>
                                         <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 text-center">
-                                            {!settlement.isSettled ? (
+                                            {!settlement.isSettled && debtor._id === userId && (
                                                 <>
                                                     <a
                                                         className="cursor-pointer text-xs text-base dark:text-zinc-300 hover:underline"
@@ -241,9 +245,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                     )}
 
                                                 </>
-                                            ) : (
-                                                <span className="text-xs text-zinc-500">{t('settled')}</span>
-                                            )}
+                                            ) }
                                         </td>
                                     </tr>
                                 );
