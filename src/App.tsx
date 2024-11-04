@@ -15,9 +15,7 @@ import LandingPage from './pages/LandingPage';
 import ScrollToTop from './components/structure/ScrollToTop';
 import FAQ from './pages/FAQ';
 import CreateTripPage from './pages/CreateTripPage';
-import BottomNav from './components/structure/BottomNav';
 import BugReportPopup from './components/structure/BugReportPopup';
-
 
 // ProtectedRoute component to guard protected pages
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {

@@ -9,7 +9,7 @@ import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
 import DateRangePicker from '../elements/DateRangePicker';
 import CurrencySwitcher from '../CurrencySwitcher';
-import { useCurrency } from '../CurrencyContext';
+import { useCurrency } from '../../context/CurrencyContext';
 import CreateTripImage1 from '../../images/gallery/9.jpg';
 import CreateTripImage2 from '../../images/gallery/10.jpg';
 import CreateTripImage3 from '../../images/gallery/11.jpg';

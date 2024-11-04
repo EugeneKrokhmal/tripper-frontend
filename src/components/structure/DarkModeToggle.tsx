@@ -1,26 +1,8 @@
-// DarkModeToggle.tsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useDarkMode } from '../../context/DarkModeContext';
 
 const DarkModeToggle: React.FC = () => {
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-        return localStorage.getItem('theme') === 'dark';
-    });
-
-    // Toggle dark mode and save preference
-    const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
-        document.documentElement.classList.toggle('dark', !isDarkMode);
-        localStorage.setItem('theme', !isDarkMode ? 'dark' : 'light');
-    };
-
-    // Initialize the theme based on user preference or localStorage
-    useEffect(() => {
-        if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    }, []);
+    const { isDarkMode, toggleDarkMode } = useDarkMode();
 
     return (
         <button

@@ -111,7 +111,7 @@ const Dashboard: React.FC = () => {
             </div>
 
             <div className="flex flex-col-reverse gap-8 md:flex-row-reverse mb-8 px-4">
-                <div className="w-full md:w-2/4 xl:w-1/4">
+                <div className="self-start md:sticky top-28 w-full md:w-2/4 xl:w-1/4">
                     <Ad />
                 </div>
 

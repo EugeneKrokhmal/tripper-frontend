@@ -5,7 +5,7 @@ import TextArea from '../elements/TextArea';
 import Button from '../elements/Button';
 import SelectField from '../elements/SelectField';
 import axios from 'axios';
-import { useCurrency } from '../CurrencyContext';
+import { useCurrency } from '../../context/CurrencyContext';
 
 interface ExpenseFormProps {
     userId: string;

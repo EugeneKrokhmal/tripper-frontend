@@ -7,17 +7,22 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import BurgerMenu from './BurgerMenu';
 import DarkModeToggle from './DarkModeToggle';
+import LogoDark from '../../images/logo-dark.png';
+import LogoLight from '../../images/logo-light.png';
+import { useDarkMode } from '../../context/DarkModeContext';
 
 const Navbar: React.FC = () => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     const userName = useSelector((state: RootState) => state.auth.userName);
-    const userEmail = useSelector((state: RootState) => state.auth.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { t } = useTranslation();
     const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const { isDarkMode } = useDarkMode();
+    const [logo, setLogo] = useState(isDarkMode ? LogoDark : LogoLight); // Initialize logo based on initial theme
 
     const handleLogout = () => {
         dispatch(logout());
@@ -37,11 +42,20 @@ const Navbar: React.FC = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // Update logo dynamically whenever `isDarkMode` changes
+    useEffect(() => {
+        setLogo(isDarkMode ? LogoDark : LogoLight);
+    }, [isDarkMode]);
+
     return (
         <nav className="z-50 fixed top-0 left-0 w-full h-20 bg-white border-zinc-200 dark:bg-zinc-900 shadow">
             <div className="max-w-screen-xl h-full flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">
-                    <div className="text-2xl font-extrabold text-zinc-900 dark:text-white">
+                    <div className="text-2xl font-extrabold text-zinc-900 dark:text-white flex items-center">
+                        <span className="bg-gradient">
+                            {/* Render logo based on `logo` state */}
+                            <img className="-mb-0.5 text-white dark:text-zinc-900 w-6 h-6" src={logo} alt="Logo" />
+                        </span>
                         <span className="text-gradient">
                             {t('Tripper')}
                         </span>
@@ -75,7 +89,6 @@ const Navbar: React.FC = () => {
                             </button>
 
                             <BurgerMenu isOpened={isDrawerOpen} onClick={toggleDrawer} />
-
                         </div>
                     ) : (
                         <Link to="/login" className="block px-4 py-2 text-sm text-zinc-700 dark:text-zinc-200 dark:hover:text-white">

@@ -57,27 +57,33 @@ const JoinTripPage: React.FC = () => {
         return new Date(dateString).toLocaleDateString('en-US', options);
     };
 
-    if (!trip) return <Loader/>;
+    if (!trip) {
+        return (
+            <div className="pb-20 h-screen flex tems-center justify-center">
+                <Loader />
+            </div>
+        );
+    }
 
     return (
         <>
-        <div className="bg-white dark:bg-zinc-900">
-            <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4">
-                <img
-                    className="object-cover rounded h-64 w-full mb-4"
-                    src={`${API_BASE_URL}/${trip.image}`}
-                    alt={`${trip.location.destination}`}
-                />
+            <div className="bg-white dark:bg-zinc-800 pt-8 flex flex-col">
+                <div className="relative w-full max-w-screen-xl mx-auto px-4">
+                    <img
+                        className="object-cover rounded h-64 w-full mb-4"
+                        src={`${API_BASE_URL}/${trip.image}`}
+                        alt={`${trip.location.destination}`}
+                    />
 
-            </div>
-            <div className="max-w-screen-xl px-4 mx-auto lg:py-16">
-                {/* Right: Login Form */}
+                </div>
+                <div className="max-w-screen-xl px-4 mx-auto lg:py-16">
+                    {/* Right: Login Form */}
 
                     <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl"><span className="text-gradient">{trip.name}</span></h1>
                     <p className="text-zinc-800 text-s font-medium inline-flex items-center me-2 dark:text-zinc-400 mb-2">
                         <img width="16" src={MarkerIcon} alt="{trip.location.destination}" className="mr-2" /><span>{trip.location.destination}</span>
                     </p>
-                    <p className="text-sm mb-6 text-zinc-500 dark:text-zinc-300">
+                    <p className="text-sm mb-6 text-zinc-500 dark:text-zinc-300 whitespace-pre-line">
                         {trip.description}
                     </p>
 
@@ -86,7 +92,11 @@ const JoinTripPage: React.FC = () => {
                             {formatDate(trip.startDate)} - {formatDate(trip.endDate)} <span className="font-semibold text-zinc-600 dark:text-zinc-300 "></span>
                         </div>
                     </div>
-                    <Button label="Join Trip" onClick={handleJoinTrip} variant="primary" />
+                    <div className="flex">
+                        <div className="self-start">
+                            <Button label="Join Trip" onClick={handleJoinTrip} variant="primary" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

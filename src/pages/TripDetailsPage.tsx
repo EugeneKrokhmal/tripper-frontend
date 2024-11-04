@@ -19,7 +19,7 @@ import Button from '../components/elements/Button';
 import ExpenseForm from '../components/expenses/ExpenseForm';
 import PlusIcon from '../images/icons/plus.svg';
 import Loader from '../components/structure/Loader';
-import { useCurrency } from '../components/CurrencyContext';
+import { useCurrency } from '../context/CurrencyContext';
 
 interface Settlement {
     _id: string;

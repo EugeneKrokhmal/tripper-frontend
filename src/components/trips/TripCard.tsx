@@ -79,8 +79,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                             {trip.creator._id === loggedInUserId ? t('youAreTheOwnerOfTheTrip') : t('YouAreAParticipant')}
                         </p>
                         <p className="mb-4">
-                            <span className="mt-2 text-sm text-zinc-700 dark:text-zinc-400">{new Date(trip.startDate).toLocaleDateString()}</span>
-                            <span> - </span>
+                            <span className="mt-2 text-sm text-zinc-700 dark:text-zinc-400">{new Date(trip.startDate).toLocaleDateString()} - </span>
                             <span className="mb-4 text-sm text-zinc-700 dark:text-zinc-400">{new Date(trip.endDate).toLocaleDateString()}</span>
                         </p>
                     </div>
@@ -95,7 +94,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                                 />
                             ))}
                             {trip.participants.length > 3 && (
-                                <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full hover:bg-zinc-600 dark:border-zinc-800">
+                                <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full dark:border-zinc-800">
                                     +{trip.participants.length - 3}
                                 </span>
                             )}
@@ -111,7 +110,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                 </div>
             </div>
             <img
-                className="object-cover rounded-t h-32 w-full"
+                className="object-cover rounded-t min-h-32 max-h-32 w-full"
                 src={imageUrl}
                 alt={`${trip.location.destination}`}
             />

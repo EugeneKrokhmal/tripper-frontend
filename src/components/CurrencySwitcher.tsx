@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCurrency } from './CurrencyContext';
+import { useCurrency } from '../context/CurrencyContext';
 import SelectField from './elements/SelectField';
 import { useTranslation } from 'react-i18next';
 
