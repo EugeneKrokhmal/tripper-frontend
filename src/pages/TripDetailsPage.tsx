@@ -58,7 +58,7 @@ const TripDetailsPage: React.FC = () => {
     const userId = useSelector((state: RootState) => state.auth.userId);
     const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
     const { t } = useTranslation();
-    const remainingOwedToUser = 0;
+    const [remainingOwedToUser, setRemainingOwedToUser] = useState<number>(0);
 
     useEffect(() => {
         const fetchCityImage = async () => {
@@ -106,6 +106,8 @@ const TripDetailsPage: React.FC = () => {
             setFairShare(tripData.fairShare || 0);
             setSettlements(tripData.settlements || []);
             setSettlementsHistory(tripData.settlementHistory || []);
+            const owedToUser = calculateRemainingOwedToUser(tripData.settlements || []);
+            setRemainingOwedToUser(owedToUser);
         } catch (err) {
             setError('Failed to fetch trip details');
         }
@@ -133,6 +135,12 @@ const TripDetailsPage: React.FC = () => {
             }
         }, 0);
         setTotalCost(total);
+    };
+
+    const calculateRemainingOwedToUser = (settlements: Settlement[]) => {
+        return settlements
+            .filter(settlement => settlement.creditor === userId && !settlement.settled)
+            .reduce((total, settlement) => total + settlement.amount, 0);
     };
 
     const handleEditTrip = async (updatedTrip: {

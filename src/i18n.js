@@ -6,6 +6,7 @@ const resources = {
   en: {
     translation: {
       currencyConfirmationTitle: "Confirm Currency",
+      othersOwe: "You get back",
       currencyConfirmationMessage: "Do you want to continue or change the currency? The current currency is set to: ",
       welcomeToTripper: "WELCOME TO TRIPPER",
       discoverAndPlan: "Discover and plan your perfect trip with Tripper! Organize your adventures with friends and family, split expenses, and create lifelong memories.",
@@ -190,6 +191,7 @@ const resources = {
   uk: {
     translation: {
       currencyConfirmationTitle: "Підтвердьте валюту",
+      othersOwe: "Ви отримаєте",
       currencyConfirmationMessage: "Бажаєте продовжити чи змінити валюту? Поточна валюта встановлена як: ",
       uploadConfirmation: "Додайте підтвердження",
       welcomeToTripper: "ЛАСКАВО ПРОСИМО ДО TRIPPER",
@@ -368,6 +370,7 @@ const resources = {
     translation: {
       next: "Dalej",
       currencyConfirmationTitle: "Potwierdź walutę",
+      othersOwe: "Ile otrzymasz",
       currencyConfirmationMessage: "Czy chcesz kontynuować, czy zmienić walutę? Obecna waluta to: ",
       uploadConfirmation: "Dodaj potwierdzenie",
       welcomeToTripper: "WITAJ W TRIPPER",
