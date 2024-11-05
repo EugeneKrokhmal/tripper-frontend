@@ -318,10 +318,26 @@ const TripDetailsPage: React.FC = () => {
                         loadingJoinLink={loadingJoinLink}
                         error={error}
                         participants={trip.participants}
-                        coordinates={trip.location.coordinates} // Updated coordinates passed here
+                        coordinates={trip.location.coordinates}
                     />
 
                     <hr className="my-8" />
+
+                    <div className="md:hidden">
+                        <ExpenseSummary
+                            totalPaidByUser={totalPaidByUser}
+                            totalCost={totalCost}
+                            fairShare={fairShare}
+                            onFairShareUpdate={(fairShare, settlements) => {
+                                setFairShare(fairShare);
+                                setSettlements(settlements);
+                            }}
+                            tripId={tripId || ''}
+                            remainingOwedToUser={remainingOwedToUser}
+                        />
+
+                        <hr className="my-8" />
+                    </div>
 
                     <TripParticipants
                         tripId={tripId || ''}
@@ -358,17 +374,19 @@ const TripDetailsPage: React.FC = () => {
                 </div>
                 <div className="md:static md:flex flex-col gap-8 md:w-4/12 lg:w-2/5 xl:w-3/5w w-full lg:mt-0 xl:w-2/5">
                     <div className="md:sticky top-24 flex flex-col">
-                        <ExpenseSummary
-                            totalPaidByUser={totalPaidByUser}
-                            totalCost={totalCost}
-                            fairShare={fairShare}
-                            onFairShareUpdate={(fairShare, settlements) => {
-                                setFairShare(fairShare);
-                                setSettlements(settlements);
-                            }}
-                            tripId={tripId || ''}
-                            remainingOwedToUser={remainingOwedToUser}
-                        />
+                        <div className="hidden md:block">
+                            <ExpenseSummary
+                                totalPaidByUser={totalPaidByUser}
+                                totalCost={totalCost}
+                                fairShare={fairShare}
+                                onFairShareUpdate={(fairShare, settlements) => {
+                                    setFairShare(fairShare);
+                                    setSettlements(settlements);
+                                }}
+                                tripId={tripId || ''}
+                                remainingOwedToUser={remainingOwedToUser}
+                            />
+                        </div>
 
                         {/* Button to open Add Expense modal */}
                         <Button label={t('addExpense')} onClick={handleAddExpenseClick} variant="primary" />
@@ -409,7 +427,7 @@ const TripDetailsPage: React.FC = () => {
             )}
 
             <section className="w-full max-w-screen-xl my-8 mx-auto">
-            <TripsSlider/>
+                <TripsSlider />
             </section>
         </section>
     );
