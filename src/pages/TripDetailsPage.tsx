@@ -400,7 +400,7 @@ const TripDetailsPage: React.FC = () => {
                 </Modal>
             )}
 
-            <section className="w-full max-w-screen-xl my-8 mx-auto px-4">
+            <section className="w-full max-w-screen-xl my-8 mx-auto">
             <TripsSlider/>
             </section>
         </section>
