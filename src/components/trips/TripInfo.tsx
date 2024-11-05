@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import TripMap from './TripMap';
 import WeatherWidget from '../widgets/WeatherWidget';
+import { formatDate } from '../../utils/dateUtils';
 
 interface TripInfoProps {
     tripName: string;
@@ -30,14 +31,6 @@ const TripInfo: React.FC<TripInfoProps> = ({
     coordinates,
 }) => {
     const { t } = useTranslation();
-
-    const formatDate = (dateString: string): string => {
-        const date = new Date(dateString);
-        return new Intl.DateTimeFormat('en-US', {
-            day: 'numeric',
-            month: 'short',
-        }).format(date);
-    };
 
     return (
         <div className="flex flex-col">

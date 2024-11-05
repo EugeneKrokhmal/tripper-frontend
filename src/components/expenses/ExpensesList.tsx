@@ -6,6 +6,7 @@ import Button from '../elements/Button';
 import ExpenseForm from './ExpenseForm';
 import { useTranslation } from 'react-i18next';
 import Price from '../Price';
+import { formatDate } from '../../utils/dateUtils';
 
 interface Expense {
     _id: string;
@@ -70,14 +71,6 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
         const updatedExpenses = [...expenseList, newExpense];
         setExpenseList(updatedExpenses);
         onExpenseAdded(newExpense);
-    };
-
-    const formatDate = (dateString: string): string => {
-        const date = new Date(dateString);
-        return new Intl.DateTimeFormat('en-US', {
-            day: 'numeric',
-            month: 'short',
-        }).format(date);
     };
 
     const closeModal = () => {

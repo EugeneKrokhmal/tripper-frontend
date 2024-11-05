@@ -7,9 +7,10 @@ import TextArea from '../elements/TextArea';
 import Modal from '../elements/Modal';
 import EditIcon from '../../images/icons/edit.svg';
 import DeleteIcon from '../../images/icons/delete.svg';
-import TripMap from './TripMap';
 import LocationIcon from '../../images/icons/marker.svg';
 import BookingIcon from '../../images/icons/bed.svg';
+import { formatDate } from '../../utils/dateUtils';
+import { useAutocomplete } from '../../hooks/useAutocomplete';
 
 interface TripTimelineProps {
     isOwner: boolean;
@@ -28,8 +29,6 @@ interface Activity {
     bookingLink?: string;
     transportation?: { title: string; lat?: number; lng?: number };
 }
-
-const DEBOUNCE_DELAY = 300;
 
 const getAllTripDates = (start: string, end: string): string[] => {
     const dates = [];
@@ -54,7 +53,6 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     isOwner,
 }) => {
     const { t } = useTranslation();
-
     const [timeline, setTimeline] = useState<{ [key: string]: Activity[] }>({});
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [newActivity, setNewActivity] = useState<string>('');
@@ -64,13 +62,13 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     const [newTransportationTitle, setNewTransportationTitle] = useState<string>('');
     const [newLat, setNewLat] = useState<number | null>(null);
     const [newLng, setNewLng] = useState<number | null>(null);
-    const [autocompleteResults, setAutocompleteResults] = useState<any[]>([]);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [showAll, setShowAll] = useState<boolean>(false);
     const [editMode, setEditMode] = useState<boolean>(false);
     const [editActivityIndex, setEditActivityIndex] = useState<number | null>(null);
 
-    // Fetch and sort timeline data on initial load
+    const { autocompleteResults, fetchResults, clearResults } = useAutocomplete(OPEN_CAGE_API_KEY);
+
     useEffect(() => {
         const fetchTripDetails = async () => {
             try {
@@ -90,49 +88,22 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
 
     const sortTimeline = (timelineData: { [key: string]: Activity[] }) => {
         const sortedTimeline = { ...timelineData };
-        // Sort each date's activities by time in ascending order
         Object.keys(sortedTimeline).forEach(date => {
             sortedTimeline[date].sort((a, b) => new Date(`1970-01-01T${a.time}`).getTime() - new Date(`1970-01-01T${b.time}`).getTime());
         });
         return sortedTimeline;
     };
 
-    const debounce = (func: Function, delay: number) => {
-        let debounceTimer: NodeJS.Timeout;
-        return (...args: any[]) => {
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => func.apply(this, args), delay);
-        };
-    };
-
-    const fetchAutocompleteResults = async (query: string) => {
-        if (query.length < 3) return;
-        try {
-            const response = await axios.get(
-                `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${OPEN_CAGE_API_KEY}&limit=5`
-            );
-            setAutocompleteResults(response.data.results);
-        } catch (err) {
-            console.error('Error fetching location suggestions', err);
-        }
-    };
-
-    const debouncedFetchAutocomplete = debounce(fetchAutocompleteResults, DEBOUNCE_DELAY);
-
     const handleLocationChange = (value: string) => {
         setNewTransportationTitle(value);
-        if (value.length >= 3) {
-            debouncedFetchAutocomplete(value);
-        } else {
-            setAutocompleteResults([]);
-        }
+        fetchResults(value);
     };
 
     const handleSelectSuggestion = (suggestion: any) => {
         setNewTransportationTitle(suggestion.formatted);
         setNewLat(suggestion.geometry.lat);
         setNewLng(suggestion.geometry.lng);
-        setAutocompleteResults([]);
+        clearResults();
     };
 
     const handleAddOrUpdateActivity = async () => {
@@ -220,14 +191,6 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
         setEditMode(true);
         setEditActivityIndex(index);
         setModalVisible(true);
-    };
-
-    const formatDate = (dateString: string): string => {
-        const date = new Date(dateString);
-        return new Intl.DateTimeFormat('en-US', {
-            day: 'numeric',
-            month: 'short',
-        }).format(date);
     };
 
     const tripDates = getAllTripDates(startDate, endDate);

@@ -6,6 +6,7 @@ import { RootState } from '../redux/store';
 import Button from '../components/elements/Button';
 import MarkerIcon from '../images/icons/marker.svg';
 import Loader from '../components/structure/Loader';
+import { formatDate } from '../utils/dateUtils';
 
 const JoinTripPage: React.FC = () => {
     const { tripId, token } = useParams<{ tripId: string; token: string }>();
@@ -49,12 +50,6 @@ const JoinTripPage: React.FC = () => {
         } catch (err) {
             setError('Failed to join the trip');
         }
-    };
-
-    // Format the dates to 'day month' format
-    const formatDate = (dateString: string) => {
-        const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-US', options);
     };
 
     if (!trip) {

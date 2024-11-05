@@ -13,8 +13,7 @@ import { useCurrency } from '../../context/CurrencyContext';
 import CreateTripImage1 from '../../images/gallery/9.jpg';
 import CreateTripImage2 from '../../images/gallery/10.jpg';
 import CreateTripImage3 from '../../images/gallery/11.jpg';
-
-const DEBOUNCE_DELAY = 300;
+import { useAutocomplete } from '../../hooks/useAutocomplete';
 
 const CreateTrip: React.FC = () => {
     const { t } = useTranslation();
@@ -24,7 +23,6 @@ const CreateTrip: React.FC = () => {
     const [description, setDescription] = useState<string>('');
     const [startDate, setStartDate] = useState<string>('');
     const [endDate, setEndDate] = useState<string>('');
-    const [autocompleteResults, setAutocompleteResults] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const [currentStep, setCurrentStep] = useState(1);
@@ -32,53 +30,25 @@ const CreateTrip: React.FC = () => {
     const { currency } = useCurrency();
     const navigate = useNavigate();
 
-    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-    const OPEN_CAGE_API_KEY = process.env.REACT_APP_OPENCAGE_API_KEY;
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
+    const OPEN_CAGE_API_KEY = process.env.REACT_APP_OPENCAGE_API_KEY || '';
 
-    // Array of images for each step
     const stepImages = [CreateTripImage1, CreateTripImage2, CreateTripImage3];
-
-    // Fade-in state for the image
     const [fadeIn, setFadeIn] = useState(true);
 
-    // Handle image transition on step change
     useEffect(() => {
-        setFadeIn(false); // Trigger fade-out
+        setFadeIn(false);
         const fadeTimer = setTimeout(() => {
-            setFadeIn(true); // Trigger fade-in after fade-out
-        }, 100); // Adjust delay for smoother transition
+            setFadeIn(true);
+        }, 100);
         return () => clearTimeout(fadeTimer);
     }, [currentStep]);
 
-    const debounce = (func: Function, delay: number) => {
-        let debounceTimer: NodeJS.Timeout;
-        return (...args: any[]) => {
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => func.apply(this, args), delay);
-        };
-    };
-
-    const fetchAutocompleteResults = async (query: string) => {
-        if (query.length < 3) return;
-        try {
-            const response = await axios.get(
-                `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${OPEN_CAGE_API_KEY}&limit=5`
-            );
-            setAutocompleteResults(response.data.results);
-        } catch (err) {
-            console.error('Error fetching location suggestions', err);
-        }
-    };
-
-    const debouncedFetchAutocomplete = debounce(fetchAutocompleteResults, DEBOUNCE_DELAY);
+    const { autocompleteResults, fetchResults, clearResults } = useAutocomplete(OPEN_CAGE_API_KEY);
 
     const handleLocationChange = (value: string) => {
         setDestination(value);
-        if (value.length >= 3) {
-            debouncedFetchAutocomplete(value);
-        } else {
-            setAutocompleteResults([]);
-        }
+        fetchResults(value);
     };
 
     const handleSelectSuggestion = (selectedLocation: any) => {
@@ -87,7 +57,7 @@ const CreateTrip: React.FC = () => {
             lat: selectedLocation.geometry.lat,
             lng: selectedLocation.geometry.lng,
         });
-        setAutocompleteResults([]);
+        clearResults();
     };
 
     const handleDateChange = (type: 'start' | 'end', value: string) => {

@@ -7,6 +7,7 @@ import EditIcon from '../../images/icons/edit.svg';
 import ImageUpload from '../ImageUpload';
 import { useTranslation } from 'react-i18next';
 import DateRangePicker from '../elements/DateRangePicker';
+import { useAutocomplete } from '../../hooks/useAutocomplete';
 import axios from 'axios';
 
 interface EditTripFormProps {
@@ -41,50 +42,29 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     onSubmit,
     onCancel,
 }) => {
+    const { t } = useTranslation();
     const [tripName, setTripName] = useState<string>(initialTripName);
     const [tripDescription, setTripDescription] = useState<string>(initialTripDescription);
     const [destination, setDestination] = useState<string>(initialDestination);
     const [startDate, setStartDate] = useState<string>(initialStartDate);
     const [endDate, setEndDate] = useState<string>(initialEndDate);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
-    const [autocompleteResults, setAutocompleteResults] = useState<any[]>([]);
     const [tripImage, setTripImage] = useState<string | null>(null);
     const [coordinates, setCoordinates] = useState<{ lat: number; lng: number }>(initialCoordinates);
-    const { t } = useTranslation();
-    const OPEN_CAGE_API_KEY = process.env.REACT_APP_OPENCAGE_API_KEY;
+
+    const OPEN_CAGE_API_KEY = process.env.REACT_APP_OPENCAGE_API_KEY || '';
+    const { autocompleteResults, fetchResults, clearResults } = useAutocomplete(OPEN_CAGE_API_KEY);
 
     useEffect(() => {
         setCoordinates(initialCoordinates);
-        // Load initial image if available
-        if (tripImage === null) setTripImage(`${process.env.REACT_APP_API_BASE_URL}/uploads/${id}/image.jpg`);
-    }, [initialCoordinates, id]);
-
-    const debounce = (func: Function, delay: number) => {
-        let debounceTimer: NodeJS.Timeout;
-        return (...args: any[]) => {
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => func.apply(this, args), delay);
-        };
-    };
-
-    const fetchAutocompleteResults = async (query: string) => {
-        if (query.length < 3) return;
-
-        try {
-            const response = await axios.get(
-                `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${OPEN_CAGE_API_KEY}&limit=5`
-            );
-            setAutocompleteResults(response.data.results);
-        } catch (err) {
-            console.error('Error fetching location suggestions', err);
+        if (!tripImage) {
+            setTripImage(`${process.env.REACT_APP_API_BASE_URL}/uploads/${id}/image.jpg`);
         }
-    };
-
-    const debouncedFetchAutocomplete = debounce(fetchAutocompleteResults, 300);
+    }, [initialCoordinates, id, tripImage]);
 
     const handleLocationChange = (value: string) => {
         setDestination(value);
-        debouncedFetchAutocomplete(value);
+        fetchResults(value);
     };
 
     const handleAutocompleteSelect = (result: any) => {
@@ -93,7 +73,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             lat: result.geometry.lat,
             lng: result.geometry.lng,
         });
-        setAutocompleteResults([]);
+        clearResults();
     };
 
     const handleSubmit = () => {
@@ -109,7 +89,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     };
 
     const handleImageUploadSuccess = (imageUrl: string) => {
-        setTripImage(imageUrl);  // Update image URL upon successful upload
+        setTripImage(imageUrl);
     };
 
     const closeModal = () => {
@@ -184,12 +164,8 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             )}
 
             <div className="flex gap-2 items-start">
-                {/* Display the uploaded image */}
-
-                {/* ImageUpload component to trigger upload */}
                 <ImageUpload tripId={id} onImageUploadSuccess={handleImageUploadSuccess} />
 
-                {/* Edit button to open modal */}
                 <button className="bg-white rounded py-2 px-2" onClick={() => setModalVisible(true)} title={t('edit')}>
                     <img src={EditIcon} alt="Edit" />
                 </button>
