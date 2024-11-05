@@ -21,6 +21,7 @@ const JoinTripPage: React.FC = () => {
         const fetchTripDetails = async () => {
             try {
                 const response = await axios.get(`${API_BASE_URL}/api/trips/${tripId}/${token}`);
+
                 setTrip(response.data);
             } catch (err) {
                 setError('Failed to fetch trip details');
@@ -71,7 +72,7 @@ const JoinTripPage: React.FC = () => {
                     />
 
                 </div>
-                <div className="max-w-screen-xl px-4 mx-auto lg:py-16">
+                <div className="max-w-screen-xl px-4 mx-auto lg:py-16 w-full">
                     {/* Right: Login Form */}
 
                     <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl"><span className="text-gradient">{trip.name}</span></h1>

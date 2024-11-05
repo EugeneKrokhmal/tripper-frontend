@@ -20,6 +20,8 @@ import ExpenseForm from '../components/expenses/ExpenseForm';
 import PlusIcon from '../images/icons/plus.svg';
 import Loader from '../components/structure/Loader';
 import { useCurrency } from '../context/CurrencyContext';
+import { fetchTripDetails } from '../api/tripApi';
+import TripsSlider from '../components/trips/TripsSlider';
 
 interface Settlement {
     _id: string;
@@ -79,19 +81,17 @@ const TripDetailsPage: React.FC = () => {
             }
         };
 
-        fetchTripDetails();
+        fetchData();
 
         if (!trip?.image) {
             fetchCityImage();
         }
     }, [API_BASE_URL, token, tripId, destination, UNSPLASH_ACCESS_KEY, trip?.image]);
 
-    const fetchTripDetails = async () => {
+    const fetchData = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/api/trips/${tripId}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            const tripData = response.data;
+            const tripData = await fetchTripDetails(tripId || '', token || '', API_BASE_URL || '');
+
             setTrip(tripData);
             setTripName(tripData.name);
             setTripDescription(tripData.description);
@@ -203,7 +203,7 @@ const TripDetailsPage: React.FC = () => {
         setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
         calculateTotalPaidByUser([...expenses, newExpense]);
         calculateTotalCost([...expenses, newExpense]);
-        fetchTripDetails();
+        fetchData();
         closeAddExpenseModal();
     };
 
@@ -211,7 +211,7 @@ const TripDetailsPage: React.FC = () => {
         setExpenses(updatedExpenses);
         calculateTotalPaidByUser(updatedExpenses);
         calculateTotalCost(updatedExpenses);
-        fetchTripDetails();
+        fetchData();
     };
 
     if (!trip) {
@@ -249,15 +249,19 @@ const TripDetailsPage: React.FC = () => {
         setIsAddExpenseModalOpen(false);
     };
 
+    const handleImageUploadSuccess = (newImageUrl: string) => {
+        setTrip({ ...trip, image: newImageUrl });
+    };
+
     const imageUrl = trip.image
         ? `${API_BASE_URL}/${trip.image}`
         : cityImage || `https://ui-avatars.com/api/?name=${trip.name}&background=random`;
 
     return (
-        <section className="bg-white dark:bg-zinc-800">
+        <section className="bg-white dark:bg-zinc-800 overflow-x-hidden">
             <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4">
                 <img
-                    className="object-cover rounded h-64 w-full mb-4"
+                    className="object-cover rounded h-64 w-full"
                     src={imageUrl}
                     alt={`${trip.location.destination}`}
                 />
@@ -281,8 +285,8 @@ const TripDetailsPage: React.FC = () => {
                             onSubmit={handleEditTrip}
                             onCancel={() => setEditMode(false)}
                             onDeleteClick={handleDeleteTrip}
+                            onImageUploadSuccess={handleImageUploadSuccess}
                         />
-
                     </>
                 )}
             </div>
@@ -395,6 +399,10 @@ const TripDetailsPage: React.FC = () => {
                     />
                 </Modal>
             )}
+
+            <section className="w-full max-w-screen-xl my-8 mx-auto px-4">
+            <TripsSlider/>
+            </section>
         </section>
     );
 };

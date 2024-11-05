@@ -9,6 +9,7 @@ import Breadcrumbs from '../components/structure/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import Loader from '../components/structure/Loader';
 import { useNavigate, useLocation } from 'react-router-dom';
+import TripsSlider from '../components/trips/TripsSlider';
 
 interface User {
     _id: string;
@@ -109,7 +110,7 @@ const Dashboard: React.FC = () => {
                     <span className="text-gradient">{t('myTrips')}</span>
                 </h1>
                 <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
-            </div>
+            </div>       
 
             <div className="flex flex-col-reverse gap-8 md:flex-row-reverse mb-8 px-4">
                 <div className="self-start md:sticky top-28 w-full md:w-2/4 xl:w-1/4">

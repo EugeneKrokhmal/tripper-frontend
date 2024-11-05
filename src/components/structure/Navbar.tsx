@@ -7,7 +7,6 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import BurgerMenu from './BurgerMenu';
 import DarkModeToggle from './DarkModeToggle';
-import { useDarkMode } from '../../context/DarkModeContext';
 
 const Navbar: React.FC = () => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
@@ -18,8 +17,6 @@ const Navbar: React.FC = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { t } = useTranslation();
     const dropdownRef = useRef<HTMLDivElement>(null);
-
-    const { isDarkMode } = useDarkMode();
 
     const handleLogout = () => {
         dispatch(logout());
@@ -74,9 +71,6 @@ const Navbar: React.FC = () => {
                     {isAuthenticated ? (
                         <div className="flex items-center space-x-2 relative">
                             <ul className="hidden md:flex gap-4 mx-8 text-sm text-zinc-900 dark:text-zinc-100">
-                                <li>
-                                    <Link to="/">{t('home')}</Link>
-                                </li>
                                 <li>
                                     <Link to="/new-trip">{t('createTrip')}</Link>
                                 </li>
@@ -135,10 +129,10 @@ const Navbar: React.FC = () => {
                                     <Link to="/" onClick={toggleDrawer}>{t('home')}</Link>
                                 </li>
                                 <li className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
-                                    <Link to="/new-trip" onClick={toggleDrawer}>{t('createTrip')}</Link>
+                                    <Link to="dashboard" onClick={toggleDrawer}>{t('myTrips')}</Link>
                                 </li>
                                 <li className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
-                                    <Link to="dashboard" onClick={toggleDrawer}>{t('myTrips')}</Link>
+                                    <Link to="/new-trip" onClick={toggleDrawer}>{t('createTrip')}</Link>
                                 </li>
                                 <li className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
                                     <Link to="faq" onClick={toggleDrawer}>{t('FAQ')}</Link>

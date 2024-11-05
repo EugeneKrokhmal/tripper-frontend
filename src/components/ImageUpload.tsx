@@ -45,8 +45,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ tripId, onImageUploadSuccess 
                 }
             );
 
+            // Call the parent handler with the new image URL
+            onImageUploadSuccess(response.data.imageUrl);
+
             setUploading(false);
-            onImageUploadSuccess(response.data.imageUrl);  // Trigger parent update with new image URL
             setPreviewUrl(null);
             setSelectedFile(null);
         } catch (err) {
@@ -78,7 +80,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ tripId, onImageUploadSuccess 
             {previewUrl && (
                 <div>
                     <img src={previewUrl} alt="Image preview" className="object-cover w-full h-full absolute left-0 top-0 bottom-0 right-0" />
-                    <div className="absolute top-4 right-4 flex gap-2">
+                    <div className="z-10 absolute top-4 right-4 flex gap-2">
                         <button
                             className="cursor-pointer bg-white rounded py-2 px-2 text-xs"
                             onClick={handleUpload}

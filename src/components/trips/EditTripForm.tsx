@@ -28,6 +28,7 @@ interface EditTripFormProps {
         coordinates: { lat: number; lng: number };
     }) => void;
     onCancel: () => void;
+    onImageUploadSuccess: (imageUrl: string) => void;
 }
 
 const EditTripForm: React.FC<EditTripFormProps> = ({
@@ -41,6 +42,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     onDeleteClick,
     onSubmit,
     onCancel,
+    onImageUploadSuccess
 }) => {
     const { t } = useTranslation();
     const [tripName, setTripName] = useState<string>(initialTripName);
@@ -86,10 +88,6 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             coordinates,
         });
         setModalVisible(false);
-    };
-
-    const handleImageUploadSuccess = (imageUrl: string) => {
-        setTripImage(imageUrl);
     };
 
     const closeModal = () => {
@@ -164,7 +162,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             )}
 
             <div className="flex gap-2 items-start">
-                <ImageUpload tripId={id} onImageUploadSuccess={handleImageUploadSuccess} />
+                <ImageUpload tripId={id} onImageUploadSuccess={onImageUploadSuccess} />
 
                 <button className="bg-white rounded py-2 px-2" onClick={() => setModalVisible(true)} title={t('edit')}>
                     <img src={EditIcon} alt="Edit" />

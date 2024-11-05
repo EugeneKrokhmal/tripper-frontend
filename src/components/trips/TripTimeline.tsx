@@ -11,6 +11,7 @@ import LocationIcon from '../../images/icons/marker.svg';
 import BookingIcon from '../../images/icons/bed.svg';
 import { formatDate } from '../../utils/dateUtils';
 import { useAutocomplete } from '../../hooks/useAutocomplete';
+import { fetchTripDetails } from '../../api/tripApi';
 
 interface TripTimelineProps {
     isOwner: boolean;
@@ -70,20 +71,18 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     const { autocompleteResults, fetchResults, clearResults } = useAutocomplete(OPEN_CAGE_API_KEY);
 
     useEffect(() => {
-        const fetchTripDetails = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get(`${API_BASE_URL}/api/trips/${tripId}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
+                const response = await fetchTripDetails(tripId || '', token || '', API_BASE_URL || '');
+                const sortedTimeline = sortTimeline(response.timeline || {});
 
-                const sortedTimeline = sortTimeline(response.data.timeline || {});
                 setTimeline(sortedTimeline);
             } catch (error) {
                 console.error('Error fetching trip details:', error);
             }
         };
 
-        fetchTripDetails();
+        fetchData();
     }, [tripId, token]);
 
     const sortTimeline = (timelineData: { [key: string]: Activity[] }) => {

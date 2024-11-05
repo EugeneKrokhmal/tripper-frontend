@@ -42,7 +42,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                     <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('youAreTheOwnerOfTheTrip')}</p>
                 )}
 
-                <div className="flex -space-x-4 rtl:space-x-reverse mb-6">
+                <div className="flex -space-x-4 rtl:space-x-reverse">
                     {participants.slice(0, 3).map((participant) => (
                         <img
                             key={participant._id}
