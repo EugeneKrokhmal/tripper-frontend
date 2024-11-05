@@ -11,7 +11,6 @@ import TripMap from './TripMap';
 import LocationIcon from '../../images/icons/marker.svg';
 import BookingIcon from '../../images/icons/bed.svg';
 
-
 interface TripTimelineProps {
     isOwner: boolean;
     startDate: string;
@@ -62,7 +61,6 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     const [newDescription, setNewDescription] = useState<string>('');
     const [newTime, setNewTime] = useState<string>('');
     const [newBookingLink, setNewBookingLink] = useState<string>('');
-    const [newTransportation, setNewTransportation] = useState<{ title: string; lat?: number; lng?: number } | null>(null);
     const [newTransportationTitle, setNewTransportationTitle] = useState<string>('');
     const [newLat, setNewLat] = useState<number | null>(null);
     const [newLng, setNewLng] = useState<number | null>(null);
@@ -72,13 +70,16 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     const [editMode, setEditMode] = useState<boolean>(false);
     const [editActivityIndex, setEditActivityIndex] = useState<number | null>(null);
 
+    // Fetch and sort timeline data on initial load
     useEffect(() => {
         const fetchTripDetails = async () => {
             try {
                 const response = await axios.get(`${API_BASE_URL}/api/trips/${tripId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                setTimeline(response.data.timeline || {});
+
+                const sortedTimeline = sortTimeline(response.data.timeline || {});
+                setTimeline(sortedTimeline);
             } catch (error) {
                 console.error('Error fetching trip details:', error);
             }
@@ -86,6 +87,15 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
 
         fetchTripDetails();
     }, [tripId, token]);
+
+    const sortTimeline = (timelineData: { [key: string]: Activity[] }) => {
+        const sortedTimeline = { ...timelineData };
+        // Sort each date's activities by time in ascending order
+        Object.keys(sortedTimeline).forEach(date => {
+            sortedTimeline[date].sort((a, b) => new Date(`1970-01-01T${a.time}`).getTime() - new Date(`1970-01-01T${b.time}`).getTime());
+        });
+        return sortedTimeline;
+    };
 
     const debounce = (func: Function, delay: number) => {
         let debounceTimer: NodeJS.Timeout;
@@ -142,7 +152,6 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                 : undefined,
         };
 
-
         const updatedTimeline = { ...timeline };
 
         if (editMode && editActivityIndex !== null) {
@@ -150,6 +159,10 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
         } else {
             updatedTimeline[selectedDate] = [...(updatedTimeline[selectedDate] || []), newActivityObject];
         }
+
+        updatedTimeline[selectedDate] = updatedTimeline[selectedDate].sort((a, b) =>
+            new Date(`1970-01-01T${a.time}`).getTime() - new Date(`1970-01-01T${b.time}`).getTime()
+        );
 
         try {
             await axios.put(
@@ -178,7 +191,6 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
         setNewTransportationTitle('');
         setNewLat(null);
         setNewLng(null);
-        setNewTransportation(null);
         setSelectedDate(null);
         setEditMode(false);
         setEditActivityIndex(null);
@@ -205,7 +217,6 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
         setNewDescription(activity.description);
         setNewTime(activity.time);
         setNewBookingLink(activity.bookingLink || '');
-        setNewTransportation(activity.transportation || null);
         setEditMode(true);
         setEditActivityIndex(index);
         setModalVisible(true);
@@ -234,7 +245,9 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                 {displayedDates.map(date => (
                     <li key={date} className="mb-1 ml-4">
                         <div className="absolute w-3 h-3 bg-zinc-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-zinc-900 dark:bg-zinc-700"></div>
-                        <time className="mb-1 text-normal font-normal leading-none text-zinc-400 dark:text-zinc-300"><span className="text-gradient font-bold">{formatDate(date)}</span> {t('dayPlan')}:</time>
+                        <time className="mb-1 text-normal font-normal leading-none text-zinc-400 dark:text-zinc-300">
+                            <span className="text-gradient font-bold">{formatDate(date)}</span> {t('dayPlan')}:
+                        </time>
                         {timeline[date] && timeline[date].length > 0 ? (
                             <ul className="mb-4 mt-4 text-base font-normal text-zinc-500 dark:text-zinc-300">
                                 {timeline[date].map((activity, index) => (
@@ -262,7 +275,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                                                 </div>
                                             </div>
                                             {isOwner && (
-                                                <div className="w-1/12 flex flex-col justify-start gap-4 items-end space-x-2 mt-1  cursor-pointer">
+                                                <div className="w-1/12 flex flex-col justify-start gap-4 items-end space-x-2 mt-1 cursor-pointer">
                                                     <a onClick={() => handleEditActivity(date, activity, index)}>
                                                         <img src={EditIcon} alt={t('editActivity')} />
                                                     </a>
@@ -300,24 +313,29 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                     </h3>
 
                     <form className="max-h-[70vh] overflow-y-auto">
-                        <div className="mb-4">
-                            <label htmlFor="date-select" className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">{t('selectDate')}<span className="text-red-500">*</span> </label>
-                            <select
-                                id="date-select"
-                                value={selectedDate || ''}
-                                onChange={(e) => setSelectedDate(e.target.value)}
-                                className="block w-full p-2.5 bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
-                            >
-                                <option value="" disabled>{t('selectDate')}</option>
-                                {tripDates.map(date => (
-                                    <option key={date} value={date}>{date}</option>
-                                ))}
-                            </select>
+                        <div className="flex gap-2">
+                            <div className="w-full">
+                                <label htmlFor="date-select" className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">{t('selectDate')}<span className="text-red-500">*</span> </label>
+                                <select
+                                    id="date-select"
+                                    value={selectedDate || ''}
+                                    onChange={(e) => setSelectedDate(e.target.value)}
+                                    className="block w-full p-2.5 bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
+                                >
+                                    <option value="" disabled>{t('selectDate')}</option>
+                                    {tripDates.map(date => (
+                                        <option key={date} value={date}>{date}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="w-full">
+                                <InputField label={t('activityTime')} type="time" value={newTime} onChange={(e) => setNewTime(e.target.value)} required />
+                            </div>
                         </div>
+
                         <InputField type="text" value={newActivity} onChange={(e) => setNewActivity(e.target.value)} label={t('enterActivityName')} required />
+
                         <TextArea label={t('activityDescription')} value={newDescription} onChange={(e) => setNewDescription(e.target.value)} />
-                        <InputField label={t('activityTime')} type="time" value={newTime} onChange={(e) => setNewTime(e.target.value)} required />
-                        <InputField label={t('bookingLink')} type="url" value={newBookingLink} onChange={(e) => setNewBookingLink(e.target.value)} />
 
                         <InputField
                             label={t('location')}
@@ -325,6 +343,9 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                             value={newTransportationTitle}
                             onChange={(e) => handleLocationChange(e.target.value)}
                         />
+
+                        <InputField label={t('bookingLink')} type="url" value={newBookingLink} onChange={(e) => setNewBookingLink(e.target.value)} />
+
                         {autocompleteResults.length > 0 && (
                             <ul className="absolute top-full mt-1 w-full bg-white border rounded-md shadow-lg max-h-60 overflow-auto">
                                 {autocompleteResults.map((result, index) => (
