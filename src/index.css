@@ -154,10 +154,6 @@ img::before {
 
 /* Slick */
 
-#root .slick-list {
-  overflow: visible;
-}
-
 #root .slick-dots {
   display: flex;
   padding: 2.5rem 0;

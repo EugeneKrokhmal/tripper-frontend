@@ -41,12 +41,13 @@ const Navbar: React.FC = () => {
             <div className="max-w-screen-xl h-full flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">
                     <div className="text-2xl font-extrabold text-zinc-900 dark:text-white flex items-center">
-                        <span className="mr-1">
+                        <span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="bg-gradient text-white dark:text-zinc-900 w-6 object-cover"
+                                className="bg-gradient text-white dark:text-zinc-900 w-6 object-cover m-2"
                                 width="24"
                                 style={{
+                                    aspectRatio: 540/636,
                                     shapeRendering: 'geometricPrecision',
                                     textRendering: 'geometricPrecision',
                                     fillRule: 'evenodd',
