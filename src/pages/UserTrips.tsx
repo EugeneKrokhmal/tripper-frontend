@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
 import TripCard from '../components/trips/TripCard';
 import TripSearchAndFilter from '../components/trips/TripSearchAndFilter';
@@ -9,7 +9,7 @@ import Breadcrumbs from '../components/structure/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import Loader from '../components/structure/Loader';
 import { useNavigate, useLocation } from 'react-router-dom';
-import TripsSlider from '../components/trips/TripsSlider';
+import { logout } from '../redux/slices/authSlice';
 
 interface User {
     _id: string;
@@ -29,6 +29,7 @@ interface Trip {
 
 const Dashboard: React.FC = () => {
     const [trips, setTrips] = useState<Trip[]>([]);
+    const dispatch = useDispatch();
     const [filteredTrips, setFilteredTrips] = useState<Trip[]>([]);
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -63,7 +64,7 @@ const Dashboard: React.FC = () => {
             } catch (err) {
                 setError('Failed to fetch users or trips');
                 setLoading(false);
-                navigate('/')
+                handleLogout();
             }
         };
 
@@ -86,6 +87,11 @@ const Dashboard: React.FC = () => {
 
     const handleFilter = (filters: string[]) => {
         setFilteredTrips(trips);
+    };
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate('/login');
     };
 
     const breadcrumbs = [

@@ -22,6 +22,7 @@ import Loader from '../components/structure/Loader';
 import { useCurrency } from '../context/CurrencyContext';
 import { fetchTripDetails } from '../api/tripApi';
 import TripsSlider from '../components/trips/TripsSlider';
+import ExpenseSummaryWidget from '../components/widgets/ExpenseSummaryWidget';
 
 interface Settlement {
     _id: string;
@@ -323,22 +324,6 @@ const TripDetailsPage: React.FC = () => {
 
                     <hr className="my-8" />
 
-                    <div className="md:hidden">
-                        <ExpenseSummary
-                            totalPaidByUser={totalPaidByUser}
-                            totalCost={totalCost}
-                            fairShare={fairShare}
-                            onFairShareUpdate={(fairShare, settlements) => {
-                                setFairShare(fairShare);
-                                setSettlements(settlements);
-                            }}
-                            tripId={tripId || ''}
-                            remainingOwedToUser={remainingOwedToUser}
-                        />
-
-                        <hr className="my-8" />
-                    </div>
-
                     <TripParticipants
                         tripId={tripId || ''}
                         isOwner={trip.creator._id === userId}
@@ -370,8 +355,8 @@ const TripDetailsPage: React.FC = () => {
                     />
 
                     <hr className="my-8" />
-
                 </div>
+
                 <div className="md:static md:flex flex-col gap-8 md:w-4/12 lg:w-2/5 xl:w-3/5w w-full lg:mt-0 xl:w-2/5">
                     <div className="md:sticky top-24 flex flex-col">
                         <div className="hidden md:block">
@@ -386,10 +371,9 @@ const TripDetailsPage: React.FC = () => {
                                 tripId={tripId || ''}
                                 remainingOwedToUser={remainingOwedToUser}
                             />
+                            {/* Button to open Add Expense modal */}
+                            <Button label={t('addExpense')} onClick={handleAddExpenseClick} variant="primary" />
                         </div>
-
-                        {/* Button to open Add Expense modal */}
-                        <Button label={t('addExpense')} onClick={handleAddExpenseClick} variant="primary" />
 
                         <ExpensesList
                             userId={userId || ''}
@@ -410,6 +394,22 @@ const TripDetailsPage: React.FC = () => {
                     className="bg-gradient-to-r to-transparent from-sky-400 grid justify-center items-center rounded-full backdrop-blur-sm fixed z-50 w-16 h-16 border border-zinc-200 bottom-4 left-4 dark:border-zinc-600 lg:hidden h-16"
                 >
                     <img className="w-6" src={PlusIcon} alt={t('addExpense')} />
+                </div>
+
+                <div className="md:hidden">
+                    <ExpenseSummaryWidget
+                        totalPaidByUser={totalPaidByUser}
+                        totalCost={totalCost}
+                        fairShare={fairShare}
+                        onFairShareUpdate={(fairShare, settlements) => {
+                            setFairShare(fairShare);
+                            setSettlements(settlements);
+                        }}
+                        tripId={tripId || ''}
+                        remainingOwedToUser={remainingOwedToUser}
+                    />
+
+                    <hr className="my-8" />
                 </div>
             </div>
 
