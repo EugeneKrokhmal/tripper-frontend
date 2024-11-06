@@ -23,14 +23,14 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
     expenses,
 }) => {
     const { t } = useTranslation();
-    const [showUsersTable, setShowUsersTable] = useState<boolean>(false);
+    const [showUsersTable, setShowUsersTable] = useState<boolean>(true);
 
     const toggleUsersTable = () => {
         setShowUsersTable((prevShow) => !prevShow);
     };
 
     return (
-        <div className="flex flex-col gap-8">
+        <div className="flex-col gap-8 hidden md:flex">
             <div className="flex flex-col">
                 <h3 id="thecrew" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                     <span className="text-gradient">
@@ -62,17 +62,19 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
             {showUsersTable && (
                 <>
                     <UsersTable isOwner={isOwner} participants={participants} expenses={expenses} />
+
+                    <div className="self-start">
+                        <Button
+                            onClick={toggleUsersTable}
+                            label={showUsersTable ? t('showLess') : t('showMore')}
+                            variant={'primary'}
+                        >
+                        </Button>
+                    </div>
                 </>
             )}
 
-            <div className="self-start">
-                <Button
-                    onClick={toggleUsersTable}
-                    label={showUsersTable ? t('showLess') : t('showMore')}
-                    variant={'primary'}
-                >
-                </Button>
-            </div>
+            <hr className="my-8" />
         </div>
     );
 };

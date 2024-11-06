@@ -60,26 +60,26 @@ const UsersTable: React.FC<UsersTableProps> = ({
                             key={participant._id}
                             className="bg-white border-b dark:bg-zinc-800 dark:border-zinc-700"
                         >
-                            <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center space-x-3">
+                            <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center md:space-x-3 w-1/5 md:w-full">
                                 <div className="flex gap-2 items-center">
                                     {participant ? (
                                         <img
                                             key={participant._id}
-                                            className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
+                                            className="hidden md:block w-6 h-6 md:w-10 md:h-10 border-2 border-white rounded-full dark:border-zinc-800"
                                             src={`https://ui-avatars.com/api/?name=${participant.name}&background=random`}
                                             alt={participant.name}
                                         />
                                     ) : (
                                         <div className="w-8 h-8 hidden md:flex rounded-full bg-zinc-300 dark:bg-zinc-600 items-center justify-center">
-                                            <span className="text-white text-sm font-medium">participant.name</span>
+                                            <span className="text-white text-xs md:text-sm font-medium">participant.name</span>
                                         </div>
                                     )}
                                     <div>
-                                        <p className="font-semibold">{participant.name}</p>
+                                        <p className="font-semibold text-xs md:text-sm">{participant.name}</p>
                                     </div>
                                 </div>
                             </td>
-                            <td className="px-2 py-4 text-xs align-top">
+                            <td className="px-2 py-4 text-xs align-top w-1/5 md:w-full">
                                 {/* Display the names of expenses the user is responsible for */}
                                 <ul>
                                     {getResponsibleExpensesNames(participant._id).length > 0
@@ -95,7 +95,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                                     {getInvolvedExpenses(participant._id).length > 0
                                         ? getInvolvedExpenses(participant._id).map((expense, index) => (
                                             <li key={index} className="flex justify-between">
-                                                <span className="mr-auto bg-white dark:bg-zinc-800">{expense.name}</span><span className="bg-white dark:bg-zinc-800"><Price price={+expense.amount} /></span>
+                                                <span className="mr-auto bg-white dark:bg-zinc-800">{expense.name}</span><span className="bg-white dark:bg-zinc-800"><Price price={+expense.amount.toFixed(2)} /></span>
                                             </li>
                                         ))
                                         : ''}

@@ -15,8 +15,10 @@ const Navbar: React.FC = () => {
     const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [isNavbarVisible, setIsNavbarVisible] = useState(true);
     const { t } = useTranslation();
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const lastScrollY = useRef(0);
 
     const handleLogout = () => {
         dispatch(logout());
@@ -36,18 +38,37 @@ const Navbar: React.FC = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // Scroll event listener to show/hide navbar
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > lastScrollY.current && window.scrollY > 100) {
+                setIsNavbarVisible(false); // Hide navbar on scroll down
+            } else {
+                setIsNavbarVisible(true); // Show navbar on scroll up
+            }
+            lastScrollY.current = window.scrollY;
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <nav className="z-50 fixed top-0 left-0 w-full h-20 bg-white border-zinc-200 dark:bg-zinc-900 shadow">
-            <div className="max-w-screen-xl h-full flex flex-wrap items-center justify-between mx-auto p-4">
+        <nav
+            className={`z-50 fixed top-0 left-0 w-full bg-white border-zinc-200 dark:bg-zinc-900 shadow transition-transform duration-300`}
+        >
+            <div className={`transition-all duration-300 max-w-screen-xl h-full flex flex-wrap items-center justify-between mx-auto px-4 ${isNavbarVisible ? 'py-4' : 'py-1'
+                }`}>
                 <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">
                     <div className="text-2xl font-extrabold text-zinc-900 dark:text-white flex items-center">
-                        <span>
+                        {/* <span className="bg-gradient mr-1">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="bg-gradient text-white dark:text-zinc-900 w-6 object-cover m-2"
-                                width="24"
+                                className={`transition-all duration-300 text-white dark:text-zinc-900 object-cover`}
+                                width={`${isNavbarVisible ? '16' : '12'}`}
                                 style={{
-                                    aspectRatio: 540/636,
                                     shapeRendering: 'geometricPrecision',
                                     textRendering: 'geometricPrecision',
                                     fillRule: 'evenodd',
@@ -61,8 +82,12 @@ const Navbar: React.FC = () => {
                                     d="M-.5-.5h540v636H-.5V-.5Zm242 19h11c-.492 87.391.008 174.724 1.5 262 1.643 2.477 3.476 4.81 5.5 7 59.643 58.81 118.976 118.31 178 178.5-55.474 56.641-111.474 112.807-168 168.5-64.653-64.153-129.153-128.486-193.5-193-59.9316-73.655-76.598242-156.322-50-248C48.7281 129.107 89.8948 80.2733 149.5 47c29.119-14.8754 59.785-24.3754 92-28.5Zm45 0c57.257 3.9765 107.59 24.4765 151 61.5l31.5 31.5c7.527 10.543 14.694 21.376 21.5 32.5-67.667 33.833-135.333 67.667-203 101.5-1-75.664-1.333-151.3304-1-227Zm218 156c1.29.558 2.123 1.558 2.5 3 33.713 93.038 21.046 179.038-38 258-2.05 2.388-4.384 4.388-7 6-55.236-53.902-109.736-108.402-163.5-163.5 68.883-34.275 137.549-68.775 206-103.5Z"
                                 />
                             </svg>
-                        </span>
-                        <span className="text-gradient">
+                        </span> */}
+                        <span
+                            className={`transition-all duration-300 text-gradient ${
+                                isNavbarVisible ? 'text-normal' : 'text-sm'
+                            }`}
+                        >
                             {t('Tripper')}
                         </span>
                     </div>
@@ -100,6 +125,7 @@ const Navbar: React.FC = () => {
                     )}
                 </div>
 
+                {/* Drawer for Mobile Navigation */}
                 <div className={`fixed inset-0 z-40 ${isDrawerOpen ? 'backdrop-blur-sm' : 'pointer-events-none'}`}>
                     <div
                         className={`bg-zinc-900 bg-opacity-50 w-full h-full transition-opacity duration-300 ${isDrawerOpen ? 'opacity-100' : 'opacity-0'}`}
