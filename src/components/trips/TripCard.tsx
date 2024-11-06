@@ -65,7 +65,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
         <a
             className={`overflow-hidden h-full transition-all transition-500 justify-end mb-4 flex items-center bg-white border border-zinc-200 dark:border-zinc-900 rounded-lg shadow md:flex-col-reverse flex-col-reverse hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700`}
         >
-            <div className="w-full flex-col flex px-4 md:px-4 leading-normal bg-white dark:bg-zinc-900 h-2/3">
+            <div className="w-full flex-col flex px-2 pb-4 md:px-4 leading-normal bg-white dark:bg-zinc-900 h-2/3">
                 <h1 className="mb-2 mt-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-3xl">
                     <span
                         onClick={() => navigate(`/trip/${trip._id}`)}
@@ -83,8 +83,8 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                             <span className="mb-4 text-sm text-zinc-700 dark:text-zinc-400">{new Date(trip.endDate).toLocaleDateString()}</span>
                         </p>
                     </div>
-                    <div className="flex justify-between mt-auto">
-                        <div className="flex -space-x-4 rtl:space-x-reverse mb-4 self-end">
+                    <div className="flex justify-between mt-auto items-end">
+                        <div className="flex -space-x-4 rtl:space-x-reverse self-end">
                             {trip.participants.slice(0, 3).map((participant) => (
                                 <img
                                     key={participant._id}
