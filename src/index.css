@@ -161,6 +161,7 @@ img::before {
 
 #root .slick-track {
   display: flex;
+  min-width: 100%;
   height: inherit;
 }
 

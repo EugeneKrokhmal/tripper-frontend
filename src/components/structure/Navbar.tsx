@@ -176,7 +176,7 @@ const Navbar: React.FC = () => {
                                     className="text-zinc-900 dark:text-zinc-100"
                                     onClick={() => {
                                         handleLogout();
-                                        setIsDropdownOpen(false);
+                                        toggleDrawer();
                                     }}
                                 >
                                     {t('logout')}
