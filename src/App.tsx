@@ -33,7 +33,7 @@ function App() {
         <Router>
             <ScrollToTop />
             <Navbar />
-            <div className="pt-20 relative min-h-screen">
+            <div className="pt-16 relative min-h-screen">
                 <Routes>
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />

@@ -52,26 +52,39 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
 
     return (
         <div className={`md:hidden bottom-4 left-4 right-4 z-10 fixed`}>
-            <div className={`${!isWidgetOpen ? 'h-12 rounded-t-3xl rounded-b-3xl' : 'h-96 rounded-t-3xl rounded-b-3xl'} transition-all overflow-hidden items-center justify-between bg-gray-200 dark:bg-zinc-900 shadow p-1`}>
+            <div className={`${!isWidgetOpen ? 'h-12 rounded-t-3xl rounded-b-3xl' : 'h-96 rounded-t-3xl rounded-b-3xl'} transition-all overflow-hidden items-center justify-between bg-gray-200 dark:bg-zinc-900 shadow p-1 relative`}>
                 <div className="flex justify-between">
                     <div className="self-start">
                         <Button label={t('addExpense')} onClick={onAddExpenseClick} variant="primary" />
                     </div>
-                    <div
-                        onClick={toggleWidget}
-                        onTouchStart={handleTouchStart}
-                        onTouchEnd={handleTouchEnd}
-                        className="flex gap-1 text-right items-center pr-4">
-                        <dl>
-                            <dd className="leading-none text-sm font-bold text-zinc-900 dark:text-white">&#8704;<Price price={+totalCost.toFixed()} /></dd>
-                        </dl>
-                        <dl>
-                            <dd className="leading-none text-sm font-bold text-green-500 dark:text-green-400">&#x2193;<Price price={+remainingOwedToUser.toFixed(2)} /></dd>
-                        </dl>
-                        <dl>
-                            <dd className="leading-none text-sm font-bold text-red-600 dark:text-red-500">&#x2191;<Price price={+userCost.toFixed(2)} /></dd>
-                        </dl>
-                    </div>
+                    {!isWidgetOpen ? (
+                        <div
+                            onClick={toggleWidget}
+                            onTouchStart={handleTouchStart}
+                            onTouchEnd={handleTouchEnd}
+                            className={`duration-1000 flex gap-1 text-right items-center pr-4`}>
+                            <dl>
+                                <dd className="leading-none text-sm font-bold text-zinc-900 dark:text-white">&#8704;<Price price={+totalCost.toFixed()} /></dd>
+                            </dl>
+                            <dl>
+                                <dd className="leading-none text-sm font-bold text-green-500 dark:text-green-400">&#x2193;<Price price={+remainingOwedToUser.toFixed(2)} /></dd>
+                            </dl>
+                            <dl>
+                                <dd className="leading-none text-sm font-bold text-red-600 dark:text-red-500">&#x2191;<Price price={+userCost.toFixed(2)} /></dd>
+                            </dl>
+                        </div>
+                    ) : (
+                        <button
+                            className="mr-2 text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-white"
+                            onClick={() => {
+                                toggleWidget()
+                            }}
+                        >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    )}
                 </div>
 
                 <div className={`mt-2 flex flex-col`}>
