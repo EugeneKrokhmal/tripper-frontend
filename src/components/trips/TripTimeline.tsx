@@ -238,7 +238,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                                                     )}
                                                 </div>
                                             </div>
-                                            {isOwner || isAdmin && (
+                                            {(isOwner || isAdmin) && (
                                                 <div className="w-1/12 flex flex-col justify-start gap-4 items-end space-x-2 mt-1 cursor-pointer">
                                                     <a onClick={() => handleEditActivity(date, activity, index)}>
                                                         <img src={EditIcon} alt={t('editActivity')} />
@@ -273,7 +273,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                 )}
             </div>
 
-            {modalVisible && isOwner && isAdmin && (
+            {modalVisible && (isOwner || isAdmin) && (
                 <Modal onClose={closeModal}>
                     <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                         <span className="text-gradient">{editMode ? t('editActivity') : t('addActivity')}</span>

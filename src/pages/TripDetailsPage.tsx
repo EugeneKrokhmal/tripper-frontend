@@ -273,7 +273,7 @@ const TripDetailsPage: React.FC = () => {
                     src={imageUrl}
                     alt={`${trip.location.destination}`}
                 />
-                {trip.creator._id === userId && (
+                {(trip.creator._id === userId || trip.administrators.includes(userId)) && (
                     <>
                         <ShareTrip
                             isOwner={trip.creator._id === userId}

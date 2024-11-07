@@ -48,7 +48,7 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
 
     return (
         <div className={`md:hidden bottom-4 left-4 right-4 z-10 fixed`}>
-            <div className={`${!isWidgetOpen ? 'h-12 rounded-t-3xl rounded-b-3xl' : 'h-96 rounded-t-3xl rounded-b-3xl'} transition-all overflow-hidden items-center justify-between bg-gray-200 dark:bg-zinc-900 shadow p-1 relative`}>
+            <div className={`${!isWidgetOpen ? 'h-12 rounded-t-3xl rounded-b-3xl' : 'h-96 rounded-t-3xl rounded-b-3xl'} transition-all duration-500 ease overflow-hidden items-center justify-between bg-gray-200 dark:bg-zinc-900 shadow p-1 relative`}>
                 <div className="flex justify-between">
                     <div className="self-start">
                         <Button label={t('addExpense')} onClick={onAddExpenseClick} variant="primary" />
@@ -83,12 +83,12 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
                     )}
                 </div>
 
-                <div className={`mt-2 flex flex-col`}>
+                <div className={`mt-4 flex flex-col`}>
                     <div className="rounded overflow-scroll h-64">
                         <UsersTable isOwner={isOwner} participants={participants} expenses={expenses} />
                     </div>
                     <div
-                        className="flex gap-2 text-left p-2 my-4">
+                        className="flex gap-2 text-left p-2 my-2">
                         <dl>
                             <dd className="leading-none mb-1 font-bold text-zinc-900 dark:text-white">&#8704;<Price price={+totalCost.toFixed()} /></dd>
                             <dt className="text-xs font-normal text-zinc-500 dark:text-zinc-400">{t('totalTripCost')}</dt>

@@ -32,7 +32,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
     };
 
     return (
-        <div className="flex-col gap-8 flex">
+        <div className="flex-col flex">
             <div className="flex flex-col">
                 <h3 id="thecrew" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                     <span className="text-gradient">

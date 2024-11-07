@@ -155,7 +155,9 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
                                 <Button label={t('save')} onClick={handleSubmit} variant="primary" />
                                 <Button label={t('cancel')} onClick={closeModal} variant="secondary" />
                             </div>
-                            <Button label={t('delete')} onClick={onDeleteClick} variant="secondary" />
+                            <div className="self-end">
+                                <Button label={t('delete')} onClick={onDeleteClick} variant="secondary" />
+                            </div>
                         </div>
                     </form>
                 </Modal>
