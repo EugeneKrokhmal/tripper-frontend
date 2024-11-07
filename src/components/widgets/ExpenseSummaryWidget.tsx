@@ -51,8 +51,8 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
     }
 
     return (
-        <div className={`md:hidden bottom-4 left-2 right-2 z-10 fixed`}>
-            <div className={`${!isWidgetOpen ? 'h-12 rounded-t-3xl rounded-b-3xl' : 'h-72 rounded-t-3xl rounded-b-3xl'} transition-all overflow-hidden items-center justify-between bg-zinc-100 dark:bg-zinc-900 shadow p-1`}>
+        <div className={`md:hidden bottom-4 left-4 right-4 z-10 fixed`}>
+            <div className={`${!isWidgetOpen ? 'h-12 rounded-t-3xl rounded-b-3xl' : 'h-96 rounded-t-3xl rounded-b-3xl'} transition-all overflow-hidden items-center justify-between bg-gray-200 dark:bg-zinc-900 shadow p-1`}>
                 <div className="flex justify-between">
                     <div className="self-start">
                         <Button label={t('addExpense')} onClick={onAddExpenseClick} variant="primary" />
@@ -75,7 +75,7 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
                 </div>
 
                 <div className={`mt-2 flex flex-col`}>
-                    <div className="rounded overflow-scroll h-36">
+                    <div className="rounded overflow-scroll h-64">
                         <UsersTable isOwner={isOwner} participants={participants} expenses={expenses} />
                     </div>
                     <div
