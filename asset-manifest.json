@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/tripper-frontend/static/css/main.d00fbada.css",
-    "main.js": "/tripper-frontend/static/js/main.9aa7ae01.js",
+    "main.js": "/tripper-frontend/static/js/main.31c49adc.js",
     "static/media/7.jpg": "/tripper-frontend/static/media/7.86d47d835501650dc2a3.jpg",
     "static/media/ad2.png": "/tripper-frontend/static/media/ad2.9785b33c108facd88340.png",
     "static/media/4.jpg": "/tripper-frontend/static/media/4.2e7d1bc968d4431e25bd.jpg",
@@ -25,10 +25,10 @@
     "static/media/history.svg": "/tripper-frontend/static/media/history.157957ee3444d8923550103febaa2bb4.svg",
     "static/media/marker.svg": "/tripper-frontend/static/media/marker.d94f9a5a2f8cfa4cb20e479ee33e9b1f.svg",
     "main.d00fbada.css.map": "/tripper-frontend/static/css/main.d00fbada.css.map",
-    "main.9aa7ae01.js.map": "/tripper-frontend/static/js/main.9aa7ae01.js.map"
+    "main.31c49adc.js.map": "/tripper-frontend/static/js/main.31c49adc.js.map"
   },
   "entrypoints": [
     "static/css/main.d00fbada.css",
-    "static/js/main.9aa7ae01.js"
+    "static/js/main.31c49adc.js"
   ]
 }
