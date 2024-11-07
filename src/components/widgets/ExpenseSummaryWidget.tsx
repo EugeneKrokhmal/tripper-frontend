@@ -46,10 +46,6 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
         }
     };
 
-    if (totalCost <= 0) {
-        return '';
-    }
-
     return (
         <div className={`md:hidden bottom-4 left-4 right-4 z-10 fixed`}>
             <div className={`${!isWidgetOpen ? 'h-12 rounded-t-3xl rounded-b-3xl' : 'h-96 rounded-t-3xl rounded-b-3xl'} transition-all overflow-hidden items-center justify-between bg-gray-200 dark:bg-zinc-900 shadow p-1 relative`}>

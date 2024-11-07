@@ -6,6 +6,7 @@ import Button from '../elements/Button';
 interface TripParticipantsProps {
     tripId: string;
     isOwner: boolean;
+    isAdmin: boolean;
     participants: { _id: string; name: string }[];
     expenses: {
         _id: string;
@@ -19,6 +20,7 @@ interface TripParticipantsProps {
 const TripParticipants: React.FC<TripParticipantsProps> = ({
     tripId,
     isOwner,
+    isAdmin,
     participants,
     expenses,
 }) => {
@@ -30,7 +32,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
     };
 
     return (
-        <div className="flex-col gap-8 hidden md:flex">
+        <div className="flex-col gap-8 flex">
             <div className="flex flex-col">
                 <h3 id="thecrew" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                     <span className="text-gradient">
@@ -42,8 +44,12 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                     <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('youAreTheOwnerOfTheTrip')}</p>
                 )}
 
+                {isAdmin && (
+                    <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('youAreAnAdminOfTheTrip')}</p>
+                )}
+
                 <div className="flex -space-x-4 rtl:space-x-reverse">
-                    {participants.slice(0, 3).map((participant) => (
+                    {participants.map((participant) => (
                         <img
                             key={participant._id}
                             className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
@@ -51,28 +57,30 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                             alt={participant.name}
                         />
                     ))}
-                    {participants.length > 3 && (
+                    {participants.length > 5 && (
                         <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full hover:bg-zinc-600 dark:border-zinc-800">
-                            +{participants.length - 3}
+                            +{participants.length - 5}
                         </span>
                     )}
                 </div>
             </div>
 
-            {showUsersTable && (
-                <>
-                    <UsersTable isOwner={isOwner} participants={participants} expenses={expenses} />
+            <div className="hidden md:block">
+                {showUsersTable && (
+                    <>
+                        <UsersTable isOwner={isOwner} participants={participants} expenses={expenses} />
+                    </>
+                )}
 
-                    <div className="self-start">
-                        <Button
-                            onClick={toggleUsersTable}
-                            label={showUsersTable ? t('showLess') : t('showMore')}
-                            variant={'primary'}
-                        >
-                        </Button>
-                    </div>
-                </>
-            )}
+                <div className="self-start pt-8">
+                    <Button
+                        onClick={toggleUsersTable}
+                        label={showUsersTable ? t('showLess') : t('showMore')}
+                        variant={'primary'}
+                    >
+                    </Button>
+                </div>
+            </div>
 
             <hr className="my-8" />
         </div>

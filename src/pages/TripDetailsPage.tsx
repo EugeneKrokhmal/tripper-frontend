@@ -21,7 +21,6 @@ import PlusIcon from '../images/icons/plus.svg';
 import Loader from '../components/structure/Loader';
 import { useCurrency } from '../context/CurrencyContext';
 import { fetchTripDetails } from '../api/tripApi';
-import TripsSlider from '../components/trips/TripsSlider';
 import ExpenseSummaryWidget from '../components/widgets/ExpenseSummaryWidget';
 
 interface Settlement {
@@ -327,6 +326,7 @@ const TripDetailsPage: React.FC = () => {
                     <TripParticipants
                         tripId={tripId || ''}
                         isOwner={trip.creator._id === userId}
+                        isAdmin={trip.administrators.includes(userId)}
                         participants={trip.participants}
                         expenses={trip.expenses}
                     />
@@ -334,6 +334,7 @@ const TripDetailsPage: React.FC = () => {
                     <TripTimeline
                         startDate={startDate}
                         isOwner={trip.creator._id === userId}
+                        isAdmin={trip.administrators.includes(userId)}
                         endDate={endDate}
                         tripId={tripId || ''}
                         token={token || ''}
