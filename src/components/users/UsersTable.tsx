@@ -1,9 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Price from '../Price';
+import AdminIcon from '../../images/icons/admin.svg';
+import OwnerIcon from '../../images/icons/owner.svg';
+
 
 interface UsersTableProps {
     isOwner: boolean;
+    admins: [];
     participants: { _id: string; name: string }[];
     expenses: {
         _id: string;
@@ -16,6 +20,7 @@ interface UsersTableProps {
 
 const UsersTable: React.FC<UsersTableProps> = ({
     isOwner,
+    admins,
     participants,
     expenses,
 }) => {
@@ -63,19 +68,25 @@ const UsersTable: React.FC<UsersTableProps> = ({
                             <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center md:space-x-3 w-1/5 md:w-full">
                                 <div className="flex gap-2 items-center">
                                     {participant ? (
-                                        <img
-                                            key={participant._id}
-                                            className="hidden md:block w-6 h-6 md:w-10 md:h-10 border-2 border-white rounded-full dark:border-zinc-800"
-                                            src={`https://ui-avatars.com/api/?name=${participant.name}&background=random`}
-                                            alt={participant.name}
-                                        />
+                                        <div>
+                                            <img
+                                                key={participant._id}
+                                                className="hidden md:block w-6 h-6 md:w-10 md:h-10 border-2 border-white rounded-full dark:border-zinc-800"
+                                                src={`https://ui-avatars.com/api/?name=${participant.name}&background=random`}
+                                                alt={participant.name}
+                                            />
+                                        </div>
                                     ) : (
                                         <div className="w-8 h-8 hidden md:flex rounded-full bg-zinc-300 dark:bg-zinc-600 items-center justify-center">
                                             <span className="text-white text-xs md:text-sm font-medium">participant.name</span>
                                         </div>
                                     )}
                                     <div>
-                                        <p className="font-semibold text-xs md:text-sm">{participant.name}</p>
+                                        <p className="font-semibold text-xs md:text-sm">{participant.name}
+                                            {(admins as string[]).includes(participant._id) &&
+                                                (<span className="opacity-50 text-xs font-normal"> (Admin) </span>
+                                            )}
+                                        </p>
                                     </div>
                                 </div>
                             </td>

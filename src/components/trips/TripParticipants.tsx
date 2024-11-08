@@ -5,8 +5,9 @@ import Button from '../elements/Button';
 
 interface TripParticipantsProps {
     tripId: string;
+    userId: string;
     isOwner: boolean;
-    isAdmin: boolean;
+    admins: [];
     participants: { _id: string; name: string }[];
     expenses: {
         _id: string;
@@ -19,8 +20,9 @@ interface TripParticipantsProps {
 
 const TripParticipants: React.FC<TripParticipantsProps> = ({
     tripId,
+    userId,
     isOwner,
-    isAdmin,
+    admins,
     participants,
     expenses,
 }) => {
@@ -32,7 +34,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
     };
 
     return (
-        <div className="flex-col flex">
+        <div className="flex-col flex gap-4">
             <div className="flex flex-col">
                 <h3 id="thecrew" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                     <span className="text-gradient">
@@ -44,7 +46,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                     <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('youAreTheOwnerOfTheTrip')}</p>
                 )}
 
-                {isAdmin && (
+                {(admins as string[]).includes(userId)  && (
                     <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('youAreAnAdminOfTheTrip')}</p>
                 )}
 
@@ -68,7 +70,11 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
             <div className="hidden md:block">
                 {showUsersTable && (
                     <>
-                        <UsersTable isOwner={isOwner} participants={participants} expenses={expenses} />
+                        <UsersTable
+                            isOwner={isOwner}
+                            admins={admins}
+                            participants={participants}
+                            expenses={expenses} />
                     </>
                 )}
 

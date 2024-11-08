@@ -13,6 +13,7 @@ interface ExpenseSummaryWidgetProps {
     onAddExpenseClick: () => void;
     remainingOwedToUser: number;
     isOwner: boolean;
+    admins: [];
     participants: { _id: string; name: string }[];
     expenses: {
         _id: string;
@@ -23,7 +24,7 @@ interface ExpenseSummaryWidgetProps {
     }[];
 }
 
-const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidByUser, totalCost, remainingOwedToUser, onAddExpenseClick, isOwner, participants, expenses }) => {
+const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidByUser, totalCost, remainingOwedToUser, onAddExpenseClick, isOwner, admins, participants, expenses }) => {
     const { t } = useTranslation();
     const userCost = totalPaidByUser - remainingOwedToUser;
     const [isWidgetOpen, setIsWidgetOpen] = useState(false);
@@ -42,12 +43,12 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
 
         // Determine if the swipe was downward
         if (touchEndY - touchStartY > 50) {
-            setIsWidgetOpen(false); // Close the widget on swipe down
+            setIsWidgetOpen(false);
         }
     };
 
     return (
-        <div className={`md:hidden bottom-4 left-4 right-4 z-10 fixed`}>
+        <div className={`md:hidden bottom-5 left-4 right-4 z-10 fixed`}>
             <div className={`${!isWidgetOpen ? 'h-12 rounded-t-3xl rounded-b-3xl' : 'h-96 rounded-t-3xl rounded-b-3xl'} transition-all duration-500 ease overflow-hidden items-center justify-between bg-gray-200 dark:bg-zinc-900 shadow p-1 relative`}>
                 <div className="flex justify-between">
                     <div className="self-start">
@@ -85,7 +86,11 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
 
                 <div className={`mt-4 flex flex-col`}>
                     <div className="rounded overflow-scroll h-64">
-                        <UsersTable isOwner={isOwner} participants={participants} expenses={expenses} />
+                        <UsersTable
+                            isOwner={isOwner}
+                            admins={admins}
+                            participants={participants}
+                            expenses={expenses} />
                     </div>
                     <div
                         className="flex gap-2 text-left p-2 my-2">

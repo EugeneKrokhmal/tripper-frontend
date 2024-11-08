@@ -16,6 +16,7 @@ const InputField: React.FC<InputFieldProps> = ({ label, type, value, onChange, r
                 {required && <span className="text-red-500">*</span>}
             </label>
             <input
+                step="any"
                 min={0}
                 type={type}
                 value={value}

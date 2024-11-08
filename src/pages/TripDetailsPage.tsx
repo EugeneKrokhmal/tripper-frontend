@@ -128,12 +128,12 @@ const TripDetailsPage: React.FC = () => {
 
     const calculateTotalCost = (expenses: any[]) => {
         const total = expenses.reduce((total, expense) => {
-            if (expense.splitMethod === 'even') {
-                return total + expense.amount / expense.splitParticipants.length;
-            } else {
-                return total + expense.amount;
-            }
+
+            return total + expense.amount;
+
         }, 0);
+        console.log(total);
+
         setTotalCost(total);
     };
 
@@ -325,8 +325,9 @@ const TripDetailsPage: React.FC = () => {
 
                     <TripParticipants
                         tripId={tripId || ''}
+                        userId={userId || ''}
                         isOwner={trip.creator._id === userId}
-                        isAdmin={trip.administrators.includes(userId)}
+                        admins={trip.administrators}
                         participants={trip.participants}
                         expenses={trip.expenses}
                     />
@@ -401,6 +402,7 @@ const TripDetailsPage: React.FC = () => {
                     participants={trip.participants}
                     expenses={trip.expenses}
                     isOwner={trip.creator._id === userId}
+                    admins={trip.administrators}
                 />
             </div>
 
