@@ -28,56 +28,46 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
     const { t } = useTranslation();
     const userCost = totalPaidByUser - remainingOwedToUser;
     const [isWidgetOpen, setIsWidgetOpen] = useState(false);
-    const [touchStartY, setTouchStartY] = useState<number>(0);
-
     const toggleWidget = () => setIsWidgetOpen(!isWidgetOpen);
-
-    const handleTouchStart = (e: React.TouchEvent) => {
-        // Get the starting Y position of the touch
-        setTouchStartY(e.touches[0].clientY);
-    };
-
-    const handleTouchEnd = (e: React.TouchEvent) => {
-        // Get the ending Y position of the touch
-        const touchEndY = e.changedTouches[0].clientY;
-
-        // Determine if the swipe was downward
-        if (touchEndY - touchStartY > 50) {
-            setIsWidgetOpen(false);
-        }
-    };
 
     return (
         <div className={`md:hidden bottom-5 left-4 right-4 z-10 fixed`}>
             <div className={`${!isWidgetOpen ? 'h-12 rounded-t-3xl rounded-b-3xl' : 'h-96 rounded-t-3xl rounded-b-3xl'} transition-all duration-500 ease overflow-hidden items-center justify-between bg-gray-200 dark:bg-zinc-900 shadow p-1 relative`}>
-                <div className="flex justify-between">
+                <div className="flex w-full">
                     <div className="self-start">
                         <Button label={t('addExpense')} onClick={onAddExpenseClick} variant="primary" />
                     </div>
                     {!isWidgetOpen ? (
-                        <div
-                            onClick={toggleWidget}
-                            onTouchStart={handleTouchStart}
-                            onTouchEnd={handleTouchEnd}
-                            className={`duration-1000 flex gap-1 text-right items-center pr-4`}>
-                            <dl>
-                                <dd className="leading-none text-sm font-bold text-zinc-900 dark:text-white">&#8704;<Price price={+totalCost.toFixed()} /></dd>
-                            </dl>
-                            <dl>
-                                <dd className="leading-none text-sm font-bold text-green-500 dark:text-green-400">&#x2193;<Price price={+remainingOwedToUser.toFixed(2)} /></dd>
-                            </dl>
-                            <dl>
-                                <dd className="leading-none text-sm font-bold text-red-600 dark:text-red-500">&#x2191;<Price price={+userCost.toFixed(2)} /></dd>
-                            </dl>
-                        </div>
+                        <>
+                            <div
+                                onClick={toggleWidget}
+                                className={`ml-auto mr-2 duration-1000 flex gap-2 text-right items-center `}>
+                                <dl>
+                                    <dd className="leading-none text-sm font-bold text-green-500 dark:text-green-400">&#x2193;<Price price={+remainingOwedToUser.toFixed(2)} /></dd>
+                                </dl>
+                                <dl>
+                                    <dd className="leading-none text-sm font-bold text-red-600 dark:text-red-500">&#x2191;<Price price={+userCost.toFixed(2)} /></dd>
+                                </dl>
+                            </div>
+                            <button
+                                className="mr-2 text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-white"
+                                onClick={() => {
+                                    toggleWidget()
+                                }}
+                            >
+                                <svg className="w-6 h-6" viewBox="0 0 32 32" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m16.003 18.626 7.081-7.081L25 13.46l-8.997 8.998-9.003-9 1.917-1.916z" />
+                                </svg>
+                            </button>
+                        </>
                     ) : (
                         <button
-                            className="mr-2 text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-white"
+                            className="mr-2 ml-auto text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-white"
                             onClick={() => {
                                 toggleWidget()
                             }}
                         >
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-6 h-6 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>

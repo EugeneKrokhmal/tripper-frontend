@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
         <footer className="bg-zinc-100 dark:bg-zinc-900 mt-auto pb-16">
             <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
-                    <a href="https://flowbite.com/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                    <a href="/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                         {/* <img src={logo} className="h-8" alt="Tripper" /> */}
                         <h3 className="text-xl font-bold text-zinc-900 dark:text-white md:text-2xl">Tripper</h3>
 

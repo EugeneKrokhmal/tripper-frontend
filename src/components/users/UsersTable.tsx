@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Price from '../Price';
 import AdminIcon from '../../images/icons/admin.svg';
 import OwnerIcon from '../../images/icons/owner.svg';
+import UserIcon from '../elements/UserIcon';
 
 
 interface UsersTableProps {
@@ -65,32 +66,25 @@ const UsersTable: React.FC<UsersTableProps> = ({
                             key={participant._id}
                             className="bg-white border-b dark:bg-zinc-800 dark:border-zinc-700"
                         >
-                            <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center md:space-x-3 w-1/5 md:w-full">
+                            <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-top md:space-x-3 w-4/12 md:w-full">
                                 <div className="flex gap-2 items-center">
-                                    {participant ? (
-                                        <div>
-                                            <img
-                                                key={participant._id}
-                                                className="hidden md:block w-6 h-6 md:w-10 md:h-10 border-2 border-white rounded-full dark:border-zinc-800"
-                                                src={`https://ui-avatars.com/api/?name=${participant.name}&background=random`}
-                                                alt={participant.name}
-                                            />
-                                        </div>
-                                    ) : (
-                                        <div className="w-8 h-8 hidden md:flex rounded-full bg-zinc-300 dark:bg-zinc-600 items-center justify-center">
-                                            <span className="text-white text-xs md:text-sm font-medium">participant.name</span>
-                                        </div>
-                                    )}
+                                    <div className="hidden md:block">
+                                        <UserIcon
+                                            userName={participant.name}
+                                            userId={participant._id}
+                                            size={'xs'}
+                                        />
+                                    </div>
                                     <div>
                                         <p className="font-semibold text-xs md:text-sm">{participant.name}
                                             {(admins as string[]).includes(participant._id) &&
-                                                (<span className="opacity-50 text-xs font-normal"> (Admin) </span>
-                                            )}
+                                                (<span className="opacity-50 text-xs font-normal"> (Admin) </span>)
+                                            }
                                         </p>
                                     </div>
                                 </div>
                             </td>
-                            <td className="px-2 py-4 text-xs align-top w-1/5 md:w-full">
+                            <td className="px-2 py-4 text-xs align-top w-3/12 md:w-full">
                                 {/* Display the names of expenses the user is responsible for */}
                                 <ul>
                                     {getResponsibleExpensesNames(participant._id).length > 0

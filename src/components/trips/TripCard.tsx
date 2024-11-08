@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Button from '../elements/Button';
 import { useTranslation } from 'react-i18next';
+import UserIcon from '../elements/UserIcon';
 
 interface TripCardProps {
     trip: {
@@ -86,11 +87,10 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                     <div className="flex justify-between mt-auto items-end">
                         <div className="flex -space-x-4 rtl:space-x-reverse self-end">
                             {trip.participants.slice(0, 3).map((participant) => (
-                                <img
-                                    key={participant._id}
-                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
-                                    src={`https://ui-avatars.com/api/?name=${participant.name}&background=random`}
-                                    alt={participant.name}
+                                <UserIcon
+                                    userName={participant.name}
+                                    userId={participant._id}
+                                    size={'sm'}
                                 />
                             ))}
                             {trip.participants.length > 3 && (

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import UsersTable from '../users/UsersTable';
 import Button from '../elements/Button';
+import UserIcon from '../elements/UserIcon';
 
 interface TripParticipantsProps {
     tripId: string;
@@ -46,17 +47,16 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                     <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('youAreTheOwnerOfTheTrip')}</p>
                 )}
 
-                {(admins as string[]).includes(userId)  && (
+                {(admins as string[]).includes(userId) && (
                     <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('youAreAnAdminOfTheTrip')}</p>
                 )}
 
                 <div className="flex -space-x-4 rtl:space-x-reverse">
                     {participants.map((participant) => (
-                        <img
-                            key={participant._id}
-                            className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
-                            src={`https://ui-avatars.com/api/?name=${participant.name}&background=random`}
-                            alt={participant.name}
+                        <UserIcon
+                            userName={participant.name}
+                            userId={participant._id}
+                            size={'md'}
                         />
                     ))}
                     {participants.length > 5 && (
