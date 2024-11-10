@@ -43,12 +43,7 @@ interface Settlement {
 const TripDetailsPage: React.FC = () => {
     const [trip, setTrip] = useState<any | null>(null);
     const [editMode, setEditMode] = useState<boolean>(false);
-    const [tripName, setTripName] = useState<string>('');
-    const [tripDescription, setTripDescription] = useState<string>('');
     const { currency, setCurrency } = useCurrency();
-    const [destination, setDestination] = useState<string>('');
-    const [startDate, setStartDate] = useState<string>('');
-    const [endDate, setEndDate] = useState<string>('');
     const [expenses, setExpenses] = useState<any[]>([]);
     const [totalPaidByUser, setTotalPaidByUser] = useState<number>(0);
     const [totalCost, setTotalCost] = useState<number>(0);
@@ -72,8 +67,8 @@ const TripDetailsPage: React.FC = () => {
     useEffect(() => {
         const loadData = async () => {
             try {
-                if (!trip?.image && destination) {
-                    const fetchedCityImage = await fetchCityImage(destination, UNSPLASH_ACCESS_KEY || '');
+                if (!trip?.image && trip?.location?.destination) {
+                    const fetchedCityImage = await fetchCityImage(trip.location.destination, UNSPLASH_ACCESS_KEY || '');
                     setCityImage(fetchedCityImage || '');
                 }
 
@@ -93,7 +88,7 @@ const TripDetailsPage: React.FC = () => {
         };
 
         loadData();
-    }, [tripId, token, API_BASE_URL, UNSPLASH_ACCESS_KEY, userId, destination, trip?.image]);
+    }, [tripId, token, API_BASE_URL, UNSPLASH_ACCESS_KEY, userId, trip?.image, trip?.location?.destination]);
 
     const handleEditExpense = (expenseId: string) => {
         if (trip && trip.participants && token) {
@@ -137,8 +132,8 @@ const TripDetailsPage: React.FC = () => {
         }
     };
 
-    const tripDuration = startDate && endDate ? Math.ceil(
-        (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24)
+    const tripDuration = trip?.startDate && trip?.endDate ? Math.ceil(
+        (new Date(trip.endDate).getTime() - new Date(trip.startDate).getTime()) / (1000 * 60 * 60 * 24)
     ) : 0;
 
     const handleGenerateJoinLink = async () => {
@@ -175,20 +170,6 @@ const TripDetailsPage: React.FC = () => {
         setTotalCost(calculateTotalCost(updatedExpenses));
     };
 
-    if (!trip) {
-        return (
-            <div className="pb-20 h-screen flex items-center justify-center">
-                <Loader />
-            </div>
-        );
-    }
-
-    const breadcrumbs = [
-        { label: t('home'), href: '#/' },
-        { label: t('myTrips'), href: '/dashboard' },
-        { label: tripName, href: '' }
-    ];
-
     const handleSettlementUpdated = (updatedSettlement: Settlement) => {
         setSettlementsHistory(prevHistory => [...prevHistory, updatedSettlement]);
         setSettlements(prevSettlements => prevSettlements.filter(settlement => settlement._id !== updatedSettlement._id));
@@ -205,6 +186,20 @@ const TripDetailsPage: React.FC = () => {
     const handleImageUploadSuccess = (newImageUrl: string) => {
         setTrip({ ...trip, image: newImageUrl });
     };
+
+    const breadcrumbs = [
+        { label: t('home'), href: '#/' },
+        { label: t('myTrips'), href: '/dashboard' },
+        { label: trip.name, href: '' }
+    ];
+
+    if (!trip) {
+        return (
+            <div className="pb-20 h-screen flex items-center justify-center">
+                <Loader />
+            </div>
+        );
+    }
 
     const imageUrl = trip?.image
         ? `${API_BASE_URL}/${trip.image}`
@@ -230,11 +225,11 @@ const TripDetailsPage: React.FC = () => {
                         />
                         <EditTripForm
                             id={trip._id}
-                            initialTripName={tripName}
-                            initialTripDescription={tripDescription}
-                            initialDestination={destination}
-                            initialStartDate={startDate}
-                            initialEndDate={endDate}
+                            initialTripName={trip.name}
+                            initialTripDescription={trip.description}
+                            initialDestination={trip.location.destination}
+                            initialStartDate={trip.startDate}
+                            initialEndDate={trip.endDate}
                             initialCoordinates={trip.location.coordinates}
                             onSubmit={handleEditTrip}
                             onCancel={() => setEditMode(false)}
@@ -252,11 +247,11 @@ const TripDetailsPage: React.FC = () => {
 
                 <div className="max-w-screen-md md:w-7/12 lg:w-3/4 xl:w-full">
                     <TripInfo
-                        tripName={tripName}
-                        tripDescription={tripDescription}
-                        destination={destination}
-                        startDate={startDate}
-                        endDate={endDate}
+                        tripName={trip.name}
+                        tripDescription={trip.description}
+                        destination={trip.location.destination}
+                        startDate={trip.startDate}
+                        endDate={trip.endDate}
                         tripDuration={tripDuration}
                         isOwner={trip.creator._id === userId}
                         joinLink={joinLink}
@@ -279,10 +274,10 @@ const TripDetailsPage: React.FC = () => {
                     />
 
                     <TripTimeline
-                        startDate={startDate}
+                        startDate={trip.startDate}
                         isOwner={trip.creator._id === userId}
                         isAdmin={trip.administrators.includes(userId)}
-                        endDate={endDate}
+                        endDate={trip.endDate}
                         tripId={tripId || ''}
                         token={token || ''}
                         API_BASE_URL={API_BASE_URL || ''}
@@ -293,7 +288,7 @@ const TripDetailsPage: React.FC = () => {
 
                     <ExpenseSettlementTable
                         tripId={trip._id || ''}
-                        settlements={settlements}
+                        settlements={trip.settlements}
                         settlementHistory={settlementsHistory}
                         participants={trip.participants}
                         token={token || ''}
@@ -323,7 +318,7 @@ const TripDetailsPage: React.FC = () => {
 
                         <ExpensesList
                             userId={userId || ''}
-                            expenses={expenses}
+                            expenses={trip.expenses}
                             participants={trip.participants}
                             tripId={tripId || ''}
                             token={token || ''}

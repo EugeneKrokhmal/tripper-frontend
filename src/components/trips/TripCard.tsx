@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../elements/Button';
 import { useTranslation } from 'react-i18next';
@@ -24,39 +23,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
     const [cityImage, setCityImage] = useState<string>('');
     const navigate = useNavigate();
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-    const UNSPLASH_ACCESS_KEY = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
     const { t } = useTranslation();
-
-    useEffect(() => {
-        const fetchCityImage = async () => {
-            if (!UNSPLASH_ACCESS_KEY) {
-                console.error('Unsplash Access Key is missing.');
-                return;
-            }
-
-            try {
-                const response = await axios.get(`https://api.unsplash.com/search/photos`, {
-                    params: {
-                        query: `${trip.location.destination} center`,
-                        client_id: UNSPLASH_ACCESS_KEY,
-                        per_page: 1,
-                    },
-                });
-
-                if (response.data.results.length > 0) {
-                    setCityImage(response.data.results[0].urls.small);
-                } else {
-                    console.log('No images found for the destination.');
-                }
-            } catch (error) {
-                console.error('Error fetching city image:', error);
-            }
-        };
-
-        if (!trip.image && trip.location.destination) {
-            fetchCityImage();
-        }
-    }, [trip.location.destination, UNSPLASH_ACCESS_KEY, trip.image]);
 
     const imageUrl = trip.image
         ? `${API_BASE_URL}/${trip.image}`
@@ -64,6 +31,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
 
     return (
         <a
+            key={trip._id}
             className={`overflow-hidden h-full transition-all transition-500 justify-end mb-4 flex items-center bg-white border border-zinc-200 dark:border-zinc-900 rounded-lg shadow md:flex-col-reverse flex-col-reverse hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700`}
         >
             <div className="w-full flex-col flex px-2 pb-4 md:px-4 leading-normal bg-white dark:bg-zinc-900 h-2/3">

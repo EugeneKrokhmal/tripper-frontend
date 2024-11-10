@@ -64,7 +64,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                     {participants.map((participant) => (
                         <tr
                             key={participant._id}
-                            className="bg-white border-b dark:bg-zinc-800 dark:border-zinc-700"
+                            className="bg-white border-b border-zinc-100 dark:bg-zinc-800 dark:border-zinc-700"
                         >
                             <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-top md:space-x-3 w-4/12 md:w-full">
                                 <div className="flex gap-2 items-center">

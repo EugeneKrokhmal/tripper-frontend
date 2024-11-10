@@ -52,15 +52,16 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                 )}
 
                 <div className="flex -space-x-4 rtl:space-x-reverse">
-                    {participants.map((participant) => (
+                    {participants.slice(0, 5).map((participant) => (
                         <UserIcon
+                            key={participant._id}
                             userName={participant.name}
                             userId={participant._id}
                             size={'md'}
                         />
                     ))}
                     {participants.length > 5 && (
-                        <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full hover:bg-zinc-600 dark:border-zinc-800">
+                        <span className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full hover:bg-zinc-600 dark:border-zinc-800">
                             +{participants.length - 5}
                         </span>
                     )}

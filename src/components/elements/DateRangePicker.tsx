@@ -20,6 +20,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ startDate, endDate, o
                     {required && <span className="text-red-500">*</span>}
                 </label>
                 <input
+                    placeholder={startDate}
                     id="datepicker-range-start"
                     name="start"
                     type="date"

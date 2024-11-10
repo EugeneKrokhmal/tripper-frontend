@@ -164,7 +164,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                 {expense.expenseDescription}
                             </p>
 
-                            <div className="flex justify-between align-end w-full gap-4 pb-4 dark:border-zinc-700 border-b-2">
+                            <div className="flex justify-between align-end w-full gap-4 pb-4 border-zinc-100 dark:border-zinc-700 border-b-2">
                                 <div className="self-end">
                                     <p className="text-xs text-zinc-500 dark:text-zinc-300 mb-2">
                                         {t('responsible')}:
