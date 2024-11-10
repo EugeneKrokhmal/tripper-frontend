@@ -5,6 +5,10 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      upcomingTrips: "Upcoming Trips",
+      pastTrips: "Past Trips",
+      noUpcomingTrips: "No upcoming trips.",
+      noPastTrips: "No past trips.",
       currencyConfirmationTitle: "Confirm Currency",
       othersOwe: "You get back",
       currencyConfirmationMessage: "Do you want to continue or change the currency? The current currency is set to: ",
@@ -191,6 +195,10 @@ const resources = {
   },
   uk: {
     translation: {
+      upcomingTrips: "Майбутні подорожі",
+      pastTrips: "Минулі подорожі",
+      noUpcomingTrips: "Немає майбутніх подорожей.",
+      noPastTrips: "Немає минулих подорожей.",
       currencyConfirmationTitle: "Підтвердьте валюту",
       othersOwe: "Ви отримаєте",
       currencyConfirmationMessage: "Бажаєте продовжити чи змінити валюту? Поточна валюта встановлена як: ",
@@ -370,6 +378,10 @@ const resources = {
   },
   pl: {
     translation: {
+      upcomingTrips: "Nadchodzące podróże",
+      pastTrips: "Minione podróże",
+      noUpcomingTrips: "Brak nadchodzących podróży.",
+      noPastTrips: "Brak minionych podróży.",
       next: "Dalej",
       currencyConfirmationTitle: "Potwierdź walutę",
       othersOwe: "Ile otrzymasz",

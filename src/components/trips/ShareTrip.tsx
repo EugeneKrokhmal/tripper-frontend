@@ -6,6 +6,7 @@ import ShareIcon from '../../images/icons/team.svg';
 
 interface ShareTripProps {
     isOwner: boolean;
+    isAdmin: boolean;
     joinLink: string | null;
     onGenerateJoinLink: () => void;
     loadingJoinLink: boolean;
@@ -14,6 +15,7 @@ interface ShareTripProps {
 
 const ShareTrip: React.FC<ShareTripProps> = ({
     isOwner,
+    isAdmin,
     joinLink,
     onGenerateJoinLink,
     loadingJoinLink,
@@ -67,7 +69,7 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                 <img width="16" src={ShareIcon} alt="" />
                 <span className="text-xs">{t('invite')}</span>
             </button>
-            {isOwner && IsShareModalOpen && (
+            {(isOwner || isAdmin) && IsShareModalOpen && (
                 <>
                     <Modal onClose={closeShareTripModal}>
                         {linkGenerated ? (

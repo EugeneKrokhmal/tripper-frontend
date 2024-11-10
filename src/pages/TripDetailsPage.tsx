@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import TripParticipants from '../components/trips/TripParticipants';
@@ -17,11 +16,21 @@ import Sidebar from '../components/structure/Sidebar';
 import Modal from '../components/elements/Modal';
 import Button from '../components/elements/Button';
 import ExpenseForm from '../components/expenses/ExpenseForm';
-import PlusIcon from '../images/icons/plus.svg';
 import Loader from '../components/structure/Loader';
 import { useCurrency } from '../context/CurrencyContext';
-import { fetchTripDetails } from '../api/tripApi';
 import ExpenseSummaryWidget from '../components/widgets/ExpenseSummaryWidget';
+import {
+    calculateTotalPaidByUser,
+    calculateTotalCost,
+    calculateRemainingOwedToUser,
+    fetchCityImage
+} from '../utils/tripUtils';
+import {
+    fetchTripDetails,
+    updateTripDetails,
+    deleteTrip,
+    generateJoinLink
+} from '../api/tripApi';
 
 interface Settlement {
     _id: string;
@@ -61,96 +70,40 @@ const TripDetailsPage: React.FC = () => {
     const [remainingOwedToUser, setRemainingOwedToUser] = useState<number>(0);
 
     useEffect(() => {
-        const fetchCityImage = async () => {
-            if (!UNSPLASH_ACCESS_KEY || !destination) return;
-
+        const loadData = async () => {
             try {
-                const response = await axios.get(`https://api.unsplash.com/search/photos`, {
-                    params: {
-                        query: destination + 'center',
-                        client_id: UNSPLASH_ACCESS_KEY,
-                        per_page: 1,
-                    },
-                });
+                if (!trip?.image && destination) {
+                    const fetchedCityImage = await fetchCityImage(destination, UNSPLASH_ACCESS_KEY || '');
+                    setCityImage(fetchedCityImage || '');
+                }
 
-                if (response.data.results.length > 0) {
-                    setCityImage(response.data.results[0].urls.small);
+                if (tripId && token && API_BASE_URL) {
+                    const tripData = await fetchTripDetails(tripId, token, API_BASE_URL);
+                    setTrip(tripData);
+                    setExpenses(tripData.expenses);
+                    if (userId) {
+                        setTotalPaidByUser(calculateTotalPaidByUser(tripData.expenses, userId));
+                        setRemainingOwedToUser(calculateRemainingOwedToUser(tripData.settlements, userId));
+                    }
+                    setTotalCost(calculateTotalCost(tripData.expenses));
                 }
             } catch (error) {
-                console.error('Error fetching Unsplash image:', error);
+                console.error('Failed to fetch trip details');
             }
         };
 
-        fetchData();
-
-        if (!trip?.image) {
-            fetchCityImage();
-        }
-    }, [API_BASE_URL, token, tripId, destination, UNSPLASH_ACCESS_KEY, trip?.image]);
-
-    const fetchData = async () => {
-        try {
-            const tripData = await fetchTripDetails(tripId || '', token || '', API_BASE_URL || '');
-
-            setTrip(tripData);
-            setTripName(tripData.name);
-            setTripDescription(tripData.description);
-            setDestination(tripData.location.destination);
-            setCurrency(tripData.currency || '');
-            setStartDate(tripData.startDate);
-            setEndDate(tripData.endDate);
-            setExpenses(tripData.expenses);
-            setJoinLink(tripData.joinToken ? `${window.location.origin}/tripper-frontend/#/login?redirect=/join/${tripData._id}/${tripData.joinToken}` : null);
-            calculateTotalPaidByUser(tripData.expenses);
-            calculateTotalCost(tripData.expenses);
-            setFairShare(tripData.fairShare || 0);
-            setSettlements(tripData.settlements || []);
-            setSettlementsHistory(tripData.settlementHistory || []);
-            const owedToUser = calculateRemainingOwedToUser(tripData.settlements || []);
-            setRemainingOwedToUser(owedToUser);
-        } catch (err) {
-            setError('Failed to fetch trip details');
-        }
-    };
+        loadData();
+    }, [tripId, token, API_BASE_URL, UNSPLASH_ACCESS_KEY, userId, destination, trip?.image]);
 
     const handleEditExpense = (expenseId: string) => {
-        navigate(`/trips/${tripId}/expenses/${expenseId}/edit`, {
-            state: { participants: trip.participants, token },
-        });
+        if (trip && trip.participants && token) {
+            navigate(`/trips/${tripId}/expenses/${expenseId}/edit`, {
+                state: { participants: trip.participants, token },
+            });
+        }
     };
 
-    const calculateTotalPaidByUser = (expenses: any[]) => {
-        const totalPaid = expenses
-            .filter(expense => expense.responsibleUserId === userId)
-            .reduce((total, expense) => total + expense.amount, 0);
-        setTotalPaidByUser(totalPaid);
-    };
-
-    const calculateTotalCost = (expenses: any[]) => {
-        const total = expenses.reduce((total, expense) => {
-
-            return total + expense.amount;
-
-        }, 0);
-        console.log(total);
-
-        setTotalCost(total);
-    };
-
-    const calculateRemainingOwedToUser = (settlements: Settlement[]) => {
-        return settlements
-            .filter(settlement => settlement.creditor === userId && !settlement.settled)
-            .reduce((total, settlement) => total + settlement.amount, 0);
-    };
-
-    const handleEditTrip = async (updatedTrip: {
-        tripName: string;
-        tripDescription: string;
-        destination: string;
-        startDate: string;
-        endDate: string;
-        coordinates: { lat: number; lng: number };
-    }) => {
+    const handleEditTrip = async (updatedTrip: any) => {
         try {
             const updatedTripData = {
                 name: updatedTrip.tripName,
@@ -163,44 +116,40 @@ const TripDetailsPage: React.FC = () => {
                 endDate: updatedTrip.endDate,
             };
 
-            await axios.put(`${API_BASE_URL}/api/trips/${tripId}`, updatedTripData, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            setTrip({ ...trip, ...updatedTripData });
-            setEditMode(false);
-        } catch (err) {
-            console.error('Failed to update the trip', err);
+            if (tripId && token && API_BASE_URL) {
+                await updateTripDetails(tripId, updatedTripData, token, API_BASE_URL);
+                setTrip({ ...trip, ...updatedTripData });
+                setEditMode(false);
+            }
+        } catch (error) {
+            console.error('Failed to update the trip', error);
         }
     };
 
     const handleDeleteTrip = async () => {
         try {
-            await axios.delete(`${API_BASE_URL}/api/trips/${tripId}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            navigate('/dashboard');
-        } catch (err) {
-            console.error('Failed to delete the trip', err);
+            if (tripId && token && API_BASE_URL) {
+                await deleteTrip(tripId, token, API_BASE_URL);
+                navigate('/dashboard');
+            }
+        } catch (error) {
+            console.error('Failed to delete the trip', error);
         }
     };
 
-    const tripDuration = Math.ceil(
+    const tripDuration = startDate && endDate ? Math.ceil(
         (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24)
-    );
+    ) : 0;
 
     const handleGenerateJoinLink = async () => {
         setLoadingJoinLink(true);
         setError(null);
         try {
-            const response = await axios.post(
-                `${API_BASE_URL}/api/trips/${tripId}/generate-join-link`,
-                {},
-                { headers: { Authorization: `Bearer ${token}` } }
-            );
-
-            setJoinLink(`${response.data.joinLink}`);
-        } catch (err) {
+            if (tripId && token && API_BASE_URL) {
+                const generatedLink = await generateJoinLink(tripId, token, API_BASE_URL);
+                setJoinLink(generatedLink);
+            }
+        } catch (error) {
             setError('Failed to generate join link.');
         } finally {
             setLoadingJoinLink(false);
@@ -209,22 +158,26 @@ const TripDetailsPage: React.FC = () => {
 
     const handleExpenseAdded = (newExpense: any) => {
         setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
-        calculateTotalPaidByUser([...expenses, newExpense]);
-        calculateTotalCost([...expenses, newExpense]);
-        fetchData();
+        if (userId) {
+            setTotalPaidByUser(calculateTotalPaidByUser([...expenses, newExpense], userId));
+            setRemainingOwedToUser(calculateRemainingOwedToUser(settlements, userId));
+        }
+        setTotalCost(calculateTotalCost([...expenses, newExpense]));
         closeAddExpenseModal();
     };
 
     const handleExpenseDeleted = (updatedExpenses: any[]) => {
         setExpenses(updatedExpenses);
-        calculateTotalPaidByUser(updatedExpenses);
-        calculateTotalCost(updatedExpenses);
-        fetchData();
+        if (userId) {
+            setTotalPaidByUser(calculateTotalPaidByUser(updatedExpenses, userId));
+            setRemainingOwedToUser(calculateRemainingOwedToUser(settlements, userId));
+        }
+        setTotalCost(calculateTotalCost(updatedExpenses));
     };
 
     if (!trip) {
         return (
-            <div className="pb-20 h-screen flex tems-center justify-center">
+            <div className="pb-20 h-screen flex items-center justify-center">
                 <Loader />
             </div>
         );
@@ -237,16 +190,8 @@ const TripDetailsPage: React.FC = () => {
     ];
 
     const handleSettlementUpdated = (updatedSettlement: Settlement) => {
-        // Move fully settled debts to the settlement history
-        setSettlementsHistory(prevHistory => [
-            ...prevHistory,
-            updatedSettlement,
-        ]);
-
-        // Remove the settled item from the settlements array
-        setSettlements(prevSettlements => {
-            return prevSettlements.filter(settlement => settlement._id !== updatedSettlement._id);
-        });
+        setSettlementsHistory(prevHistory => [...prevHistory, updatedSettlement]);
+        setSettlements(prevSettlements => prevSettlements.filter(settlement => settlement._id !== updatedSettlement._id));
     };
 
     const handleAddExpenseClick = () => {
@@ -261,9 +206,9 @@ const TripDetailsPage: React.FC = () => {
         setTrip({ ...trip, image: newImageUrl });
     };
 
-    const imageUrl = trip.image
+    const imageUrl = trip?.image
         ? `${API_BASE_URL}/${trip.image}`
-        : cityImage || `https://ui-avatars.com/api/?name=${trip.name}&background=random`;
+        : cityImage || `https://ui-avatars.com/api/?name=${trip?.name}&background=random`;
 
     return (
         <section className="bg-white dark:bg-zinc-800">
@@ -277,6 +222,7 @@ const TripDetailsPage: React.FC = () => {
                     <>
                         <ShareTrip
                             isOwner={trip.creator._id === userId}
+                            isAdmin={trip.administrators.includes(userId)}
                             joinLink={joinLink}
                             onGenerateJoinLink={handleGenerateJoinLink}
                             loadingJoinLink={loadingJoinLink}
@@ -357,7 +303,7 @@ const TripDetailsPage: React.FC = () => {
                     <hr className="my-8" />
                 </div>
 
-                <div className="md:static md:flex flex-col gap-8 md:w-4/12 lg:w-2/5 xl:w-3/5w w-full lg:mt-0 xl:w-2/5">
+                <div className="md:static md:flex flex-col gap-8 md:w-4/12 lg:w-2/5 xl:w-3/5 w-full lg:mt-0 xl:w-2/5">
                     <div className="md:sticky top-24 flex flex-col">
                         <div className="hidden md:block">
                             <ExpenseSummary

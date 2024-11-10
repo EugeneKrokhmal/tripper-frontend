@@ -48,6 +48,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
     const { t } = useTranslation();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [expenseList, setExpenseList] = useState<Expense[]>(expenses);
+    const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
     const [showAll, setShowAll] = useState<boolean>(false);
     const navigate = useNavigate();
     const getParticipantById = (id: string) => participants.find(p => p._id === id);
@@ -63,14 +64,23 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
         }
     };
 
-    const handleEditExpense = (expenseId: string) => {
-        alert('This feature is coming...')
+    const handleEditExpense = (expense: Expense) => {
+        setEditingExpense(expense);
+        setModalVisible(true);
     };
 
     const handleAddExpense = (newExpense: Expense) => {
         const updatedExpenses = [...expenseList, newExpense];
         setExpenseList(updatedExpenses);
         onExpenseAdded(newExpense);
+    };
+
+    const handleUpdateExpense = (updatedExpense: Expense) => {
+        const updatedExpenses = expenseList.map(expense =>
+            expense._id === updatedExpense._id ? updatedExpense : expense
+        );
+        setExpenseList(updatedExpenses);
+        setEditingExpense(null);
     };
 
     const closeModal = () => {
@@ -177,7 +187,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                     <>
                                         <div className="flex gap-2 self-end">
                                             <a
-                                                onClick={() => handleEditExpense(expense._id)}
+                                                onClick={() => handleEditExpense(expense)}
                                                 className="cursor-pointer text-xs dark:text-zinc-300 hover:underline my-2"
                                             >
                                                 {t('edit')}
@@ -223,6 +233,11 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                             handleAddExpense(newExpense);
                             closeModal();
                         }}
+                        onExpenseUpdated={(updatedExpense) => {
+                            handleUpdateExpense(updatedExpense);
+                            closeModal();
+                        }}
+                        expenseToEdit={editingExpense} // Pass the expense to edit if available
                     />
                 </Modal>
             )}

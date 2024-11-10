@@ -90,7 +90,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                                 <UserIcon
                                     userName={participant.name}
                                     userId={participant._id}
-                                    size={'sm'}
+                                    size={'md'}
                                 />
                             ))}
                             {trip.participants.length > 3 && (

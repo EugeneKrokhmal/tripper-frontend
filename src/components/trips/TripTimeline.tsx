@@ -260,7 +260,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
             </ol>
 
             <div className="flex flex-row text-center mt-4 gap-2">
-                {isOwner || isAdmin && (
+                {(isOwner || isAdmin) && (
                     <div className="self-start">
                         <Button label={t('addActivity')} onClick={() => setModalVisible(true)} variant="primary" />
                     </div>

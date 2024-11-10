@@ -8,7 +8,7 @@ import Ad from '../components/structure/Ad';
 import Breadcrumbs from '../components/structure/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import Loader from '../components/structure/Loader';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../redux/slices/authSlice';
 
 interface User {
@@ -29,17 +29,20 @@ interface Trip {
 
 const Dashboard: React.FC = () => {
     const [trips, setTrips] = useState<Trip[]>([]);
-    const dispatch = useDispatch();
     const [filteredTrips, setFilteredTrips] = useState<Trip[]>([]);
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const dispatch = useDispatch();
     const { t } = useTranslation();
     const token = useSelector((state: RootState) => state.auth.token);
     const loggedInUserId = useSelector((state: RootState) => state.auth.userId);
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     const navigate = useNavigate();
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+    const [upcomingTrips, setUpcomingTrips] = useState<Trip[]>([]);
+    const [pastTrips, setPastTrips] = useState<Trip[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -60,6 +63,10 @@ const Dashboard: React.FC = () => {
                 setUsers(usersResponse.data);
                 setTrips(sortedTrips);
                 setFilteredTrips(sortedTrips);
+
+                // Split trips into upcoming and past
+                splitTrips(sortedTrips);
+
                 setLoading(false);
             } catch (err) {
                 setError('Failed to fetch users or trips');
@@ -76,17 +83,30 @@ const Dashboard: React.FC = () => {
         }
     }, [API_BASE_URL, token, isAuthenticated]);
 
+    // Function to split trips into upcoming and past
+    const splitTrips = (trips: Trip[]) => {
+        const currentDate = new Date();
+        const upcoming = trips.filter(trip => new Date(trip.endDate) >= currentDate);
+        const past = trips.filter(trip => new Date(trip.endDate) < currentDate);
+
+        setUpcomingTrips(upcoming);
+        setPastTrips(past);
+    };
+
     const handleSearch = (query: string) => {
         const lowerCaseQuery = query.toLowerCase();
-        const filtered = trips.filter((trip) =>
-            trip.name.toLowerCase().includes(lowerCaseQuery) ||
-            trip.location.destination.toLowerCase().includes(lowerCaseQuery)
+        const filtered = trips.filter(
+            (trip) =>
+                trip.name.toLowerCase().includes(lowerCaseQuery) ||
+                trip.location.destination.toLowerCase().includes(lowerCaseQuery)
         );
         setFilteredTrips(filtered);
+        splitTrips(filtered);
     };
 
     const handleFilter = (filters: string[]) => {
         setFilteredTrips(trips);
+        splitTrips(trips);
     };
 
     const handleLogout = () => {
@@ -96,7 +116,7 @@ const Dashboard: React.FC = () => {
 
     const breadcrumbs = [
         { label: t('home'), href: '#/' },
-        { label: t('myTrips'), href: '/dashboard' }
+        { label: t('myTrips'), href: '/dashboard' },
     ];
 
     if (loading) {
@@ -123,14 +143,39 @@ const Dashboard: React.FC = () => {
                     <Ad />
                 </div>
 
-                <div className="md:w-3/4 content-start grid lg:grid-cols-2 gap-4 px-0">
-                    {filteredTrips.length === 0 ? (
-                        <p>{t('noTrips')}</p>
-                    ) : (
-                        filteredTrips.map((trip) => (
-                            <TripCard isActive={true} key={trip._id} trip={trip} loggedInUserId={loggedInUserId || ''} />
-                        ))
-                    )}
+                <div className="md:w-3/4 content-start px-0">
+                    <h2 className="text-gradient text-xl font-bold mb-4">{t('upcomingTrips')}</h2>
+                    <div className="grid lg:grid-cols-2 gap-4">
+                        {upcomingTrips.length === 0 ? (
+                            <p>{t('noUpcomingTrips')}</p>
+                        ) : (
+                            upcomingTrips.map((trip) => (
+                                <TripCard
+                                    key={trip._id}
+                                    trip={trip}
+                                    isActive={true}
+                                    loggedInUserId={loggedInUserId || ''}
+                                />
+                            ))
+                        )}
+                    </div>
+
+                    <h2 className="text-gradient text-xl font-bold mb-4 mt-6">{t('pastTrips')}</h2>
+                    <div className="grid lg:grid-cols-2 gap-4">
+                        {pastTrips.length === 0 ? (
+                            <p>{t('noPastTrips')}</p>
+                        ) : (
+                            pastTrips.map((trip) => (
+                                <TripCard
+                                    key={trip._id}
+                                    trip={trip}
+                                    isActive={false}
+                                    loggedInUserId={loggedInUserId || ''}
+                                />
+                            ))
+                        )}
+                    </div>
+
                     {error && <p className="text-red-500">{error}</p>}
                 </div>
             </div>
