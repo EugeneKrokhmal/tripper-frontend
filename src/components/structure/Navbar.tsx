@@ -11,6 +11,7 @@ import DarkModeToggle from './DarkModeToggle';
 const Navbar: React.FC = () => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     const userName = useSelector((state: RootState) => state.auth.userName);
+    const profilePhoto = useSelector((state: RootState) => state.auth.profilePhoto);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -19,6 +20,7 @@ const Navbar: React.FC = () => {
     const { t } = useTranslation();
     const dropdownRef = useRef<HTMLDivElement>(null);
     const lastScrollY = useRef(0);
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
 
     const handleLogout = () => {
         dispatch(logout());
@@ -63,30 +65,9 @@ const Navbar: React.FC = () => {
                 }`}>
                 <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">
                     <div className="text-2xl font-extrabold text-zinc-900 dark:text-white flex items-center">
-                        {/* <span className="bg-gradient mr-1">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className={`transition-all duration-300 text-white dark:text-zinc-900 object-cover`}
-                                width={`${isNavbarVisible ? '16' : '12'}`}
-                                style={{
-                                    shapeRendering: 'geometricPrecision',
-                                    textRendering: 'geometricPrecision',
-                                    fillRule: 'evenodd',
-                                    clipRule: 'evenodd'
-                                }}
-                                viewBox="0 0 540 636"
-                            >
-                                <path
-                                    style={{ opacity: 1 }}
-                                    fill="currentColor"
-                                    d="M-.5-.5h540v636H-.5V-.5Zm242 19h11c-.492 87.391.008 174.724 1.5 262 1.643 2.477 3.476 4.81 5.5 7 59.643 58.81 118.976 118.31 178 178.5-55.474 56.641-111.474 112.807-168 168.5-64.653-64.153-129.153-128.486-193.5-193-59.9316-73.655-76.598242-156.322-50-248C48.7281 129.107 89.8948 80.2733 149.5 47c29.119-14.8754 59.785-24.3754 92-28.5Zm45 0c57.257 3.9765 107.59 24.4765 151 61.5l31.5 31.5c7.527 10.543 14.694 21.376 21.5 32.5-67.667 33.833-135.333 67.667-203 101.5-1-75.664-1.333-151.3304-1-227Zm218 156c1.29.558 2.123 1.558 2.5 3 33.713 93.038 21.046 179.038-38 258-2.05 2.388-4.384 4.388-7 6-55.236-53.902-109.736-108.402-163.5-163.5 68.883-34.275 137.549-68.775 206-103.5Z"
-                                />
-                            </svg>
-                        </span> */}
                         <span
-                            className={`transition-all duration-300 text-gradient ${
-                                isNavbarVisible ? 'text-normal' : 'text-sm'
-                            }`}
+                            className={`transition-all duration-300 text-gradient ${isNavbarVisible ? 'text-normal' : 'text-sm'
+                                }`}
                         >
                             {t('Tripper')}
                         </span>
@@ -110,8 +91,8 @@ const Navbar: React.FC = () => {
                             >
                                 <span className="sr-only">Open user menu</span>
                                 <img
-                                    className="w-8 h-8 rounded-full"
-                                    src={`https://ui-avatars.com/api/?name=${userName}&background=random`}
+                                    className="w-8 h-8 rounded-full object-cover"
+                                    src={`${API_BASE_URL}/${profilePhoto}` || `https://ui-avatars.com/api/?name=${userName}&background=random`}
                                     alt={userName || ''}
                                 />
                             </button>

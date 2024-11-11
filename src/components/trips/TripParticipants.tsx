@@ -9,7 +9,7 @@ interface TripParticipantsProps {
     userId: string;
     isOwner: boolean;
     admins: [];
-    participants: { _id: string; name: string }[];
+    participants: { _id: string; name: string, profilePhoto: string }[];
     expenses: {
         _id: string;
         expenseName: string;
@@ -57,6 +57,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                             key={participant._id}
                             userName={participant.name}
                             userId={participant._id}
+                            profilePhoto={participant.profilePhoto}
                             size={'md'}
                         />
                     ))}

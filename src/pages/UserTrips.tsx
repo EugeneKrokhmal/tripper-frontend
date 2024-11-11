@@ -15,13 +15,14 @@ interface User {
     _id: string;
     name: string;
     email: string;
+    profilePhoto: string;
 }
 
 interface Trip {
     _id: string;
     name: string;
-    creator: { _id: string; name: string; email: string };
-    participants: { _id: string; name: string; email: string }[];
+    creator: { _id: string; name: string; email: string, profilePhoto: string };
+    participants: { _id: string; name: string; email: string, profilePhoto: string }[];
     startDate: string;
     endDate: string;
     location: { destination: string };
@@ -136,6 +137,8 @@ const Dashboard: React.FC = () => {
                     <span className="text-gradient">{t('myTrips')}</span>
                 </h1>
                 <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
+
+                <h2 className="text-gradient text-xl font-bold mb-4">{t('upcomingTrips')}</h2>
             </div>
 
             <div className="flex flex-col-reverse gap-8 md:flex-row-reverse mb-8 px-4">
@@ -144,7 +147,6 @@ const Dashboard: React.FC = () => {
                 </div>
 
                 <div className="md:w-3/4 content-start px-0">
-                    <h2 className="text-gradient text-xl font-bold mb-4">{t('upcomingTrips')}</h2>
                     <div className="grid lg:grid-cols-2 gap-4">
                         {upcomingTrips.length === 0 ? (
                             <p>{t('noUpcomingTrips')}</p>

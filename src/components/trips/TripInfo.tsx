@@ -12,7 +12,7 @@ interface TripInfoProps {
     endDate: string;
     tripDuration: number;
     isOwner: boolean;
-    participants: { _id: string; name: string }[];
+    participants: { _id: string; name: string, profilePhoto: string  }[];
     joinLink: string | null;
     onGenerateJoinLink: () => void;
     loadingJoinLink: boolean;

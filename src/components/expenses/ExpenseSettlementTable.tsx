@@ -16,7 +16,7 @@ interface Participant {
     _id: string;
     name: string;
     email: string;
-    profilePicture?: string;
+    profilePicture: string;
 }
 
 interface Settlement {
@@ -78,14 +78,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
     }, [activeSettlementId, paymentMethod, settlements]);
 
     const getParticipant = (id: string): Participant => {
-        return participants.find(p => p._id === id) || { _id: id, name: 'Unknown', email: 'unknown@example.com' };
-    };
-
-    const getInitials = (name: string) => {
-        return name
-            .split(' ')
-            .map(part => part[0]?.toUpperCase())
-            .join('');
+        return participants.find(p => p._id === id) || { _id: id, name: 'Unknown', email: 'unknown@example.com', profilePicture: '' };
     };
 
     const closeModal = () => {

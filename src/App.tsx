@@ -16,6 +16,7 @@ import ScrollToTop from './components/structure/ScrollToTop';
 import FAQ from './pages/FAQ';
 import CreateTripPage from './pages/CreateTripPage';
 import BugReportPopup from './components/structure/BugReportPopup';
+import SettingsPage from './pages/SettingsPage';
 
 // ProtectedRoute component to guard protected pages
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -42,16 +43,7 @@ function App() {
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/new-trip" element={<CreateTripPage />} />
-
-                    {/* Expense Detail Page with dynamic token and participants */}
-                    {/* <Route
-                    path="/trips/:tripId/expenses/:expenseId/edit"
-                    element={
-                        <ProtectedRoute>
-                            <ExpenseDetailPage participants={participants} token={token} API_BASE_URL={API_BASE_URL} />
-                        </ProtectedRoute>
-                    }
-                /> */}
+                    <Route path="/settings" element={<SettingsPage />} />
 
                     <Route
                         path="/dashboard"

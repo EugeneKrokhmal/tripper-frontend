@@ -1,15 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Price from '../Price';
-import AdminIcon from '../../images/icons/admin.svg';
-import OwnerIcon from '../../images/icons/owner.svg';
 import UserIcon from '../elements/UserIcon';
 
 
 interface UsersTableProps {
     isOwner: boolean;
     admins: [];
-    participants: { _id: string; name: string }[];
+    participants: { _id: string; name: string, profilePhoto: string }[];
     expenses: {
         _id: string;
         expenseName: string;
@@ -72,6 +70,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                                         <UserIcon
                                             userName={participant.name}
                                             userId={participant._id}
+                                            profilePhoto={participant.profilePhoto}
                                             size={'xs'}
                                         />
                                     </div>

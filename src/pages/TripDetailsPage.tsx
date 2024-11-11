@@ -190,7 +190,7 @@ const TripDetailsPage: React.FC = () => {
     const breadcrumbs = [
         { label: t('home'), href: '#/' },
         { label: t('myTrips'), href: '/dashboard' },
-        { label: trip.name, href: '' }
+        { label: trip?.name, href: '' }
     ];
 
     if (!trip) {
@@ -273,6 +273,17 @@ const TripDetailsPage: React.FC = () => {
                         expenses={trip.expenses}
                     />
 
+                    <ExpenseSettlementTable
+                        tripId={trip._id || ''}
+                        settlements={trip.settlements}
+                        settlementHistory={settlementsHistory}
+                        participants={trip.participants}
+                        token={token || ''}
+                        onSettlementUpdated={handleSettlementUpdated}
+                    />
+
+                    <hr className="my-8" />
+
                     <TripTimeline
                         startDate={trip.startDate}
                         isOwner={trip.creator._id === userId}
@@ -282,17 +293,6 @@ const TripDetailsPage: React.FC = () => {
                         token={token || ''}
                         API_BASE_URL={API_BASE_URL || ''}
                         OPEN_CAGE_API_KEY={process.env.REACT_APP_OPENCAGE_API_KEY || ''}
-                    />
-
-                    <hr className="my-8" />
-
-                    <ExpenseSettlementTable
-                        tripId={trip._id || ''}
-                        settlements={trip.settlements}
-                        settlementHistory={settlementsHistory}
-                        participants={trip.participants}
-                        token={token || ''}
-                        onSettlementUpdated={handleSettlementUpdated}
                     />
 
                     <hr className="my-8" />

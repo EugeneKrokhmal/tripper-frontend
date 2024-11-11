@@ -12,7 +12,7 @@ interface Trip {
     _id: string;
     name: string;
     creator: { _id: string; name: string; email: string };
-    participants: { _id: string; name: string; email: string }[];
+    participants: { _id: string; name: string; email: string, profilePhoto: string }[];
     startDate: string;
     endDate: string;
     location: { destination: string };

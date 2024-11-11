@@ -14,7 +14,7 @@ interface ExpenseSummaryWidgetProps {
     remainingOwedToUser: number;
     isOwner: boolean;
     admins: [];
-    participants: { _id: string; name: string }[];
+    participants: { _id: string; name: string, profilePhoto: string }[];
     expenses: {
         _id: string;
         expenseName: string;
@@ -28,6 +28,7 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
     const { t } = useTranslation();
     const userCost = totalPaidByUser - remainingOwedToUser;
     const [isWidgetOpen, setIsWidgetOpen] = useState(false);
+
     const toggleWidget = () => setIsWidgetOpen(!isWidgetOpen);
 
     return (

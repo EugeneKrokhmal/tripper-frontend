@@ -9,7 +9,7 @@ interface TripCardProps {
         _id: string;
         name: string;
         creator: { _id: string; name: string; email: string };
-        participants: { _id: string; name: string; email: string }[];
+        participants: { _id: string; name: string; email: string, profilePhoto: string }[];
         location: { destination: string };
         startDate: string;
         endDate: string;
@@ -58,11 +58,13 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                                 <UserIcon
                                     userName={participant.name}
                                     userId={participant._id}
+                                    profilePhoto={participant.profilePhoto}
                                     size={'md'}
+                                    key={participant._id}
                                 />
                             ))}
                             {trip.participants.length > 3 && (
-                                <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full dark:border-zinc-800">
+                                <span className="flex items-center justify-center md:w-12 md:h-12 w-10 h-10 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full dark:border-zinc-800">
                                     +{trip.participants.length - 3}
                                 </span>
                             )}
