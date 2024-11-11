@@ -76,6 +76,8 @@ const TripDetailsPage: React.FC = () => {
                     const tripData = await fetchTripDetails(tripId, token, API_BASE_URL);
                     setTrip(tripData);
                     setExpenses(tripData.expenses);
+                    setCurrency(tripData.currency || '');
+
                     if (userId) {
                         setTotalPaidByUser(calculateTotalPaidByUser(tripData.expenses, userId));
                         setRemainingOwedToUser(calculateRemainingOwedToUser(tripData.settlements, userId));
