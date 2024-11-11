@@ -92,11 +92,13 @@ const Navbar: React.FC = () => {
                             >
                                 <span className="sr-only">Open user menu</span>
 
-                                <UserIcon
-                                    userName={userName || ''}
-                                    profilePhoto={profilePhoto || ''}
-                                    size={`${isNavbarVisible ? 'md' : 'xs'}`}
-                                />
+                                <Link to={'/settings'}>
+                                    <UserIcon
+                                        userName={userName || ''}
+                                        profilePhoto={profilePhoto || ''}
+                                        size={`${isNavbarVisible ? 'md' : 'xs'}`}
+                                    />
+                                </Link>
                             </button>
 
                             <BurgerMenu isOpened={isDrawerOpen} onClick={toggleDrawer} />

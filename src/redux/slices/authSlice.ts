@@ -52,8 +52,20 @@ const authSlice = createSlice({
       state.profilePhoto = action.payload;
       localStorage.setItem('profilePhoto', action.payload);
     },
+    setUserData(state, action: PayloadAction<{ userName: string; user: string }>) {
+      state.userName = action.payload.userName;
+      state.user = action.payload.user;
+      localStorage.setItem('userName', action.payload.userName);
+      localStorage.setItem('user', action.payload.user);
+    },
+    updateUser(state, action: PayloadAction<{ userName: string; userEmail: string }>) {
+      state.userName = action.payload.userName;
+      state.user = action.payload.userEmail;
+      localStorage.setItem('userName', action.payload.userName);
+      localStorage.setItem('user', action.payload.userEmail);
+    },
   },
 });
 
-export const { login, logout, setLoading, setProfilePhoto } = authSlice.actions;
+export const { login, logout, setLoading, setProfilePhoto, setUserData, updateUser } = authSlice.actions;
 export default authSlice.reducer;

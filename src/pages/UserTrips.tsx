@@ -136,9 +136,6 @@ const Dashboard: React.FC = () => {
                 <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
                     <span className="text-gradient">{t('myTrips')}</span>
                 </h1>
-                <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
-
-                <h2 className="text-gradient text-xl font-bold mb-4">{t('upcomingTrips')}</h2>
             </div>
 
             <div className="flex flex-col-reverse gap-8 md:flex-row-reverse mb-8 px-4">
@@ -147,41 +144,43 @@ const Dashboard: React.FC = () => {
                 </div>
 
                 <div className="md:w-3/4 content-start px-0">
-                    <div className="grid lg:grid-cols-2 gap-4">
-                        {upcomingTrips.length === 0 ? (
-                            <p>{t('noUpcomingTrips')}</p>
-                        ) : (
-                            upcomingTrips.map((trip) => (
-                                <TripCard
-                                    key={trip._id}
-                                    trip={trip}
-                                    isActive={true}
-                                    loggedInUserId={loggedInUserId || ''}
-                                />
-                            ))
-                        )}
-                    </div>
+                    <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
+                    {(upcomingTrips.length > 0) && (
+                        <>
+                            <h2 className="text-gradient text-xl font-bold mb-4">{t('upcomingTrips')}</h2>
+                            <div className="grid lg:grid-cols-2 gap-4">
+                                {upcomingTrips.map((trip) => (
+                                    <TripCard
+                                        key={trip._id}
+                                        trip={trip}
+                                        isActive={false}
+                                        loggedInUserId={loggedInUserId || ''}
+                                    />
+                                ))}
+                            </div>
+                        </>
+                    )}
 
-                    <h2 className="text-gradient text-xl font-bold mb-4 mt-6">{t('pastTrips')}</h2>
-                    <div className="grid lg:grid-cols-2 gap-4">
-                        {pastTrips.length === 0 ? (
-                            <p>{t('noPastTrips')}</p>
-                        ) : (
-                            pastTrips.map((trip) => (
-                                <TripCard
-                                    key={trip._id}
-                                    trip={trip}
-                                    isActive={false}
-                                    loggedInUserId={loggedInUserId || ''}
-                                />
-                            ))
-                        )}
-                    </div>
+                    {(pastTrips.length > 0) && (
+                        <>
+                            <h2 className="text-gradient text-xl font-bold mb-4 mt-6">{t('pastTrips')}</h2>
+                            <div className="grid lg:grid-cols-2 gap-4">
+                                {pastTrips.map((trip) => (
+                                    <TripCard
+                                        key={trip._id}
+                                        trip={trip}
+                                        isActive={false}
+                                        loggedInUserId={loggedInUserId || ''}
+                                    />
+                                ))}
+                            </div>
+                        </>
+                    )}
 
                     {error && <p className="text-red-500">{error}</p>}
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

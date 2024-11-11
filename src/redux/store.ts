@@ -17,7 +17,7 @@ const userName = localStorage.getItem('userName');
 const userId = localStorage.getItem('userId');
 const profilePhoto = localStorage.getItem('profilePhoto');
 
-if (token && user && userId && userName) {
+if (token && user && userId && userName && profilePhoto) {
   store.dispatch(login({ user, userId, userName, token, profilePhoto }));
 }
 

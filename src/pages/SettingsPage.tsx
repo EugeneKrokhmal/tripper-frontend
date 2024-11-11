@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
-import axios from 'axios';
-import { setProfilePhoto } from '../redux/slices/authSlice';
+import { setProfilePhoto, updateUser } from '../redux/slices/authSlice';
 import { useTranslation } from 'react-i18next';
 import Breadcrumbs from '../components/structure/Breadcrumbs';
 import Button from '../components/elements/Button';
 import InputField from '../components/elements/InputField';
 import UploadIcon from '../images/icons/upload.svg';
+import { uploadProfilePhoto, updateUserDetails } from '../api/userApi';
 
 const SettingsPage: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    const [userNameInput, setUserNameInput] = useState<string>('');
+    const [userEmailInput, setUserEmailInput] = useState<string>('');
     const [uploadStatus, setUploadStatus] = useState<string>('');
     const token = useSelector((state: RootState) => state.auth.token);
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const SettingsPage: React.FC = () => {
     const profilePhoto = useSelector((state: RootState) => state.auth.profilePhoto);
     const userName = useSelector((state: RootState) => state.auth.userName);
     const userEmail = useSelector((state: RootState) => state.auth.user);
-
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
@@ -40,17 +41,8 @@ const SettingsPage: React.FC = () => {
             return;
         }
 
-        const formData = new FormData();
-        formData.append('profilePhoto', selectedFile);
-
         try {
-            const response = await axios.post(`${API_BASE_URL}/api/user/upload-photo`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
+            const response = await uploadProfilePhoto(selectedFile, token || '');
             if (response.status === 200) {
                 setUploadStatus('Upload successful!');
                 const newProfilePhoto = response.data.profilePhoto;
@@ -70,14 +62,24 @@ const SettingsPage: React.FC = () => {
         }
     };
 
-    const breadcrumbs = [
-        { label: t('home'), href: '#/' },
-        { label: t('Settings'), href: '' }
-    ];
+    const handleSaveChanges = async () => {
+        try {
+            const response = await updateUserDetails(userNameInput, userEmailInput, token || '');
+            if (response.status === 200) {
+                dispatch(updateUser({ userName: userNameInput, userEmail: userEmailInput }));
+                setUploadStatus('Profile updated successfully!');
+            } else {
+                setUploadStatus('Update failed. Please try again.');
+            }
+        } catch (error: any) {
+            console.error('Error updating profile:', error);
+            setUploadStatus('An error occurred during the update. Please try again later.');
+        }
+    };
 
     return (
         <div className="container max-w-7xl mx-auto mt-8">
-            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <Breadcrumbs breadcrumbs={[{ label: t('home'), href: '#/' }, { label: t('Settings'), href: '' }]} />
 
             <div className="px-4 py-16">
                 <div className="relative w-full max-w-screen-xl mx-auto">
@@ -104,14 +106,24 @@ const SettingsPage: React.FC = () => {
                         </div>
                         <div className="w-full md:w-2/4">
                             <h3 className="font-bold text-xl text-gradient mb-2">{t('Profile data')}</h3>
-                            <div className="pointer-events-none opacity-40">
-                                <InputField label={t('name')} onChange={() => { }} type={'text'} value={userName || ''} />
-                                <InputField label={t('email')} onChange={() => { }} type={'text'} value={userEmail || ''} />
+                            <div>
+                                <InputField
+                                    label={t('name')}
+                                    onChange={(e) => setUserNameInput(e.target.value)}
+                                    type={'text'}
+                                    value={userNameInput || userName || ''}
+                                />
+                                <InputField
+                                    label={t('email')}
+                                    onChange={(e) => setUserEmailInput(e.target.value)}
+                                    type={'text'}
+                                    value={userEmailInput || userEmail || ''}
+                                />
                                 <InputField label={t('password')} onChange={() => { }} type={'password'} value={''} />
                                 <InputField label={t('Confirm password')} onChange={() => { }} type={'password'} value={''} />
                             </div>
-                            <div className="flex justify-between">
-                                <Button variant="primary" onClick={handleUpload} label={t('Save')} />
+                            <div className="flex justify-between gap-2">
+                                <Button variant="primary" onClick={handleSaveChanges} label={t('Save')} />
                                 <Button variant="secondary" onClick={() => { alert('think twice!') }} label={t('Delete profile')} />
                             </div>
                         </div>
