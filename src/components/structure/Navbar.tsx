@@ -7,6 +7,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import BurgerMenu from './BurgerMenu';
 import DarkModeToggle from './DarkModeToggle';
+import UserIcon from '../elements/UserIcon';
 
 const Navbar: React.FC = () => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
@@ -90,10 +91,11 @@ const Navbar: React.FC = () => {
                                 className="flex text-sm bg-zinc-800 dark:bg-zinc-100 rounded-full focus:ring-4 focus:ring-zinc-300 dark:focus:ring-zinc-600"
                             >
                                 <span className="sr-only">Open user menu</span>
-                                <img
-                                    className="w-8 h-8 rounded-full object-cover"
-                                    src={`${API_BASE_URL}/${profilePhoto}` || `https://ui-avatars.com/api/?name=${userName}&background=random`}
-                                    alt={userName || ''}
+
+                                <UserIcon
+                                    userName={userName || ''}
+                                    profilePhoto={profilePhoto || ''}
+                                    size={`${isNavbarVisible ? 'md' : 'xs'}`}
                                 />
                             </button>
 
@@ -137,18 +139,21 @@ const Navbar: React.FC = () => {
                                     <Link to="/" onClick={toggleDrawer}>{t('home')}</Link>
                                 </li>
                                 <li className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
-                                    <Link to="dashboard" onClick={toggleDrawer}>{t('myTrips')}</Link>
+                                    <Link to="/dashboard" onClick={toggleDrawer}>{t('myTrips')}</Link>
                                 </li>
                                 <li className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
                                     <Link to="/new-trip" onClick={toggleDrawer}>{t('createTrip')}</Link>
-                                </li>
-                                <li className="mb-4 font-bold text-zinc-900 dark:text-zinc-100">
-                                    <Link to="faq" onClick={toggleDrawer}>{t('FAQ')}</Link>
                                 </li>
                             </ul>
                         </div>
 
                         <ul className="flex flex-col mt-auto">
+                            <li className="mb-4 text-zinc-900 dark:text-zinc-100">
+                                <Link to="/blog" onClick={toggleDrawer}>{t('Blog')}</Link>
+                            </li>
+                            <li className="mb-4 text-zinc-900 dark:text-zinc-100">
+                                <Link to="/faq" onClick={toggleDrawer}>{t('FAQ')}</Link>
+                            </li>
                             <li className="mb-4 text-zinc-900 dark:text-zinc-100">
                                 <Link to="settings" onClick={toggleDrawer}>{t('settings')}</Link>
                             </li>

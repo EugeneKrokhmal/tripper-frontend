@@ -90,20 +90,20 @@ const Sidebar: React.FC = () => {
                         </li>
                         <li>
                             <button
-                                onClick={() => handleScroll('timeline')}
-                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('timeline') ? 'bg-zinc-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700'} group`}
-                            >
-                                <img className="w-4 dark:invert" src={TimeLineIcon} alt={t('timeline')} />
-                                <span className="ms-3">{t('timeline')}</span>
-                            </button>
-                        </li>
-                        <li>
-                            <button
                                 onClick={() => handleScroll('settlementsummary')}
                                 className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('settlementsummary') ? 'bg-zinc-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700'} group`}
                             >
                                 <img className="w-4 dark:invert" src={SettlementIcon} alt={t('settlementSummary')} />
                                 <span className="ms-3">{t('settlementSummary')}</span>
+                            </button>
+                        </li>                        
+                        <li>
+                            <button
+                                onClick={() => handleScroll('timeline')}
+                                className={`flex items-center w-full p-2 text-left rounded-lg ${isActive('timeline') ? 'bg-zinc-100 dark:bg-zinc-600' : 'text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700'} group`}
+                            >
+                                <img className="w-4 dark:invert" src={TimeLineIcon} alt={t('timeline')} />
+                                <span className="ms-3">{t('timeline')}</span>
                             </button>
                         </li>
                         <li>

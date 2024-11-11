@@ -2,7 +2,7 @@ import React from 'react';
 
 interface UserIconProps {
     userName: string;
-    userId: string;
+    userId?: string;
     profilePhoto?: string;
     size?: string;
 }
@@ -31,7 +31,7 @@ const UserIcon: React.FC<UserIconProps> = ({ userName, userId, size, profilePhot
     return (
         <img
             key={userId}
-            className={`${className} border-2 border-white rounded-full dark:border-zinc-800 object-cover`}
+            className={`${className} transition-all border-2 border-white rounded-full dark:border-zinc-800 object-cover`}
             src={(profilePhoto || profilePhoto === 'undefined') ? `${API_BASE_URL}/${profilePhoto}` : `https://ui-avatars.com/api/?name=${userName}&background=random`}
             alt={userName}
         />

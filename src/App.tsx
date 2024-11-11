@@ -17,6 +17,7 @@ import FAQ from './pages/FAQ';
 import CreateTripPage from './pages/CreateTripPage';
 import BugReportPopup from './components/structure/BugReportPopup';
 import SettingsPage from './pages/SettingsPage';
+import Blog from './pages/Blog';
 
 // ProtectedRoute component to guard protected pages
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -44,6 +45,7 @@ function App() {
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/new-trip" element={<CreateTripPage />} />
                     <Route path="/settings" element={<SettingsPage />} />
+                    <Route path="/blog" element={<Blog />} />
 
                     <Route
                         path="/dashboard"

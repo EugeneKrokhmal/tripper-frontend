@@ -86,7 +86,7 @@ const SettingsPage: React.FC = () => {
                     </h1>
 
                     <div className="flex w-full gap-8 items-start flex-col md:flex-row justify-between">
-                        <div className="w-full md:w-1/4 items-start flex gap-4 items-center">
+                        <div className="w-full md:w-1/4 items-start flex-col gap-4 items-center">
                             <div className="relative flex rounded-full w-32 h-32 overflow-hidden mb-2">
                                 <img className="w-full h-full object-cover" src={`${API_BASE_URL}/${profilePhoto}` || ''} />
                                 <label className="absolute grid content-center justify-center left-0 top-0 right-0 bottom-0 opacity-70 bg-white cursor-pointer">
@@ -95,20 +95,25 @@ const SettingsPage: React.FC = () => {
                                 </label>
                             </div>
                             <div>
-                            <h4 className="font-bold text-xl text-zinc-800 dark:text-zinc-100">{userName}</h4>
-                            <p className="font-bold mb-2 text-zinc-800 dark:text-zinc-100">{userEmail}</p>
-                            <div className="upload-section">
-                                {uploadStatus && <p>{uploadStatus}</p>}
-                            </div>
+                                <h4 className="font-bold text-xl text-zinc-800 dark:text-zinc-100">{userName}</h4>
+                                <p className="font-bold mb-2 text-zinc-800 dark:text-zinc-100">{userEmail}</p>
+                                <div className="upload-section">
+                                    {uploadStatus && <p>{uploadStatus}</p>}
+                                </div>
                             </div>
                         </div>
                         <div className="w-full md:w-2/4">
                             <h3 className="font-bold text-xl text-gradient mb-2">{t('Profile data')}</h3>
-                            <InputField label={t('name')} onChange={() => { }} type={'text'} value={''} />
-                            <InputField label={t('email')} onChange={() => { }} type={'text'} value={''} />
-                            <InputField label={t('password')} onChange={() => { }} type={'password'} value={''} />
-                            <InputField label={t('Confirm password')} onChange={() => { }} type={'password'} value={''} />
-                            <Button variant="primary" onClick={handleUpload} label={t('Save')} />
+                            <div className="pointer-events-none opacity-40">
+                                <InputField label={t('name')} onChange={() => { }} type={'text'} value={userName || ''} />
+                                <InputField label={t('email')} onChange={() => { }} type={'text'} value={userEmail || ''} />
+                                <InputField label={t('password')} onChange={() => { }} type={'password'} value={''} />
+                                <InputField label={t('Confirm password')} onChange={() => { }} type={'password'} value={''} />
+                            </div>
+                            <div className="flex justify-between">
+                                <Button variant="primary" onClick={handleUpload} label={t('Save')} />
+                                <Button variant="secondary" onClick={() => { alert('think twice!') }} label={t('Delete profile')} />
+                            </div>
                         </div>
                     </div>
                 </div>
