@@ -7,6 +7,7 @@ import ExpenseForm from './ExpenseForm';
 import { useTranslation } from 'react-i18next';
 import Price from '../Price';
 import { formatDate } from '../../utils/dateUtils';
+import UserIcon from '../elements/UserIcon';
 
 interface Expense {
     _id: string;
@@ -21,7 +22,7 @@ interface Expense {
 interface Participant {
     _id: string;
     name: string;
-    profilePicture?: string;
+    profilePhoto?: string;
 }
 
 interface ExpensesListProps {
@@ -132,19 +133,21 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                             {splitters.slice(0, 3).map((splitter) => (
                                                 splitter && (
                                                     <li key={splitter?._id} className="flex items-center space-x-2 rounded-full">
-                                                        {splitter?.profilePicture ? (
-                                                            <img
+                                                        {splitter?.profilePhoto ? (
+                                                            <UserIcon
+                                                                userName={splitter?.name || ''}
+                                                                userId={splitter?._id || ''}
+                                                                profilePhoto={splitter?.profilePhoto || ''}
+                                                                size={'sm'}
                                                                 key={splitter?._id}
-                                                                className="w-10 h-10 rounded-full"
-                                                                src={`https://ui-avatars.com/api/?name=${splitter?.name}&background=random`}
-                                                                alt={splitter?.name}
                                                             />
                                                         ) : (
-                                                            <img
+                                                            <UserIcon
+                                                                userName={splitter?.name || ''}
+                                                                userId={splitter?._id || ''}
+                                                                profilePhoto={splitter?.profilePhoto || ''}
+                                                                size={'sm'}
                                                                 key={splitter?._id}
-                                                                className="w-10 h-10 rounded-full"
-                                                                src={`https://ui-avatars.com/api/?name=${splitter?.name}&background=random`}
-                                                                alt={splitter?.name}
                                                             />
                                                         )}
                                                     </li>
@@ -169,13 +172,13 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                     <p className="text-xs text-zinc-500 dark:text-zinc-300 mb-2">
                                         {t('responsible')}:
                                     </p>
-                                    <div className="flex">
-
-                                        <img
+                                    <div className="flex gap-2">
+                                        <UserIcon
+                                            userName={responsiblePerson?.name || ''}
+                                            userId={responsiblePerson?._id || ''}
+                                            profilePhoto={responsiblePerson?.profilePhoto || ''}
+                                            size={'sm'}
                                             key={responsiblePerson?._id}
-                                            className="w-8 h-8 border-2 border-white rounded-full dark:border-zinc-800 mr-2"
-                                            src={`https://ui-avatars.com/api/?name=${responsiblePerson?.name}&background=random`}
-                                            alt={responsiblePerson?.name}
                                         />
                                         <p className="text-xs flex items-center space-x-2 dark:text-zinc-400">
                                             {responsiblePerson?.name || 'Unknown'}
