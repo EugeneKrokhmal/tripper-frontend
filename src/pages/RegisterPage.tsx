@@ -89,8 +89,6 @@ const RegisterPage: React.FC = () => {
                     alt="step image"
                 />
             </div>
-
-
         </div>
     );
 

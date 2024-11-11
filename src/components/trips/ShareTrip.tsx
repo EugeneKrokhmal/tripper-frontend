@@ -32,6 +32,12 @@ const ShareTrip: React.FC<ShareTripProps> = ({
         }
     }, [joinLink]);
 
+    useEffect(() => {
+        if (IsShareModalOpen && !linkGenerated && (isOwner || isAdmin)) {
+            onGenerateJoinLink();  // Generate the link when the modal opens if it hasn't been generated yet
+        }
+    }, [IsShareModalOpen, linkGenerated, isOwner, isAdmin, onGenerateJoinLink]);
+
     const handleCopyLink = () => {
         if (joinLink) {
             navigator.clipboard.writeText(joinLink)
@@ -55,17 +61,17 @@ const ShareTrip: React.FC<ShareTripProps> = ({
         window.open(smsUrl);
     };
 
-    const openShareTripModal = () => {
-        setIsShareModalOpen(true);
-    };
-
     const closeShareTripModal = () => {
         setIsShareModalOpen(false);
     };
 
     return (
         <div className="z-10 absolute end-4 bottom-0 flex justify-end p-3">
-            <button className="flex gap-2 w-32 justify-center bg-white rounded py-2 px-2" onClick={() => setIsShareModalOpen(true)} title={t('share')}>
+            <button
+                className="flex gap-2 w-32 justify-center bg-white rounded py-2 px-2"
+                onClick={() => setIsShareModalOpen(true)}
+                title={t('share')}
+            >
                 <img width="16" src={ShareIcon} alt="" />
                 <span className="text-xs">{t('invite')}</span>
             </button>
@@ -74,7 +80,6 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                     <Modal onClose={closeShareTripModal}>
                         {linkGenerated ? (
                             <>
-
                                 <h3 className="mb-2 text-2xl font-extrabold text-zinc-900 dark:text-white md:text-2xl mt-4">
                                     <span className="text-gradient">{t('inviteFriends')}</span>
                                 </h3>
@@ -82,14 +87,14 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                                     <input
                                         id="share-trip-btn"
                                         type="text"
-                                        className="pr-12 col-span-6 bg-zinc-50 border border-zinc-300 text-zinc-500 dark:text-zinc-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-zinc-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className="pr-12 col-span-6 bg-zinc-50 border border-zinc-300 text-zinc-500 dark:text-zinc-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         value={joinLink || ''}
                                         disabled
                                         readOnly
                                     />
                                     <button
                                         onClick={handleCopyLink}
-                                        className="absolute end-2 top-1/2 -translate-y-1/2 text-zinc-500 dark:text-zinc-300  dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg p-2 inline-flex items-center justify-center"
+                                        className="absolute end-2 top-1/2 -translate-y-1/2 text-zinc-500 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg p-2 inline-flex items-center justify-center"
                                     >
                                         {!copySuccess ? (
                                             <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
@@ -101,13 +106,6 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                                             </svg>
                                         )}
                                     </button>
-
-                                    <div id="tooltip-copy-share-trip-btn" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-zinc-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-zinc-700">
-                                        <span id="default-tooltip-message">
-                                            {copySuccess ? 'Copied!' : 'Copy to clipboard'}
-                                        </span>
-                                        <div className="tooltip-arrow" data-popper-arrow></div>
-                                    </div>
                                 </div>
 
                                 <div className="mt-4 flex gap-4">
@@ -136,26 +134,17 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                                     </button>
                                 </div>
 
+                                <p className="text-xs text-zinc-500 dark:text-zinc-300 mt-2">
+                                    {t('ShareThisLinkToInviteOthersToThisTrip')}
+                                </p>
                             </>
                         ) : (
-                            <Button
-                                label={loadingJoinLink ? "Generating Link..." : "Generate Join Link"}
-                                onClick={onGenerateJoinLink}
-                                variant="primary"
-                                disabled={loadingJoinLink}
-                            />
-                        )}
-
-                        {linkGenerated && (
-                            <p className="text-xs text-zinc-500 dark:text-zinc-300  mt-2">
-                                {t('ShareThisLinkToInviteOthersToThisTrip')}
-                            </p>
+                            <p className="mt-4">{loadingJoinLink ? t('GeneratingLink') : t('PleaseWait')}</p>
                         )}
                     </Modal>
                 </>
             )}
 
-            {/* Error message if something goes wrong */}
             {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
     );
