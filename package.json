@@ -2,7 +2,7 @@
   "name": "tripper",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://EugeneKrokhmal.github.io/tripper-frontend",
+  "homepage": "http://tripper.cc",
   "dependencies": {
     "@paypal/checkout-server-sdk": "^1.0.3",
     "@reduxjs/toolkit": "^2.3.0",

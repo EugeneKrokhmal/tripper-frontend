@@ -20,7 +20,7 @@ const Blog: React.FC = () => {
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     const breadcrumbs = [
-        { label: t('home'), href: '#/' },
+        { label: t('home'), href: '/' },
         { label: t('Blog'), href: '/Blog' },
     ];
 

@@ -190,7 +190,7 @@ const TripDetailsPage: React.FC = () => {
     };
 
     const breadcrumbs = [
-        { label: t('home'), href: '#/' },
+        { label: t('home'), href: '/' },
         { label: t('myTrips'), href: '/dashboard' },
         { label: trip?.name, href: '' }
     ];
@@ -278,7 +278,7 @@ const TripDetailsPage: React.FC = () => {
                     <ExpenseSettlementTable
                         tripId={trip._id || ''}
                         settlements={trip.settlements}
-                        settlementHistory={settlementsHistory}
+                        settlementHistory={trip.settlementHistory || []}
                         participants={trip.participants}
                         token={token || ''}
                         onSettlementUpdated={handleSettlementUpdated}
@@ -320,6 +320,7 @@ const TripDetailsPage: React.FC = () => {
 
                         <ExpensesList
                             userId={userId || ''}
+                            isOwner={trip.creator._id === userId}
                             expenses={trip.expenses}
                             participants={trip.participants}
                             tripId={tripId || ''}
