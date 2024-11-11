@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '../elements/Button';
 import Modal from '../elements/Modal';
 import ShareIcon from '../../images/icons/team.svg';
+import Loader from '../structure/Loader';
 
 interface ShareTripProps {
     isOwner: boolean;
@@ -139,7 +140,7 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                                 </p>
                             </>
                         ) : (
-                            <p className="mt-4">{loadingJoinLink ? t('GeneratingLink') : t('PleaseWait')}</p>
+                            <p className="mt-4">{loadingJoinLink ? <Loader/> : t('PleaseWait')}</p>
                         )}
                     </Modal>
                 </>

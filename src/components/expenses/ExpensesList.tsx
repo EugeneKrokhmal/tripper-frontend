@@ -27,6 +27,7 @@ interface Participant {
 
 interface ExpensesListProps {
     userId: string;
+    isOwner: boolean
     expenses: Expense[];
     participants: Participant[];
     tripId: string;
@@ -38,6 +39,7 @@ interface ExpensesListProps {
 
 const ExpensesList: React.FC<ExpensesListProps> = ({
     userId,
+    isOwner,
     expenses,
     participants,
     tripId,
@@ -186,7 +188,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                     </div>
                                 </div>
 
-                                {userId === expense.responsibleUserId && (
+                                {(userId === expense.responsibleUserId || isOwner) && (
                                     <>
                                         <div className="flex gap-2 self-end">
                                             <a

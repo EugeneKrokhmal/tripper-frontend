@@ -282,11 +282,12 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                     >
                                         <td className="px-2 py-4 text-sm text-zinc-300 dark:text-zinc-600 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
-                                                <img
-                                                    key={debtor._id}
-                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
-                                                    src={`https://ui-avatars.com/api/?name=${debtor.name}&background=random`}
-                                                    alt={debtor.name}
+                                                <UserIcon
+                                                    userName={debtor?.name || ''}
+                                                    userId={debtor?._id || ''}
+                                                    profilePhoto={debtor?.profilePhoto || ''}
+                                                    size={'sm'}
+                                                    key={debtor?._id}
                                                 />
                                                 <div>
                                                     <p className="font-semibold">{debtor.name}</p>
@@ -295,11 +296,12 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                         </td>
                                         <td className="px-2 py-4 text-sm text-zinc-300 dark:text-zinc-600 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
-                                                <img
-                                                    key={creditor._id}
-                                                    className="w-10 h-10 border-2 border-white rounded-full dark:border-zinc-800"
-                                                    src={`https://ui-avatars.com/api/?name=${creditor.name}&background=random`}
-                                                    alt={creditor.name}
+                                                <UserIcon
+                                                    userName={creditor?.name || ''}
+                                                    userId={creditor?._id || ''}
+                                                    profilePhoto={creditor?.profilePhoto || ''}
+                                                    size={'sm'}
+                                                    key={creditor?._id}
                                                 />
                                                 <div>
                                                     <p className="font-semibold">{creditor.name}</p>
