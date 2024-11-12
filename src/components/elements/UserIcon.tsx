@@ -5,9 +5,10 @@ interface UserIconProps {
     userId?: string;
     profilePhoto?: string;
     size?: string;
+    border?: string;
 }
 
-const UserIcon: React.FC<UserIconProps> = ({ userName, userId, size, profilePhoto }) => {
+const UserIcon: React.FC<UserIconProps> = ({ userName, userId, size, profilePhoto, border }) => {
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
 
     let className;
@@ -22,7 +23,7 @@ const UserIcon: React.FC<UserIconProps> = ({ userName, userId, size, profilePhot
             break;
 
         case 'md':
-            className = 'w-10min-w-10 h-10 md:w-12 md:h-12 md:min-w-12'
+            className = 'w-10 min-w-10 h-10 md:w-12 md:h-12 md:min-w-12'
             break;
 
         default:
@@ -31,7 +32,7 @@ const UserIcon: React.FC<UserIconProps> = ({ userName, userId, size, profilePhot
     return (
         <img
             key={userId}
-            className={`${className} transition-all border-2 border-white rounded-full dark:border-zinc-800 object-cover`}
+            className={`${className} ${border} transition-all rounded-full object-cover`}
             src={(profilePhoto || profilePhoto === 'undefined') ? `${API_BASE_URL}/${profilePhoto}` : `https://ui-avatars.com/api/?name=${userName}&background=random`}
             alt={userName}
         />

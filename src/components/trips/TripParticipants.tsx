@@ -59,6 +59,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                             userId={participant._id}
                             profilePhoto={participant.profilePhoto}
                             size={'md'}
+                            border={'border-2 border-white dark:border-zinc-800'}
                         />
                     ))}
                     {participants.length > 5 && (

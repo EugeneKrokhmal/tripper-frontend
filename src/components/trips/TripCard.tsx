@@ -62,6 +62,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                                     profilePhoto={participant.profilePhoto}
                                     size={'md'}
                                     key={participant._id}
+                                    border={'border-2 border-white dark:border-zinc-800'}
                                 />
                             ))}
                             {trip.participants.length > 3 && (
