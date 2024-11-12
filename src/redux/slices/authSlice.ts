@@ -1,7 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState } from '../store';
+import { getProfilePhoto } from '../../api/userApi';
 
 interface AuthState {
-  user: string | null;
+  userEmail: string | null;
   userName: string | null;
   userId: string | null;
   token: string | null;
@@ -11,14 +13,27 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: null,
-  userName: null,
-  userId: null,
-  token: null,
-  isAuthenticated: false,
+  userEmail: localStorage.getItem('user') || null,
+  userName: localStorage.getItem('userName') || null,
+  userId: localStorage.getItem('userId') || null,
+  token: localStorage.getItem('token') || null,
+  isAuthenticated: !!localStorage.getItem('token'),
   loading: false,
-  profilePhoto: null,
+  profilePhoto: localStorage.getItem('profilePhoto') || null,
 };
+
+// Async action to fetch profile photo
+export const fetchProfilePhoto = createAsyncThunk(
+  'auth/fetchProfilePhoto',
+  async (token: string, { rejectWithValue }) => {
+    try {
+      const response = await getProfilePhoto(token);
+      return response;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || 'Error fetching profile photo');
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: 'auth',
@@ -27,45 +42,43 @@ const authSlice = createSlice({
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
     },
-    login: (state, action: PayloadAction<{ user: string; userName: string; userId: string; token: string; profilePhoto: string | null }>) => {
-      state.user = action.payload.user;
+    login: (state, action: PayloadAction<{ userEmail: string; userName: string; userId: string; token: string; profilePhoto: string | null }>) => {
+      state.userEmail = action.payload.userEmail;
       state.userName = action.payload.userName;
       state.userId = action.payload.userId;
       state.token = action.payload.token;
-      state.profilePhoto = action.payload.profilePhoto !== 'undefined' ? action.payload.profilePhoto : null;
+      state.profilePhoto = action.payload.profilePhoto;
       state.isAuthenticated = true;
+
+      // Save to local storage
+      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('userEmail', action.payload.userEmail);
+      localStorage.setItem('userName', action.payload.userName);
+      localStorage.setItem('userId', action.payload.userId);
+      if (action.payload.profilePhoto) localStorage.setItem('profilePhoto', action.payload.profilePhoto);
     },
-    logout: (state) => {
-      state.user = null;
-      state.userName = null;
-      state.userId = null;
-      state.token = null;
-      state.isAuthenticated = false;
-      state.profilePhoto = null;
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      localStorage.removeItem('userName');
-      localStorage.removeItem('userId');
-      localStorage.removeItem('profilePhoto');
+    logout(state) {
+      Object.assign(state, initialState);
+      localStorage.clear();
     },
     setProfilePhoto(state, action: PayloadAction<string>) {
       state.profilePhoto = action.payload;
       localStorage.setItem('profilePhoto', action.payload);
     },
-    setUserData(state, action: PayloadAction<{ userName: string; user: string }>) {
-      state.userName = action.payload.userName;
-      state.user = action.payload.user;
-      localStorage.setItem('userName', action.payload.userName);
-      localStorage.setItem('user', action.payload.user);
-    },
     updateUser(state, action: PayloadAction<{ userName: string; userEmail: string }>) {
       state.userName = action.payload.userName;
-      state.user = action.payload.userEmail;
+      state.userEmail = action.payload.userEmail;
       localStorage.setItem('userName', action.payload.userName);
-      localStorage.setItem('user', action.payload.userEmail);
+      localStorage.setItem('userEmail', action.payload.userEmail);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchProfilePhoto.fulfilled, (state, action) => {
+      state.profilePhoto = action.payload;
+      localStorage.setItem('profilePhoto', action.payload);
+    });
   },
 });
 
-export const { login, logout, setLoading, setProfilePhoto, setUserData, updateUser } = authSlice.actions;
+export const { login, logout, setLoading, setProfilePhoto, updateUser } = authSlice.actions;
 export default authSlice.reducer;

@@ -14,15 +14,15 @@ const UserIcon: React.FC<UserIconProps> = ({ userName, userId, size, profilePhot
 
     switch (size) {
         case 'xs':
-            className = 'w-6 h-6 md:w-8 md:h-8'
+            className = 'w-6 min-w-6 h-6 md:w-8 md:h-8 md:min-w-8'
             break;
 
         case 'sm':
-            className = 'w-8 h-8 md:w-10 md:h-10'
+            className = 'w-8 min-w-8 h-8 md:w-10 md:h-10 md:min-w-10'
             break;
 
         case 'md':
-            className = 'w-10 h-10 md:w-12 md:h-12'
+            className = 'w-10min-w-10 h-10 md:w-12 md:h-12 md:min-w-12'
             break;
 
         default:

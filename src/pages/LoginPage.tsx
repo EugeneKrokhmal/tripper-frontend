@@ -45,7 +45,7 @@ const LoginPage: React.FC = () => {
 
             // Dispatching the login action to Redux store
             dispatch(login({
-                user: email,
+                userEmail: email,
                 userName,
                 profilePhoto,
                 userId,

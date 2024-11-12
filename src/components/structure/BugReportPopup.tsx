@@ -23,7 +23,7 @@ const BugReportPopup: React.FC = () => {
     };
 
     const handleReportBug = () => {
-        window.location.href = 'mailto:krokhmaleugen@gmail.com?subject=Bug Report&body=Please describe the bug you encountered...';
+        window.location.href = 'mailto:support@tripper.cc?subject=Bug Report&body=Please describe the bug you encountered...';
     };
 
     return (
