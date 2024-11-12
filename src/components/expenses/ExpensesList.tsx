@@ -112,7 +112,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                     const splitters = expense.splitParticipants.map(id => getParticipantById(id));
 
                     return (
-                        <li key={expense.date} className="mb-8 ms-4">
+                        <li key={expense.date} className="mb-8 ms-4" data-aos="fade-in">
                             <div className="absolute w-3 h-3 bg-zinc-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-zinc-900 dark:bg-zinc-700"></div>
                             <div className="flex justify-between items-bottom mb-2 pb-2">
                                 <div>

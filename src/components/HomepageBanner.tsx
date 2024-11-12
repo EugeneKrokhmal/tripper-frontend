@@ -17,22 +17,22 @@ const HomepageBanner: React.FC = () => {
             scrollTrigger: {
                 trigger: '.scrollDist',
                 start: 'top top',
-                end: '+=600',
+                end: 'bottom',
                 scrub: 1
             }
         })
-            .from('.bg', { scale: 1.5 })
-            .to('.bg', { scale: 1 })
+        .from('.bg', { scale: 1, opacity: 1, })
+        .to('.bg', { scale: 1.5, opacity: 0 })
     }, []);
 
     return (
-        <div className="h-screen scrollDist overflow-hidden">
+        <div className="h-screen scrollDist overflow-hidden" data-aos="fade-in">
             <div className="relative flex justify-center mb-16">
                 <div className="absolute bottom-0 inset-0 bg">
                     <img src={HeroImage} alt="Background Image" className="object-cover object-center w-full h-full" />
-                    <div className="absolute inset-0 h-full bg-black opacity-50"></div>
+                    <div className="absolute inset-0 h-full"></div>
                 </div>
-                <div className="z-10 justify-center mx-auto h-screen w-full max-w-screen-xl flex flex-col items-center md:flex-row gap-10 px-4 pb-20">
+                <div className="z-10 justify-center mx-auto h-screen w-full max-w-screen-xl flex flex-col items-center md:flex-row gap-10 px-4 pb-20 content">
                     <div className="md:w-2/3 text-center">
                         <h1 className="mb-4 text-5xl font-extrabold text-zinc-900 dark:text-white lg:text-7xl">
                             <span className="text-white">
