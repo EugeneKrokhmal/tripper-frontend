@@ -6,6 +6,7 @@ import Button from '../elements/Button';
 import SelectField from '../elements/SelectField';
 import axios from 'axios';
 import { useCurrency } from '../../context/CurrencyContext';
+import UserIcon from '../elements/UserIcon';
 
 interface ExpenseFormProps {
     userId: string;
@@ -187,13 +188,20 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                         <label className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">{t('splitAmong')}</label>
                         {participants.map(participant => (
                             <div key={participant._id} className="flex items-center mb-2">
-                                <input
-                                    type="checkbox"
-                                    checked={splitParticipants.includes(participant._id)}
-                                    onChange={() => handleParticipantToggle(participant._id)}
-                                    className="w-4 h-4 border border-zinc-300 rounded bg-zinc-50 focus:ring-3 focus:ring-blue-300 dark:bg-zinc-700 dark:border-zinc-600 dark:focus:ring-blue-600 dark:ring-offset-zinc-800"
-                                />
-                                <label className="ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">
+                                <label className="text-sm font-medium text-zinc-900 dark:text-zinc-300 flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        checked={splitParticipants.includes(participant._id)}
+                                        onChange={() => handleParticipantToggle(participant._id)}
+                                        className="w-4 h-4 border border-zinc-300 rounded-xl bg-zinc-50 focus:ring-3 dark:bg-zinc-700 dark:border-zinc-600 dark:ring-offset-zinc-800"
+                                    />
+                                    <UserIcon
+                                        userName={participant?.name || ''}
+                                        userId={participant?._id || ''}
+                                        profilePhoto={participant?.profilePhoto || ''}
+                                        size={'xs'}
+                                        key={participant?._id}
+                                    />
                                     {participant.name}
                                 </label>
                             </div>
