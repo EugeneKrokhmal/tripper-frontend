@@ -77,6 +77,7 @@ const SettingsPage: React.FC = () => {
             if (response) {
                 dispatch(updateUser({ userName: userNameInput, userEmail: userEmailInput }));
                 setUploadStatus('Profile updated successfully!');
+                closeModal()
             } else {
                 setUploadStatus('Update failed.');
             }

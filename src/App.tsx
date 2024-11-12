@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import LoginPage from './pages/LoginPage';
@@ -24,7 +24,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const token = useSelector((state: RootState) => state.auth.token);
 
     if (!token) {
-        return <LoginPage />; // Redirect to login if not authenticated
+        return <LoginPage />;
     }
 
     return <>{children}</>;
@@ -74,7 +74,6 @@ function App() {
                     />
                 </Routes>
             </div>
-            {/* <BottomNav /> */}
             <Footer />
             <BugReportPopup />
         </Router>

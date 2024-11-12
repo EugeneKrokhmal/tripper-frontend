@@ -108,7 +108,7 @@ const LoginPage: React.FC = () => {
 
                 {/* Sign up Link */}
                 <p className="text-center text-zinc-600 dark:text-zinc-300 mt-6">
-                    {t('dontHaveAnAccount')} <Link to="/register" className="text-blue-600 hover:underline">{t('register')}</Link>
+                    {t('dontHaveAnAccount')} <Link to={redirect ? `/register?redirect=${redirect}` : `/register`} className="text-zinc-950 dark:text-zinc-100 hover:underline">{t('register')}</Link>
                 </p>
             </div>
 

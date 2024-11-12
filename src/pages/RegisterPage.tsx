@@ -16,6 +16,7 @@ const RegisterPage: React.FC = () => {
     const location = useLocation();
     const { t } = useTranslation();
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    const redirect = new URLSearchParams(location.search).get('redirect') || '/dahboard';
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -28,9 +29,8 @@ const RegisterPage: React.FC = () => {
                 password
             });
 
-            // Redirect to the page they intended to go after registration
-            const redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/dashboard';
-            navigate(redirectTo);
+            navigate(`/login?redirect=${redirect}`);
+
         } catch (err) {
             setError(t('registerError'));
         }
@@ -78,7 +78,7 @@ const RegisterPage: React.FC = () => {
 
                 {/* Login Link */}
                 <p className="text-center text-zinc-600 dark:text-zinc-300  mt-6">
-                    {t('alreadyHaveAnAccount')} <Link to="/login" className="text-blue-600 hover:underline">{t('login')}</Link>
+                    {t('alreadyHaveAnAccount')} <Link to={redirect ? `/login?redirect=${redirect}` : `/login`} className="text-zinc-950 dark:text-zinc-100 hover:underline">{t('login')}</Link>
                 </p>
             </div>
 
