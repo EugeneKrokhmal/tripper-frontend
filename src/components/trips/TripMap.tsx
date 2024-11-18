@@ -62,7 +62,7 @@ const TripMap: React.FC<TripMapProps> = ({ coordinates, destination }) => {
                     <span className="text-xs md:text-sm self-center">Navigate</span>
                 </a>
             </div>
-            <div className="rounded" ref={mapRef} style={{ overflow: 'hidden', width: '100%', height: '100%' }} />
+            <div className="rounded" ref={mapRef} style={{ overflow: 'hidden', width: '100%', minHeight: '200px' }} />
         </div>
     )
 };

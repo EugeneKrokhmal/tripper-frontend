@@ -71,7 +71,7 @@ const WeatherWidget: React.FC<WeatherWidgetProps> = ({ latitude, longitude }) =>
                     </div>
                 </>
             ) : (
-                <p>{t('noWeatherData')}</p> // Use translated fallback text
+                <p>{t('noWeatherData')}</p>
             )}
         </div>
     );

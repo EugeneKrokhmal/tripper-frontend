@@ -270,7 +270,7 @@ const TripDetailsPage: React.FC = () => {
                         participants={trip.participants}
                     />
 
-                    <div className="mb-2">
+                    <div className="mb-2 md:mb-8">
                         <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900 md:p-0 md:bg-zinc-50 md:dark:bg-zinc-800 col-span-1">
                             <TripParticipants
                                 tripId={tripId || ''}
@@ -283,7 +283,7 @@ const TripDetailsPage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900 md:p-0 md:bg-zinc-50 md:dark:bg-zinc-800">
+                    <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900 md:p-0 md:bg-zinc-50 md:dark:bg-zinc-800 mb-8">
                         <TripMap
                             coordinates={trip.location.coordinates}
                             destination={trip.location.destination || ''}

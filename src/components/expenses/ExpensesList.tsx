@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import Price from '../Price';
 import { formatDate } from '../../utils/dateUtils';
 import UserIcon from '../elements/UserIcon';
+import InputField from '../elements/InputField';
 
 interface Expense {
     _id: string;
@@ -101,7 +102,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                     </p>
                 </>
             )}
-            <ol className="z-0 relative border-s border-zinc-200 dark:border-zinc-700 dark:border-zinc-700 my-6">
+            <ol className="z-0 relative border-s border-zinc-200 dark:border-zinc-700 dark:border-zinc-700">
                 {expenses.slice(-3).map((expense) => {
                     const responsiblePerson = getParticipantById(expense.responsibleUserId);
                     const splitters = expense.splitParticipants.map(id => getParticipantById(id));
@@ -134,7 +135,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                             userName={splitter?.name || ''}
                                                             userId={splitter?._id || ''}
                                                             profilePhoto={splitter?.profilePhoto || ''}
-                                                            size={'sm'}
+                                                            size={'xs'}
                                                             key={splitter?._id}
                                                         />
                                                     </li>
@@ -164,7 +165,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                             userName={responsiblePerson?.name || ''}
                                             userId={responsiblePerson?._id || ''}
                                             profilePhoto={responsiblePerson?.profilePhoto || ''}
-                                            size={'sm'}
+                                            size={'xs'}
                                             key={responsiblePerson?._id}
                                         />
                                         <p className="text-xs flex items-center space-x-2 dark:text-zinc-400">
@@ -199,15 +200,18 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
 
             {expensesListModalVisible && (
                 <Modal onClose={() => { setExpensesListModalVisible(false) }}>
-                    <div className="max-h-[80vh] overflow-y-auto pl-2 mt-12">
-                        {expenses.map((expense) => {
-                            const responsiblePerson = getParticipantById(expense.responsibleUserId);
-                            const splitters = expense.splitParticipants.map(id => getParticipantById(id));
+                    <div className="pt-4">
+                        <InputField value={'Search'} type={'text'} label={'Search'} onChange={() => {alert('still working on it...')}} />
+                    </div>
+                    <div className="max-h-[80vh] overflow-y-auto pl-2">
+                        <ol className="relative border-s border-zinc-200 dark:border-zinc-700 dark:border-zinc-700">
+                            {expenses.map((expense) => {
+                                const responsiblePerson = getParticipantById(expense.responsibleUserId);
+                                const splitters = expense.splitParticipants.map(id => getParticipantById(id));
 
-                            return (
-                                <ol className="relative border-s border-zinc-200 dark:border-zinc-700 dark:border-zinc-700 my-6">
-                                    <li key={expense.date} className="mb-8 ms-4">
-                                        <div className="absolute w-3 h-3 bg-zinc-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-zinc-900 dark:bg-zinc-700"></div>
+                                return (
+                                    <li key={expense.date} className="mb-8 ms-4 py-2 my-6 border-zinc-100 dark:border-zinc-600 border-b-2">
+                                        <div className="absolute w-3 h-3 bg-zinc-200 rounded-full mt-1.5 -start-1.5 dark:bg-zinc-700"></div>
                                         <div className="flex justify-between items-bottom mb-2 pb-2">
                                             <div>
                                                 <time className="mb-1 text-sm font-normal leading-none text-zinc-400 dark:text-zinc-300">
@@ -233,7 +237,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                                         userName={splitter?.name || ''}
                                                                         userId={splitter?._id || ''}
                                                                         profilePhoto={splitter?.profilePhoto || ''}
-                                                                        size={'sm'}
+                                                                        size={'xs'}
                                                                         key={splitter?._id}
                                                                     />
                                                                 </li>
@@ -253,7 +257,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                             {expense.expenseDescription}
                                         </p>
 
-                                        <div className="flex justify-between align-end w-full gap-4 pb-4 border-zinc-100 dark:border-zinc-700 border-b-2">
+                                        <div className="flex justify-between align-end w-full gap-4 border-zinc-100 dark:border-zinc-700">
                                             <div className="self-end">
                                                 <p className="text-xs text-zinc-500 dark:text-zinc-300 mb-2">
                                                     {t('responsible')}:
@@ -263,7 +267,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                         userName={responsiblePerson?.name || ''}
                                                         userId={responsiblePerson?._id || ''}
                                                         profilePhoto={responsiblePerson?.profilePhoto || ''}
-                                                        size={'sm'}
+                                                        size={'xs'}
                                                         key={responsiblePerson?._id}
                                                     />
                                                     <p className="text-xs flex items-center space-x-2 dark:text-zinc-400">
@@ -292,9 +296,9 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                             )}
                                         </div>
                                     </li>
-                                </ol>
-                            );
-                        })}
+                                );
+                            })}
+                        </ol>
                     </div>
                 </Modal>
             )}

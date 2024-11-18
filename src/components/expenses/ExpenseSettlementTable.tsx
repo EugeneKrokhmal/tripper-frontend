@@ -163,7 +163,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                 return (
                                     <tr
                                         key={settlement._id}
-                                        className={`bg-white border-b dark:bg-zinc-800 border-zinc-100 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-600 ${settlement.isSettled ? 'opacity-50' : ''}`}
+                                        className={`bg-white border-b dark:bg-zinc-800 border-zinc-100 dark:border-zinc-700 ${settlement.isSettled ? 'opacity-50' : ''}`}
                                     >
                                         <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
