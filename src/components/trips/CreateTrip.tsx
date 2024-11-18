@@ -34,15 +34,6 @@ const CreateTrip: React.FC = () => {
     const OPEN_CAGE_API_KEY = process.env.REACT_APP_OPENCAGE_API_KEY || '';
 
     const stepImages = [CreateTripImage1, CreateTripImage2, CreateTripImage3];
-    const [fadeIn, setFadeIn] = useState(true);
-
-    useEffect(() => {
-        setFadeIn(false);
-        const fadeTimer = setTimeout(() => {
-            setFadeIn(true);
-        }, 100);
-        return () => clearTimeout(fadeTimer);
-    }, [currentStep]);
 
     const { autocompleteResults, fetchResults, clearResults } = useAutocomplete(OPEN_CAGE_API_KEY);
 
@@ -130,7 +121,7 @@ const CreateTrip: React.FC = () => {
     return (
         <>
             <div className="container max-w-7xl mx-auto h-screen flex flex-wrap justify-center flex-col px-4 pb-32">
-                <div className="z-10 w-full md:w-3/5 lg:w-3/5 xl:w-2/5 flex flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 rounded">
+                <div className="relative z-10 w-full md:w-3/5 lg:w-3/5 xl:w-2/5 flex flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 rounded">
                     <ol className="mb-4 bg-white dark:bg-zinc-900 w-full flex text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
                         {[
                             { title: t('tripName'), step: 1, icon: 'check' },
@@ -153,7 +144,7 @@ const CreateTrip: React.FC = () => {
                     </ol>
                     <form onSubmit={(e) => e.preventDefault()}>
                         {currentStep === 1 && (
-                            <div>
+                            <div data-aos="fade-in">
                                 <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
                                     <span className="text-gradient">{t('tripName')}</span>
                                 </h2>
@@ -169,7 +160,7 @@ const CreateTrip: React.FC = () => {
                         )}
 
                         {currentStep === 2 && (
-                            <div className="relative">
+                            <div className="relative" data-aos="fade-in">
                                 <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
                                     <span className="text-gradient">{t('destination')}</span>
                                 </h2>
@@ -206,7 +197,7 @@ const CreateTrip: React.FC = () => {
                         )}
 
                         {currentStep === 3 && (
-                            <div>
+                            <div data-aos="fade-in">
                                 <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
                                     <span className="text-gradient">{t('description')}</span>
                                 </h2>
@@ -234,9 +225,10 @@ const CreateTrip: React.FC = () => {
                     </form>
                 </div>
 
-                <div className="z-0 absolute top-0 left-0 right-0 md:block h-full w-full flex bg-black opacity-50 ">
+                <div className="z-0 absolute top-0 left-0 right-0 md:block h-full w-full flex bg-black opacity-50">
                     <img
-                        className={`aspect-square object-cover h-full w-full transition-opacity duration-700 ${fadeIn ? 'opacity-100' : 'opacity-0'}`}
+                        data-aos="fade-in"
+                        className={`aspect-square object-cover h-full w-full`}
                         src={stepImages[currentStep - 1]}
                         alt="step image"
                     />

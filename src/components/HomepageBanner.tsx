@@ -5,11 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import HeroImage from '../images/screen1.jpg';
 import { useTranslation } from 'react-i18next';
 import Button from './elements/Button';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../redux/store';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const HomepageBanner: React.FC = () => {
     const navigate = useNavigate();
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     const { t, i18n } = useTranslation();
 
     useEffect(() => {
@@ -21,8 +24,8 @@ const HomepageBanner: React.FC = () => {
                 scrub: 1
             }
         })
-        .from('.bg', { scale: 1, opacity: 1, })
-        .to('.bg', { scale: 1.5, opacity: 0 })
+            .from('.bg', { scale: 1, opacity: 1, })
+            .to('.bg', { scale: 1.5, opacity: 0 })
     }, []);
 
     return (
@@ -32,33 +35,46 @@ const HomepageBanner: React.FC = () => {
                     <img src={HeroImage} alt="Background Image" className="object-cover object-center w-full h-full" />
                     <div className="absolute inset-0 h-full"></div>
                 </div>
-                <div className="z-10 justify-center mx-auto h-screen w-full max-w-screen-xl flex flex-col items-center md:flex-row gap-10 px-4 pb-20 content">
-                    <div className="md:w-2/3 text-center">
-                        <h1 className="mb-4 text-5xl font-extrabold text-zinc-900 dark:text-white lg:text-7xl">
+                <div className="z-10 justify-center mx-auto h-screen w-full max-w-screen-xl flex flex-col items-center md: md:justify-start md:flex-row gap-10 px-4 pb-20 content">
+                    <div className="md:w-2/3 text-left">
+                        <h1 className="mb-4 text-4xl font-extrabold text-zinc-900 dark:text-white lg:text-7xl">
                             <span className="text-white">
                                 {t('welcomeToTripper')}
                             </span>
                         </h1>
-                        <p className="text-white text-m mb-8 md:px-16">
+                        <p className="text-white text-m mb-8">
                             {t('discoverAndPlan')}
                         </p>
-                        <div className="flex md:flex-row mt-8 gap-2 justify-center max-w-96 mx-auto">
-                            <Button
-                                label={t('createTrip')}
-                                onClick={() => navigate('/new-trip')}
-                                variant="primary"
-                            />
-                            <Button
-                                label={t('explore')}
-                                onClick={() => navigate('/dashboard')}
-                                variant="secondary"
-                            />
+                        <div className="flex md:flex-row mt-8 gap-2 justify-start">
+                            {isAuthenticated ? (
+                                <>
+                                    <Button
+                                        label={t('createTrip')}
+                                        onClick={() => navigate('/new-trip')}
+                                        variant="primary"
+                                    />
+                                    <Button
+                                        label={t('explore')}
+                                        onClick={() => navigate('/dashboard')}
+                                        variant="secondary"
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    <Button
+                                        label={t('login')}
+                                        onClick={() => navigate('/login')}
+                                        variant="primary"
+                                    />
+                                    <Button
+                                        label={t('register')}
+                                        onClick={() => navigate('/register')}
+                                        variant="secondary"
+                                    />
+                                </>
+                            )}
                         </div>
                     </div>
-
-                    {/* <div className="md:w-1/3">
-            <CreateTrip />
-        </div> */}
                 </div>
             </div>
         </div>

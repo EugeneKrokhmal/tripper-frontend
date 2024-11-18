@@ -64,9 +64,9 @@ const UsersTable: React.FC<UsersTableProps> = ({
                             key={participant._id}
                             className="bg-white border-b border-zinc-100 dark:bg-zinc-800 dark:border-zinc-700"
                         >
-                            <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-top md:space-x-3 w-4/12 md:w-full">
+                            <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 md:space-x-3 w-4/12 md:w-full  align-top">
                                 <div className="flex gap-2 items-center">
-                                    <div className="hidden md:block">
+                                    <div className="">
                                         <UserIcon
                                             userName={participant.name}
                                             userId={participant._id}

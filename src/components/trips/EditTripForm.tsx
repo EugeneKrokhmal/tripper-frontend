@@ -96,7 +96,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     };
 
     return (
-        <div className="absolute start-4 top-0 bottom-0 end-4 flex justify-end p-3">
+        <div className="absolute start-4 top-4 bottom-0 end-4 flex justify-end p-3">
             {modalVisible && (
                 <Modal onClose={closeModal}>
                     <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">

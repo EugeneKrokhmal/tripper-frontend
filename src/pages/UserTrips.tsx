@@ -79,8 +79,8 @@ const Dashboard: React.FC = () => {
         if (isAuthenticated) {
             fetchData();
         } else {
-            setError('User is not authenticated.');
             setLoading(false);
+            navigate('/login');
         }
     }, [API_BASE_URL, token, isAuthenticated]);
 

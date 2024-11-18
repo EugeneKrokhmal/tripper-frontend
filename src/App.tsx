@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import LoginPage from './pages/LoginPage';
@@ -18,6 +18,8 @@ import CreateTripPage from './pages/CreateTripPage';
 import BugReportPopup from './components/structure/BugReportPopup';
 import SettingsPage from './pages/SettingsPage';
 import Blog from './pages/Blog';
+import ForgotPassword from './pages/ForgorPassword';
+import ResetPassword from './pages/ResetPassword';
 
 // ProtectedRoute component to guard protected pages
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -35,17 +37,19 @@ function App() {
         <Router>
             <ScrollToTop />
             <Navbar />
-            <div className="pt-16 relative min-h-screen">
+            <div className="pt-20 relative min-h-screen">
                 <Routes>
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/" element={<HomePage />} />
+                    <Route path="/" element={<Dashboard />} />
                     <Route path="/landing" element={<LandingPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/new-trip" element={<CreateTripPage />} />
                     <Route path="/settings" element={<SettingsPage />} />
                     <Route path="/blog" element={<Blog />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
 
                     <Route
                         path="/dashboard"

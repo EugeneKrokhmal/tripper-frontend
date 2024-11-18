@@ -13,7 +13,7 @@ const LandingPage: React.FC = () => {
         <>
             {/* Hero Section */}
             <section className="bg-white dark:bg-zinc-800">
-                <div className="grid gap-8 lg:gap-0 max-w-screen-xl px-4 py-8 mt-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+                <div className="grid gap-8 lg:gap-0 max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 py-4 lg:py-8 lg:grid-cols-12">
                     <div className="lg:block h-full h-full w-full flex lg:col-span-5">
                         <img data-aos="fade-in" className="aspect-square object-cover h-full w-full" src={HeroImage2} alt="tripper" />
                     </div>
@@ -43,7 +43,7 @@ const LandingPage: React.FC = () => {
             </section>
 
             {/* Benefits Section */}
-            <section className="py-16 my-16">
+            <section className="py-16">
                 <div className="max-w-screen-xl mx-auto px-4">
                     <h1 className="text-center mb-12 text-5xl font-extrabold text-zinc-900 dark:text-white md:text-6xl">
                         <span className="text-gradient">
@@ -81,7 +81,7 @@ const LandingPage: React.FC = () => {
 
             {/* Hero Section */}
             <section className="bg-white dark:bg-zinc-800">
-                <div className="grid grid gap-8 lg:gap-0 max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+                <div className="grid grid gap-8 lg:gap-0 max-w-screen-xl px-4 py-4 mx-auto lg:gap-8 xl:gap-0 lg:py-8 lg:grid-cols-12">
                     <div data-aos="fade-in" className="mr-auto place-self-center lg:col-span-7">
                         <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
                             <span className="text-gradient">
@@ -96,11 +96,6 @@ const LandingPage: React.FC = () => {
                                 label={t('planYourTrip')}
                                 onClick={() => { navigate('/new-trip')}}
                                 variant="primary"
-                            />
-                            <Button
-                                label={t('shareWithFriends')}
-                                onClick={() => { /* Add navigation or functionality here */ }}
-                                variant="secondary"
                             />
                         </div>
                     </div>

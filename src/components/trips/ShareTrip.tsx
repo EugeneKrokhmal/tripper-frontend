@@ -67,7 +67,7 @@ const ShareTrip: React.FC<ShareTripProps> = ({
     };
 
     return (
-        <div className="z-10 absolute end-4 bottom-0 flex justify-end p-3">
+        <div className="z-10 absolute end-4 bottom-4 flex justify-end p-3">
             <button
                 className="flex gap-2 w-32 justify-center bg-white rounded py-2 px-2"
                 onClick={() => setIsShareModalOpen(true)}

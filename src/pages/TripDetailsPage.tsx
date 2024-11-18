@@ -90,15 +90,7 @@ const TripDetailsPage: React.FC = () => {
         };
 
         loadData();
-    }, [tripId, token, API_BASE_URL, UNSPLASH_ACCESS_KEY, userId, trip?.image, trip?.location?.destination]);
-
-    const handleEditExpense = (expenseId: string) => {
-        if (trip && trip.participants && token) {
-            navigate(`/trips/${tripId}/expenses/${expenseId}/edit`, {
-                state: { participants: trip.participants, token },
-            });
-        }
-    };
+    }, [tripId, token, API_BASE_URL, UNSPLASH_ACCESS_KEY, userId, trip?.image, trip?.location?.destination] );
 
     const handleEditTrip = async (updatedTrip: any) => {
         try {
@@ -209,7 +201,7 @@ const TripDetailsPage: React.FC = () => {
 
     return (
         <section className="bg-white dark:bg-zinc-800">
-            <div className="relative w-full max-w-screen-xl my-8 mx-auto px-4">
+            <div className="relative w-full max-w-screen-xlmx-auto p-4">
                 <img
                     className="object-cover rounded h-64 w-full"
                     src={imageUrl}
@@ -321,13 +313,12 @@ const TripDetailsPage: React.FC = () => {
                         <ExpensesList
                             userId={userId || ''}
                             isOwner={trip.creator._id === userId}
-                            expenses={trip.expenses}
+                            expenses={expenses}
                             participants={trip.participants}
                             tripId={tripId || ''}
                             token={token || ''}
                             onExpenseAdded={handleExpenseAdded}
                             onExpenseDeleted={handleExpenseDeleted}
-                            onEditExpense={handleEditExpense}
                         />
                     </div>
                 </div>

@@ -13,7 +13,7 @@ interface ExpenseFormProps {
     participants: any[];
     tripId: string;
     token: string;
-    onExpenseAdded: (newExpense: any) => void;
+    onExpenseAdded?: (newExpense: any) => void;
     onExpenseUpdated?: (updatedExpense: any) => void;
     expenseToEdit?: any; // Add this prop to hold expense data when editing
 }
@@ -111,7 +111,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                         headers: { Authorization: `Bearer ${token}` }
                     }
                 );
-                onExpenseAdded(response.data.expense);
+                onExpenseAdded && onExpenseAdded(response.data.expense);
             }
 
             resetForm();

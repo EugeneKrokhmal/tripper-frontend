@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { deleteExpense } from '../../services/expensesService';
 import Modal from '../elements/Modal';
 import Button from '../elements/Button';
@@ -34,7 +33,6 @@ interface ExpensesListProps {
     token: string;
     onExpenseDeleted: (updatedExpenses: Expense[]) => void;
     onExpenseAdded: (newExpense: Expense) => void;
-    onEditExpense: (expenseId: string) => void;
 }
 
 const ExpensesList: React.FC<ExpensesListProps> = ({
@@ -46,14 +44,12 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
     token,
     onExpenseDeleted,
     onExpenseAdded,
-    onEditExpense,
 }) => {
     const { t } = useTranslation();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [expenseList, setExpenseList] = useState<Expense[]>(expenses);
     const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
     const [showAll, setShowAll] = useState<boolean>(false);
-    const navigate = useNavigate();
     const getParticipantById = (id: string) => participants.find(p => p._id === id);
 
     const handleDeleteExpense = async (expenseId: string) => {
@@ -242,7 +238,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                             handleUpdateExpense(updatedExpense);
                             closeModal();
                         }}
-                        expenseToEdit={editingExpense} // Pass the expense to edit if available
+                        expenseToEdit={editingExpense}
                     />
                 </Modal>
             )}

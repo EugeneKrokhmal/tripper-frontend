@@ -1,10 +1,11 @@
 import React from 'react';
 import logo from '../images/logo.png';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
 
     return (
-        <footer className="bg-zinc-100 dark:bg-zinc-900 mt-auto pb-16">
+        <footer className="bg-zinc-100 dark:bg-zinc-900 mt-auto pb-20 md:pb-0">
             <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <a href="/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
@@ -14,16 +15,13 @@ const Footer: React.FC = () => {
                     </a>
                     <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-zinc-500 dark:text-zinc-300  sm:mb-0 dark:text-zinc-400">
                         <li>
-                            <a href="#" className="hover:underline me-4 md:me-6">About</a>
+                            <Link to={'blog'} className="hover:underline me-4 md:me-6">Blog</Link>
                         </li>
                         <li>
-                            <a href="#" className="hover:underline me-4 md:me-6">Privacy Policy</a>
+                            <Link to={'faq'} className="hover:underline me-4 md:me-6">FAQ</Link>
                         </li>
                         <li>
-                            <a href="#" className="hover:underline me-4 md:me-6">Licensing</a>
-                        </li>
-                        <li>
-                            <a href="#" className="hover:underline">Contact</a>
+                            <a href="mailto:info@tripper.cc#" className="hover:underline">Contact</a>
                         </li>
                     </ul>
                 </div>
