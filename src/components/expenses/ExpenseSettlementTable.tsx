@@ -175,7 +175,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                     key={debtor?._id}
                                                 />
                                                 <div>
-                                                    <p className="font-semibold">{debtor.name}</p>
+                                                    <p className="font-semibold text-xs md:text-sm">{debtor.name}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -189,7 +189,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                     key={creditor?._id}
                                                 />
                                                 <div>
-                                                    <p className="font-semibold">{creditor.name}</p>
+                                                    <p className="font-semibold text-xs md:text-sm">{creditor.name}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -290,7 +290,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                     key={debtor?._id}
                                                 />
                                                 <div>
-                                                    <p className="font-semibold">{debtor.name}</p>
+                                                    <p className="font-semibold text-xs md:text-sm">{debtor.name}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -304,7 +304,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                     key={creditor?._id}
                                                 />
                                                 <div>
-                                                    <p className="font-semibold">{creditor.name}</p>
+                                                    <p className="font-semibold text-xs md:text-sm">{creditor.name}</p>
                                                 </div>
                                             </div>
                                         </td>

@@ -9,6 +9,7 @@ import { useCurrency } from '../../context/CurrencyContext';
 import UserIcon from '../elements/UserIcon';
 
 interface ExpenseFormProps {
+    isOwner: boolean;
     userId: string;
     participants: any[];
     tripId: string;
@@ -19,6 +20,7 @@ interface ExpenseFormProps {
 }
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({
+    isOwner,
     userId,
     participants,
     tripId,
@@ -139,7 +141,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                     {expenseToEdit ? t('editExpense') : t('addExpense')}
                 </span>
             </h3>
-            <form onSubmit={handleSubmit} className="max-h-[90vh] overflow-y-auto">
+            <form onSubmit={handleSubmit} className="max-h-[80vh] overflow-y-auto">
                 <InputField
                     label={t('expenseName')}
                     type="text"
@@ -159,16 +161,28 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                     onChange={(e) => setAmount(e.target.value)}
                     required
                 />
-                <SelectField
-                    label={t('whoPays')}
-                    value={responsibleUser}
-                    onChange={(value) => setResponsibleUser(value)}
-                    options={participants.map(participant => ({
-                        value: participant._id,
-                        label: participant.name
-                    }))}
-                    required
-                />
+                {isOwner ? (
+                    <SelectField
+                        label={t('whoPays')}
+                        value={responsibleUser}
+                        onChange={(value) => setResponsibleUser(value)}
+                        options={participants.map(participant => ({
+                            value: participant._id,
+                            label: participant.name
+                        }))}
+                        required
+                    />)
+                    : (
+                        <div className="sr-only">
+                            <InputField
+                                type={'text'}
+                                label={t('whoPays')}
+                                value={responsibleUser}
+                                onChange={(value) => setResponsibleUser(userId)}
+                                required
+                            />
+                        </div>
+                    )}
 
                 <div className="my-4">
                     <label className="inline-flex self-end tems-center cursor-pointer px-1">
@@ -209,7 +223,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                     </div>
                 )}
 
-                <Button variant="primary" type="submit" label={loading ? t('saving') : (expenseToEdit ? t('editExpense') : t('addExpense'))} />
+                <Button variant="primary" type="submit" label={loading ? t('saving') : (expenseToEdit ? t('save') : t('addExpense'))} />
             </form>
         </>
     );

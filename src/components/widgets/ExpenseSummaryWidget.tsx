@@ -32,7 +32,7 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
     const toggleWidget = () => setIsWidgetOpen(!isWidgetOpen);
 
     return (
-        <div className={`md:hidden bottom-20 left-4 right-4 z-10 fixed`}>
+        <div className={`z-40 md:hidden bottom-20 left-4 right-4 z-10 fixed`}>
             <div className={`${!isWidgetOpen ? 'h-12 rounded-t-3xl rounded-b-3xl' : 'h-96 rounded-t-3xl rounded-b-3xl'} transition-all duration-500 ease overflow-hidden items-center justify-between bg-gray-200 dark:bg-zinc-900 shadow p-1 relative`}>
                 <div className="flex w-full">
                     <div className="self-start">

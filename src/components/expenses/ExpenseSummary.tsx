@@ -21,8 +21,10 @@ const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ totalPaidByUser, totalC
 
     return (
         <div className="mb-6 md:max-w-sm w-full bg-white dark:bg-zinc-800">
-            <h3 className="mb-4 text-4xl md:text-3xl font-extrabold text-zinc-900 dark:text-white">
-                <span className="text-gradient">{t('expensesOverview')}</span>
+            <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl">
+                <span className="text-gradient">
+                    {t('expensesOverview')}
+                </span>
             </h3>
 
             <div className="max-w-sm w-full bg-white dark:bg-zinc-800">

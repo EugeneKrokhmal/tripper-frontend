@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import WeatherWidget from '../widgets/WeatherWidget';
 
 interface TripMapProps {
     coordinates: { lat: number; lng: number };
@@ -49,8 +50,14 @@ const TripMap: React.FC<TripMapProps> = ({ coordinates, destination }) => {
                     <p className="text-sm mb-2 text-zinc-500 dark:text-zinc-300">
                         <strong>{destination}.</strong>
                     </p>
+                    <div className="mb-4">
+                        <WeatherWidget
+                            latitude={coordinates.lat}
+                            longitude={coordinates.lng}
+                        />
+                    </div>
                 </div>
-                <a href={'https://maps.google.com/?q=' + coordinates.lat + ',' + coordinates.lng} className="mt-4 px-4 py-2 border inline-flex gap-2 border-slate-200 dark:border-slate-700 rounded text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" target="_blank" rel="noopener noreferrer">
+                <a href={'https://maps.google.com/?q=' + coordinates.lat + ',' + coordinates.lng} className="px-4 py-2 border inline-flex gap-2 border-slate-200 dark:border-slate-700 rounded text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" target="_blank" rel="noopener noreferrer">
                     <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
                     <span className="text-xs md:text-sm self-center">Navigate</span>
                 </a>

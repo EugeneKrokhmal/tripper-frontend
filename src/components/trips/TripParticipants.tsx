@@ -35,7 +35,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
 
 
     return (
-        <div className="flex-col flex gap-4">
+        <div className="flex-col flex gap-4" onClick={() => { setIsAddExpenseModalOpen(true) }}>
             <div className="flex flex-col">
                 <h3 id="thecrew" className="mb-2 text-2xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                     <span className="text-gradient">
@@ -51,8 +51,8 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                     <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('youAreAnAdminOfTheTrip')}</p>
                 )}
 
-                <div className="flex -space-x-4 rtl:space-x-reverse" onClick={() => { setIsAddExpenseModalOpen(true) }}>
-                    {participants.slice(0, 3).map((participant) => (
+                <div className="flex -space-x-4 rtl:space-x-reverse">
+                    {participants.slice(0, 10).map((participant) => (
                         <UserIcon
                             key={participant._id}
                             userName={participant.name}
@@ -62,11 +62,19 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                             border={'border-2 border-white dark:border-zinc-800'}
                         />
                     ))}
-                    {participants.length > 3 && (
+                    {participants.length > 10 && (
                         <span className="z-10 flex items-center justify-center w-10 h-10 md:w-12 md:h-12 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full hover:bg-zinc-600 dark:border-zinc-800">
-                            +{participants.length - 3}
+                            +{participants.length - 10}
                         </span>
                     )}
+                </div>
+                <div className="flex">
+                    <div className="self-start py-4">
+                    <Button
+                        label={t('showMore')}
+                        variant={'primary'}
+                    />
+                    </div>
                 </div>
             </div>
 
@@ -74,7 +82,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                 <Modal onClose={() => {
                     setIsAddExpenseModalOpen(false)
                 }}>
-                    <div className="max-h-[90vh] overflow-y-auto w-full">
+                    <div className="max-h-[80vh] overflow-y-auto w-full">
                         <UsersTable
                             isOwner={isOwner}
                             admins={admins}

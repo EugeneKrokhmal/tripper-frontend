@@ -195,7 +195,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     };
 
     const tripDates = getAllTripDates(startDate, endDate);
-    const displayedDates = showAll ? tripDates : tripDates.slice(-3);
+    const displayedDates = showAll ? tripDates : [tripDates[0]];
 
     return (
         <div className="trip-timeline">
@@ -265,9 +265,8 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                         <Button label={t('addActivity')} onClick={() => setModalVisible(true)} variant="primary" />
                     </div>
                 )}
-                {tripDates.length > 3 && (
+                {tripDates.length > 1 && (
                     <div className="self-start">
-
                         <Button label={showAll ? t('showLess') : t('showMore')} onClick={() => setShowAll(!showAll)} variant="secondary" />
                     </div>
                 )}
@@ -279,7 +278,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                         <span className="text-gradient">{editMode ? t('editActivity') : t('addActivity')}</span>
                     </h3>
 
-                    <form className="max-h-[90vh] overflow-y-auto">
+                    <form className="max-h-[80vh] overflow-y-auto">
                         <div className="flex gap-2">
                             <div className="w-full">
                                 <label htmlFor="date-select" className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">{t('selectDate')}<span className="text-red-500">*</span> </label>

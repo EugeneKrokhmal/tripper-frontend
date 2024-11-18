@@ -12,7 +12,6 @@ import Breadcrumbs from '../components/structure/Breadcrumbs';
 import TripTimeline from '../components/trips/TripTimeline';
 import EditTripForm from '../components/trips/EditTripForm';
 import { useTranslation } from 'react-i18next';
-import Sidebar from '../components/structure/Sidebar';
 import Modal from '../components/elements/Modal';
 import Button from '../components/elements/Button';
 import ExpenseForm from '../components/expenses/ExpenseForm';
@@ -65,6 +64,7 @@ const TripDetailsPage: React.FC = () => {
     const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
     const { t } = useTranslation();
     const [remainingOwedToUser, setRemainingOwedToUser] = useState<number>(0);
+    const isOwner = trip?.creator?._id === userId;
 
     useEffect(() => {
         const loadData = async () => {
@@ -208,10 +208,10 @@ const TripDetailsPage: React.FC = () => {
                     src={imageUrl}
                     alt={`${trip.location.destination}`}
                 />
-                {(trip.creator._id === userId || trip.administrators.includes(userId)) && (
+                {(isOwner || trip.administrators.includes(userId)) && (
                     <>
                         <ShareTrip
-                            isOwner={trip.creator._id === userId}
+                            isOwner={isOwner}
                             isAdmin={trip.administrators.includes(userId)}
                             joinLink={joinLink}
                             onGenerateJoinLink={handleGenerateJoinLink}
@@ -238,16 +238,31 @@ const TripDetailsPage: React.FC = () => {
             <Breadcrumbs breadcrumbs={breadcrumbs} />
 
             <div className="flex flex-col flex-wrap lg:flex-nowrap md:flex-row gap-8 lg:gap-8 max-w-screen-xl px-4 py-8 mx-auto lg:py-16">
-                <Sidebar />
+                <ExpenseSummaryWidget
+                    totalPaidByUser={totalPaidByUser}
+                    totalCost={totalCost}
+                    fairShare={fairShare}
+                    onFairShareUpdate={(fairShare, settlements) => {
+                        setFairShare(fairShare);
+                        setSettlements(settlements);
+                    }}
+                    tripId={tripId || ''}
+                    remainingOwedToUser={remainingOwedToUser}
+                    onAddExpenseClick={handleAddExpenseClick}
+                    participants={trip.participants}
+                    expenses={trip.expenses}
+                    isOwner={isOwner}
+                    admins={trip.administrators}
+                />
 
-                <div className="max-w-screen-md md:w-7/12 lg:w-3/4 xl:w-full">
+                <div className="md:w-9/12">
                     <TripInfo
                         tripName={trip.name}
                         tripDescription={trip.description}
                         startDate={trip.startDate}
                         endDate={trip.endDate}
                         tripDuration={tripDuration}
-                        isOwner={trip.creator._id === userId}
+                        isOwner={isOwner}
                         joinLink={joinLink}
                         onGenerateJoinLink={handleGenerateJoinLink}
                         loadingJoinLink={loadingJoinLink}
@@ -255,27 +270,20 @@ const TripDetailsPage: React.FC = () => {
                         participants={trip.participants}
                     />
 
-                    <div className="grid grid-cols-2 gap-2 mb-2">
-                        <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900 col-span-1">
+                    <div className="mb-2">
+                        <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900 md:p-0 md:bg-zinc-50 md:dark:bg-zinc-800 col-span-1">
                             <TripParticipants
                                 tripId={tripId || ''}
                                 userId={userId || ''}
-                                isOwner={trip.creator._id === userId}
+                                isOwner={isOwner}
                                 admins={trip.administrators}
                                 participants={trip.participants}
                                 expenses={trip.expenses}
                             />
                         </div>
-
-                        <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900">
-                            <WeatherWidget
-                                latitude={trip.location.coordinates.lat}
-                                longitude={trip.location.coordinates.lng}
-                            />
-                        </div>
                     </div>
 
-                    <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900">
+                    <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900 md:p-0 md:bg-zinc-50 md:dark:bg-zinc-800">
                         <TripMap
                             coordinates={trip.location.coordinates}
                             destination={trip.location.destination || ''}
@@ -291,11 +299,11 @@ const TripDetailsPage: React.FC = () => {
                         onSettlementUpdated={handleSettlementUpdated}
                     />
 
-                    <hr className="my-8" />
+                    <hr className="my-8 dark:border-zinc-600" />
 
                     <TripTimeline
                         startDate={trip.startDate}
-                        isOwner={trip.creator._id === userId}
+                        isOwner={isOwner}
                         isAdmin={trip.administrators.includes(userId)}
                         endDate={trip.endDate}
                         tripId={tripId || ''}
@@ -304,12 +312,15 @@ const TripDetailsPage: React.FC = () => {
                         OPEN_CAGE_API_KEY={process.env.REACT_APP_OPENCAGE_API_KEY || ''}
                     />
 
-                    <hr className="my-8" />
+                    <hr className="my-8 dark:border-zinc-600" />
                 </div>
 
-                <div className="md:static md:flex flex-col gap-8 md:w-4/12 lg:w-2/5 xl:w-3/5 w-full lg:mt-0 xl:w-2/5">
-                    <div className="md:sticky top-24 flex flex-col">
-                        <div className="hidden md:block">
+                <aside
+                    className={`h-100 bg-white dark:bg-zinc-800 z-10 lg:w-3/12`}
+                    aria-label="Sidebar"
+                >
+                    <div className="sticky top-24 w-full">
+                        <div className="hidden md:block mb-6">
                             <ExpenseSummary
                                 totalPaidByUser={totalPaidByUser}
                                 totalCost={totalCost}
@@ -321,13 +332,13 @@ const TripDetailsPage: React.FC = () => {
                                 tripId={tripId || ''}
                                 remainingOwedToUser={remainingOwedToUser}
                             />
-                            {/* Button to open Add Expense modal */}
+
                             <Button label={t('addExpense')} onClick={handleAddExpenseClick} variant="primary" />
                         </div>
 
                         <ExpensesList
                             userId={userId || ''}
-                            isOwner={trip.creator._id === userId}
+                            isOwner={isOwner}
                             expenses={expenses}
                             participants={trip.participants}
                             tripId={tripId || ''}
@@ -336,30 +347,14 @@ const TripDetailsPage: React.FC = () => {
                             onExpenseDeleted={handleExpenseDeleted}
                         />
                     </div>
-                </div>
-
-                <ExpenseSummaryWidget
-                    totalPaidByUser={totalPaidByUser}
-                    totalCost={totalCost}
-                    fairShare={fairShare}
-                    onFairShareUpdate={(fairShare, settlements) => {
-                        setFairShare(fairShare);
-                        setSettlements(settlements);
-                    }}
-                    tripId={tripId || ''}
-                    remainingOwedToUser={remainingOwedToUser}
-                    onAddExpenseClick={handleAddExpenseClick}
-                    participants={trip.participants}
-                    expenses={trip.expenses}
-                    isOwner={trip.creator._id === userId}
-                    admins={trip.administrators}
-                />
+                </aside>
             </div>
 
             {/* Modal for Adding Expense */}
             {isAddExpenseModalOpen && (
                 <Modal onClose={closeAddExpenseModal}>
                     <ExpenseForm
+                        isOwner={isOwner}
                         userId={userId || ''}
                         participants={trip.participants}
                         tripId={tripId || ''}

@@ -93,7 +93,7 @@ const SettingsPage: React.FC = () => {
 
     return (
         <div className="container mx-auto mt-8 max-w-7xl">
-            <Breadcrumbs breadcrumbs={[{ label: t('home'), href: '/' }, { label: t('Settings'), href: '' }]} />
+            <Breadcrumbs breadcrumbs={[{ label: t('home'), href: '#/' }, { label: t('Settings'), href: '' }]} />
 
             <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-16">
                 <div className="flex gap-8">

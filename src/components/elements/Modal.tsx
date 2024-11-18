@@ -34,7 +34,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
                 }`}
             >
                 <button
-                    className="absolute top-6 right-4 text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-white"
+                    className="z-20 absolute top-6 right-4 text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-white"
                     onClick={() => {
                         setIsVisible(false);
                         setTimeout(onClose, 300);

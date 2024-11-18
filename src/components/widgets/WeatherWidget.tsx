@@ -54,7 +54,7 @@ const WeatherWidget: React.FC<WeatherWidgetProps> = ({ latitude, longitude }) =>
 
     return (
         <div className="weather-widget">
-            <h3 id="theplace" className="mb-2 text-xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+            <h3 id="theplace" className="font-extrabold text-zinc-900 dark:text-white">
                 <span className="text-gradient">{t('currentWeather')}</span>
             </h3>
             {weatherData && weatherData.current_weather ? (

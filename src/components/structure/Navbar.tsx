@@ -120,7 +120,7 @@ const Navbar: React.FC = () => {
                         ></div>
 
                         <div
-                            className={`flex flex-col absolute top-0 transform transition-transform duration-300 ease-in-out bg-white dark:bg-zinc-800 w-64 h-full px-4 pt-8 pb-8 shadow-lg right-0 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
+                            className={`flex flex-col absolute top-0 transform transition-transform duration-300 ease-in-out bg-white dark:bg-zinc-800 w-64 h-full px-4 pt-8 pb-24 shadow-lg right-0 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
                                 }`}
                         >
                             <div className="flex w-full justify-between items-center">
