@@ -64,7 +64,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                             key={participant._id}
                             className="bg-white border-b border-zinc-100 dark:bg-zinc-800 dark:border-zinc-700"
                         >
-                            <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 md:space-x-3 w-4/12 md:w-full  align-top">
+                            <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 md:space-x-3 w-4/12 align-top">
                                 <div className="flex gap-2 items-center">
                                     <div className="">
                                         <UserIcon
@@ -83,7 +83,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                                     </div>
                                 </div>
                             </td>
-                            <td className="px-2 py-4 text-xs align-top w-3/12 md:w-full">
+                            <td className="px-2 py-4 text-xs align-top w-3/12">
                                 {/* Display the names of expenses the user is responsible for */}
                                 <ul>
                                     {getResponsibleExpensesNames(participant._id).length > 0
@@ -93,7 +93,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                                         : ''}
                                 </ul>
                             </td>
-                            <td className="px-2 py-4 text-xs align-top">
+                            <td className="px-2 py-4 text-xs align-top md:w-full">
                                 {/* Display the names and amounts of expenses the user is involved in */}
                                 <ul className="leaders">
                                     {getInvolvedExpenses(participant._id).length > 0

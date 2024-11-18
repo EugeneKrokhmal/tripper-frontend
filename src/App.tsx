@@ -79,7 +79,7 @@ function App() {
                 </Routes>
             </div>
             <Footer />
-            <BugReportPopup />
+            {/* <BugReportPopup /> */}
         </Router>
     );
 }

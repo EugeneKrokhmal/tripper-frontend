@@ -7,7 +7,6 @@ import { formatDate } from '../../utils/dateUtils';
 interface TripInfoProps {
     tripName: string;
     tripDescription: string;
-    destination: string;
     startDate: string;
     endDate: string;
     tripDuration: number;
@@ -17,18 +16,15 @@ interface TripInfoProps {
     onGenerateJoinLink: () => void;
     loadingJoinLink: boolean;
     error: string | null;
-    coordinates: { lat: number; lng: number };
 }
 
 const TripInfo: React.FC<TripInfoProps> = ({
     tripName,
     tripDescription,
-    destination,
     startDate,
     endDate,
     tripDuration,
-    error,
-    coordinates,
+    error
 }) => {
     const { t } = useTranslation();
 
@@ -52,17 +48,6 @@ const TripInfo: React.FC<TripInfoProps> = ({
                 </div>
 
                 <p className="text text-zinc-500 dark:text-zinc-300 mb-6 whitespace-pre-line">{tripDescription}</p>
-
-                <h3 id="theplace" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
-                    <span className="text-gradient">{t('thePlace')}</span>
-                </h3>
-                <p className="text-sm mb-6 text-zinc-500 dark:text-zinc-300">
-                    {t('discoverAmazingTrip')} <strong>{destination}.</strong>
-                </p>
-
-                <TripMap coordinates={coordinates} />
-
-                <WeatherWidget latitude={coordinates.lat} longitude={coordinates.lng} />
             </div>
 
             {error && <p className="text-red-500">{error}</p>}

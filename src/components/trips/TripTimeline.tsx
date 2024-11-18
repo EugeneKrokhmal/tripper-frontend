@@ -279,7 +279,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                         <span className="text-gradient">{editMode ? t('editActivity') : t('addActivity')}</span>
                     </h3>
 
-                    <form className="max-h-[70vh] overflow-y-auto">
+                    <form className="max-h-[90vh] overflow-y-auto">
                         <div className="flex gap-2">
                             <div className="w-full">
                                 <label htmlFor="date-select" className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">{t('selectDate')}<span className="text-red-500">*</span> </label>

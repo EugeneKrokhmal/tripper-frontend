@@ -120,8 +120,8 @@ const CreateTrip: React.FC = () => {
 
     return (
         <>
-            <div className="container max-w-7xl mx-auto h-screen flex flex-wrap justify-center flex-col px-4 pb-32">
-                <div className="relative z-10 w-full md:w-3/5 lg:w-3/5 xl:w-2/5 flex flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 rounded">
+            <div className="container max-w-7xl mx-auto h-screen flex flex-wrap md:justify-center flex-col md:px-4 pb-32">
+                <div className="relative z-10 w-full md:w-3/5 lg:w-3/5 xl:w-2/5 flex flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 md:rounded">
                     <ol className="mb-4 bg-white dark:bg-zinc-900 w-full flex text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
                         {[
                             { title: t('tripName'), step: 1, icon: 'check' },

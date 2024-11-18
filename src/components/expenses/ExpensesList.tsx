@@ -131,28 +131,18 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                             {splitters.slice(0, 3).map((splitter) => (
                                                 splitter && (
                                                     <li key={splitter?._id} className="flex items-center space-x-2 rounded-full">
-                                                        {splitter?.profilePhoto ? (
-                                                            <UserIcon
-                                                                userName={splitter?.name || ''}
-                                                                userId={splitter?._id || ''}
-                                                                profilePhoto={splitter?.profilePhoto || ''}
-                                                                size={'sm'}
-                                                                key={splitter?._id}
-                                                            />
-                                                        ) : (
-                                                            <UserIcon
-                                                                userName={splitter?.name || ''}
-                                                                userId={splitter?._id || ''}
-                                                                profilePhoto={splitter?.profilePhoto || ''}
-                                                                size={'sm'}
-                                                                key={splitter?._id}
-                                                            />
-                                                        )}
+                                                        <UserIcon
+                                                            userName={splitter?.name || ''}
+                                                            userId={splitter?._id || ''}
+                                                            profilePhoto={splitter?.profilePhoto || ''}
+                                                            size={'sm'}
+                                                            key={splitter?._id}
+                                                        />
                                                     </li>
                                                 )
                                             ))}
                                             {splitters.length > 3 && (
-                                                <span className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
+                                                <span className="z-10 flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
                                                     +{splitters.length - 3}
                                                 </span>
                                             )}

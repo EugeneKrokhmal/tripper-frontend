@@ -139,7 +139,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                     {expenseToEdit ? t('editExpense') : t('addExpense')}
                 </span>
             </h3>
-            <form onSubmit={handleSubmit} className="max-h-[70vh] overflow-y-auto">
+            <form onSubmit={handleSubmit} className="max-h-[90vh] overflow-y-auto">
                 <InputField
                     label={t('expenseName')}
                     type="text"
@@ -160,7 +160,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                     required
                 />
                 <SelectField
-                    label={t('responsible')}
+                    label={t('whoPays')}
                     value={responsibleUser}
                     onChange={(value) => setResponsibleUser(value)}
                     options={participants.map(participant => ({

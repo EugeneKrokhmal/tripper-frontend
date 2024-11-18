@@ -31,6 +31,8 @@ import {
     deleteTrip,
     generateJoinLink
 } from '../api/tripApi';
+import TripMap from '../components/trips/TripMap';
+import WeatherWidget from '../components/widgets/WeatherWidget';
 
 interface Settlement {
     _id: string;
@@ -90,7 +92,7 @@ const TripDetailsPage: React.FC = () => {
         };
 
         loadData();
-    }, [tripId, token, API_BASE_URL, UNSPLASH_ACCESS_KEY, userId, trip?.image, trip?.location?.destination] );
+    }, [tripId, token, API_BASE_URL, UNSPLASH_ACCESS_KEY, userId, trip?.image, trip?.location?.destination]);
 
     const handleEditTrip = async (updatedTrip: any) => {
         try {
@@ -182,7 +184,6 @@ const TripDetailsPage: React.FC = () => {
     };
 
     const breadcrumbs = [
-        { label: t('home'), href: '/' },
         { label: t('myTrips'), href: '/dashboard' },
         { label: trip?.name, href: '' }
     ];
@@ -201,7 +202,7 @@ const TripDetailsPage: React.FC = () => {
 
     return (
         <section className="bg-white dark:bg-zinc-800">
-            <div className="relative w-full max-w-screen-xlmx-auto p-4">
+            <div className="relative w-full max-w-screen-xl mx-auto p-4">
                 <img
                     className="object-cover rounded h-64 w-full"
                     src={imageUrl}
@@ -243,7 +244,6 @@ const TripDetailsPage: React.FC = () => {
                     <TripInfo
                         tripName={trip.name}
                         tripDescription={trip.description}
-                        destination={trip.location.destination}
                         startDate={trip.startDate}
                         endDate={trip.endDate}
                         tripDuration={tripDuration}
@@ -253,19 +253,34 @@ const TripDetailsPage: React.FC = () => {
                         loadingJoinLink={loadingJoinLink}
                         error={error}
                         participants={trip.participants}
-                        coordinates={trip.location.coordinates}
                     />
 
-                    <hr className="my-8" />
+                    <div className="grid grid-cols-2 gap-2 mb-2">
+                        <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900 col-span-1">
+                            <TripParticipants
+                                tripId={tripId || ''}
+                                userId={userId || ''}
+                                isOwner={trip.creator._id === userId}
+                                admins={trip.administrators}
+                                participants={trip.participants}
+                                expenses={trip.expenses}
+                            />
+                        </div>
 
-                    <TripParticipants
-                        tripId={tripId || ''}
-                        userId={userId || ''}
-                        isOwner={trip.creator._id === userId}
-                        admins={trip.administrators}
-                        participants={trip.participants}
-                        expenses={trip.expenses}
-                    />
+                        <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900">
+                            <WeatherWidget
+                                latitude={trip.location.coordinates.lat}
+                                longitude={trip.location.coordinates.lng}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900">
+                        <TripMap
+                            coordinates={trip.location.coordinates}
+                            destination={trip.location.destination || ''}
+                        />
+                    </div>
 
                     <ExpenseSettlementTable
                         tripId={trip._id || ''}

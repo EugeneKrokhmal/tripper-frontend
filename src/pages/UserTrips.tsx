@@ -5,7 +5,6 @@ import { RootState } from '../redux/store';
 import TripCard from '../components/trips/TripCard';
 import TripSearchAndFilter from '../components/trips/TripSearchAndFilter';
 import Ad from '../components/structure/Ad';
-import Breadcrumbs from '../components/structure/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import Loader from '../components/structure/Loader';
 import { useNavigate } from 'react-router-dom';
@@ -115,11 +114,6 @@ const Dashboard: React.FC = () => {
         navigate('/login');
     };
 
-    const breadcrumbs = [
-        { label: t('home'), href: '/' },
-        { label: t('myTrips'), href: '/dashboard' },
-    ];
-
     if (loading) {
         return (
             <div className="pb-20 h-screen flex items-center justify-center">
@@ -129,10 +123,9 @@ const Dashboard: React.FC = () => {
     }
 
     return (
-        <div className="container max-w-7xl mx-auto mt-8">
-            <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <div className="container max-w-7xl mx-auto pt-16">
 
-            <div className="px-4 pt-16">
+            <div className="px-4">
                 <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
                     <span className="text-gradient">{t('myTrips')}</span>
                 </h1>
@@ -147,8 +140,8 @@ const Dashboard: React.FC = () => {
                     <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
                     {(upcomingTrips.length > 0) && (
                         <>
-                            <h2 className="text-gradient text-xl font-bold mb-4">{t('upcomingTrips')}</h2>
-                            <div className="grid lg:grid-cols-2 gap-4">
+                            <h2 className="text-gradient text-2xl font-extrabold mb-4">{t('upcomingTrips')}</h2>
+                            <div className="grid lg:grid-cols-2 gap-4 gap-y-8">
                                 {upcomingTrips.map((trip) => (
                                     <TripCard
                                         key={trip._id}
@@ -163,8 +156,8 @@ const Dashboard: React.FC = () => {
 
                     {(pastTrips.length > 0) && (
                         <>
-                            <h2 className="text-gradient text-xl font-bold mb-4 mt-6">{t('pastTrips')}</h2>
-                            <div className="grid lg:grid-cols-2 gap-4">
+                            <h2 className="text-gradient text-2xl font-extrabold mb-4 mt-6">{t('pastTrips')}</h2>
+                            <div className="grid lg:grid-cols-2 gap-4 gap-y-8">
                                 {pastTrips.map((trip) => (
                                     <TripCard
                                         key={trip._id}

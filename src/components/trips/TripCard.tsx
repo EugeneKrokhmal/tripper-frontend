@@ -66,7 +66,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                                 />
                             ))}
                             {trip.participants.length > 3 && (
-                                <span className="flex items-center justify-center md:w-12 md:h-12 w-10 h-10 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full dark:border-zinc-800">
+                                <span className="z-10 flex items-center justify-center md:w-12 md:h-12 w-10 h-10 text-xs font-medium text-white bg-zinc-700 border-2 border-white rounded-full dark:border-zinc-800">
                                     +{trip.participants.length - 3}
                                 </span>
                             )}

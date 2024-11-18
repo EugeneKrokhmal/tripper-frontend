@@ -105,7 +105,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
                         </span>
                     </h3>
 
-                    <form className="max-h-[70vh] overflow-y-auto">
+                    <form className="max-h-[90vh] overflow-y-auto">
                         <InputField
                             type="text"
                             label={t('tripName')}

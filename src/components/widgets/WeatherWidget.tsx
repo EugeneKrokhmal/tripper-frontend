@@ -46,31 +46,28 @@ const WeatherWidget: React.FC<WeatherWidgetProps> = ({ latitude, longitude }) =>
         }
     }, [latitude, longitude, t]);
 
-    if (loading) return <Loader/>
+    if (loading) return <Loader />
 
     if (error) {
         return <p>{error}</p>; // Use the translated error message
     }
 
     return (
-        <div className="weather-widget bg-white dark:bg-zinc-800 p-4 rounded-b shadow-lg">
-            <h3 className="mb-2 text-lg text-gray:500 dark:text-zinc-300 font-semibold">{t('currentWeather')}</h3>
+        <div className="weather-widget">
+            <h3 id="theplace" className="mb-2 text-xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                <span className="text-gradient">{t('currentWeather')}</span>
+            </h3>
             {weatherData && weatherData.current_weather ? (
                 <>
                     <div className="flex justify-between">
                         <div>
-                            <p className="text-sm text-zinc-500 dark:text-zinc-300  ">
+                            <p className="text-xs text-zinc-500 dark:text-zinc-300  ">
                                 <strong>{t('temperature')}:</strong> {weatherData.current_weather.temperature}°C
                             </p>
-                            <p className="text-sm text-zinc-500 dark:text-zinc-300  ">
+                            <p className="text-xs text-zinc-500 dark:text-zinc-300  ">
                                 <strong>{t('windSpeed')}:</strong> {weatherData.current_weather.windspeed} km/h
                             </p>
                         </div>
-
-                        <a href={'https://maps.google.com/?q=' + latitude + ',' + longitude} className="flex mt-4 px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150" target="_blank" rel="noopener noreferrer">
-                            <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
-                            <span className="text-xs md:text-sm self-center">Navigate</span>
-                        </a>
                     </div>
                 </>
             ) : (
