@@ -15,9 +15,9 @@ const LandingPage: React.FC = () => {
             <section className="bg-white dark:bg-zinc-800">
                 <div className="grid gap-8 lg:gap-0 max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 py-4 lg:py-8 lg:grid-cols-12">
                     <div className="lg:block h-full h-full w-full flex lg:col-span-5">
-                        <img data-aos="fade-in" className="aspect-square object-cover h-full w-full" src={HeroImage2} alt="tripper" />
+                        <img  className="aspect-square object-cover h-full w-full" src={HeroImage2} alt="tripper" />
                     </div>
-                    <div data-aos="fade-in" className="ml-auto place-self-center lg:col-span-7">
+                    <div  className="ml-auto place-self-center lg:col-span-7">
                         <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
                             <span className="text-gradient">
                                 {t('realTimeSettlements')}
@@ -82,7 +82,7 @@ const LandingPage: React.FC = () => {
             {/* Hero Section */}
             <section className="bg-white dark:bg-zinc-800">
                 <div className="grid grid gap-8 lg:gap-0 max-w-screen-xl px-4 py-4 mx-auto lg:gap-8 xl:gap-0 lg:py-8 lg:grid-cols-12">
-                    <div data-aos="fade-in" className="mr-auto place-self-center lg:col-span-7">
+                    <div  className="mr-auto place-self-center lg:col-span-7">
                         <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
                             <span className="text-gradient">
                                 {t('simplifyGroupTravel')}
@@ -100,7 +100,7 @@ const LandingPage: React.FC = () => {
                         </div>
                     </div>
                     <div className="lg:block h-full h-full w-full flex lg:col-span-5">
-                        <img data-aos="fade-in" className="aspect-square object-cover h-full w-full" src={HeroImage} alt="backpack" />
+                        <img  className="aspect-square object-cover h-full w-full" src={HeroImage} alt="backpack" />
                     </div>
                 </div>
             </section>

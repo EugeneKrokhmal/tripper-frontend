@@ -6,7 +6,11 @@ const FAQ = () => {
 
     return (
         <div className="faq-container px-4 py-8 mx-auto max-w-7xl">
-            <h1 className="text-3xl font-bold mb-8 dark:text-zinc-300">{t('faq.title')}</h1>
+            <h1 className="mb-4 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-6xl">
+                <span className="text-transparent dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500 bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                    {t('faq.title')}
+                </span>
+            </h1>
 
             <div className="faq-section mb-12">
                 <h2 className="text-2xl font-bold"><span className="text-gradient">{t('faq.generalQuestions.title')}</span></h2>

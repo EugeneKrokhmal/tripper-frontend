@@ -124,12 +124,11 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="container max-w-7xl mx-auto pt-16">
-
-            <div className="px-4">
-                <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
-                    <span className="text-gradient">{t('myTrips')}</span>
-                </h1>
-            </div>
+            <h1 className="mb-4 px-4 text-5xl font-extrabold text-zinc-900 dark:text-white md:text-6xl">
+                <span className="text-transparent dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500 bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                    {t('myTrips')}
+                </span>
+            </h1>
 
             <div className="flex flex-col-reverse gap-8 md:flex-row-reverse mb-8 px-4">
                 <div className="self-start md:sticky top-28 w-full md:w-2/4 xl:w-1/4">

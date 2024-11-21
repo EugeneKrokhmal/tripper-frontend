@@ -215,7 +215,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                         {timeline[date] && timeline[date].length > 0 ? (
                             <ul className="mb-4 mt-4 text-base font-normal text-zinc-500 dark:text-zinc-300">
                                 {timeline[date].map((activity, index) => (
-                                    <li key={index} className="text-sm text-zinc-600 dark:text-zinc-300 mb-4" data-aos="fade-in">
+                                    <li key={index} className="text-sm text-zinc-600 dark:text-zinc-300 mb-4" >
                                         <div className="flex justify-between gap-2">
                                             <div className="flex gap-4 w-11/12">
                                                 <strong className="w-10">{activity.time}</strong>

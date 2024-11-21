@@ -37,8 +37,8 @@ const RegisterPage: React.FC = () => {
     };
 
     return (
-        <div className="container max-w-7xl mx-auto h-screen flex flex-wrap justify-center md:justify-start flex-col md:flex-row px-4 pb-32">
-            <div className="z-10 w-full md:w-2/5 flex self-center flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 rounded">
+        <div className="container max-w-7xl mx-auto h-full md:h-screen flex flex-wrap flex-col justify-center md:justify-start md:flex-row md:px-4 md:pb-32">
+            <div className="z-10 w-full md:w-2/5 flex self-center flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-800 rounded">
                 <h1 className="mb-4 text-5xl font-extrabold text-zinc-900 dark:text-white md:text-6xl">
                     <span className="text-gradient">{t('register')}</span>
                 </h1>
@@ -82,7 +82,7 @@ const RegisterPage: React.FC = () => {
                 </p>
             </div>
 
-            <div className="z-0 absolute top-0 left-0 right-0 md:block h-full w-full flex bg-black opacity-50 ">
+            <div className="z-0 absolute top-0 left-0 right-0 md:block h-full w-full hidden bg-black opacity-50 ">
                 <img
                     className={`aspect-square object-cover h-full w-full transition-opacity duration-700`}
                     src={LoginImage}

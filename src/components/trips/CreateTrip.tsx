@@ -120,9 +120,9 @@ const CreateTrip: React.FC = () => {
 
     return (
         <>
-            <div className="container max-w-7xl mx-auto h-screen flex flex-wrap md:justify-center flex-col md:px-4 pb-32">
-                <div className="relative z-10 w-full md:w-3/5 lg:w-3/5 xl:w-2/5 flex flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-900 md:rounded">
-                    <ol className="mb-4 bg-white dark:bg-zinc-900 w-full flex text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+            <div className="container max-w-7xl mx-auto h-full md:h-screen flex flex-wrap flex-col justify-center md:justify-start md:flex-row md:px-4 md:pb-32">
+                <div className="z-10 w-full md:w-2/5 flex self-center flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-800 rounded">
+                    <ol className="mb-4 bg-white dark:bg-zinc-800 w-full flex text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
                         {[
                             { title: t('tripName'), step: 1, icon: 'check' },
                             { title: t('destination'), step: 2, icon: 'check' },
@@ -130,7 +130,7 @@ const CreateTrip: React.FC = () => {
                         ].map((item) => (
                             <li key={item.step} className={`flex-row flex items-center gap-2 text-xs md:text-sm mr-2 ${currentStep === item.step ? 'text-zinc-900 dark:text-zinc-100' : ''}`}>
                                 <span
-                                    className={`flex items-center justify-center min-w-4 w-4 h-4 ${currentStep >= item.step ? 'bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500' : 'bg-zinc-100'} rounded-full -start-2 ring-2 ring-white dark:ring-zinc-900 ${currentStep >= item.step ? ' color-white ' : 'dark:bg-zinc-700'
+                                    className={`flex items-center justify-center min-w-4 w-4 h-4 ${currentStep >= item.step ? 'bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500' : 'bg-zinc-100'} rounded-full -start-2 ring-2 ring-white dark:ring-zinc-800 ${currentStep >= item.step ? ' color-white ' : 'dark:bg-zinc-700'
                                         }`}
                                 >
                                     {item.icon === 'check' && currentStep >= item.step && (
@@ -144,7 +144,7 @@ const CreateTrip: React.FC = () => {
                     </ol>
                     <form onSubmit={(e) => e.preventDefault()}>
                         {currentStep === 1 && (
-                            <div data-aos="fade-in">
+                            <div >
                                 <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
                                     <span className="text-gradient">{t('tripName')}</span>
                                 </h2>
@@ -160,7 +160,7 @@ const CreateTrip: React.FC = () => {
                         )}
 
                         {currentStep === 2 && (
-                            <div className="relative" data-aos="fade-in">
+                            <div className="relative" >
                                 <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
                                     <span className="text-gradient">{t('destination')}</span>
                                 </h2>
@@ -197,7 +197,7 @@ const CreateTrip: React.FC = () => {
                         )}
 
                         {currentStep === 3 && (
-                            <div data-aos="fade-in">
+                            <div >
                                 <h2 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
                                     <span className="text-gradient">{t('description')}</span>
                                 </h2>
@@ -225,9 +225,9 @@ const CreateTrip: React.FC = () => {
                     </form>
                 </div>
 
-                <div className="z-0 absolute top-0 left-0 right-0 md:block h-full w-full flex bg-black opacity-50">
+                <div className="z-0 absolute top-0 left-0 right-0 md:block h-full w-full hidden bg-black opacity-50">
                     <img
-                        data-aos="fade-in"
+                        
                         className={`aspect-square object-cover h-full w-full`}
                         src={stepImages[currentStep - 1]}
                         alt="step image"

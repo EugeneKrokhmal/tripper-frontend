@@ -31,7 +31,6 @@ import {
     generateJoinLink
 } from '../api/tripApi';
 import TripMap from '../components/trips/TripMap';
-import WeatherWidget from '../components/widgets/WeatherWidget';
 
 interface Settlement {
     _id: string;
@@ -184,7 +183,7 @@ const TripDetailsPage: React.FC = () => {
     };
 
     const breadcrumbs = [
-        { label: t('myTrips'), href: '/dashboard' },
+        { label: t('myTrips'), href: '#/dashboard' },
         { label: trip?.name, href: '' }
     ];
 
@@ -211,6 +210,12 @@ const TripDetailsPage: React.FC = () => {
                 {(isOwner || trip.administrators.includes(userId)) && (
                     <>
                         <ShareTrip
+                            tripId={trip?._id}
+                            tripName={trip?.name}
+                            tripImage={trip?.image}
+                            startDate={trip?.startDate}
+                            endDate={trip?.endDate}
+                            tripDescription={trip?.description}
                             isOwner={isOwner}
                             isAdmin={trip.administrators.includes(userId)}
                             joinLink={joinLink}
@@ -316,10 +321,10 @@ const TripDetailsPage: React.FC = () => {
                 </div>
 
                 <aside
-                    className={`h-100 bg-white dark:bg-zinc-800 z-10 lg:w-3/12`}
+                    className={`pb-20 bg-white dark:bg-zinc-800 z-10 lg:w-3/12`}
                     aria-label="Sidebar"
                 >
-                    <div className="sticky top-24 w-full">
+                    <div className="w-full">
                         <div className="hidden md:block mb-6">
                             <ExpenseSummary
                                 totalPaidByUser={totalPaidByUser}

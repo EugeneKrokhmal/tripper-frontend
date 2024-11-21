@@ -16,6 +16,7 @@ const SettingsPage: React.FC = () => {
     const [userNameInput, setUserNameInput] = useState<string>('');
     const [userEmailInput, setUserEmailInput] = useState<string>('');
     const [uploadStatus, setUploadStatus] = useState<string>('');
+    const [previewURL, setPreviewURL] = useState<string | null>(null); // Add preview URL state
     const token = useSelector((state: RootState) => state.auth.token);
     const profilePhoto = useSelector((state: RootState) => state.auth.profilePhoto);
     const userName = useSelector((state: RootState) => state.auth.userName);
@@ -35,6 +36,15 @@ const SettingsPage: React.FC = () => {
             dispatch(fetchProfilePhoto(token));
         }
     }, [token, dispatch]);
+
+    useEffect(() => {
+        // Generate preview URL when file changes
+        if (selectedFile) {
+            const url = URL.createObjectURL(selectedFile);
+            setPreviewURL(url);
+            return () => URL.revokeObjectURL(url); // Cleanup when component unmounts or file changes
+        }
+    }, [selectedFile]);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
@@ -60,6 +70,8 @@ const SettingsPage: React.FC = () => {
                 dispatch(setProfilePhoto(response.profilePhoto));
                 dispatch(fetchProfilePhoto(token));
                 setUploadStatus('Upload successful!');
+                setSelectedFile(null); // Clear selected file after successful upload
+                setPreviewURL(null); // Clear preview
             } else {
                 setUploadStatus('Upload failed.');
             }
@@ -77,7 +89,7 @@ const SettingsPage: React.FC = () => {
             if (response) {
                 dispatch(updateUser({ userName: userNameInput, userEmail: userEmailInput }));
                 setUploadStatus('Profile updated successfully!');
-                closeModal()
+                closeModal();
             } else {
                 setUploadStatus('Update failed.');
             }
@@ -96,11 +108,11 @@ const SettingsPage: React.FC = () => {
             <Breadcrumbs breadcrumbs={[{ label: t('home'), href: '#/' }, { label: t('Settings'), href: '' }]} />
 
             <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-16">
-                <div className="flex gap-8">
+                <div className="flex gap-4">
                     <div className="relative min-w-24 w-24 h-24 mb-4">
                         <img
                             className="w-full h-full object-cover rounded-full"
-                            src={profilePhoto ? `${API_BASE_URL}/${profilePhoto}` : UploadIcon}
+                            src={previewURL || (profilePhoto ? `${API_BASE_URL}/${profilePhoto}` : UploadIcon)} // Use preview URL if available
                             alt="Profile"
                         />
                         <span className="bottom-0 right-0 absolute w-8 h-8 bg-zinc-100 border-2 border-white dark:border-gray-800 rounded-full p-2 cursor-pointer">
@@ -113,12 +125,12 @@ const SettingsPage: React.FC = () => {
                     <div>
                         <h2 className="flex items-center text-xl font-bold leading-none text-gray-900 dark:text-white sm:text-2xl">{userName}</h2>
                         <dl className="">
-                            <dd className="text-gray-500 dark:text-gray-400">*********{userEmail?.split('@')[1]}</dd>
+                            <dd className="text-gray-500 dark:text-gray-400">{userEmail}</dd>
                         </dl>
                     </div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="grid gap-2 grid-cols-2">
                     <Button variant={'primary'} onClick={handleUpload} label={t('Save Photo')} />
                     <Button label={t('edit')} onClick={() => setModalVisible(true)} variant="primary" />
                 </div>
@@ -126,7 +138,7 @@ const SettingsPage: React.FC = () => {
                 {uploadStatus && <p className="py-2 text-sm">{uploadStatus}</p>}
 
                 {modalVisible && (
-                    <Modal onClose={() => { setModalVisible(false) }}>
+                    <Modal onClose={() => { setModalVisible(false); }}>
                         <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                             <span className="text-gradient">
                                 {t('edit')}
@@ -142,8 +154,7 @@ const SettingsPage: React.FC = () => {
                     </Modal>
                 )}
             </div>
-
-            <FAQ/>
+            <FAQ />
         </div>
     );
 };

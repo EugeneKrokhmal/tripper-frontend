@@ -112,7 +112,7 @@ const TripsSlider: React.FC = () => {
     };
 
     return (
-        <div className="mx-auto px-4" data-aos="fade-in">
+        <div className="mx-auto px-4" >
             <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl">
                 <span className="text-gradient">
                     {t('myTrips')}

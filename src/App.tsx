@@ -20,6 +20,7 @@ import SettingsPage from './pages/SettingsPage';
 import Blog from './pages/Blog';
 import ForgotPassword from './pages/ForgorPassword';
 import ResetPassword from './pages/ResetPassword';
+import BottomNav from './components/structure/BottomNav';
 
 // ProtectedRoute component to guard protected pages
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -37,7 +38,7 @@ function App() {
         <Router>
             <ScrollToTop />
             <Navbar />
-            <div className="pt-20 relative min-h-screen">
+            <div className="overflow-scroll scroller pb-24">
                 <Routes>
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
@@ -78,7 +79,8 @@ function App() {
                     />
                 </Routes>
             </div>
-            <Footer />
+            <BottomNav />
+            {/* <Footer /> */}
             {/* <BugReportPopup /> */}
         </Router>
     );

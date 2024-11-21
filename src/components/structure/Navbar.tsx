@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import BurgerMenu from './BurgerMenu';
 import DarkModeToggle from './DarkModeToggle';
 import UserIcon from '../elements/UserIcon';
-import BottomNav from '../structure/BottomNav';
 
 const Navbar: React.FC = () => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
@@ -18,7 +17,7 @@ const Navbar: React.FC = () => {
     const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+    const [isNavbarVisible, setIsNavbarVisible] = useState(false);
     const { t } = useTranslation();
     const dropdownRef = useRef<HTMLDivElement>(null);
     const lastScrollY = useRef(0);
@@ -43,26 +42,26 @@ const Navbar: React.FC = () => {
     }, []);
 
     // Scroll event listener to show/hide navbar
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > lastScrollY.current && window.scrollY > 100) {
-                setIsNavbarVisible(false); // Hide navbar on scroll down
-            } else {
-                setIsNavbarVisible(true); // Show navbar on scroll up
-            }
-            lastScrollY.current = window.scrollY;
-        };
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         if (window.scrollY > lastScrollY.current && window.scrollY > 100) {
+    //             setIsNavbarVisible(false); // Hide navbar on scroll down
+    //         } else {
+    //             setIsNavbarVisible(true); // Show navbar on scroll up
+    //         }
+    //         lastScrollY.current = window.scrollY;
+    //     };
 
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+    //     window.addEventListener('scroll', handleScroll);
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll);
+    //     };
+    // }, []);
 
     return (
         <>
             <nav
-                className={`z-50 fixed top-0 left-0 w-full bg-white border-zinc-200 dark:bg-zinc-900 shadow transition-transform duration-300`}
+                className={`z-50 top-0 left-0 w-full bg-white border-zinc-200 dark:bg-zinc-900 shadow transition-transform duration-300`}
             >
                 <div className={`transition-all duration-300 max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 ${isNavbarVisible ? 'py-4 h-20' : 'py-1'
                     }`}>
@@ -177,7 +176,6 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
             </nav>
-            <BottomNav />
         </>
     );
 };

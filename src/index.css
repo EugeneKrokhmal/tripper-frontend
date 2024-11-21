@@ -4,11 +4,7 @@
 
 @import 'leaflet/dist/leaflet.css';
 
-body {
-  padding-top: env(safe-area-inset-top);
-}
-
-nav {
+html {
   padding-top: env(safe-area-inset-top);
 }
 

@@ -10,28 +10,28 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        setIsVisible(true); // Trigger show class on mount
-        return () => setIsVisible(false); // Reset on unmount
+        setIsVisible(true);
+        return () => setIsVisible(false);
     }, []);
 
     const handleOutsideClick = (event: React.MouseEvent) => {
         if (event.target === event.currentTarget) {
             setIsVisible(false);
-            setTimeout(onClose, 300); // Delay onClose to allow fade-out
+            setTimeout(onClose, 300);
         }
     };
 
+    isVisible ? document.body.classList.add('modal-open') : document.body.classList.remove('modal-open');
+
     return ReactDOM.createPortal(
         <div
-            className={`modal-overlay fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-2 ${
-                isVisible ? 'show' : ''
-            }`}
+            className={`modal-overlay fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-2 ${isVisible ? 'show' : ''
+                }`}
             onClick={handleOutsideClick}
         >
             <div
-                className={`modal-content bg-white dark:bg-zinc-800 rounded-lg shadow-lg px-2 md:px-4 py-4 w-full max-w-lg relative ${
-                    isVisible ? 'show' : ''
-                }`}
+                className={`modal-content bg-white dark:bg-zinc-800 rounded-lg shadow-lg px-2 md:px-4 py-4 w-full max-w-lg relative ${isVisible ? 'show' : ''
+                    }`}
             >
                 <button
                     className="z-20 absolute top-6 right-4 text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-white"

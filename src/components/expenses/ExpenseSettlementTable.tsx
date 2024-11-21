@@ -193,10 +193,10 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 text-right">
+                                        <td className="px-2 py-4 text-xs md:text-sm text-zinc-800 dark:text-zinc-200 text-right">
                                             <Price price={+settlement.amount.toFixed(2)} />
                                         </td>
-                                        <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 text-center">
+                                        <td className="px-2 py-4 text-xs md:text-sm text-zinc-800 dark:text-zinc-200 text-center">
                                             {!settlement.isSettled && debtor._id === userId && (
                                                 <>
                                                     <a

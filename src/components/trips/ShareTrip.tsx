@@ -4,8 +4,16 @@ import Button from '../elements/Button';
 import Modal from '../elements/Modal';
 import ShareIcon from '../../images/icons/team.svg';
 import Loader from '../structure/Loader';
+import { formatDate } from '../../utils/dateUtils';
+
 
 interface ShareTripProps {
+    tripId: string;
+    tripName: string;
+    tripImage: string;
+    startDate: string;
+    endDate: string;
+    tripDescription: string;
     isOwner: boolean;
     isAdmin: boolean;
     joinLink: string | null;
@@ -15,6 +23,12 @@ interface ShareTripProps {
 }
 
 const ShareTrip: React.FC<ShareTripProps> = ({
+    tripId,
+    tripName,
+    tripImage,
+    startDate,
+    endDate,
+    tripDescription,
     isOwner,
     isAdmin,
     joinLink,
@@ -25,7 +39,11 @@ const ShareTrip: React.FC<ShareTripProps> = ({
     const [linkGenerated, setLinkGenerated] = useState<boolean>(!!joinLink);
     const [copySuccess, setCopySuccess] = useState<boolean>(false);
     const [IsShareModalOpen, setIsShareModalOpen] = useState(false);
+    const [email, setEmail] = useState('');
+    const [inviteStatus, setInviteStatus] = useState<string | null>(null);
     const { t } = useTranslation();
+    const formattedStartDate = formatDate(startDate);
+    const formattedEndDate = formatDate(endDate);
 
     useEffect(() => {
         if (joinLink) {
@@ -35,9 +53,36 @@ const ShareTrip: React.FC<ShareTripProps> = ({
 
     useEffect(() => {
         if (IsShareModalOpen && !linkGenerated && (isOwner || isAdmin)) {
-            onGenerateJoinLink();  // Generate the link when the modal opens if it hasn't been generated yet
+            onGenerateJoinLink();
         }
     }, [IsShareModalOpen, linkGenerated, isOwner, isAdmin, onGenerateJoinLink]);
+
+    const handleSendInvite = async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/trips/invite-user-by-email`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify({ tripId: tripId, email, tripName, tripImage, formattedStartDate, formattedEndDate, tripDescription }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                setInviteStatus('Invitation sent successfully.');
+                setTimeout(() => {
+                    closeShareTripModal();
+                    // setEmail('');
+                }, 300);
+            } else {
+                setInviteStatus(result.message || 'Failed to send invitation.');
+            }
+        } catch (error) {
+            setInviteStatus('Error sending invitation.');
+        }
+    };
 
     const handleCopyLink = () => {
         if (joinLink) {
@@ -81,8 +126,8 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                     <Modal onClose={closeShareTripModal}>
                         {linkGenerated ? (
                             <>
-                                <h3 className="mb-2 text-2xl font-extrabold text-zinc-900 dark:text-white md:text-2xl mt-4">
-                                    <span className="text-gradient">{t('inviteFriends')}</span>
+                                <h3 className="mb-2 text-xl font-extrabold text-zinc-900 dark:text-white mt-4">
+                                    <span className="text-gradient">{t('copyLink')}</span>
                                 </h3>
                                 <div className="relative w-full">
                                     <input
@@ -108,6 +153,22 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                                         )}
                                     </button>
                                 </div>
+
+                                <h3 className="mb-2 text-xl font-extrabold text-zinc-900 dark:text-white md:text-xl mt-4">
+                                    <span className="text-gradient">{t('inviteByEmail')}</span>
+                                </h3>
+                                <div className="flex gap-2">
+                                    <input
+                                        type="email"
+                                        placeholder={t('enterEmail')}
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="pr-12 col-span-6 bg-zinc-50 border border-zinc-300 text-zinc-500 dark:text-zinc-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    />
+                                    <Button variant={'primary'} onClick={handleSendInvite} label={t('invite')} />
+                                </div>
+
+                                {inviteStatus && <p className="text-sm py-1">{inviteStatus}</p>}
 
                                 <div className="mt-4 flex gap-4">
                                     {/* Telegram */}
@@ -140,7 +201,7 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                                 </p>
                             </>
                         ) : (
-                            <p className="mt-4">{loadingJoinLink ? <Loader/> : t('PleaseWait')}</p>
+                            <p className="mt-4">{loadingJoinLink ? <Loader /> : t('PleaseWait')}</p>
                         )}
                     </Modal>
                 </>

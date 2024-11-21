@@ -29,7 +29,7 @@ const HomepageBanner: React.FC = () => {
     }, []);
 
     return (
-        <div className="h-screen scrollDist overflow-hidden" data-aos="fade-in">
+        <div className="h-screen scrollDist overflow-hidden" >
             <div className="relative flex justify-center mb-16">
                 <div className="absolute bottom-0 inset-0 bg">
                     <img src={HeroImage} alt="Background Image" className="object-cover object-center w-full h-full" />

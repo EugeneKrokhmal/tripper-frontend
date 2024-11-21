@@ -45,14 +45,14 @@ const UsersTable: React.FC<UsersTableProps> = ({
     return (
         <div className="flex flex-col">
             <table className="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
-                <thead className="sticky top-0 z-10 text-xs text-zinc-700 uppercase dark:bg-zinc-800 dark:text-zinc-400">
+                <thead className="sticky top-0 z-10 text-xs text-zinc-700 uppercase dark:bg-zinc-800 dark:text-zinc-400 bg-gray-200 dark:bg-zinc-900">
                     <tr>
                         <th scope="col" className="px-2 py-3 text-xs">
                             {t('involved')}
                         </th>
-                        <th scope="col" className="py-3 text-xs">
+                        {/* <th scope="col" className="py-3 text-xs">
                             {t('responsible')}
-                        </th>
+                        </th> */}
                         <th scope="col" className="px-2 py-3 text-xs">
                             {t('expenses')}
                         </th>
@@ -83,8 +83,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                                     </div>
                                 </div>
                             </td>
-                            <td className="py-4 text-xs align-top w-3/12">
-                                {/* Display the names of expenses the user is responsible for */}
+                            {/* <td className="py-4 text-xs align-top w-3/12">
                                 <ol className="list-disc">
                                     {getResponsibleExpensesNames(participant._id).length > 0
                                         ? getResponsibleExpensesNames(participant._id).map((expenseName, index) => (
@@ -92,7 +91,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                                         ))
                                         : ''}
                                 </ol>
-                            </td>
+                            </td> */}
                             <td className="px-2 py-4 text-xs align-top md:w-full">
                                 {/* Display the names and amounts of expenses the user is involved in */}
                                 <ul className="leaders">
