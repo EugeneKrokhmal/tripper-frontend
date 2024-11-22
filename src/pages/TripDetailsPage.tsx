@@ -255,7 +255,7 @@ const TripDetailsPage: React.FC = () => {
                     admins={trip.administrators}
                 />
 
-                <div className="md:w-9/12">
+                <div className="md:w-8/12">
                     <TripInfo
                         tripName={trip.name}
                         tripDescription={trip.description}
@@ -316,7 +316,7 @@ const TripDetailsPage: React.FC = () => {
                 </div>
 
                 <aside
-                    className={`h-100 bg-white dark:bg-zinc-800 z-10 lg:w-3/12`}
+                    className={`bg-white dark:bg-zinc-800 z-10 md:w-3/12 lg:w-4/12`}
                     aria-label="Sidebar"
                 >
                     <div className="sticky top-24 w-full">

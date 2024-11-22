@@ -49,7 +49,8 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
     const { t } = useTranslation();
     const [expenseModalVisible, setExpenseModalVisible] = useState<boolean>(false);
     const [expensesListModalVisible, setExpensesListModalVisible] = useState<boolean>(false);
-
+    const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
+    const [expenseToDelete, setExpenseToDelete] = useState<Expense | null>(null);
     const [expenseList, setExpenseList] = useState<Expense[]>(expenses);
     const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
     const getParticipantById = (id: string) => participants.find(p => p._id === id);
@@ -88,6 +89,31 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
         setExpenseModalVisible(false);
     };
 
+    const handleDeleteExpenseClick = (expense: Expense) => {
+        setExpenseToDelete(expense);
+        setDeleteModalVisible(true);
+    };
+
+    const confirmDeleteExpense = async () => {
+        if (!expenseToDelete) return;
+
+        try {
+            await deleteExpense(tripId, expenseToDelete._id, token);
+            const updatedExpenses = expenseList.filter(expense => expense._id !== expenseToDelete._id);
+            setExpenseList(updatedExpenses);
+            onExpenseDeleted(updatedExpenses);
+            setDeleteModalVisible(false);
+            setExpenseToDelete(null);
+        } catch (error) {
+            console.error(t('deleteExpenseError'), error);
+        }
+    };
+
+    const cancelDeleteExpense = () => {
+        setDeleteModalVisible(false);
+        setExpenseToDelete(null);
+    };
+
     return (
         <>
             {expenseList.length > 0 && (
@@ -102,6 +128,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                     </p>
                 </>
             )}
+
             <ol className="z-0 relative border-s border-zinc-200 dark:border-zinc-700 dark:border-zinc-700">
                 {expenses.slice(-3).map((expense) => {
                     const responsiblePerson = getParticipantById(expense.responsibleUserId);
@@ -184,7 +211,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                 {t('edit')}
                                             </a>
                                             <a
-                                                onClick={() => handleDeleteExpense(expense._id)}
+                                                onClick={() => handleDeleteExpenseClick(expense)}
                                                 className="cursor-pointer text-xs text-red-600 dark:text-red-400 hover:underline my-2"
                                             >
                                                 {t('delete')}
@@ -201,7 +228,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
             {expensesListModalVisible && (
                 <Modal onClose={() => { setExpensesListModalVisible(false) }}>
                     <div className="pt-4">
-                        <InputField value={'Search'} type={'text'} label={'Search'} onChange={() => {alert('still working on it...')}} />
+                        <InputField value={'Search'} type={'text'} label={'Search'} onChange={() => { alert('still working on it...') }} />
                     </div>
                     <div className="max-h-[80vh] overflow-y-auto pl-2">
                         <ol className="relative border-s border-zinc-200 dark:border-zinc-700 dark:border-zinc-700">
@@ -286,7 +313,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                             {t('edit')}
                                                         </a>
                                                         <a
-                                                            onClick={() => handleDeleteExpense(expense._id)}
+                                                            onClick={() => handleDeleteExpenseClick(expense)}
                                                             className="cursor-pointer text-xs text-red-600 dark:text-red-400 hover:underline my-2"
                                                         >
                                                             {t('delete')}
@@ -309,12 +336,13 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                         <Button
                             label={expensesListModalVisible ? t('showLess') : t('showMore')}
                             onClick={() => setExpensesListModalVisible(true)}
-                            variant="secondary"
+                            variant="primary"
                         />
                     </div>
                 )}
 
             </div>
+
             {expenseModalVisible && (
                 <Modal onClose={closeExpenseModal}>
                     <ExpenseForm
@@ -333,6 +361,21 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                         }}
                         expenseToEdit={editingExpense}
                     />
+                </Modal>
+            )}
+
+            {deleteModalVisible && (
+                <Modal onClose={cancelDeleteExpense}>
+                    <div className="p-4">
+                        <h2 className="text-lg font-bold mb-4">{t('confirmDelete')}</h2>
+                        <p className="text-sm mb-4">
+                            {t('deleteExpenseConfirmation', { expenseName: expenseToDelete?.expenseName })}
+                        </p>
+                        <div className="flex justify-end gap-2">
+                            <Button label={t('cancel')} onClick={cancelDeleteExpense} variant="primary" />
+                            <Button label={t('delete')} onClick={confirmDeleteExpense} variant="secondary" />
+                        </div>
+                    </div>
                 </Modal>
             )}
         </>
