@@ -6,7 +6,6 @@ interface ExpenseSummaryProps {
     totalPaidByUser: number;
     totalCost: number;
     fairShare: number;
-    onFairShareUpdate: (fairShare: number, settlements: any[]) => void;
     tripId: string;
     remainingOwedToUser: number;
 }
@@ -31,7 +30,7 @@ const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ totalPaidByUser, totalC
                 <div className="flex justify-between border-zinc-200 border-b dark:border-zinc-700 pb-3">
                     <dl>
                         <dt className="text-base font-normal text-zinc-500 dark:text-zinc-400 pb-1">{t('totalTripCost')}</dt>
-                        <dd className="leading-none text-3xl font-bold text-zinc-900 dark:text-white"><Price price={+totalCost.toFixed()} /></dd>
+                        <dd className="leading-none text-3xl font-bold text-zinc-900 dark:text-white"><Price price={+totalCost.toFixed(2)} /></dd>
                     </dl>
                     <div>
                     </div>

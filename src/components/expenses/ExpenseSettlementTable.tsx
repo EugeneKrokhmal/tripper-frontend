@@ -51,7 +51,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
     participants,
     tripId,
     token,
-    onSettlementUpdated,
+    onSettlementUpdated
 }) => {
     const { t } = useTranslation();
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;

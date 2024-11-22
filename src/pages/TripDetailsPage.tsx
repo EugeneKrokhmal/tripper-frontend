@@ -271,7 +271,7 @@ const TripDetailsPage: React.FC = () => {
                     />
 
                     <div className="mb-2 md:mb-8">
-                        <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900 md:p-0 md:bg-zinc-50 md:dark:bg-zinc-800 col-span-1">
+                        <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900 md:p-0 md:bg-white md:dark:bg-zinc-800 col-span-1">
                             <TripParticipants
                                 tripId={tripId || ''}
                                 userId={userId || ''}
@@ -283,7 +283,7 @@ const TripDetailsPage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900 md:p-0 md:bg-zinc-50 md:dark:bg-zinc-800 mb-8">
+                    <div className="rounded p-2 bg-zinc-50 dark:bg-zinc-900 md:p-0 md:bg-white md:dark:bg-zinc-800 mb-8">
                         <TripMap
                             coordinates={trip.location.coordinates}
                             destination={trip.location.destination || ''}
@@ -325,10 +325,6 @@ const TripDetailsPage: React.FC = () => {
                                 totalPaidByUser={totalPaidByUser}
                                 totalCost={totalCost}
                                 fairShare={fairShare}
-                                onFairShareUpdate={(fairShare, settlements) => {
-                                    setFairShare(fairShare);
-                                    setSettlements(settlements);
-                                }}
                                 tripId={tripId || ''}
                                 remainingOwedToUser={remainingOwedToUser}
                             />
