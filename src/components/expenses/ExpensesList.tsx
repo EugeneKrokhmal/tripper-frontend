@@ -8,6 +8,9 @@ import Price from '../Price';
 import { formatDate } from '../../utils/dateUtils';
 import UserIcon from '../elements/UserIcon';
 import InputField from '../elements/InputField';
+import EditIcon from '../../images/icons/edit.svg';
+import DeleteIcon from '../../images/icons/delete.svg';
+
 
 interface Expense {
     _id: string;
@@ -216,7 +219,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                 onClick={() => handleEditExpense(expense)}
                                                 className="cursor-pointer text-xs dark:text-zinc-300 hover:underline my-2"
                                             >
-                                                {t('edit')}
+                                                <img src={EditIcon} alt={t('editActivity')} />
                                             </a>
                                             <a
                                                 onClick={() => handleDeleteExpenseClick(expense)}
@@ -318,7 +321,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                             onClick={() => handleEditExpense(expense)}
                                                             className="cursor-pointer text-xs dark:text-zinc-300 hover:underline my-2"
                                                         >
-                                                            {t('edit')}
+                                                            <img src={EditIcon} alt={t('editActivity')} />
                                                         </a>
                                                         <a
                                                             onClick={() => handleDeleteExpenseClick(expense)}
