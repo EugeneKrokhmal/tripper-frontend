@@ -51,12 +51,12 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
     const { t } = useTranslation();
     const [expenseModalVisible, setExpenseModalVisible] = useState<boolean>(false);
     const [expensesListModalVisible, setExpensesListModalVisible] = useState<boolean>(false);
-    const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
-    const [expenseToDelete, setExpenseToDelete] = useState<Expense | null>(null);
     const [expenseList, setExpenseList] = useState<Expense[]>(expenses);
     const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
     const getParticipantById = (id: string) => participants.find(p => p._id === id);
     const [searchQuery, setSearchQuery] = useState<string>('');
+    const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
+    const [expenseToDelete, setExpenseToDelete] = useState<Expense | null>(null);
 
     // Filter expenses based on search query
     const filteredExpenses = expenses.filter(
