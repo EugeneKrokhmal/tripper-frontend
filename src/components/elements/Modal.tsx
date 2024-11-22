@@ -30,8 +30,9 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
             onClick={handleOutsideClick}
         >
             <div
-                className={`modal-content bg-white dark:bg-zinc-800 rounded-lg shadow-lg px-2 md:px-4 py-4 w-full max-w-lg relative ${isVisible ? 'show' : ''
-                    }`}
+                className={`modal-content bg-white dark:bg-zinc-800 rounded-lg shadow-lg px-2 md:px-4 py-4 w-full max-w-xl relative ${
+                    isVisible ? 'show' : ''
+                }`}
             >
                 <button
                     className="z-20 absolute top-6 right-4 text-zinc-500 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-white"
