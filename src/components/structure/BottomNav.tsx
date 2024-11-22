@@ -11,7 +11,7 @@ const BottomNav: React.FC = () => {
     }
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 md:hidden w-full bg-white border-t border-zinc-200 dark:bg-zinc-900 dark:border-zinc-600 pb-4 z-50 bottom-nav">
+        <div className="fixed bottom-0 left-0 right-0 md:hidden w-full bg-white border-t border-zinc-200 dark:bg-zinc-900 dark:border-zinc-600 pb-4 z-40 bottom-nav">
             <div className="grid h-full max-w-lg grid-cols-4 mx-auto">
                 <Link to={'/'} className="inline-flex flex-col items-center justify-center p-4 group">
                     <svg className="w-5 h-5 mb-1 text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

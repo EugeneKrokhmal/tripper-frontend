@@ -116,14 +116,14 @@ const Dashboard: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="pb-20 h-screen flex items-center justify-center">
+            <div className="h-full flex items-center justify-center">
                 <Loader />
             </div>
         );
     }
 
     return (
-        <div className="container max-w-7xl mx-auto pt-16">
+        <div className="container max-w-7xl mx-auto pt-8 pb-16 lg:pt-16 lg:pb-24">
             <h1 className="mb-4 px-4 text-5xl font-extrabold text-zinc-900 dark:text-white md:text-6xl">
                 <span className="text-transparent dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500 bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
                     {t('myTrips')}
@@ -140,7 +140,7 @@ const Dashboard: React.FC = () => {
                     {(upcomingTrips.length > 0) && (
                         <>
                             <h2 className="text-gradient text-2xl font-extrabold mb-4">{t('upcomingTrips')}</h2>
-                            <div className="grid lg:grid-cols-2 gap-4 gap-y-8">
+                            <div className="grid lg:grid-cols-2 gap-4 gap-y-8 mb-16">
                                 {upcomingTrips.map((trip) => (
                                     <TripCard
                                         key={trip._id}
@@ -155,7 +155,7 @@ const Dashboard: React.FC = () => {
 
                     {(pastTrips.length > 0) && (
                         <>
-                            <h2 className="text-gradient text-2xl font-extrabold mb-4 mt-6">{t('pastTrips')}</h2>
+                            <h2 className="text-gradient text-2xl font-extrabold mb-4">{t('pastTrips')}</h2>
                             <div className="grid lg:grid-cols-2 gap-4 gap-y-8">
                                 {pastTrips.map((trip) => (
                                     <TripCard

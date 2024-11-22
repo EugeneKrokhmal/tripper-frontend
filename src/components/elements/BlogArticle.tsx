@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Button from './Button';
+import placeHolderImg from '../../images/gallery/1.jpg';
 
 interface BlogArticleProps {
     title: string;
@@ -48,7 +49,7 @@ const BlogArticle: React.FC<BlogArticleProps> = ({ title, content, date }) => {
             </div>
             <img
                 className="object-cover rounded-t min-h-32 max-h-32 w-full"
-                src={''}
+                src={placeHolderImg}
             />
         </a>
     );

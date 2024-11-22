@@ -48,7 +48,7 @@ const Blog: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="pb-20 h-screen flex items-center justify-center">
+            <div className="h-full flex items-center justify-center">
                 <Loader />
             </div>
         );

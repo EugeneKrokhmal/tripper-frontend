@@ -189,7 +189,7 @@ const TripDetailsPage: React.FC = () => {
 
     if (!trip) {
         return (
-            <div className="pb-20 h-screen flex items-center justify-center">
+            <div className="h-full flex items-center justify-center">
                 <Loader />
             </div>
         );
@@ -242,7 +242,7 @@ const TripDetailsPage: React.FC = () => {
 
             <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-            <div className="flex flex-col flex-wrap lg:flex-nowrap md:flex-row gap-8 lg:gap-8 max-w-screen-xl px-4 py-8 mx-auto lg:py-16">
+            <div className="flex flex-col flex-wrap lg:flex-nowrap md:flex-row gap-8 lg:gap-8 max-w-screen-xl mx-auto px-4 pt-8 pb-16 lg:pt-16 lg:pb-24">
                 <ExpenseSummaryWidget
                     totalPaidByUser={totalPaidByUser}
                     totalCost={totalCost}
@@ -321,7 +321,7 @@ const TripDetailsPage: React.FC = () => {
                 </div>
 
                 <aside
-                    className={`pb-20 bg-white dark:bg-zinc-800 z-10 lg:w-3/12`}
+                    className={`bg-white dark:bg-zinc-800 z-10 lg:w-3/12`}
                     aria-label="Sidebar"
                 >
                     <div className="w-full">

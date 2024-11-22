@@ -38,7 +38,7 @@ function App() {
         <Router>
             <ScrollToTop />
             <Navbar />
-            <div className="overflow-scroll scroller pb-24">
+            <div className="overflow-scroll scroller h-full">
                 <Routes>
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
