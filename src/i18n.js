@@ -5,6 +5,10 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      "confirmDelete": "Confirm Deletion",
+      "deleteExpenseConfirmation": "Are you sure you want to delete the expense '{{expenseName}}'?",
+      "cancel": "Cancel",
+      "delete": "Delete",
       "resetPassword": "Reset Password",
       "newPassword": "New Password",
       "resetPasswordError": "An error occurred while resetting your password. Please try again.",
@@ -199,6 +203,10 @@ const resources = {
   },
   uk: {
     translation: {
+      "confirmDelete": "Підтвердження видалення",
+      "deleteExpenseConfirmation": "Ви впевнені, що хочете видалити витрату '{{expenseName}}'?",
+      "cancel": "Скасувати",
+      "delete": "Видалити",
       "resetPassword": "Скинути пароль",
       "newPassword": "Новий пароль",
       "resetPasswordError": "Виникла помилка під час скидання пароля. Спробуйте ще раз.",
@@ -389,6 +397,10 @@ const resources = {
   },
   pl: {
     translation: {
+      "confirmDelete": "Potwierdź usunięcie",
+      "deleteExpenseConfirmation": "Czy na pewno chcesz usunąć wydatek '{{expenseName}}'?",
+      "cancel": "Anuluj",
+      "delete": "Usuń",
       "resetPassword": "Zresetuj hasło",
       "newPassword": "Nowe hasło",
       "resetPasswordError": "Wystąpił błąd podczas resetowania hasła. Spróbuj ponownie.",

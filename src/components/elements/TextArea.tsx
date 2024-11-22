@@ -18,6 +18,8 @@ const TextArea: React.FC<TextAreaProps> = ({ label, value, onChange, required })
                 </span>
             </label>
             <textarea
+                rows={5}
+                maxLength={500}
                 value={value}
                 onChange={onChange}
                 className="block bg-zinc-50 w-full p-2 border border-zinc-300 dark:border-zinc-700 dark:text-zinc-300 dark:bg-zinc-900 rounded-md mb-4 text-sm"

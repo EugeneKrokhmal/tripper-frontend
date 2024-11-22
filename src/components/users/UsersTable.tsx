@@ -2,7 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Price from '../Price';
 import UserIcon from '../elements/UserIcon';
-
+import {
+    calculateTotalPaidByUser
+} from '../../utils/tripUtils';
 
 interface UsersTableProps {
     isOwner: boolean;
@@ -95,14 +97,38 @@ const UsersTable: React.FC<UsersTableProps> = ({
                             <td className="px-2 py-4 text-xs align-top md:w-full">
                                 {/* Display the names and amounts of expenses the user is involved in */}
                                 <ul className="leaders">
-                                    {getInvolvedExpenses(participant._id).length > 0
-                                        ? getInvolvedExpenses(participant._id).map((expense, index) => (
-                                            <li key={index} className="flex justify-between">
-                                                <span className="mr-auto bg-white dark:bg-zinc-800">{expense.name}</span><span className="bg-white dark:bg-zinc-800"><Price price={+expense.amount.toFixed(2)} /></span>
+                                    {getInvolvedExpenses(participant._id).length > 0 ? (
+                                        <>
+                                            {getInvolvedExpenses(participant._id).map((expense, index) => (
+                                                <li key={index} className="flex justify-between">
+                                                    <span className="mr-auto bg-white dark:bg-zinc-800">{expense.name}</span>
+                                                    <span className="bg-white dark:bg-zinc-800"><Price price={+expense.amount.toFixed(2)} /></span>
+                                                </li>
+                                            ))}
+
+                                            {/* Calculate and display the total */}
+                                            <li className="flex justify-between font-bold mt-2">
+                                                <span className="mr-auto bg-white dark:bg-zinc-800">Total Paid</span>
+                                                <span className="bg-white dark:bg-zinc-800">
+                                                    <Price
+                                                        price={+calculateTotalPaidByUser(expenses, participant._id).toFixed(2)}
+                                                    />
+                                                </span>
                                             </li>
-                                        ))
-                                        : ''}
+                                            <li className="flex justify-between font-bold text-zinc-900 dark:text-zinc-100">
+                                                <span className="mr-auto bg-white dark:bg-zinc-800">Total Share</span>
+                                                <span className="bg-white dark:bg-zinc-800">
+                                                    <Price
+                                                        price={+getInvolvedExpenses(participant._id).reduce((total, expense) => total + expense.amount, 0).toFixed(2)}
+                                                    />
+                                                </span>
+                                            </li>
+                                        </>
+                                    ) : (
+                                        ''
+                                    )}
                                 </ul>
+
                             </td>
                         </tr>
                     ))}

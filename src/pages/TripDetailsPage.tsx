@@ -260,7 +260,7 @@ const TripDetailsPage: React.FC = () => {
                     admins={trip.administrators}
                 />
 
-                <div className="md:w-9/12">
+                <div className="md:w-8/12">
                     <TripInfo
                         tripName={trip.name}
                         tripDescription={trip.description}

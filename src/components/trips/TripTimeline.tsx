@@ -267,7 +267,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                 )}
                 {tripDates.length > 1 && (
                     <div className="self-start">
-                        <Button label={showAll ? t('showLess') : t('showMore')} onClick={() => setShowAll(!showAll)} variant="secondary" />
+                        <Button label={showAll ? t('showLess') : t('showMore')} onClick={() => setShowAll(!showAll)} variant="primary" />
                     </div>
                 )}
             </div>
