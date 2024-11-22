@@ -201,9 +201,9 @@ const TripDetailsPage: React.FC = () => {
 
     return (
         <section className="bg-white dark:bg-zinc-800">
-            <div className="relative w-full max-w-screen-xl mx-auto p-4">
+            <div className="relative w-full max-w-screen-xl mx-auto mb-4">
                 <img
-                    className="object-cover rounded h-64 w-full"
+                    className="object-cover h-64 w-full"
                     src={imageUrl}
                     alt={`${trip.location.destination}`}
                 />
