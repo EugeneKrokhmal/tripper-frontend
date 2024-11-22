@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
                     </ul>
                 </div>
                 <hr className="my-6 border-zinc-200 sm:mx-auto dark:border-zinc-700 lg:my-8" />
-                <span className="block text-sm text-zinc-500 dark:text-zinc-300  sm:text-center dark:text-zinc-400">© 2024 <a href="https://flowbite.com/" className="hover:underline">Tripper</a>. All Rights Reserved.</span>
+                <span className="block text-sm text-zinc-500 dark:text-zinc-300  sm:text-center dark:text-zinc-400">© 2024 <a href="https://tripper.cc/" className="hover:underline">Tripper</a>. All Rights Reserved.</span>
             </div>
         </footer>
     );

@@ -80,7 +80,7 @@ function App() {
                 </Routes>
             </div>
             <BottomNav />
-            {/* <Footer /> */}
+            <Footer />
             {/* <BugReportPopup /> */}
         </Router>
     );
