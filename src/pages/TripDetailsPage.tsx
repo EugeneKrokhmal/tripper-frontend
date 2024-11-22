@@ -189,7 +189,7 @@ const TripDetailsPage: React.FC = () => {
 
     if (!trip) {
         return (
-            <div className="h-full flex items-center justify-center">
+            <div className="h-full flex items-center justify-center pb-20">
                 <Loader />
             </div>
         );
