@@ -242,7 +242,7 @@ const TripDetailsPage: React.FC = () => {
 
             <Breadcrumbs breadcrumbs={breadcrumbs} />
 
-            <div className="flex flex-col flex-wrap lg:flex-nowrap md:flex-row gap-8 lg:gap-8 max-w-screen-xl mx-auto px-4 pt-8 pb-32 lg:pt-16 lg:pb-24">
+            <div className="flex flex-col flex-wrap lg:flex-nowrap md:flex-row gap-8 lg:gap-8 max-w-screen-xl mx-auto px-4 pt-8 pb-36 lg:pt-16 md:pb-0">
                 <ExpenseSummaryWidget
                     totalPaidByUser={totalPaidByUser}
                     totalCost={totalCost}

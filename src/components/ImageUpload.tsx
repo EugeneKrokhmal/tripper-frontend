@@ -78,8 +78,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ tripId, onImageUploadSuccess 
 
             {/* Image preview and actions */}
             {previewUrl && (
-                <div>
-                    <img src={previewUrl} alt="Image preview" className="object-cover w-full h-full absolute left-0 top-0 bottom-0 right-0" />
+                <div className="absolute left-0 top-0 bottom-0 right-0">
+                    <img src={previewUrl} alt="Image preview" className="object-cover w-full h-full" />
                     <div className="z-10 absolute top-4 right-4 flex gap-2">
                         <button
                             className="cursor-pointer bg-white rounded py-2 px-2 text-xs"

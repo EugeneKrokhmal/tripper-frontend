@@ -152,8 +152,8 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                         <p className="text-xs text-zinc-500 dark:text-zinc-300 mb-2 text-right">
                                             {t('involved')}
                                         </p>
-                                        <ul className="flex -space-x-4 rtl:space-x-reverse justify-end">
-                                            {splitters.slice(0, 3).map((splitter) => (
+                                        <ul className="flex -space-x-3 rtl:space-x-reverse justify-end">
+                                            {splitters.slice(0, 10).map((splitter) => (
                                                 splitter && (
                                                     <li key={splitter?._id} className="flex items-center space-x-2 rounded-full">
                                                         <UserIcon
@@ -166,8 +166,8 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                     </li>
                                                 )
                                             ))}
-                                            {splitters.length > 3 && (
-                                                <span className="z-10 flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
+                                            {splitters.length > 10 && (
+                                                <span className="z-10 flex items-center justify-center w-6 min-w-6 h-6 md:w-8 md:h-8 md:min-w-8 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
                                                     +{splitters.length - 3}
                                                 </span>
                                             )}
@@ -262,8 +262,8 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                     <p className="text-xs text-zinc-500 dark:text-zinc-300 mb-2 text-right">
                                                         {t('involved')}
                                                     </p>
-                                                    <ul className="flex -space-x-4 rtl:space-x-reverse justify-end">
-                                                        {splitters.slice(0, 3).map((splitter) => (
+                                                    <ul className="flex -space-x-3 rtl:space-x-reverse justify-end">
+                                                        {splitters.slice(0, 10).map((splitter) => (
                                                             splitter && (
                                                                 <li key={splitter?._id} className="flex items-center space-x-2 rounded-full">
                                                                     <UserIcon

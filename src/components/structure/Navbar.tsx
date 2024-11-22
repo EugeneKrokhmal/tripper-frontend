@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
     const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [isNavbarVisible, setIsNavbarVisible] = useState(false);
+    const [isNavbarVisible, setIsNavbarVisible] = useState(true);
     const { t } = useTranslation();
     const dropdownRef = useRef<HTMLDivElement>(null);
     const lastScrollY = useRef(0);
