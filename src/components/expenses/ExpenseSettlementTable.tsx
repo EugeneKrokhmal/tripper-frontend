@@ -200,7 +200,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                             {!settlement.isSettled && debtor._id === userId && (
                                                 <>
                                                     <a
-                                                        className="cursor-pointer text-xs text-base dark:text-zinc-300 hover:underline"
+                                                        className="cursor-pointer text-xs md:text-base dark:text-zinc-300 hover:underline"
                                                         onClick={() => setActiveSettlementId(settlement._id)}
                                                     >
                                                         {t('settle')}

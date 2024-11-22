@@ -180,7 +180,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                 )
                                             ))}
                                             {splitters.length > 3 && (
-                                                <span className="z-10 flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
+                                                <span className="z-10 flex items-center justify-center w-6 min-w-6 h-6 md:w-8 md:h-8 md:min-w-8 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
                                                     +{splitters.length - 3}
                                                 </span>
                                             )}
@@ -282,7 +282,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                             )
                                                         ))}
                                                         {splitters.length > 3 && (
-                                                            <span className="z-10 flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
+                                                            <span className="z-10 flex items-center justify-center w-6 min-w-6 h-6 md:w-8 md:h-8 md:min-w-8 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
                                                                 +{splitters.length - 3}
                                                             </span>
                                                         )}
