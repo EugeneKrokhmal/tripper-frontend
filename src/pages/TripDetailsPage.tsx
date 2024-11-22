@@ -321,7 +321,7 @@ const TripDetailsPage: React.FC = () => {
                 </div>
 
                 <aside
-                    className={`bg-white dark:bg-zinc-800 z-10 lg:w-3/12`}
+                    className={`pb-20 bg-white dark:bg-zinc-800 z-10 lg:w-3/12`}
                     aria-label="Sidebar"
                 >
                     <div className="w-full">

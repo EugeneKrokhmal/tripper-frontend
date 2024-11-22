@@ -51,8 +51,6 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
     const { t } = useTranslation();
     const [expenseModalVisible, setExpenseModalVisible] = useState<boolean>(false);
     const [expensesListModalVisible, setExpensesListModalVisible] = useState<boolean>(false);
-    const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
-    const [expenseToDelete, setExpenseToDelete] = useState<Expense | null>(null);
     const [expenseList, setExpenseList] = useState<Expense[]>(expenses);
     const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
     const getParticipantById = (id: string) => participants.find(p => p._id === id);
@@ -317,11 +315,8 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                         <a onClick={() => handleEditExpense(expense)}>
                                                             <img src={EditIcon} alt={t('editActivity')} />
                                                         </a>
-                                                        <a
-                                                            onClick={() => handleDeleteExpenseClick(expense)}
-                                                            className="cursor-pointer text-xs text-red-600 dark:text-red-400 hover:underline my-2"
-                                                        >
-                                                            {t('delete')}
+                                                        <a onClick={() => handleDeleteExpense(expense._id)}>
+                                                            <img src={DeleteIcon} alt="Delete" />
                                                         </a>
                                                     </div>
                                                 </>

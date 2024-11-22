@@ -31,7 +31,6 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
 
     return (
         <a
-            data-aos="fade-in"
             key={trip._id}
             className={`overflow-hidden h-full transition-all transition-500 justify-end mb-4 flex items-center bg-white border border-zinc-200 dark:border-zinc-900 rounded-lg shadow md:flex-col-reverse flex-col-reverse hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700`}
         >
