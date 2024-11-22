@@ -11,7 +11,6 @@ import InputField from '../elements/InputField';
 import EditIcon from '../../images/icons/edit.svg';
 import DeleteIcon from '../../images/icons/delete.svg';
 
-
 interface Expense {
     _id: string;
     expenseName: string;
@@ -59,23 +58,11 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
     const getParticipantById = (id: string) => participants.find(p => p._id === id);
     const [searchQuery, setSearchQuery] = useState<string>('');
 
-    // Filter expenses based on search query
     const filteredExpenses = expenses.filter(
         (expense) =>
             expense.expenseName.toLowerCase().includes(searchQuery.toLowerCase()) ||
             expense.expenseDescription.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
-    const handleDeleteExpense = async (expenseId: string) => {
-        try {
-            await deleteExpense(tripId, expenseId, token);
-            const updatedExpenses = expenseList.filter(expense => expense._id !== expenseId);
-            setExpenseList(updatedExpenses);
-            onExpenseDeleted(updatedExpenses);
-        } catch (error) {
-            console.error(t('deleteExpenseError'), error);
-        }
-    };
 
     const handleEditExpense = (expense: Expense) => {
         setEditingExpense(expense);
@@ -180,7 +167,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                 )
                                             ))}
                                             {splitters.length > 3 && (
-                                                <span className="z-10 flex items-center justify-center w-6 min-w-6 h-6 md:w-8 md:h-8 md:min-w-8 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
+                                                <span className="z-10 flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
                                                     +{splitters.length - 3}
                                                 </span>
                                             )}
@@ -220,12 +207,13 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                 className="cursor-pointer text-xs dark:text-zinc-300 hover:underline my-2"
                                             >
                                                 <img src={EditIcon} alt={t('editActivity')} />
+
                                             </a>
                                             <a
                                                 onClick={() => handleDeleteExpenseClick(expense)}
                                                 className="cursor-pointer text-xs text-red-600 dark:text-red-400 hover:underline my-2"
                                             >
-                                                <img src={DeleteIcon} alt={t('deleteActivity')} />
+                                                <img src={DeleteIcon} alt={t('delete')} />
                                             </a>
                                         </div>
                                     </>
@@ -239,11 +227,18 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
             {expensesListModalVisible && (
                 <Modal onClose={() => { setExpensesListModalVisible(false) }}>
                     <div className="pt-4">
-                        <InputField value={'Search'} type={'text'} label={'Search'} onChange={() => { alert('still working on it...') }} />
+                        <div className="px-2 pt-4 sticky z-10 bg-white dark:bg-zinc-800 top-0">
+                            <InputField
+                                value={searchQuery}
+                                type="text"
+                                label={t('search')}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                        </div>
                     </div>
-                    <div className="max-h-[80vh] overflow-y-auto pl-2">
-                        <ol className="relative border-s border-zinc-200 dark:border-zinc-700 dark:border-zinc-700">
-                            {expenses.map((expense) => {
+                    <div className="max-h-[70vh] min-h-[70vh] overflow-y-auto pl-2">
+                        <ol className="pr-2 z-0 relative border-s border-zinc-200 dark:border-zinc-700">
+                            {filteredExpenses.map((expense) => {
                                 const responsiblePerson = getParticipantById(expense.responsibleUserId);
                                 const splitters = expense.splitParticipants.map(id => getParticipantById(id));
 
@@ -281,9 +276,9 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                                 </li>
                                                             )
                                                         ))}
-                                                        {splitters.length > 3 && (
+                                                        {splitters.length > 10 && (
                                                             <span className="z-10 flex items-center justify-center w-6 min-w-6 h-6 md:w-8 md:h-8 md:min-w-8 text-xs font-medium text-white bg-zinc-700 rounded-full hover:bg-zinc-600">
-                                                                +{splitters.length - 3}
+                                                                +{splitters.length - 10}
                                                             </span>
                                                         )}
                                                     </ul>
