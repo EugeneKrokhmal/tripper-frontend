@@ -5,12 +5,7 @@ const ScrollToTop: React.FC = () => {
     const { pathname } = useLocation();
 
     useEffect(() => {
-        const scroller = document.querySelector('.scroller');
-
-        if (scroller) {
-            scroller.scrollTop = 0;
-        }
-
+        window.scrollTo(0, 0);
     }, [pathname]);
 
     return null;

@@ -189,7 +189,7 @@ const TripDetailsPage: React.FC = () => {
 
     if (!trip) {
         return (
-            <div className="h-full flex items-center justify-center pb-20">
+            <div className="h-screen flex items-center justify-center pb-20">
                 <Loader />
             </div>
         );
@@ -321,7 +321,7 @@ const TripDetailsPage: React.FC = () => {
                 </div>
 
                 <aside
-                    className={`bg-white dark:bg-zinc-800 z-10 md:w-3/12 lg:w-4/12`}
+                    className={`lg:sticky top-0 bg-white dark:bg-zinc-800 z-10 md:w-3/12 lg:w-4/12`}
                     aria-label="Sidebar"
                 >
                     <div className="w-full">

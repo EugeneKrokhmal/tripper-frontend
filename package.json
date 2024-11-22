@@ -2,7 +2,7 @@
   "name": "tripper",
   "version": "0.1.1",
   "private": true,
-  "homepage": "./",
+  "homepage": "https://tripper.cc",
   "dependencies": {
     "@paypal/checkout-server-sdk": "^1.0.3",
     "@reduxjs/toolkit": "^2.3.0",
