@@ -101,9 +101,20 @@ const TripDetailsPage: React.FC = () => {
 
     const handleEditTrip = async (updatedTrip: any) => {
         try {
+            const updatedTripData = {
+                name: updatedTrip.tripName,
+                description: updatedTrip.tripDescription,
+                location: {
+                    destination: updatedTrip.destination,
+                    coordinates: updatedTrip.coordinates,
+                },
+                startDate: updatedTrip.startDate,
+                endDate: updatedTrip.endDate,
+            };
+
             if (tripId && token && API_BASE_URL) {
-                await updateTripDetails(tripId, updatedTrip, token, API_BASE_URL);
-                setTrip({ ...trip, ...updatedTrip });
+                await updateTripDetails(tripId, updatedTripData, token, API_BASE_URL);
+                setTrip({ ...trip, ...updatedTripData });
             }
         } catch (error) {
             console.error('Failed to update the trip', error);
@@ -359,7 +370,11 @@ const TripDetailsPage: React.FC = () => {
             {isDeleteModalOpen && (
                 <Modal onClose={closeDeleteModal}>
                     <div className="p-4">
-                        <h2 className="text-lg font-semibold mb-4">{t('confirmDelete')}</h2>
+                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                            <span className="text-gradient">
+                                {t('confirmDelete')}
+                            </span>
+                        </h3>
                         <p>{t('deleteWarning')}</p>
                         <div className="mt-4 flex justify-end space-x-2">
                             <Button label={t('cancel')} onClick={closeDeleteModal} variant="primary" />

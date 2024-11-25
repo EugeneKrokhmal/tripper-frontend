@@ -155,8 +155,8 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
                         </div>
 
                         <DateRangePicker
-                            startDate={startDate}
-                            endDate={endDate}
+                            startDate={startDate.split("T")[0]}
+                            endDate={endDate.split("T")[0]}
                             onStartDateChange={(e) => setStartDate(e.target.value)}
                             onEndDateChange={(e) => setEndDate(e.target.value)}
                             required
@@ -207,9 +207,11 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
                     <div className="p-4">
                         <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                             <span className="text-gradient">
-                                {t('delete')}
+                                {t('confirmDelete')}
                             </span>
                         </h3>
+                        <p>{t('deleteWarning')}</p>
+                        <br />
                         <p>{t('delete')} {participantToDelete?.name}?</p>
                         <div className="flex justify-end gap-2 mt-4">
                             <Button label={t('cancel')} onClick={closeConfirmModal} variant="primary" />

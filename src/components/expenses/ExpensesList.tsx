@@ -349,7 +349,11 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
             {deleteModalVisible && (
                 <Modal onClose={cancelDeleteExpense}>
                     <div className="p-4">
-                        <h2 className="text-lg font-bold mb-4">{t('confirmDelete')}</h2>
+                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                            <span className="text-gradient">
+                                {t('confirmDelete')}
+                            </span>
+                        </h3>
                         <p className="text-sm mb-4">
                             {t('deleteExpenseConfirmation', { expenseName: expenseToDelete?.expenseName })}
                         </p>

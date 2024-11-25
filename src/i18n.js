@@ -5,6 +5,7 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      "deleteWarning": "Are you sure you want to delete this? This action cannot be undone.",
       "confirmDelete": "Confirm Deletion",
       "deleteExpenseConfirmation": "Are you sure you want to delete the expense '{{expenseName}}'?",
       "cancel": "Cancel",
@@ -203,6 +204,7 @@ const resources = {
   },
   uk: {
     translation: {
+      "deleteWarning": "Ви впевнені, що хочете це видалити? Цю дію неможливо скасувати.",
       "confirmDelete": "Підтвердження видалення",
       "deleteExpenseConfirmation": "Ви впевнені, що хочете видалити витрату '{{expenseName}}'?",
       "cancel": "Скасувати",
@@ -397,6 +399,7 @@ const resources = {
   },
   pl: {
     translation: {
+      "deleteWarning": "Czy na pewno chcesz to usunąć? Tej akcji nie można cofnąć.",
       "confirmDelete": "Potwierdź usunięcie",
       "deleteExpenseConfirmation": "Czy na pewno chcesz usunąć wydatek '{{expenseName}}'?",
       "cancel": "Anuluj",
