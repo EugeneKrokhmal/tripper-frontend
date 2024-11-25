@@ -3,11 +3,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../structure/Loader';
-
-interface WeatherWidgetProps {
-    latitude: number;
-    longitude: number;
-}
+import type { WeatherWidgetProps } from '../../index';
 
 const WeatherWidget: React.FC<WeatherWidgetProps> = ({ latitude, longitude }) => {
     const { t } = useTranslation(); // Use the translation hook

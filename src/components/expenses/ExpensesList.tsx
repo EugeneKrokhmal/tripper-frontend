@@ -10,33 +10,7 @@ import UserIcon from '../elements/UserIcon';
 import InputField from '../elements/InputField';
 import EditIcon from '../../images/icons/edit.svg';
 import DeleteIcon from '../../images/icons/delete.svg';
-
-interface Expense {
-    _id: string;
-    expenseName: string;
-    expenseDescription: string;
-    amount: number;
-    responsibleUserId: string;
-    date: string;
-    splitParticipants: string[];
-}
-
-interface Participant {
-    _id: string;
-    name: string;
-    profilePhoto?: string;
-}
-
-interface ExpensesListProps {
-    userId: string;
-    isOwner: boolean
-    expenses: Expense[];
-    participants: Participant[];
-    tripId: string;
-    token: string;
-    onExpenseDeleted: (updatedExpenses: Expense[]) => void;
-    onExpenseAdded: (newExpense: Expense) => void;
-}
+import type { ExpensesListProps, Expense } from '../../index';
 
 const ExpensesList: React.FC<ExpensesListProps> = ({
     userId,
@@ -61,7 +35,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
     const filteredExpenses = expenses.filter(
         (expense) =>
             expense.expenseName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            expense.expenseDescription.toLowerCase().includes(searchQuery.toLowerCase())
+            expense.expenseDescription?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const handleEditExpense = (expense: Expense) => {
@@ -138,7 +112,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                             <div className="flex justify-between items-bottom mb-2 pb-2">
                                 <div>
                                     <time className="mb-1 text-sm font-normal leading-none text-zinc-400 dark:text-zinc-300">
-                                        {formatDate(expense.date)}
+                                        {expense.date ? formatDate(expense.date) : ''}
                                     </time>
                                     <h3 className="text-lg font-semibold text-zinc-900 dark:text-white">
                                         {expense.expenseName}
@@ -248,7 +222,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                         <div className="flex justify-between items-bottom mb-2 pb-2">
                                             <div>
                                                 <time className="mb-1 text-sm font-normal leading-none text-zinc-400 dark:text-zinc-300">
-                                                    {formatDate(expense.date)}
+                                                    {expense.date ? formatDate(expense.date) : ''}
                                                 </time>
                                                 <h3 className="text-lg font-semibold text-zinc-900 dark:text-white">
                                                     {expense.expenseName}

@@ -8,28 +8,7 @@ import ImageUpload from '../ImageUpload';
 import { useTranslation } from 'react-i18next';
 import DateRangePicker from '../elements/DateRangePicker';
 import { useAutocomplete } from '../../hooks/useAutocomplete';
-import axios from 'axios';
-
-interface EditTripFormProps {
-    id: string;
-    initialTripName: string;
-    initialTripDescription: string;
-    initialDestination: string;
-    initialStartDate: string;
-    initialEndDate: string;
-    initialCoordinates: { lat: number; lng: number };
-    onDeleteClick: () => void;
-    onSubmit: (updatedTrip: {
-        tripName: string;
-        tripDescription: string;
-        destination: string;
-        startDate: string;
-        endDate: string;
-        coordinates: { lat: number; lng: number };
-    }) => void;
-    onCancel: () => void;
-    onImageUploadSuccess: (imageUrl: string) => void;
-}
+import type { EditTripFormProps } from '../../index';
 
 const EditTripForm: React.FC<EditTripFormProps> = ({
     id,

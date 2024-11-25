@@ -7,16 +7,7 @@ import TripCard from '../trips/TripCard';
 import { useTranslation } from 'react-i18next';
 import Loader from '../structure/Loader';
 import 'slick-carousel/slick/slick.css';
-
-interface Trip {
-    _id: string;
-    name: string;
-    creator: { _id: string; name: string; email: string };
-    participants: { _id: string; name: string; email: string, profilePhoto: string }[];
-    startDate: string;
-    endDate: string;
-    location: { destination: string };
-}
+import type { Trip } from '../../index';
 
 const TripsSlider: React.FC = () => {
     const [trips, setTrips] = useState<Trip[]>([]);

@@ -21,6 +21,7 @@ import Blog from './pages/Blog';
 import ForgotPassword from './pages/ForgorPassword';
 import ResetPassword from './pages/ResetPassword';
 import BottomNav from './components/structure/BottomNav';
+import LogoPage from './pages/LogoPage';
 
 // ProtectedRoute component to guard protected pages
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -46,11 +47,10 @@ function App() {
                     <Route path="/landing" element={<LandingPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="/faq" element={<FAQ />} />
-                    <Route path="/new-trip" element={<CreateTripPage />} />
-                    <Route path="/settings" element={<SettingsPage />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/logo" element={<LogoPage />} />
 
                     <Route
                         path="/dashboard"
@@ -74,6 +74,24 @@ function App() {
                         element={
                             <ProtectedRoute>
                                 <TripDetailsPage />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/settings"
+                        element={
+                            <ProtectedRoute>
+                                <SettingsPage />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/new-trip"
+                        element={
+                            <ProtectedRoute>
+                                <CreateTripPage />
                             </ProtectedRoute>
                         }
                     />

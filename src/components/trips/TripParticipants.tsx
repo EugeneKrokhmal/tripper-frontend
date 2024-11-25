@@ -5,21 +5,7 @@ import Button from '../elements/Button';
 import UserIcon from '../elements/UserIcon';
 import SearchIcon from '../../images/icons/admin.svg';
 import Modal from '../elements/Modal';
-
-interface TripParticipantsProps {
-    tripId: string;
-    userId: string;
-    isOwner: boolean;
-    admins: [];
-    participants: { _id: string; name: string, profilePhoto: string }[];
-    expenses: {
-        _id: string;
-        expenseName: string;
-        amount: number;
-        responsibleUserId: string;
-        splitParticipants: string[];
-    }[];
-}
+import type { TripParticipantsProps } from '../../index';
 
 const TripParticipants: React.FC<TripParticipantsProps> = ({
     tripId,
@@ -31,8 +17,6 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
 }) => {
     const { t } = useTranslation();
     const [isParticipantsModalOpen, setIsAddExpenseModalOpen] = useState(false);
-
-
 
     return (
         <div className="flex-col flex gap-4" onClick={() => { setIsAddExpenseModalOpen(true) }}>
@@ -47,7 +31,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                     <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('youAreTheOwnerOfTheTrip')}</p>
                 )}
 
-                {(admins as string[]).includes(userId) && (
+                {(admins.some(admin => admin._id === userId)) && (
                     <p className="text-sm text-zinc-500 dark:text-zinc-300 mb-6">{t('youAreAnAdminOfTheTrip')}</p>
                 )}
 
@@ -70,10 +54,10 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                 </div>
                 <div className="flex">
                     <div className="self-start py-4">
-                    <Button
-                        label={t('showMore')}
-                        variant={'primary'}
-                    />
+                        <Button
+                            label={t('showMore')}
+                            variant={'primary'}
+                        />
                     </div>
                 </div>
             </div>
@@ -85,8 +69,8 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                     <div className="max-h-[80vh] overflow-y-auto w-full">
                         <UsersTable
                             isOwner={isOwner}
-                            admins={admins}
-                            participants={participants}
+                            admins={admins || []}
+                            participants={participants || []}
                             expenses={expenses} />
                     </div>
                 </Modal>

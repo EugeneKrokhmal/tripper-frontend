@@ -1,11 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import WeatherWidget from '../widgets/WeatherWidget';
-
-interface TripMapProps {
-    coordinates: { lat: number; lng: number };
-    destination: string;
-}
+import type { TripMapProps } from '../../index';
 
 declare global {
     interface Window {

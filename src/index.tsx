@@ -3,17 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 // @ts-ignore
-import { Provider } from 'react-redux'; // Import Provider
-import { store } from './redux/store';  // Import the store
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 import { I18nextProvider } from 'react-i18next';
 import { CurrencyProvider } from './context/CurrencyContext';
 import { DarkModeProvider } from './context/DarkModeContext';
-
-import i18n from '../src/i18n'; // Import i18next configuration
-
+import i18n from '../src/i18n';
 import './index.css';
-
-// import reportWebVitals from './reportWebVitals';
 
 const rootElement = document.getElementById('root');
 
@@ -33,5 +29,3 @@ if (rootElement) {
     </React.StrictMode>
   );
 }
-
-// reportWebVitals();

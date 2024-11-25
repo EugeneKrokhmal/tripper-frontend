@@ -9,23 +9,7 @@ import { useTranslation } from 'react-i18next';
 import Loader from '../components/structure/Loader';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../redux/slices/authSlice';
-
-interface User {
-    _id: string;
-    name: string;
-    email: string;
-    profilePhoto: string;
-}
-
-interface Trip {
-    _id: string;
-    name: string;
-    creator: { _id: string; name: string; email: string, profilePhoto: string };
-    participants: { _id: string; name: string; email: string, profilePhoto: string }[];
-    startDate: string;
-    endDate: string;
-    location: { destination: string };
-}
+import type { User, Trip } from '../index';
 
 const Dashboard: React.FC = () => {
     const [trips, setTrips] = useState<Trip[]>([]);
@@ -40,7 +24,6 @@ const Dashboard: React.FC = () => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     const navigate = useNavigate();
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
     const [upcomingTrips, setUpcomingTrips] = useState<Trip[]>([]);
     const [pastTrips, setPastTrips] = useState<Trip[]>([]);
 

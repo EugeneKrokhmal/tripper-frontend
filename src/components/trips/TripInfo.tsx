@@ -1,22 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import TripMap from './TripMap';
-import WeatherWidget from '../widgets/WeatherWidget';
 import { formatDate } from '../../utils/dateUtils';
-
-interface TripInfoProps {
-    tripName: string;
-    tripDescription: string;
-    startDate: string;
-    endDate: string;
-    tripDuration: number;
-    isOwner: boolean;
-    participants: { _id: string; name: string, profilePhoto: string  }[];
-    joinLink: string | null;
-    onGenerateJoinLink: () => void;
-    loadingJoinLink: boolean;
-    error: string | null;
-}
+import type { TripInfoProps } from '../../index';
 
 const TripInfo: React.FC<TripInfoProps> = ({
     tripName,

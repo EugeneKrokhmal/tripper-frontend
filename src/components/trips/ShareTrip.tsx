@@ -5,22 +5,7 @@ import Modal from '../elements/Modal';
 import ShareIcon from '../../images/icons/team.svg';
 import Loader from '../structure/Loader';
 import { formatDate } from '../../utils/dateUtils';
-
-
-interface ShareTripProps {
-    tripId: string;
-    tripName: string;
-    tripImage: string;
-    startDate: string;
-    endDate: string;
-    tripDescription: string;
-    isOwner: boolean;
-    isAdmin: boolean;
-    joinLink: string | null;
-    onGenerateJoinLink: () => void;
-    loadingJoinLink: boolean;
-    error: string | null;
-}
+import type { ShareTripProps } from '../../index';
 
 const ShareTrip: React.FC<ShareTripProps> = ({
     tripId,

@@ -3,21 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../elements/Button';
 import { useTranslation } from 'react-i18next';
 import UserIcon from '../elements/UserIcon';
-
-interface TripCardProps {
-    trip: {
-        _id: string;
-        name: string;
-        creator: { _id: string; name: string; email: string };
-        participants: { _id: string; name: string; email: string, profilePhoto: string }[];
-        location: { destination: string };
-        startDate: string;
-        endDate: string;
-        image?: string;
-    };
-    loggedInUserId: string;
-    isActive: boolean;
-}
+import type { TripCardProps } from '../../index';
 
 const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) => {
     const [cityImage, setCityImage] = useState<string>('');

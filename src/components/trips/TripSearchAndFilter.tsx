@@ -1,29 +1,15 @@
 import React, { useState } from 'react';
-import Button from '../elements/Button';
 import InputField from '../elements/InputField';
 import { useTranslation } from 'react-i18next';
+import type { TripSearchAndFilterProps } from '../../index';
 
-interface TripSearchAndFilterProps {
-    onSearch: (query: string) => void;
-    onFilter: (filters: string[]) => void;
-}
-
-const TripSearchAndFilter: React.FC<TripSearchAndFilterProps> = ({ onSearch, onFilter }) => {
+const TripSearchAndFilter: React.FC<TripSearchAndFilterProps> = ({ onSearch }) => {
     const [searchQuery, setSearchQuery] = useState<string>('');
-    const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
     const { t } = useTranslation();
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
         onSearch(e.target.value);
-    };
-
-    const toggleFilter = (filter: string) => {
-        const newFilters = selectedFilters.includes(filter)
-            ? selectedFilters.filter(f => f !== filter)
-            : [...selectedFilters, filter];
-        setSelectedFilters(newFilters);
-        onFilter(newFilters);
     };
 
     return (

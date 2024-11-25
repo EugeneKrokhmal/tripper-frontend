@@ -12,25 +12,7 @@ import BookingIcon from '../../images/icons/bed.svg';
 import { formatDate } from '../../utils/dateUtils';
 import { useAutocomplete } from '../../hooks/useAutocomplete';
 import { fetchTripDetails } from '../../api/tripApi';
-
-interface TripTimelineProps {
-    isOwner: boolean;
-    isAdmin: boolean;
-    startDate: string;
-    endDate: string;
-    tripId: string;
-    token: string;
-    API_BASE_URL: string;
-    OPEN_CAGE_API_KEY: string;
-}
-
-interface Activity {
-    name: string;
-    description: string;
-    time: string;
-    bookingLink?: string;
-    transportation?: { title: string; lat?: number; lng?: number };
-}
+import type { Activity, TripTimelineProps } from '../../index';
 
 const getAllTripDates = (start: string, end: string): string[] => {
     const dates = [];

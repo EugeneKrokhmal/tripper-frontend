@@ -5,22 +5,9 @@ import UserIcon from '../elements/UserIcon';
 import {
     getInvolvedExpenses,
 } from '../../utils/tripUtils';
-
-interface UsersTableProps {
-    isOwner: boolean;
-    admins: [];
-    participants: { _id: string; name: string, profilePhoto: string }[];
-    expenses: {
-        _id: string;
-        expenseName: string;
-        amount: number;
-        responsibleUserId: string;
-        splitParticipants: string[];
-    }[];
-}
+import type { UsersTableProps } from '../../index';
 
 const UsersTable: React.FC<UsersTableProps> = ({
-    isOwner,
     admins,
     participants,
     expenses,
@@ -61,7 +48,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                                     </div>
                                     <div>
                                         <p className="font-semibold text-xs md:text-sm">{participant.name}
-                                            {(admins as string[]).includes(participant._id) &&
+                                            {(admins.some(admin => admin._id === participant._id)) &&
                                                 (<span className="opacity-50 text-xs font-normal"> (Admin) </span>)
                                             }
                                         </p>

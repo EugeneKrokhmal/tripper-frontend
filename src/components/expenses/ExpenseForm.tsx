@@ -7,17 +7,7 @@ import SelectField from '../elements/SelectField';
 import axios from 'axios';
 import { useCurrency } from '../../context/CurrencyContext';
 import UserIcon from '../elements/UserIcon';
-
-interface ExpenseFormProps {
-    isOwner: boolean;
-    userId: string;
-    participants: any[];
-    tripId: string;
-    token: string;
-    onExpenseAdded?: (newExpense: any) => void;
-    onExpenseUpdated?: (updatedExpense: any) => void;
-    expenseToEdit?: any; // Add this prop to hold expense data when editing
-}
+import type { ExpenseFormProps } from '../../index';
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({
     isOwner,
@@ -103,7 +93,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                         headers: { Authorization: `Bearer ${token}` }
                     }
                 );
-                onExpenseUpdated && onExpenseUpdated({ ...expenseData, _id: expenseToEdit._id });
+                onExpenseUpdated && onExpenseUpdated({ ...expenseData, id: expenseToEdit.id });
             } else {
                 // Add new expense
                 const response = await axios.post(
@@ -167,7 +157,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                         value={responsibleUser}
                         onChange={(value) => setResponsibleUser(value)}
                         options={participants.map(participant => ({
-                            value: participant._id,
+                            value: participant.id,
                             label: participant.name
                         }))}
                         required
@@ -201,20 +191,20 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                     <div className="mb-6">
                         <label className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">{t('splitAmong')}</label>
                         {participants.map(participant => (
-                            <div key={participant._id} className="flex items-center mb-2">
+                            <div key={participant.id} className="flex items-center mb-2">
                                 <label className="text-sm font-medium text-zinc-900 dark:text-zinc-300 flex items-center gap-2">
                                     <input
                                         type="checkbox"
-                                        checked={splitParticipants.includes(participant._id)}
-                                        onChange={() => handleParticipantToggle(participant._id)}
+                                        checked={splitParticipants.includes(participant.id)}
+                                        onChange={() => handleParticipantToggle(participant.id)}
                                         className="w-4 h-4 border border-zinc-300 rounded-xl bg-zinc-50 focus:ring-3 dark:bg-zinc-700 dark:border-zinc-600 dark:ring-offset-zinc-800"
                                     />
                                     <UserIcon
                                         userName={participant?.name || ''}
-                                        userId={participant?._id || ''}
+                                        userId={participant?.id || ''}
                                         profilePhoto={participant?.profilePhoto || ''}
                                         size={'xs'}
-                                        key={participant?._id}
+                                        key={participant?.id}
                                     />
                                     {participant.name}
                                 </label>

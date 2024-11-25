@@ -8,42 +8,11 @@ import SelectField from '../elements/SelectField';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import UserIcon from '../elements/UserIcon';
+import type { User, Settlement, SettlementHistory, ExpenseSettlementTableProps } from '../../index';
 
 declare const window: {
     paypal: any;
 } & Window;
-
-interface Participant {
-    _id: string;
-    name: string;
-    email: string;
-    profilePhoto?: string;
-}
-
-interface Settlement {
-    _id: string;
-    debtor: string;
-    creditor: string;
-    amount: number;
-    isSettled: boolean;
-}
-
-interface settlementHistory {
-    _id: string;
-    debtor: string;
-    creditor: string;
-    amount: number;
-    settled: boolean;
-}
-
-interface ExpenseSettlementTableProps {
-    settlements: Settlement[];
-    settlementHistory: settlementHistory[]
-    participants: Participant[];
-    tripId: string;
-    token: string;
-    onSettlementUpdated: (updatedSettlement: Settlement) => void;
-}
 
 const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
     settlements,
@@ -58,7 +27,6 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
     const [activeSettlementId, setActiveSettlementId] = useState<string | null>(null);
     const [paymentMethod, setPaymentMethod] = useState<string>('cash');
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
-    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     const userId = useSelector((state: RootState) => state.auth.userId);
 
     useEffect(() => {
@@ -66,7 +34,6 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
             const activeSettlement = settlements.find(s => s._id === activeSettlementId);
 
             if (activeSettlement) {
-                // Assuming the creditor is the recipient of the payment
                 const creditor = participants.find(p => p._id === activeSettlement.creditor);
 
                 if (creditor && creditor.email) {
@@ -78,17 +45,17 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
         }
     }, [activeSettlementId, paymentMethod, settlements]);
 
-    const getParticipant = (id: string): Participant => {
+    const getParticipant = (id: string): User => {
         return participants.find(p => p._id === id) || { _id: id, name: 'Unknown', email: 'unknown@example.com', profilePhoto: '' };
     };
 
     const closeModal = () => {
         setActiveSettlementId(null);
-        setPaymentMethod('cash'); // Reset payment method
+        setPaymentMethod('cash');
     };
 
     const handleSettle = async (settlementId: string, settlementAmount: number, paymentMethod: string) => {
-        setIsProcessing(true); // Disable the button while processing
+        setIsProcessing(true);
         try {
             if (paymentMethod === 'paypal') {
                 const debtor = participants.find(p => p._id === settlements.find(s => s._id === settlementId)?.debtor);
@@ -112,7 +79,6 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                     }
                 }
             } else {
-                // Handle cash settlements
                 const response = await axios.post(`${API_BASE_URL}/api/trips/${tripId}/settlements/${settlementId}/settle`, {
                     amountToSettle: settlementAmount
                 }, {
@@ -132,10 +98,9 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
         } catch (error) {
             console.error('Error marking settlement as settled', error);
         } finally {
-            setIsProcessing(false); // Enable the button after processing
+            setIsProcessing(false);
         }
     };
-
 
     return (
         <div className="my-6">

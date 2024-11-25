@@ -120,7 +120,7 @@ const CreateTrip: React.FC = () => {
 
     return (
         <>
-            <div className="container max-w-7xl mx-auto h-full md:h-screen flex flex-wrap flex-col justify-center md:justify-start md:flex-row md:px-4 md:pb-32">
+            <div className="container max-w-7xl mx-auto h-full md:h-screen flex flex-wrap flex-col justify-center md:justify-start md:flex-row md:px-4 md:pb-32 pb-20">
                 <div className="z-10 w-full md:w-2/5 flex self-center flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-800 rounded">
                     <ol className="mb-4 bg-white dark:bg-zinc-800 w-full flex text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
                         {[
