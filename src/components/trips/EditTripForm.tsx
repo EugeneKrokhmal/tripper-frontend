@@ -16,6 +16,8 @@ import DelteIcon from '../../images/icons/delete.svg';
 
 import type { EditTripFormProps } from '../../index';
 
+import UserIcon from '../elements/UserIcon';
+
 const EditTripForm: React.FC<EditTripFormProps> = ({
     participants,
     id,
@@ -32,6 +34,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     onParticipantDelete
 }) => {
     const token = useSelector((state: RootState) => state.auth.token);
+    const userId = useSelector((state: RootState) => state.auth.userId);
     const { t } = useTranslation();
     const [tripName, setTripName] = useState<string>(initialTripName);
     const [tripDescription, setTripDescription] = useState<string>(initialTripDescription);
@@ -42,7 +45,7 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     const [tripImage, setTripImage] = useState<string | null>(null);
     const [coordinates, setCoordinates] = useState<{ lat: number; lng: number }>(initialCoordinates);
     const [confirmModalVisible, setConfirmModalVisible] = useState(false);
-    const [participantToDelete, setParticipantToDelete] = useState<string | null>(null);
+    const [participantToDelete, setParticipantToDelete] = useState<{ id: string; name: string } | null>(null);
 
     const OPEN_CAGE_API_KEY = process.env.REACT_APP_OPENCAGE_API_KEY || '';
     const { autocompleteResults, fetchResults, clearResults } = useAutocomplete(OPEN_CAGE_API_KEY);
@@ -85,8 +88,8 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
         onCancel();
     };
 
-    const showConfirmModal = (participantId: string) => {
-        setParticipantToDelete(participantId);
+    const showConfirmModal = (participantId: string, participantName: string) => {
+        setParticipantToDelete({ id: participantId, name: participantName });
         setConfirmModalVisible(true);
     };
 
@@ -94,9 +97,9 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
         if (!participantToDelete) return;
 
         try {
-            await deleteParticipantFromTrip(participantToDelete, id, token || '');
+            await deleteParticipantFromTrip(participantToDelete.id, id, token || '');
 
-            onParticipantDelete(participantToDelete);
+            onParticipantDelete(participantToDelete.id);
             setParticipantToDelete(null);
             setConfirmModalVisible(false);
         } catch (error) {
@@ -169,8 +172,11 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
                         <ul className="w-full p-2 bg-zinc-50 dark:bg-zinc-900 rounded h-24 overflow-auto">
                             {participants.map((participant) => (
                                 <li key={participant._id} className="flex justify-between w-full text-sm mb-2">
-                                    {participant.name}
-                                    <img src={DelteIcon} onClick={() => { showConfirmModal(participant._id) }} />
+                                    <div className="items-center flex gap-2">
+                                        <UserIcon userName={participant.name} userId={participant._id} size={'xs'} />
+                                        {participant.name}
+                                    </div>
+                                    {(participant._id !== userId) && (<img src={DelteIcon} onClick={() => { showConfirmModal(participant._id, participant.name) }} />)}
                                 </li>
                             ))}
                         </ul>
@@ -199,8 +205,12 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
             {confirmModalVisible && (
                 <Modal onClose={closeConfirmModal}>
                     <div className="p-4">
-                        <h3 className="text-lg font-semibold mb-4">{t('confirmDeletion')}</h3>
-                        <p>{t('deleteParticipantConfirmation')}</p>
+                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                            <span className="text-gradient">
+                                {t('delete')}
+                            </span>
+                        </h3>
+                        <p>{t('delete')} {participantToDelete?.name}?</p>
                         <div className="flex justify-end gap-2 mt-4">
                             <Button label={t('cancel')} onClick={closeConfirmModal} variant="primary" />
                             <Button label={t('delete')} onClick={confirmDeleteParticipant} variant="secondary" />
