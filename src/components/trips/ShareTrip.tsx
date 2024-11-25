@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import Button from '../elements/Button';
 import Modal from '../elements/Modal';
 import ShareIcon from '../../images/icons/team.svg';
 import Loader from '../structure/Loader';
+
 import { formatDate } from '../../utils/dateUtils';
 import type { ShareTripProps } from '../../index';
 

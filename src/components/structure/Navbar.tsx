@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { logout } from '../../redux/slices/authSlice';
-import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
+
+import LanguageSwitcher from './LanguageSwitcher';
 import BurgerMenu from './BurgerMenu';
 import DarkModeToggle from './DarkModeToggle';
 import UserIcon from '../elements/UserIcon';
+
 
 const Navbar: React.FC = () => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { deleteExpense } from '../../services/expensesService';
+import { useTranslation } from 'react-i18next';
+
 import Modal from '../elements/Modal';
 import Button from '../elements/Button';
 import ExpenseForm from './ExpenseForm';
-import { useTranslation } from 'react-i18next';
 import Price from '../Price';
-import { formatDate } from '../../utils/dateUtils';
 import UserIcon from '../elements/UserIcon';
 import InputField from '../elements/InputField';
 import EditIcon from '../../images/icons/edit.svg';
 import DeleteIcon from '../../images/icons/delete.svg';
+
+import { formatDate } from '../../utils/dateUtils';
+import { deleteExpense } from '../../services/expensesService';
 import type { ExpensesListProps, Expense } from '../../index';
 
 const ExpensesList: React.FC<ExpensesListProps> = ({

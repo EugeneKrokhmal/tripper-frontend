@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 import UploadIcon from '../images/icons/upload.svg';
 
 interface ImageUploadProps {

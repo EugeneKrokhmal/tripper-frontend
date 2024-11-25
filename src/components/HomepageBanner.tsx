@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useNavigate } from 'react-router-dom';
-import HeroImage from '../images/screen1.jpg';
 import { useTranslation } from 'react-i18next';
-import Button from './elements/Button';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+import HeroImage from '../images/screen1.jpg';
+
+import Button from './elements/Button';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const HomepageBanner: React.FC = () => {
     const navigate = useNavigate();
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         gsap.timeline({

@@ -1,6 +1,7 @@
 // BugReportPopup.tsx
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import PugPic from '../../images/ad/sticker.png';
 import Button from '../elements/Button';
 

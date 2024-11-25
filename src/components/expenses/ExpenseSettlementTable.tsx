@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import { useTranslation } from 'react-i18next';
+
 import axios from 'axios';
 import Price from '../Price';
 import Modal from '../elements/Modal';
 import Button from '../elements/Button';
 import SelectField from '../elements/SelectField';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 import UserIcon from '../elements/UserIcon';
-import type { User, Settlement, SettlementHistory, ExpenseSettlementTableProps } from '../../index';
 
-declare const window: {
-    paypal: any;
-} & Window;
+import type { User, ExpenseSettlementTableProps } from '../../index';
 
 const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
     settlements,

@@ -1,6 +1,7 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import Price from '../Price';
+
+import { useTranslation } from 'react-i18next';
 import { ExpenseSummaryProps } from '../../index';
 
 const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ totalPaidByUser, totalCost, remainingOwedToUser }) => {

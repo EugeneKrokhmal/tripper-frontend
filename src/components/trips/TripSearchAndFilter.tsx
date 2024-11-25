@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import InputField from '../elements/InputField';
 import { useTranslation } from 'react-i18next';
+import InputField from '../elements/InputField';
 import type { TripSearchAndFilterProps } from '../../index';
 
 const TripSearchAndFilter: React.FC<TripSearchAndFilterProps> = ({ onSearch }) => {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import Price from '../Price';
 import UserIcon from '../elements/UserIcon';
-import {
-    getInvolvedExpenses,
-} from '../../utils/tripUtils';
+
+import { getInvolvedExpenses } from '../../utils/tripUtils';
 import type { UsersTableProps } from '../../index';
 
 const UsersTable: React.FC<UsersTableProps> = ({

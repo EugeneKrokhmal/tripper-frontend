@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useAutocomplete } from '../../hooks/useAutocomplete';
+import { useTranslation } from 'react-i18next';
+
 import InputField from '../elements/InputField';
 import TextArea from '../elements/TextArea';
 import Button from '../elements/Button';
 import Modal from '../elements/Modal';
 import EditIcon from '../../images/icons/edit.svg';
 import ImageUpload from '../ImageUpload';
-import { useTranslation } from 'react-i18next';
 import DateRangePicker from '../elements/DateRangePicker';
-import { useAutocomplete } from '../../hooks/useAutocomplete';
+
 import type { EditTripFormProps } from '../../index';
 
 const EditTripForm: React.FC<EditTripFormProps> = ({

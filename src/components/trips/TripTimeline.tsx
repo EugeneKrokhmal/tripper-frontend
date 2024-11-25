@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAutocomplete } from '../../hooks/useAutocomplete';
+
 import axios from 'axios';
 import InputField from '../elements/InputField';
 import Button from '../elements/Button';
@@ -9,8 +11,8 @@ import EditIcon from '../../images/icons/edit.svg';
 import DeleteIcon from '../../images/icons/delete.svg';
 import LocationIcon from '../../images/icons/marker.svg';
 import BookingIcon from '../../images/icons/bed.svg';
+
 import { formatDate } from '../../utils/dateUtils';
-import { useAutocomplete } from '../../hooks/useAutocomplete';
 import { fetchTripDetails } from '../../api/tripApi';
 import type { Activity, TripTimelineProps } from '../../index';
 

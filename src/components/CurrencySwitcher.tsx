@@ -1,7 +1,8 @@
 import React from 'react';
 import { useCurrency } from '../context/CurrencyContext';
-import SelectField from './elements/SelectField';
 import { useTranslation } from 'react-i18next';
+
+import SelectField from './elements/SelectField';
 
 const CurrencySwitcher: React.FC = () => {
     const { t } = useTranslation();

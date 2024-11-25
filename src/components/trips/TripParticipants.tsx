@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import UsersTable from '../users/UsersTable';
 import Button from '../elements/Button';
 import UserIcon from '../elements/UserIcon';
-import SearchIcon from '../../images/icons/admin.svg';
 import Modal from '../elements/Modal';
+
 import type { TripParticipantsProps } from '../../index';
 
 const TripParticipants: React.FC<TripParticipantsProps> = ({

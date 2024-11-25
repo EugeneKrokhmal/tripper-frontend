@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../elements/Button';
 import { useTranslation } from 'react-i18next';
+
 import UserIcon from '../elements/UserIcon';
+import Button from '../elements/Button';
+
 import type { TripCardProps } from '../../index';
 
 const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) => {

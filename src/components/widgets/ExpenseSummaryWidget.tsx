@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import Price from '../Price';
 import Button from '../elements/Button';
 import UsersTable from '../users/UsersTable';
+
 import type { ExpenseSummaryWidgetProps } from '../../index';
 
 const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidByUser, totalCost, remainingOwedToUser, onAddExpenseClick, isOwner, admins, participants, expenses }) => {

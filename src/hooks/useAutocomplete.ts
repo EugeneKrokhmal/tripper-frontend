@@ -1,4 +1,3 @@
-// hooks/useAutocomplete.ts
 import { useState, useCallback } from 'react';
 import { debounce } from '../utils/debounce';
 import { fetchAutocompleteResults } from '../api/fetchAutocompleteResults';

@@ -2,11 +2,14 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { useTranslation } from 'react-i18next';
+
+import Loader from '../structure/Loader';
 import Slider from 'react-slick';
 import TripCard from '../trips/TripCard';
-import { useTranslation } from 'react-i18next';
-import Loader from '../structure/Loader';
+
 import 'slick-carousel/slick/slick.css';
+
 import type { Trip } from '../../index';
 
 const TripsSlider: React.FC = () => {

@@ -4,16 +4,17 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import InputField from '../elements/InputField';
+import { useAutocomplete } from '../../hooks/useAutocomplete';
+import { useCurrency } from '../../context/CurrencyContext';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
 import DateRangePicker from '../elements/DateRangePicker';
 import CurrencySwitcher from '../CurrencySwitcher';
-import { useCurrency } from '../../context/CurrencyContext';
+import InputField from '../elements/InputField';
+
 import CreateTripImage1 from '../../images/gallery/9.jpg';
 import CreateTripImage2 from '../../images/gallery/10.jpg';
 import CreateTripImage3 from '../../images/gallery/11.jpg';
-import { useAutocomplete } from '../../hooks/useAutocomplete';
 
 const CreateTrip: React.FC = () => {
     const { t } = useTranslation();
