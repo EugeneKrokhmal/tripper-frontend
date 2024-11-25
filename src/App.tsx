@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import HomePage from './pages/HomePage';
 import Dashboard from './pages/UserTrips';
 import Navbar from './components/structure/Navbar';
 import Footer from './components/structure/Footer';
@@ -15,7 +14,6 @@ import LandingPage from './pages/LandingPage';
 import ScrollToTop from './components/structure/ScrollToTop';
 import FAQ from './pages/FAQ';
 import CreateTripPage from './pages/CreateTripPage';
-import BugReportPopup from './components/structure/BugReportPopup';
 import SettingsPage from './pages/SettingsPage';
 import Blog from './pages/Blog';
 import ForgotPassword from './pages/ForgorPassword';
@@ -23,7 +21,7 @@ import ResetPassword from './pages/ResetPassword';
 import BottomNav from './components/structure/BottomNav';
 import LogoPage from './pages/LogoPage';
 
-// ProtectedRoute component to guard protected pages
+
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const token = useSelector((state: RootState) => state.auth.token);
 
