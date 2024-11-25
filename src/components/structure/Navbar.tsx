@@ -10,7 +10,6 @@ import BurgerMenu from './BurgerMenu';
 import DarkModeToggle from './DarkModeToggle';
 import UserIcon from '../elements/UserIcon';
 
-
 const Navbar: React.FC = () => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     const userName = useSelector((state: RootState) => state.auth.userName);

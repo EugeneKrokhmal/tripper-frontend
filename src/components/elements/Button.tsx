@@ -20,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({ label, onClick, type = 'button', varian
             onClick={onClick}
             className={buttonClass}
             disabled={disabled}
+            title={label}
         >
             {label}
         </button>

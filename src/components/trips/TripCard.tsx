@@ -6,6 +6,7 @@ import UserIcon from '../elements/UserIcon';
 import Button from '../elements/Button';
 
 import type { TripCardProps } from '../../index';
+import { Link } from 'react-router-dom';
 
 const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) => {
     const [cityImage, setCityImage] = useState<string>('');
@@ -68,11 +69,13 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                     </div>
                 </div>
             </div>
-            <img
-                className="object-cover rounded-t min-h-32 max-h-32 w-full"
-                src={imageUrl}
-                alt={`${trip.location.destination}`}
-            />
+            <Link className="min-h-32 max-h-32 w-full h-full" to={`/trip/${trip._id}`} >
+                <img
+                    className="object-cover rounded-t h-full w-full"
+                    src={imageUrl}
+                    alt={`${trip.location.destination}`}
+                />
+            </Link>
         </a>
     );
 };

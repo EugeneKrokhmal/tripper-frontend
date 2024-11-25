@@ -38,7 +38,7 @@ const TripMap: React.FC<TripMapProps> = ({ coordinates, destination }) => {
 
     return (
         <div className="grid grid-cols-2 gap-2 rounded">
-            <div className="flex flex-col jsutify-betfeen items-start">
+            <div className="flex flex-col jsutify-betfeen items-start rounded bg-zinc-50 dark:bg-zinc-900 p-4">
                 <div>
                     <h3 id="theplace" className="mb-2 text-2xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                         <span className="text-gradient">{t('thePlace')}</span>

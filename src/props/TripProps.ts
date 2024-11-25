@@ -6,7 +6,7 @@ export interface TripCardProps {
     trip: Trip;
     loggedInUserId: string;
     isActive: boolean;
-    image?: string; // Optional field
+    image?: string;
 }
 
 export interface TripInfoProps {

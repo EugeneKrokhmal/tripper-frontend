@@ -12,8 +12,8 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => {
     return (
-        <div className="w-full max-w-screen-xl mx-auto px-4">
-            <nav className="flex" aria-label="Breadcrumb">
+        <div className="w-full max-w-screen-xl mx-auto px-4 sticky top-0 left-0 bg-white dark:bg-zinc-800 z-40">
+            <nav className="flex py-2" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     {breadcrumbs.map((breadcrumb, index) => (
                         <li key={index} className="inline-flex items-center">

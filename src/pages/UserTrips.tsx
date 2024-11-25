@@ -50,6 +50,10 @@ const Dashboard: React.FC = () => {
                 // Split trips into upcoming and past
                 splitTrips(sortedTrips);
 
+                if (!tripsResponse.data.length) {
+                    navigate('/new-trip');
+                }
+
                 setLoading(false);
             } catch (err) {
                 setError('Failed to fetch users or trips');

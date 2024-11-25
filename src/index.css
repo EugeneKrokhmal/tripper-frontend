@@ -6,6 +6,7 @@
 
 html {
   padding-top: env(safe-area-inset-top);
+  user-select: none;
 }
 
 nav .transition-transform {

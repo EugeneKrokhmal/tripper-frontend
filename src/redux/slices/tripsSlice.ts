@@ -8,11 +8,10 @@ interface Participant {
 
 interface TripState {
   currentTripParticipants: Participant[];
-  // Add any other trip-related fields you need
 }
 
 const initialState: TripState = {
-  currentTripParticipants: [], // Initially no participants
+  currentTripParticipants: [],
 };
 
 const tripsSlice = createSlice({

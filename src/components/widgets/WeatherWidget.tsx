@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';import { useNavigate } from 'react-router-dom';
 import Loader from '../structure/Loader';
 import type { WeatherWidgetProps } from '../../index';
 
