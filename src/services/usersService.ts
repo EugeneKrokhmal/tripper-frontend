@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { Trip } from '../types/Trip';
+import type { User } from '../types/User';
 
 export const deleteParticipantFromTrip = async (userId: string, tripId: string, token: string): Promise<void> => {
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
@@ -29,3 +30,7 @@ export const removeAdministrator = async (tripId: string, userId: string, token:
 };
 
 export const isAdmin = (trip: Trip, userId: string) => trip?.administrators.includes(userId)
+
+export const isParticipant = (trip: Trip, userId: string): boolean => {
+    return trip?.participants.some((participant: User) => participant._id === userId);
+};

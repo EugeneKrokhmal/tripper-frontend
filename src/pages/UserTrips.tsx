@@ -116,16 +116,18 @@ const Dashboard: React.FC = () => {
             </h1>
 
             <div className="flex flex-col-reverse gap-8 md:flex-row-reverse mb-8 px-4">
-                <div className="self-start md:sticky top-28 w-full md:w-2/4 xl:w-1/4">
+                {/* <div className="self-start md:sticky top-28 w-full md:w-2/4 xl:w-1/4">
                     <Ad />
-                </div>
+                </div> */}
 
-                <div className="md:w-3/4 content-start px-0">
-                    <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
+                <div className="w-full content-start px-0">
+                    {trips.length > 6 && (
+                        <TripSearchAndFilter onSearch={handleSearch} onFilter={handleFilter} />
+                    )}
                     {(upcomingTrips.length > 0) && (
                         <>
                             <h2 className="text-gradient text-2xl font-extrabold mb-4">{t('upcomingTrips')}</h2>
-                            <div className="grid lg:grid-cols-2 gap-4 gap-y-8 mb-16">
+                            <div className="grid lg:grid-cols-3 gap-4 gap-y-8 mb-16">
                                 {upcomingTrips.map((trip) => (
                                     <TripCard
                                         key={trip._id}
@@ -141,7 +143,7 @@ const Dashboard: React.FC = () => {
                     {(pastTrips.length > 0) && (
                         <>
                             <h2 className="text-gradient text-2xl font-extrabold mb-4">{t('pastTrips')}</h2>
-                            <div className="grid lg:grid-cols-2 gap-4 gap-y-8">
+                            <div className="grid lg:grid-cols-3 gap-4 gap-y-8">
                                 {pastTrips.map((trip) => (
                                     <TripCard
                                         key={trip._id}

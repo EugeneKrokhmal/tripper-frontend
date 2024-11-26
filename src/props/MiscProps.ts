@@ -1,9 +1,12 @@
+import { User } from "../types/User";
+
 export interface WeatherWidgetProps {
     latitude: number;
     longitude: number;
 }
 
 export interface Activity {
+    author: string;
     name: string;
     description: string;
     time: string;

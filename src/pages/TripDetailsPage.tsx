@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useTranslation } from 'react-i18next';
 import { useCurrency } from '../context/CurrencyContext';
-import { isAdmin } from '../services/usersService';
+import { isAdmin, isParticipant } from '../services/usersService';
 
 import TripParticipants from '../components/trips/TripParticipants';
 import TripInfo from '../components/trips/TripInfo';
@@ -61,20 +61,18 @@ const TripDetailsPage: React.FC = () => {
     const [fairShare, setFairShare] = useState<number>(0);
     const [settlements, setSettlements] = useState<any[]>([]);
 
-    const [settlementsHistory, setSettlementsHistory] = useState<any[]>([]);
+    const [settlementHistory, setSettlementHistory] = useState<any[]>([]);
     const [joinLink, setJoinLink] = useState<string | null>(null);
     const [loadingJoinLink, setLoadingJoinLink] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
     const [remainingOwedToUser, setRemainingOwedToUser] = useState<number>(0);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
     const isOwner = trip?.creator?._id === userId;
 
     useEffect(() => {
         const loadData = async () => {
             try {
-
                 if (tripId && token && API_BASE_URL) {
                     const tripData = await fetchTripDetails(tripId, token, API_BASE_URL);
                     setTrip(tripData);
@@ -86,10 +84,10 @@ const TripDetailsPage: React.FC = () => {
                         setTotalPaidByUser(calculateTotalPaidByUser(tripData.expenses, userId));
                         setRemainingOwedToUser(calculateRemainingOwedToUser(tripData.settlements, userId));
                     }
-                    setTotalCost(calculateTotalCost(tripData.expenses));
+                    setTotalCost(calculateTotalCost(settlementHistory, tripData.expenses));
                 }
             } catch (error) {
-                console.error('Failed to fetch trip details');
+                console.error('Failed to fetch trip details', error);
             }
         };
 
@@ -151,7 +149,7 @@ const TripDetailsPage: React.FC = () => {
         setExpenses([...expenses, newExpense]);
         setTotalPaidByUser(calculateTotalPaidByUser([...expenses, newExpense], userId));
         setRemainingOwedToUser(calculateRemainingOwedToUser(settlements, userId));
-        setTotalCost(calculateTotalCost([...expenses, newExpense]));
+        setTotalCost(calculateTotalCost(settlementHistory, [...expenses, newExpense]));
         closeAddExpenseModal();
     };
 
@@ -159,8 +157,8 @@ const TripDetailsPage: React.FC = () => {
         if (!userId) return;
         setExpenses(updatedExpenses);
         setTotalPaidByUser(calculateTotalPaidByUser(updatedExpenses, userId));
-        setRemainingOwedToUser(calculateRemainingOwedToUser(settlements, userId));
-        setTotalCost(calculateTotalCost(updatedExpenses));
+        setRemainingOwedToUser(calculateRemainingOwedToUser(trip.settlements, userId));
+        setTotalCost(calculateTotalCost(settlementHistory, updatedExpenses));
     };
 
     const handleEditExpense = (updatedExpense: any) => {
@@ -183,7 +181,7 @@ const TripDetailsPage: React.FC = () => {
 
     const handleSettlementUpdated = (updatedSettlement: Settlement) => {
         setSettlements(prevSettlements => prevSettlements.filter(s => s._id !== updatedSettlement._id));
-        setSettlementsHistory(prevHistory => [...prevHistory, updatedSettlement]);
+        setSettlementHistory(prevHistory => [...prevHistory, updatedSettlement]);
     };
 
     const tripDuration = trip?.startDate && trip?.endDate
@@ -197,6 +195,24 @@ const TripDetailsPage: React.FC = () => {
     const imageUrl = trip?.image
         ? `${API_BASE_URL}/${trip.image}`
         : `https://ui-avatars.com/api/?name=${trip?.name}&background=random`;
+
+    if (!isParticipant(trip, userId || '')) {
+        return (
+            <div className="h-full flex items-center flex-col justify-center pb-20">
+                <h1 className="mb-4 text-5xl font-extrabold text-zinc-900 dark:text-white md:text-6xl">
+                    <span className="text-transparent dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500 bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 dark:bg-gradient-to-r dark:from-purple-500 dark:to-pink-500">
+                        {t('Yay :(')}
+                    </span>
+                </h1>
+                <p className="mb-4">{t('youAreNotParticipant')}</p>
+                <Button
+                    onClick={() => { navigate('/') }}
+                    label={t('home')}
+                    variant={'primary'}
+                />
+            </div>
+        )
+    }
 
     if (!trip) {
         return (
@@ -318,7 +334,7 @@ const TripDetailsPage: React.FC = () => {
                         trip: trip,
                         tripId: tripId || '',
                         settlements,
-                        settlementHistory: trip.settlementHistory || [],
+                        settlementHistory: settlementHistory || [],
                         participants: trip.participants,
                         token: token || '',
                         onSettlementUpdated: handleSettlementUpdated,
@@ -361,7 +377,8 @@ const TripDetailsPage: React.FC = () => {
                         onExpenseDeleted: handleExpenseDeleted,
                         onEditExpense: handleEditExpense,
                     }} />
-                </aside>
+
+                    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-discussion="contest/198" data-comments-limit="5" data-height="300" data-color="343638" data-dark-color="FFFFFF"></script>                </aside>
             </div>
 
             {/* Modals */}

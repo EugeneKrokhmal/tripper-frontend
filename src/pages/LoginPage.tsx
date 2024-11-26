@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { login } from '../redux/slices/authSlice';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+
 import { Link } from 'react-router-dom';
 import InputField from '../components/elements/InputField';
 import Button from '../components/elements/Button';
 import Loader from '../components/structure/Loader';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { login } from '../redux/slices/authSlice';
 import LoginImage from '../images/login.jpg';
-import { useTranslation } from 'react-i18next';
 
 const LoginPage: React.FC = () => {
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
@@ -21,6 +25,12 @@ const LoginPage: React.FC = () => {
     const { t } = useTranslation();
     const location = useLocation();
     const redirect = new URLSearchParams(location.search).get('redirect') || '/';
+
+    useEffect(() => {
+        if (isAuthenticated && redirect) {
+            navigate(redirect)
+        }
+    })
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

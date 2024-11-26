@@ -4,6 +4,7 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      "youAreNotParticipant": "You are not a participant of the trip",
       "deleteWarning": "Are you sure you want to delete this? This action cannot be undone.",
       "confirmDelete": "Confirm Deletion",
       "deleteExpenseConfirmation": "Are you sure you want to delete the expense '{{expenseName}}'?",
@@ -204,6 +205,7 @@ const resources = {
   },
   uk: {
     translation: {
+      "youAreNotParticipant": "Ви не є учасником цієї подорожі",
       "deleteWarning": "Ви впевнені, що хочете це видалити? Цю дію неможливо скасувати.",
       "confirmDelete": "Підтвердження видалення",
       "deleteExpenseConfirmation": "Ви впевнені, що хочете видалити витрату '{{expenseName}}'?",
@@ -400,6 +402,7 @@ const resources = {
   },
   pl: {
     translation: {
+      "youAreNotParticipant": "Nie jesteś uczestnikiem tej podróży",
       "deleteWarning": "Czy na pewno chcesz to usunąć? Tej akcji nie można cofnąć.",
       "confirmDelete": "Potwierdź usunięcie",
       "deleteExpenseConfirmation": "Czy na pewno chcesz usunąć wydatek '{{expenseName}}'?",

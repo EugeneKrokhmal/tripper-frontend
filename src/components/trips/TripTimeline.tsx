@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAutocomplete } from '../../hooks/useAutocomplete';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 import axios from 'axios';
 import InputField from '../elements/InputField';
@@ -54,7 +56,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     const [editActivityIndex, setEditActivityIndex] = useState<number | null>(null);
     const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
     const [activityToDelete, setActivityToDelete] = useState<{ date: string; index: number } | null>(null);
-
+    const userName = useSelector((state: RootState) => state.auth.userName);
     const { autocompleteResults, fetchResults, clearResults } = useAutocomplete(OPEN_CAGE_API_KEY);
 
     useEffect(() => {
@@ -96,6 +98,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
         if (!selectedDate || !newActivity || !newTime) return;
 
         const newActivityObject: Activity = {
+            author: userName || '',
             name: newActivity,
             description: newDescription || '',
             time: newTime,
@@ -174,6 +177,17 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
         setNewDescription(activity.description);
         setNewTime(activity.time);
         setNewBookingLink(activity.bookingLink || '');
+        
+        if (activity.transportation) {
+            setNewTransportationTitle(activity.transportation.title || '');
+            setNewLat(activity.transportation.lat || null);
+            setNewLng(activity.transportation.lng || null);
+        } else {
+            setNewTransportationTitle('');
+            setNewLat(null);
+            setNewLng(null);
+        }
+
         setEditMode(true);
         setEditActivityIndex(index);
         setModalVisible(true);
@@ -205,12 +219,12 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                         {timeline[date] && timeline[date].length > 0 ? (
                             <ul className="mb-4 mt-4 text-base font-normal text-zinc-500 dark:text-zinc-300">
                                 {timeline[date].map((activity, index) => (
-                                    <li key={index} className="text-sm text-zinc-600 dark:text-zinc-300 mb-4" >
+                                    <li key={index} className="text-sm text-zinc-600 dark:text-zinc-300 mb-4">
                                         <div className="flex justify-between gap-2">
                                             <div className="flex gap-4 w-11/12">
                                                 <strong className="w-10">{activity.time}</strong>
                                                 <div className="rounded bg-zinc-100 dark:bg-zinc-600 p-2 w-full">
-                                                    <strong>{activity.name}</strong>:
+                                                    <strong>{activity.name}</strong>
                                                     <div className="mb-8">{activity.description}</div>
                                                     {activity.bookingLink && (
                                                         <a href={activity.bookingLink} target="_blank" rel="noopener noreferrer" className="flex text-gradient underline text-xs">
@@ -226,6 +240,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                                                             </a>
                                                         </div>
                                                     )}
+                                                    <div className="text-xs flex justify-end opacity-50">{activity.author}</div>
                                                 </div>
                                             </div>
                                             {isAdmin && (
@@ -277,7 +292,6 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                     </div>
                 </Modal>
             )}
-
 
             <div className="flex flex-row text-center mt-4 gap-2">
                 {isAdmin && (

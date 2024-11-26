@@ -6,7 +6,6 @@ import { ExpenseSummaryProps } from '../../index';
 
 const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ totalPaidByUser, totalCost, remainingOwedToUser }) => {
     const { t } = useTranslation();
-    const userCost = totalPaidByUser - remainingOwedToUser
 
     if (totalCost <= 0) {
         return '';
@@ -37,7 +36,7 @@ const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ totalPaidByUser, totalC
                     </dl>
                     <dl>
                         <dt className="text-base font-normal text-zinc-500 dark:text-zinc-400 pb-1">{t('itCostsYou')}</dt>
-                        <dd className="leading-none text-xl font-bold text-red-600 dark:text-red-500"><Price price={+userCost.toFixed(2)} /></dd>
+                        <dd className="leading-none text-xl font-bold text-red-600 dark:text-red-500"><Price price={+totalPaidByUser.toFixed(2)} /></dd>
                     </dl>
                 </div>
             </div>
