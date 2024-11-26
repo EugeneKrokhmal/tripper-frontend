@@ -22,7 +22,6 @@ const initialState: AuthState = {
     profilePhoto: localStorage.getItem('profilePhoto') || null,
 };
 
-// Async action to fetch profile photo
 export const fetchProfilePhoto = createAsyncThunk(
     'auth/fetchProfilePhoto',
     async (token: string, { rejectWithValue }) => {
@@ -50,7 +49,6 @@ const authSlice = createSlice({
             state.profilePhoto = action.payload.profilePhoto;
             state.isAuthenticated = true;
 
-            // Save to local storage
             localStorage.setItem('token', action.payload.token);
             localStorage.setItem('userEmail', action.payload.userEmail);
             localStorage.setItem('userName', action.payload.userName);

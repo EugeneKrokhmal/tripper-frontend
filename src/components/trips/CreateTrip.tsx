@@ -121,7 +121,7 @@ const CreateTrip: React.FC = () => {
 
     return (
         <>
-            <div className="container max-w-7xl mx-auto h-full md:h-screen flex flex-wrap flex-col justify-center md:justify-start md:flex-row md:px-4 md:pb-32 pb-20">
+            <div className="container max-w-7xl mx-auto h-full flex flex-wrap flex-col justify-center h-[50vh] md:justify-start md:flex-row md:px-4">
                 <div className="z-10 w-full md:w-2/5 flex self-center flex-col px-4 md:px-4 p-6 md:py-8 bg-white dark:bg-zinc-800 rounded">
                     <ol className="mb-4 bg-white dark:bg-zinc-800 w-full flex text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
                         {[
@@ -226,9 +226,8 @@ const CreateTrip: React.FC = () => {
                     </form>
                 </div>
 
-                <div className="z-0 absolute top-0 left-0 right-0 md:block h-full w-full hidden bg-black opacity-50">
+                <div className="z-0 absolute bottom-0 md:top-0 left-0 right-0 h-48 md:block md:h-full w-full bg-black">
                     <img
-                        
                         className={`aspect-square object-cover h-full w-full`}
                         src={stepImages[currentStep - 1]}
                         alt="step image"

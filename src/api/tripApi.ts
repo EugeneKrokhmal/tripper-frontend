@@ -1,5 +1,3 @@
-// src/api/tripApi.ts
-
 import axios from 'axios';
 
 export const fetchTripDetails = async (tripId: string, token: string, API_BASE_URL: string) => {

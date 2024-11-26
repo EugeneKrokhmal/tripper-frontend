@@ -14,7 +14,6 @@ interface CurrencyProviderProps {
 const CurrencyContext = createContext<CurrencyContextProps | undefined>(undefined);
 
 export const CurrencyProvider: React.FC<CurrencyProviderProps> = ({ children }) => {
-    // Load initial currency from localStorage or default to USD
     const [currency, setCurrency] = useState<string>(() => localStorage.getItem('currency') || '$');
     const [rates, setRates] = useState<{ [key: string]: number }>({
         "$": 1,
@@ -27,9 +26,8 @@ export const CurrencyProvider: React.FC<CurrencyProviderProps> = ({ children }) 
         const rate = rates[currency];
         if (!rate) {
             console.warn(`Conversion rate for currency ${currency} not found.`);
-            return amount;  // Return the amount as is if no rate is found
+            return amount;
         }
-        // Convert from USD to the selected currency
         return amount / rate;
     };
 

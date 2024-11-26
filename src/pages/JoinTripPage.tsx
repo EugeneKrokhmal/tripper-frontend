@@ -12,11 +12,10 @@ const JoinTripPage: React.FC = () => {
     const { tripId, token } = useParams<{ tripId: string; token: string }>();
     const [trip, setTrip] = useState<any | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const tokenState = useSelector((state: RootState) => state.auth.token);  // User's auth token from redux state
+    const tokenState = useSelector((state: RootState) => state.auth.token);
     const navigate = useNavigate();
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-    // Fetch the trip details using the join token
     useEffect(() => {
         const fetchTripDetails = async () => {
             try {
@@ -34,10 +33,8 @@ const JoinTripPage: React.FC = () => {
     const handleJoinTrip = async () => {
         try {
             if (!tokenState) {
-                // Redirect to login page with a redirect query parameter to come back to the join page
                 navigate(`/login?redirect=/join/${tripId}/${token}`);
             } else {
-                // Make request to join the trip
                 await axios.post(
                     `${API_BASE_URL}/api/join/${tripId}/${token}`,
                     {},
@@ -45,7 +42,6 @@ const JoinTripPage: React.FC = () => {
                         headers: { Authorization: `Bearer ${tokenState}` },
                     }
                 );
-                // After successfully joining, redirect to trip details page
                 navigate(`/trip/${tripId}`);
             }
         } catch (err) {
@@ -73,8 +69,6 @@ const JoinTripPage: React.FC = () => {
 
                 </div>
                 <div className="max-w-screen-xl px-4 mx-auto lg:py-16 w-full">
-                    {/* Right: Login Form */}
-
                     <h1 className="mb-4 text-3xl font-extrabold text-zinc-900 dark:text-white md:text-5xl lg:text-6xl"><span className="text-gradient">{trip.name}</span></h1>
                     <p className="text-zinc-800 text-s font-medium inline-flex items-center me-2 dark:text-zinc-400 mb-2">
                         <img width="16" src={MarkerIcon} alt="{trip.location.destination}" className="mr-2" /><span>{trip.location.destination}</span>

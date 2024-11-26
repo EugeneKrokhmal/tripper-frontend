@@ -5,11 +5,10 @@ import Loader from '../structure/Loader';
 import type { WeatherWidgetProps } from '../../index';
 
 const WeatherWidget: React.FC<WeatherWidgetProps> = ({ latitude, longitude }) => {
-    const { t } = useTranslation(); // Use the translation hook
+    const { t } = useTranslation();
     const [weatherData, setWeatherData] = useState<any | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
 
     const API_BASE_URL = 'https://api.open-meteo.com/v1/forecast';
 
@@ -21,7 +20,7 @@ const WeatherWidget: React.FC<WeatherWidgetProps> = ({ latitude, longitude }) =>
                     params: {
                         latitude: latitude,
                         longitude: longitude,
-                        current_weather: true, // Fetch current weather
+                        current_weather: true,
                         hourly: 'temperature_2m',
                     },
                 });
@@ -30,7 +29,7 @@ const WeatherWidget: React.FC<WeatherWidgetProps> = ({ latitude, longitude }) =>
                 setError(null);
             } catch (err) {
                 console.error('Error fetching weather data:', err);
-                setError(t('failedToLoadWeather')); // Use translated error message
+                setError(t('failedToLoadWeather'));
             } finally {
                 setLoading(false);
             }
@@ -44,7 +43,7 @@ const WeatherWidget: React.FC<WeatherWidgetProps> = ({ latitude, longitude }) =>
     if (loading) return <Loader />
 
     if (error) {
-        return <p>{error}</p>; // Use the translated error message
+        return <p>{error}</p>;
     }
 
     return (

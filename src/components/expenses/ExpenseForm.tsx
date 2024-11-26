@@ -32,7 +32,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
     const { currency, convertAmount } = useCurrency();
     const [confirmationFile, setConfirmationFile] = useState<File | null>(null);
 
-    // Populate form with existing data if editing
     useEffect(() => {
         if (expenseToEdit) {
             setExpenseName(expenseToEdit.expenseName);
@@ -87,7 +86,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
             setLoading(true);
 
             if (expenseToEdit) {
-                // Update existing expense
                 await axios.put(
                     `${process.env.REACT_APP_API_BASE_URL}/api/trips/${tripId}/expenses/${expenseToEdit._id}`,
                     expenseData,
@@ -97,7 +95,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                 );
                 onExpenseUpdated && onExpenseUpdated({ ...expenseData, _id: expenseToEdit._id });
             } else {
-                // Add new expense
                 const response = await axios.post(
                     `${process.env.REACT_APP_API_BASE_URL}/api/trips/${tripId}/expenses`,
                     expenseData,

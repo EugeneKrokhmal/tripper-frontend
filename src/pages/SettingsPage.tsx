@@ -16,7 +16,7 @@ const SettingsPage: React.FC = () => {
     const [userNameInput, setUserNameInput] = useState<string>('');
     const [userEmailInput, setUserEmailInput] = useState<string>('');
     const [uploadStatus, setUploadStatus] = useState<string>('');
-    const [previewURL, setPreviewURL] = useState<string | null>(null); // Add preview URL state
+    const [previewURL, setPreviewURL] = useState<string | null>(null);
     const token = useSelector((state: RootState) => state.auth.token);
     const profilePhoto = useSelector((state: RootState) => state.auth.profilePhoto);
     const userName = useSelector((state: RootState) => state.auth.userName);
@@ -38,11 +38,10 @@ const SettingsPage: React.FC = () => {
     }, [token, dispatch]);
 
     useEffect(() => {
-        // Generate preview URL when file changes
         if (selectedFile) {
             const url = URL.createObjectURL(selectedFile);
             setPreviewURL(url);
-            return () => URL.revokeObjectURL(url); // Cleanup when component unmounts or file changes
+            return () => URL.revokeObjectURL(url);
         }
     }, [selectedFile]);
 
@@ -70,8 +69,8 @@ const SettingsPage: React.FC = () => {
                 dispatch(setProfilePhoto(response.profilePhoto));
                 dispatch(fetchProfilePhoto(token));
                 setUploadStatus('Upload successful!');
-                setSelectedFile(null); // Clear selected file after successful upload
-                setPreviewURL(null); // Clear preview
+                setSelectedFile(null);
+                setPreviewURL(null);
             } else {
                 setUploadStatus('Upload failed.');
             }
@@ -112,7 +111,7 @@ const SettingsPage: React.FC = () => {
                     <div className="relative min-w-24 w-24 h-24 mb-4">
                         <img
                             className="w-full h-full object-cover rounded-full"
-                            src={previewURL || (profilePhoto ? `${API_BASE_URL}/${profilePhoto}` : UploadIcon)} // Use preview URL if available
+                            src={previewURL || (profilePhoto ? `${API_BASE_URL}/${profilePhoto}` : UploadIcon)}
                             alt="Profile"
                         />
                         <span className="bottom-0 right-0 absolute w-8 h-8 bg-zinc-100 border-2 border-white dark:border-gray-800 rounded-full p-2 cursor-pointer">

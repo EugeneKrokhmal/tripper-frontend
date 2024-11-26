@@ -47,7 +47,6 @@ const Dashboard: React.FC = () => {
                 setTrips(sortedTrips);
                 setFilteredTrips(sortedTrips);
 
-                // Split trips into upcoming and past
                 splitTrips(sortedTrips);
 
                 if (!tripsResponse.data.length) {
@@ -70,7 +69,6 @@ const Dashboard: React.FC = () => {
         }
     }, [API_BASE_URL, token, isAuthenticated]);
 
-    // Function to split trips into upcoming and past
     const splitTrips = (trips: Trip[]) => {
         const currentDate = new Date();
         const upcoming = trips.filter(trip => new Date(trip.endDate) >= currentDate);

@@ -15,9 +15,9 @@ const LanguageSwitcher: React.FC = () => {
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const lang = e.target.value;
-    setSelectedLanguage(lang); // Update state
-    i18n.changeLanguage(lang); // Switch the language in i18n
-    localStorage.setItem('language', lang); // Persist the language in localStorage
+    setSelectedLanguage(lang);
+    i18n.changeLanguage(lang);
+    localStorage.setItem('language', lang);
   };
 
   return (

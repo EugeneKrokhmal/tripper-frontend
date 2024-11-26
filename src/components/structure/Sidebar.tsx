@@ -23,7 +23,7 @@ const Sidebar: React.FC = () => {
                 behavior: 'smooth',
             });
         }
-        setIsSidebarOpen(false); // Close sidebar after navigation
+        setIsSidebarOpen(false);
     };
 
     useEffect(() => {

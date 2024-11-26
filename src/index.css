@@ -99,7 +99,8 @@ ul.leaders span+span {
 
 input[type='date'],
 input[type='time'] {
-  display: flex;
+  display: inline-grid;
+  justify-content: stretch;
   box-sizing: border-box;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;

@@ -13,7 +13,7 @@ const SelectField: React.FC<SelectFieldProps> = ({ label, value, onChange, optio
 
     const handleOptionClick = (selectedValue: string) => {
         onChange(selectedValue);
-        setIsOpen(false); // Close dropdown after selecting
+        setIsOpen(false);
     };
 
     return (

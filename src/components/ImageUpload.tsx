@@ -45,7 +45,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ tripId, onImageUploadSuccess 
                 }
             );
 
-            // Call the parent handler with the new image URL
             onImageUploadSuccess(response.data.imageUrl);
 
             setUploading(false);

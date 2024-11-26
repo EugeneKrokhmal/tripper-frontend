@@ -47,7 +47,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
                 {children}
             </div>
         </div>,
-        document.getElementById('modal-root') as HTMLElement // Ensure a div with id 'modal-root' in your HTML
+        document.getElementById('modal-root') as HTMLElement
     );
 };
 
