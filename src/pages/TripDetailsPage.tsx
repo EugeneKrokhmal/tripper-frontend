@@ -26,7 +26,6 @@ import {
     calculateTotalPaidByUser,
     calculateTotalCost,
     calculateRemainingOwedToUser,
-    fetchCityImage
 } from '../utils/tripUtils';
 import {
     fetchTripDetails,
@@ -66,7 +65,6 @@ const TripDetailsPage: React.FC = () => {
     const [joinLink, setJoinLink] = useState<string | null>(null);
     const [loadingJoinLink, setLoadingJoinLink] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [cityImage, setCityImage] = useState<string>('');
     const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
     const [remainingOwedToUser, setRemainingOwedToUser] = useState<number>(0);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -76,10 +74,6 @@ const TripDetailsPage: React.FC = () => {
     useEffect(() => {
         const loadData = async () => {
             try {
-                if (!trip?.image && trip?.location?.destination) {
-                    const fetchedCityImage = await fetchCityImage(trip.location.destination, UNSPLASH_ACCESS_KEY);
-                    setCityImage(fetchedCityImage || '');
-                }
 
                 if (tripId && token && API_BASE_URL) {
                     const tripData = await fetchTripDetails(tripId, token, API_BASE_URL);
@@ -202,7 +196,7 @@ const TripDetailsPage: React.FC = () => {
 
     const imageUrl = trip?.image
         ? `${API_BASE_URL}/${trip.image}`
-        : cityImage || `https://ui-avatars.com/api/?name=${trip?.name}&background=random`;
+        : `https://ui-avatars.com/api/?name=${trip?.name}&background=random`;
 
     if (!trip) {
         return (

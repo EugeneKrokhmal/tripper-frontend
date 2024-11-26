@@ -22,28 +22,6 @@ export const calculateRemainingOwedToUser = (settlements: any[], userId: string)
         .reduce((total, settlement) => total + settlement.amount, 0);
 };
 
-export const fetchCityImage = async (destination: string, UNSPLASH_ACCESS_KEY: string) => {
-    if (!UNSPLASH_ACCESS_KEY || !destination) return null;
-
-    try {
-        const response = await axios.get(`https://api.unsplash.com/search/photos`, {
-            params: {
-                query: `${destination} center`,
-                client_id: UNSPLASH_ACCESS_KEY,
-                per_page: 1,
-            },
-        });
-
-        if (response.data.results.length > 0) {
-            return response.data.results[0].urls.small;
-        }
-    } catch (error) {
-        console.error('Error fetching Unsplash image:', error);
-    }
-
-    return null;
-};
-
 // Helper function to get the list of expense names for which the user is responsible
 export const getResponsibleExpensesNames = (expenses: any[], userId: string) => {
     return expenses
