@@ -60,6 +60,7 @@ const TripDetailsPage: React.FC = () => {
     const [totalCost, setTotalCost] = useState<number>(0);
     const [fairShare, setFairShare] = useState<number>(0);
     const [settlements, setSettlements] = useState<any[]>([]);
+
     const [settlementsHistory, setSettlementsHistory] = useState<any[]>([]);
     const [joinLink, setJoinLink] = useState<string | null>(null);
     const [loadingJoinLink, setLoadingJoinLink] = useState(false);
@@ -84,6 +85,7 @@ const TripDetailsPage: React.FC = () => {
                     setTrip(tripData);
                     setExpenses(tripData.expenses);
                     setCurrency(tripData.currency || '');
+                    setSettlements(tripData.settlements);
 
                     if (userId) {
                         setTotalPaidByUser(calculateTotalPaidByUser(tripData.expenses, userId));
@@ -170,7 +172,6 @@ const TripDetailsPage: React.FC = () => {
         const updatedExpenses = expenses.map((expense) =>
             expense._id === updatedExpense._id ? updatedExpense : expense
         );
-
         setExpenses(updatedExpenses);
     };
 
@@ -305,7 +306,7 @@ const TripDetailsPage: React.FC = () => {
                             isOwner,
                             admins: trip.administrators,
                             participants: trip.participants,
-                            expenses: expenses,
+                            expenses: trip.expenses,
                         }} />
                     </div>
 
@@ -378,8 +379,8 @@ const TripDetailsPage: React.FC = () => {
 
             {isDeleteModalOpen && (
                 <Modal onClose={closeDeleteModal}>
-                    <div className="text-zinc-900 dark:text-zinc-300">
-                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl">
+                    <div className="p-4">
+                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
                             <span className="text-gradient">
                                 {t('confirmDelete')}
                             </span>
