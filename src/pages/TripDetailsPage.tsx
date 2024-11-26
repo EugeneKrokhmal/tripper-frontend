@@ -166,6 +166,14 @@ const TripDetailsPage: React.FC = () => {
         setTotalCost(calculateTotalCost(updatedExpenses));
     };
 
+    const handleEditExpense = (updatedExpense: any) => {
+        const updatedExpenses = expenses.map((expense) =>
+            expense._id === updatedExpense._id ? updatedExpense : expense
+        );
+
+        setExpenses(updatedExpenses);
+    };
+
     const handleParticipantDeleted = async () => {
         try {
             if (tripId && token && API_BASE_URL) {
@@ -297,7 +305,7 @@ const TripDetailsPage: React.FC = () => {
                             isOwner,
                             admins: trip.administrators,
                             participants: trip.participants,
-                            expenses: trip.expenses,
+                            expenses: expenses,
                         }} />
                     </div>
 
@@ -327,7 +335,7 @@ const TripDetailsPage: React.FC = () => {
                     }} />
                 </div>
 
-                <aside className="bg-white dark:bg-zinc-800 p-4 w-full lg:col-span-1 flex flex-col">
+                <aside className="bg-white dark:bg-zinc-800 w-full lg:col-span-1 flex flex-col">
                     <div className="hidden md:block md:mb-8">
                         <ExpenseSummary {...{
                             totalPaidByUser,
@@ -349,6 +357,7 @@ const TripDetailsPage: React.FC = () => {
                         token: token || '',
                         onExpenseAdded: handleExpenseAdded,
                         onExpenseDeleted: handleExpenseDeleted,
+                        onEditExpense: handleEditExpense,
                     }} />
                 </aside>
             </div>
@@ -369,8 +378,8 @@ const TripDetailsPage: React.FC = () => {
 
             {isDeleteModalOpen && (
                 <Modal onClose={closeDeleteModal}>
-                    <div className="p-4">
-                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                    <div className="text-zinc-900 dark:text-zinc-300">
+                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl">
                             <span className="text-gradient">
                                 {t('confirmDelete')}
                             </span>

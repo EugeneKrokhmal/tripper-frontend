@@ -169,9 +169,9 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
                         />
 
                         <p className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">{t('theCrew')}</p>
-                        <ul className="w-full p-2 bg-zinc-50 dark:bg-zinc-900 rounded h-24 overflow-auto">
+                        <ul className="w-full bg-zinc-50 dark:bg-zinc-900 rounded h-32 overflow-auto">
                             {participants.map((participant) => (
-                                <li key={participant._id} className="flex justify-between w-full text-sm mb-2">
+                                <li key={participant._id} className="flex justify-between text-zinc-900 dark:text-white w-full text-sm p-2 hover:bg-zinc-50 dark:hover:bg-zinc-600">
                                     <div className="items-center flex gap-2">
                                         <UserIcon userName={participant.name} userId={participant._id} size={'xs'} />
                                         {participant.name}
@@ -204,14 +204,12 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
 
             {confirmModalVisible && (
                 <Modal onClose={closeConfirmModal}>
-                    <div className="p-4">
-                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                    <div className="text-zinc-900 dark:text-zinc-300">
+                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl">
                             <span className="text-gradient">
                                 {t('confirmDelete')}
                             </span>
                         </h3>
-                        <p>{t('deleteWarning')}</p>
-                        <br />
                         <p>{t('delete')} {participantToDelete?.name}?</p>
                         <div className="flex justify-end gap-2 mt-4">
                             <Button label={t('cancel')} onClick={closeConfirmModal} variant="primary" />

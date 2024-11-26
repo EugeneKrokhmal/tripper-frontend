@@ -53,6 +53,8 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     const [showAll, setShowAll] = useState<boolean>(false);
     const [editMode, setEditMode] = useState<boolean>(false);
     const [editActivityIndex, setEditActivityIndex] = useState<number | null>(null);
+    const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
+    const [activityToDelete, setActivityToDelete] = useState<{ date: string; index: number } | null>(null);
 
     const { autocompleteResults, fetchResults, clearResults } = useAutocomplete(OPEN_CAGE_API_KEY);
 
@@ -92,11 +94,11 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     };
 
     const handleAddOrUpdateActivity = async () => {
-        if (!selectedDate || !newActivity || !newDescription || !newTime) return;
+        if (!selectedDate || !newActivity || !newTime) return;
 
         const newActivityObject: Activity = {
             name: newActivity,
-            description: newDescription,
+            description: newDescription || '',
             time: newTime,
             bookingLink: newBookingLink,
             transportation: newTransportationTitle
@@ -181,6 +183,11 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
     const tripDates = getAllTripDates(startDate, endDate);
     const displayedDates = showAll ? tripDates : [tripDates[0]];
 
+    const handleDeleteActivityClick = (date: string, index: number) => {
+        setActivityToDelete({ date, index });
+        setDeleteConfirmationVisible(true);
+    };
+
     return (
         <div className="trip-timeline">
             <h3 id="timeline" className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
@@ -227,7 +234,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                                                     <a onClick={() => handleEditActivity(date, activity, index)}>
                                                         <img src={EditIcon} alt={t('editActivity')} />
                                                     </a>
-                                                    <a onClick={() => handleDeleteActivity(date, index)}>
+                                                    <a onClick={() => handleDeleteActivityClick(date, index)}>
                                                         <img src={DeleteIcon} alt="Delete" />
                                                     </a>
                                                 </div>
@@ -242,6 +249,36 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                     </li>
                 ))}
             </ol>
+
+            {deleteConfirmationVisible && activityToDelete && (
+                <Modal onClose={() => setDeleteConfirmationVisible(false)}>
+                    <div className="text-zinc-900 dark:text-zinc-300">
+                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl">
+                            <span className="text-gradient">
+                                {t('confirmDelete')}
+                            </span>
+                        </h3>
+                        <p>{t('deleteWarning')}</p>
+                        <div className="mt-4 flex justify-end space-x-2">
+                            <Button
+                                label={t('cancel')}
+                                onClick={() => setDeleteConfirmationVisible(false)}
+                                variant="primary"
+                            />
+                            <Button
+                                label={t('delete')}
+                                onClick={() => {
+                                    handleDeleteActivity(activityToDelete.date, activityToDelete.index);
+                                    setDeleteConfirmationVisible(false);
+                                    setActivityToDelete(null);
+                                }}
+                                variant="secondary"
+                            />
+                        </div>
+                    </div>
+                </Modal>
+            )}
+
 
             <div className="flex flex-row text-center mt-4 gap-2">
                 {(isOwner || isAdmin) && (
@@ -309,6 +346,7 @@ const TripTimeline: React.FC<TripTimelineProps> = ({
                                 ))}
                             </ul>
                         )}
+
                         <Button label={editMode ? t('updateActivity') : t('addActivity')} onClick={handleAddOrUpdateActivity} variant="primary" />
                     </form>
                 </Modal>

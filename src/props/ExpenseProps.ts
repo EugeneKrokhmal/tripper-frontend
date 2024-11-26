@@ -10,6 +10,7 @@ export interface ExpensesListProps {
     token: string;
     onExpenseDeleted: (updatedExpenses: Expense[]) => void;
     onExpenseAdded: (newExpense: Expense) => void;
+    onEditExpense: (newExpense: Expense) => void;
 }
 
 export interface ExpenseSummaryWidgetProps {

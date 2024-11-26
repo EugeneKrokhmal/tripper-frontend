@@ -61,7 +61,7 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                 setInviteStatus('Invitation sent successfully.');
                 setTimeout(() => {
                     closeShareTripModal();
-                    // setEmail('');
+                    setEmail('');
                 }, 300);
             } else {
                 setInviteStatus(result.message || 'Failed to send invitation.');
@@ -113,6 +113,22 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                     <Modal onClose={closeShareTripModal}>
                         {linkGenerated ? (
                             <>
+                                <h3 className="mb-2 text-xl font-extrabold text-zinc-900 dark:text-white md:text-xl mt-4">
+                                    <span className="text-gradient">{t('inviteByEmail')}</span>
+                                </h3>
+                                <div className="flex gap-2">
+                                    <input
+                                        type="email"
+                                        placeholder={t('enterEmail')}
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="pr-12 col-span-6 bg-zinc-50 border border-zinc-300 text-zinc-500 dark:text-zinc-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    />
+                                    <Button variant={'primary'} onClick={handleSendInvite} label={t('invite')} />
+                                </div>
+
+                                {inviteStatus && <p className="text-sm py-1">{inviteStatus}</p>}
+
                                 <h3 className="mb-2 text-xl font-extrabold text-zinc-900 dark:text-white mt-4">
                                     <span className="text-gradient">{t('copyLink')}</span>
                                 </h3>
@@ -140,22 +156,6 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                                         )}
                                     </button>
                                 </div>
-
-                                <h3 className="mb-2 text-xl font-extrabold text-zinc-900 dark:text-white md:text-xl mt-4">
-                                    <span className="text-gradient">{t('inviteByEmail')}</span>
-                                </h3>
-                                <div className="flex gap-2">
-                                    <input
-                                        type="email"
-                                        placeholder={t('enterEmail')}
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="pr-12 col-span-6 bg-zinc-50 border border-zinc-300 text-zinc-500 dark:text-zinc-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    />
-                                    <Button variant={'primary'} onClick={handleSendInvite} label={t('invite')} />
-                                </div>
-
-                                {inviteStatus && <p className="text-sm py-1">{inviteStatus}</p>}
 
                                 <div className="mt-4 flex gap-4">
                                     {/* Telegram */}

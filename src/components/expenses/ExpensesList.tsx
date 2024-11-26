@@ -23,6 +23,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
     token,
     onExpenseDeleted,
     onExpenseAdded,
+    onEditExpense
 }) => {
     const { t } = useTranslation();
     const [expenseModalVisible, setExpenseModalVisible] = useState<boolean>(false);
@@ -55,7 +56,13 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
         const updatedExpenses = expenseList.map(expense =>
             expense._id === updatedExpense._id ? updatedExpense : expense
         );
+
         setExpenseList(updatedExpenses);
+
+        if (onEditExpense) {
+            onEditExpense(updatedExpense);
+        }
+
         setEditingExpense(null);
     };
 
@@ -183,7 +190,6 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                 className="cursor-pointer text-xs dark:text-zinc-300 hover:underline my-2"
                                             >
                                                 <img src={EditIcon} alt={t('editActivity')} />
-
                                             </a>
                                             <a
                                                 onClick={() => handleDeleteExpenseClick(expense)}
@@ -202,7 +208,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
 
             {expensesListModalVisible && (
                 <Modal onClose={() => { setExpensesListModalVisible(false) }}>
-                    <div className="pt-4">
+                    <div>
                         <div className="px-2 pt-4 sticky z-10 bg-white dark:bg-zinc-800 top-0">
                             <InputField
                                 value={searchQuery}
@@ -348,8 +354,8 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
 
             {deleteModalVisible && (
                 <Modal onClose={cancelDeleteExpense}>
-                    <div className="p-4">
-                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                    <div className="text-zinc-900 dark:text-zinc-300">
+                        <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl">
                             <span className="text-gradient">
                                 {t('confirmDelete')}
                             </span>

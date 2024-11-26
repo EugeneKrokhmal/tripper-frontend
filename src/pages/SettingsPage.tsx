@@ -108,7 +108,7 @@ const SettingsPage: React.FC = () => {
             <Breadcrumbs breadcrumbs={[{ label: t('home'), href: '#/' }, { label: t('Settings'), href: '' }]} />
 
             <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-16">
-                <div className="flex gap-4">
+                <div className="flex flex-col items-center gap-4">
                     <div className="relative min-w-24 w-24 h-24 mb-4">
                         <img
                             className="w-full h-full object-cover rounded-full"
@@ -123,16 +123,25 @@ const SettingsPage: React.FC = () => {
                         </span>
                     </div>
                     <div>
-                        <h2 className="flex items-center text-xl font-bold leading-none text-gray-900 dark:text-white sm:text-2xl">{userName}</h2>
-                        <dl className="">
-                            <dd className="text-gray-500 dark:text-gray-400">{userEmail}</dd>
-                        </dl>
+                        <div className="flex justify-center gap-2">
+                            <h2 className="flex items-center text-xl font-bold leading-none text-gray-900 dark:text-white sm:text-2xl">{userName}</h2>
+                            <span
+                                onClick={() => setModalVisible(true)}
+                                className="self-center bg-zinc-100 text-zinc-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-zinc-900 dark:text-zinc-300">{t('edit')}</span>
+                        </div>
+                        <div className="flex justify-center gap-2">
+                            <p className="text-gray-500 dark:text-gray-400">{userEmail}</p>
+                            <span
+                                onClick={() => setModalVisible(true)}
+                                className="self-center bg-zinc-100 text-zinc-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-zinc-900 dark:text-zinc-300">{t('edit')}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div className="grid gap-2 grid-cols-2">
-                    <Button variant={'primary'} onClick={handleUpload} label={t('Save Photo')} />
-                    <Button label={t('edit')} onClick={() => setModalVisible(true)} variant="primary" />
+                <div className="justify-center flex pt-4">
+                    {previewURL && (
+                        <Button variant={'primary'} onClick={handleUpload} label={t('Save Photo')} />
+                    )}
                 </div>
 
                 {uploadStatus && <p className="py-2 text-sm">{uploadStatus}</p>}
@@ -154,7 +163,6 @@ const SettingsPage: React.FC = () => {
                     </Modal>
                 )}
             </div>
-            <FAQ />
         </div>
     );
 };

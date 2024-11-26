@@ -8,18 +8,16 @@ import Button from '../elements/Button';
 import type { TripCardProps } from '../../index';
 import { Link } from 'react-router-dom';
 
-const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) => {
-    const [cityImage, setCityImage] = useState<string>('');
+const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId }) => {
     const navigate = useNavigate();
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     const { t } = useTranslation();
 
     const imageUrl = trip.image
-        ? `${API_BASE_URL}/${trip.image}`
-        : cityImage || `https://ui-avatars.com/api/?name=${trip.name}&background=random`;
+        ? `${API_BASE_URL}/${trip.image}` : `https://ui-avatars.com/api/?name=${trip.name}&background=random`;
 
     return (
-        <a
+        <div
             key={trip._id}
             className={`overflow-hidden h-full transition-all transition-500 justify-end mb-4 flex items-center bg-white border border-zinc-200 dark:border-zinc-900 rounded-lg shadow md:flex-col-reverse flex-col-reverse hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700`}
         >
@@ -76,7 +74,7 @@ const TripCard: React.FC<TripCardProps> = ({ trip, loggedInUserId, isActive }) =
                     alt={`${trip.location.destination}`}
                 />
             </Link>
-        </a>
+        </div>
     );
 };
 

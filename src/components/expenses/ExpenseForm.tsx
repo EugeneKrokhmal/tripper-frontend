@@ -95,7 +95,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                         headers: { Authorization: `Bearer ${token}` }
                     }
                 );
-                onExpenseUpdated && onExpenseUpdated({ ...expenseData, id: expenseToEdit.id });
+                onExpenseUpdated && onExpenseUpdated({ ...expenseData, _id: expenseToEdit._id });
             } else {
                 // Add new expense
                 const response = await axios.post(
@@ -159,7 +159,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                         value={responsibleUser}
                         onChange={(value) => setResponsibleUser(value)}
                         options={participants.map(participant => ({
-                            value: participant.id,
+                            value: participant._id,
                             label: participant.name
                         }))}
                         required
@@ -184,8 +184,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                             checked={splitMethod === 'specific'}
                             onChange={toggleSplitMethod}
                         />
-                        <div className="relative w-11 h-6 bg-zinc-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-zinc-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-zinc-600 peer-checked:bg-blue-600"></div>
-                        <span className="ms-3 text-sm font-medium text-zinc-900 dark:text-zinc-300">{t('specificSplit')}</span>
+                        <div className="relative w-11 h-6 bg-zinc-200 peer-focus:outline-none dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-blue-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-zinc-600 peer-checked:bg-blue-600"></div>
+                        <span className="ms-3 text-sm font-medium text-zinc-900 dark:text-zinc-300">{splitMethod === 'specific' ? t('specificSplit') : t('evenSplit')}</span>
                     </label>
                 </div>
 
@@ -193,20 +193,20 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                     <div className="mb-6">
                         <label className="block mb-2 text-sm font-medium text-zinc-900 dark:text-white">{t('splitAmong')}</label>
                         {participants.map(participant => (
-                            <div key={participant.id} className="flex items-center mb-2">
+                            <div key={participant._id} className="flex items-center mb-2">
                                 <label className="text-sm font-medium text-zinc-900 dark:text-zinc-300 flex items-center gap-2">
                                     <input
                                         type="checkbox"
-                                        checked={splitParticipants.includes(participant.id)}
-                                        onChange={() => handleParticipantToggle(participant.id)}
+                                        checked={splitParticipants.includes(participant._id)}
+                                        onChange={() => handleParticipantToggle(participant._id)}
                                         className="w-4 h-4 border border-zinc-300 rounded-xl bg-zinc-50 focus:ring-3 dark:bg-zinc-700 dark:border-zinc-600 dark:ring-offset-zinc-800"
                                     />
                                     <UserIcon
                                         userName={participant?.name || ''}
-                                        userId={participant?.id || ''}
+                                        userId={participant?._id || ''}
                                         profilePhoto={participant?.profilePhoto || ''}
                                         size={'xs'}
-                                        key={participant?.id}
+                                        key={participant?._id}
                                     />
                                     {participant.name}
                                 </label>

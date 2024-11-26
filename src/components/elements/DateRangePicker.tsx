@@ -13,7 +13,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ startDate, endDate, o
     const { t } = useTranslation();
 
     return (
-        <div id="date-range-picker" className="flex flex-row items-start gap-2 mb-4">
+        <div id="date-range-picker" className="flex flex-row justify-between gap-2 mb-4">
             <div className="flex-grow w-full">
                 <label className="block mb-1 text-sm font-medium text-zinc-900 dark:text-white">
                     {t('startDate')}

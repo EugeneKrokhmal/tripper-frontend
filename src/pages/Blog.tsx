@@ -29,7 +29,6 @@ const Blog: React.FC = () => {
             try {
                 setLoading(true);
                 const response = await fetch('https://dummyjson.com/posts').then(res => res.json())
-                console.log(response);
 
                 setArticles(response.posts);
             } catch (err) {

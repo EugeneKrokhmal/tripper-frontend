@@ -9,6 +9,13 @@ html {
   user-select: none;
 }
 
+textarea,
+select,
+input,
+button {
+  outline: none;
+}
+
 nav .transition-transform {
   top: env(safe-area-inset-top);
   bottom: env(safe-area-inset-bottom)
@@ -66,6 +73,8 @@ ul.leaders span+span {
   padding-left: 0.33em;
 }
 
+/* Modals */
+
 .modal-overlay {
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -86,15 +95,18 @@ ul.leaders span+span {
   opacity: 1;
 }
 
+/* ios */
+
 input[type='date'],
 input[type='time'] {
-  display: block;
+  display: flex;
   box-sizing: border-box;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
   min-height: 38px;
+  height: 38px;
   text-align: left;
-  min-width: 90%;
+  min-width: 92%;
 }
 
 img {
