@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAutocomplete } from '../../hooks/useAutocomplete';
-import { deleteParticipantFromTrip } from '../../services/usersService';
+import { deleteParticipantFromTrip, addAdministrator, removeAdministrator, isAdmin } from '../../services/usersService';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -19,6 +19,7 @@ import type { EditTripFormProps } from '../../index';
 import UserIcon from '../elements/UserIcon';
 
 const EditTripForm: React.FC<EditTripFormProps> = ({
+    trip,
     participants,
     id,
     initialTripName,
@@ -99,7 +100,12 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
         try {
             await deleteParticipantFromTrip(participantToDelete.id, id, token || '');
 
-            onParticipantDelete(participantToDelete.id);
+            const updatedParticipants = participants.filter(
+                (participant) => participant._id !== participantToDelete.id
+            );
+
+            onParticipantDelete(updatedParticipants);
+
             setParticipantToDelete(null);
             setConfirmModalVisible(false);
         } catch (error) {
@@ -111,6 +117,39 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
     const closeConfirmModal = () => {
         setParticipantToDelete(null);
         setConfirmModalVisible(false);
+    };
+
+    const handlePromoteToAdmin = async (participantId: string) => {
+        try {
+            await addAdministrator(id, participantId, token || '');
+
+            const updatedParticipants = participants.map((participant) =>
+                participant._id === participantId
+                    ? { ...participant, isAdmin: true }
+                    : participant
+            );
+
+            onParticipantDelete(updatedParticipants);
+        } catch (error) {
+            console.error('Failed to promote participant:', error);
+            alert(t('promoteAdminError'));
+        }
+    };
+
+    const handleDemoteAdmin = async (adminId: string) => {
+        try {
+            await removeAdministrator(id, adminId, token || '');
+
+            const updatedParticipants = participants.map((participant) =>
+                participant._id === adminId
+                    ? { ...participant, isAdmin: false }
+                    : participant
+            );
+            onParticipantDelete(updatedParticipants);
+        } catch (error) {
+            console.error('Failed to demote administrator:', error);
+            alert(t('demoteAdminError'));
+        }
     };
 
     return (
@@ -173,10 +212,31 @@ const EditTripForm: React.FC<EditTripFormProps> = ({
                             {participants.map((participant) => (
                                 <li key={participant._id} className="flex justify-between text-zinc-900 dark:text-white w-full text-sm p-2 hover:bg-zinc-50 dark:hover:bg-zinc-600">
                                     <div className="items-center flex gap-2">
-                                        <UserIcon userName={participant.name} userId={participant._id} size={'xs'} />
+                                        <UserIcon isAdmin={isAdmin(trip, participant._id)} userName={participant.name} userId={participant._id} size={'xs'} />
                                         {participant.name}
                                     </div>
-                                    {(participant._id !== userId) && (<img src={DelteIcon} onClick={() => { showConfirmModal(participant._id, participant.name) }} />)}
+
+                                    {(participant._id !== userId) && (
+                                        <div className="flex gap-2 self-center text-xs items-center">
+                                            {trip && !isAdmin(trip, participant._id) && (
+                                                <span
+                                                    className="text-blue-500"
+                                                    onClick={() => handlePromoteToAdmin(participant._id)}
+                                                >
+                                                    {t('Promote')}
+                                                </span>
+                                            )}
+                                            {trip && isAdmin(trip, participant._id) && (
+                                                <span
+                                                    className="text-red-500"
+                                                    onClick={() => handleDemoteAdmin(participant._id)}
+                                                >
+                                                    {t('Demote')}
+                                                </span>
+                                            )}
+                                            <img src={DelteIcon} onClick={() => { showConfirmModal(participant._id, participant.name) }} />
+                                        </div>
+                                    )}
                                 </li>
                             ))}
                         </ul>

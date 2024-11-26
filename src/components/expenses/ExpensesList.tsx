@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isAdmin } from '../../services/usersService';
 
 import Modal from '../elements/Modal';
 import Button from '../elements/Button';
@@ -15,6 +16,7 @@ import { deleteExpense } from '../../services/expensesService';
 import type { ExpensesListProps, Expense } from '../../index';
 
 const ExpensesList: React.FC<ExpensesListProps> = ({
+    trip,
     userId,
     isOwner,
     expenses,
@@ -140,6 +142,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                                 splitter && (
                                                     <li key={splitter?._id} className="flex items-center space-x-2 rounded-full">
                                                         <UserIcon
+                                                            isAdmin={isAdmin(trip, splitter._id)}
                                                             userName={splitter?.name || ''}
                                                             userId={splitter?._id || ''}
                                                             profilePhoto={splitter?.profilePhoto || ''}
@@ -170,6 +173,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                     </p>
                                     <div className="flex gap-2">
                                         <UserIcon
+                                            isAdmin={isAdmin(trip, responsiblePerson?._id || '')}
                                             userName={responsiblePerson?.name || ''}
                                             userId={responsiblePerson?._id || ''}
                                             profilePhoto={responsiblePerson?.profilePhoto || ''}
@@ -182,7 +186,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
                                     </div>
                                 </div>
 
-                                {(userId === expense.responsibleUserId || isOwner) && (
+                                {(userId === expense.responsibleUserId || isAdmin(trip, userId || '')) && (
                                     <>
                                         <div className="flex gap-2 self-end">
                                             <a
@@ -334,6 +338,7 @@ const ExpensesList: React.FC<ExpensesListProps> = ({
             {expenseModalVisible && (
                 <Modal onClose={closeExpenseModal}>
                     <ExpenseForm
+                        trip={trip}
                         isOwner={isOwner}
                         userId={userId}
                         participants={participants}

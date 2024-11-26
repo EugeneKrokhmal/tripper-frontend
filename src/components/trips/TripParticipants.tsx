@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { isAdmin } from '../../services/usersService';
 import UsersTable from '../users/UsersTable';
 import Button from '../elements/Button';
 import UserIcon from '../elements/UserIcon';
@@ -9,7 +9,7 @@ import Modal from '../elements/Modal';
 import type { TripParticipantsProps } from '../../index';
 
 const TripParticipants: React.FC<TripParticipantsProps> = ({
-    tripId,
+    trip,
     userId,
     isOwner,
     admins,
@@ -39,6 +39,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                 <div className="flex -space-x-4 rtl:space-x-reverse">
                     {participants.slice(0, 10).map((participant) => (
                         <UserIcon
+                            isAdmin={isAdmin(trip, participant._id)}
                             key={participant._id}
                             userName={participant.name}
                             userId={participant._id}
@@ -69,6 +70,7 @@ const TripParticipants: React.FC<TripParticipantsProps> = ({
                 }}>
                     <div className="max-h-[80vh] overflow-y-auto w-full">
                         <UsersTable
+                            trip={trip}
                             isOwner={isOwner}
                             admins={admins || []}
                             participants={participants || []}

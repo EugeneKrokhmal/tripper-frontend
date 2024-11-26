@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useTranslation } from 'react-i18next';
+import { isAdmin } from '../../services/usersService';
 
 import axios from 'axios';
 import Price from '../Price';
@@ -13,6 +14,7 @@ import UserIcon from '../elements/UserIcon';
 import type { User, ExpenseSettlementTableProps } from '../../index';
 
 const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
+    trip,
     settlements,
     settlementHistory,
     participants,
@@ -119,95 +121,99 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                         </tr>
                     </thead>
                     <tbody>
-                        {settlements.length > 0 ? (
+                        {settlements.filter(settlement => !settlement.isSettled).length > 0 ? (
                             settlements.map((settlement) => {
                                 const debtor = getParticipant(settlement.debtor);
                                 const creditor = getParticipant(settlement.creditor);
-                                return (
-                                    <tr
-                                        key={settlement._id}
-                                        className={`bg-white border-b dark:bg-zinc-800 border-zinc-100 dark:border-zinc-700 ${settlement.isSettled ? 'opacity-50' : ''}`}
-                                    >
-                                        <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center space-x-3">
-                                            <div className="flex gap-2 items-center">
-                                                <UserIcon
-                                                    userName={debtor?.name || ''}
-                                                    userId={debtor?._id || ''}
-                                                    profilePhoto={debtor?.profilePhoto || ''}
-                                                    size={'sm'}
-                                                    key={debtor?._id}
-                                                />
-                                                <div>
-                                                    <p className="font-semibold text-xs md:text-sm">{debtor.name}</p>
+
+                                if (!settlement.isSettled) {
+                                    return (
+                                        <tr
+                                            key={settlement._id}
+                                            className={`bg-white border-b dark:bg-zinc-800 border-zinc-100 dark:border-zinc-700`}
+                                        >
+                                            <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center space-x-3">
+                                                <div className="flex gap-2 items-center">
+                                                    <UserIcon
+                                                        isAdmin={isAdmin(trip, debtor?._id || '')}
+                                                        userName={debtor?.name || ''}
+                                                        userId={debtor?._id || ''}
+                                                        profilePhoto={debtor?.profilePhoto || ''}
+                                                        size={'sm'}
+                                                        key={debtor?._id}
+                                                    />
+                                                    <div>
+                                                        <p className="font-semibold text-xs md:text-sm">{debtor.name}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center space-x-3">
-                                            <div className="flex gap-2 items-center">
-                                                <UserIcon
-                                                    userName={creditor?.name || ''}
-                                                    userId={creditor?._id || ''}
-                                                    profilePhoto={creditor?.profilePhoto || ''}
-                                                    size={'sm'}
-                                                    key={creditor?._id}
-                                                />
-                                                <div>
-                                                    <p className="font-semibold text-xs md:text-sm">{creditor.name}</p>
+                                            </td>
+                                            <td className="px-2 py-4 text-sm text-zinc-800 dark:text-zinc-200 items-center space-x-3">
+                                                <div className="flex gap-2 items-center">
+                                                    <UserIcon
+                                                        isAdmin={isAdmin(trip, creditor?._id || '')}
+                                                        userName={creditor?.name || ''}
+                                                        userId={creditor?._id || ''}
+                                                        profilePhoto={creditor?.profilePhoto || ''}
+                                                        size={'sm'}
+                                                        key={creditor?._id}
+                                                    />
+                                                    <div>
+                                                        <p className="font-semibold text-xs md:text-sm">{creditor.name}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-2 py-4 text-xs md:text-sm text-zinc-800 dark:text-zinc-200 text-right">
-                                            <Price price={+settlement.amount.toFixed(2)} />
-                                        </td>
-                                        <td className="px-2 py-4 text-xs md:text-sm text-zinc-800 dark:text-zinc-200 text-center">
-                                            {!settlement.isSettled && debtor._id === userId && (
-                                                <>
-                                                    <a
-                                                        className="cursor-pointer text-xs md:text-base dark:text-zinc-300 hover:underline"
-                                                        onClick={() => setActiveSettlementId(settlement._id)}
-                                                    >
-                                                        {t('settle')}
-                                                    </a>
-                                                    {activeSettlementId === settlement._id && (
-                                                        <Modal onClose={closeModal}>
-                                                            <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
-                                                                <span className="text-gradient">{t('settleDebt')}</span>
-                                                            </h3>
-                                                            <SelectField
-                                                                label={t('settlementType')}
-                                                                value={paymentMethod}
-                                                                onChange={(value) => setPaymentMethod(value)}
-                                                                options={[
-                                                                    { value: 'cash', label: t('cash') },
-                                                                    { value: 'paypal', label: t('PayPal') },
-                                                                ]}
-                                                            />
-
-                                                            {paymentMethod === 'paypal' && (
-                                                                <div id="paypal-button-container"></div>
-                                                            )}
-
-                                                            <div className="flex gap-2">
-                                                                <Button
-                                                                    variant={'primary'}
-                                                                    label={isProcessing ? t('processing') : t('settle')}
-                                                                    onClick={() => handleSettle(settlement._id, settlement.amount, paymentMethod)}
-                                                                    disabled={isProcessing}
+                                            </td>
+                                            <td className="px-2 py-4 text-xs md:text-sm text-zinc-800 dark:text-zinc-200 text-right">
+                                                <Price price={+settlement.amount.toFixed(2)} />
+                                            </td>
+                                            <td className="px-2 py-4 text-xs md:text-sm text-zinc-800 dark:text-zinc-200 text-center">
+                                                {!settlement.isSettled && creditor._id === userId && (
+                                                    <>
+                                                        <a
+                                                            className="cursor-pointer text-xs md:text-sm dark:text-zinc-300 hover:underline"
+                                                            onClick={() => setActiveSettlementId(settlement._id)}
+                                                        >
+                                                            {t('settle')}
+                                                        </a>
+                                                        {activeSettlementId === settlement._id && (
+                                                            <Modal onClose={closeModal}>
+                                                                <h3 className="mb-2 text-4xl font-extrabold text-zinc-900 dark:text-white md:text-3xl md:mt-4">
+                                                                    <span className="text-gradient">{t('settleDebt')}</span>
+                                                                </h3>
+                                                                <SelectField
+                                                                    label={t('settlementType')}
+                                                                    value={paymentMethod}
+                                                                    onChange={(value) => setPaymentMethod(value)}
+                                                                    options={[
+                                                                        { value: 'cash', label: t('cash') },
+                                                                        { value: 'paypal', label: t('PayPal') },
+                                                                    ]}
                                                                 />
-                                                                <Button
-                                                                    variant={'secondary'}
-                                                                    label={t('cancel')}
-                                                                    onClick={closeModal}
-                                                                />
-                                                            </div>
-                                                        </Modal>
-                                                    )}
 
-                                                </>
-                                            )}
-                                        </td>
-                                    </tr>
-                                );
+                                                                {paymentMethod === 'paypal' && (
+                                                                    <div id="paypal-button-container"></div>
+                                                                )}
+
+                                                                <div className="flex gap-2">
+                                                                    <Button
+                                                                        variant={'primary'}
+                                                                        label={isProcessing ? t('processing') : t('settle')}
+                                                                        onClick={() => handleSettle(settlement._id, settlement.amount, paymentMethod)}
+                                                                        disabled={isProcessing}
+                                                                    />
+                                                                    <Button
+                                                                        variant={'secondary'}
+                                                                        label={t('cancel')}
+                                                                        onClick={closeModal}
+                                                                    />
+                                                                </div>
+                                                            </Modal>
+                                                        )}
+                                                    </>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    );
+                                }
                             })
                         ) : (
                             <tr>
@@ -246,6 +252,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                         <td className="px-2 py-4 text-sm text-zinc-300 dark:text-zinc-600 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
                                                 <UserIcon
+                                                    isAdmin={isAdmin(trip, debtor?._id || '')}
                                                     userName={debtor?.name || ''}
                                                     userId={debtor?._id || ''}
                                                     profilePhoto={debtor?.profilePhoto || ''}
@@ -260,6 +267,7 @@ const ExpenseSettlementTable: React.FC<ExpenseSettlementTableProps> = ({
                                         <td className="px-2 py-4 text-sm text-zinc-300 dark:text-zinc-600 items-center space-x-3">
                                             <div className="flex gap-2 items-center">
                                                 <UserIcon
+                                                    isAdmin={isAdmin(trip, creditor?._id || '')}
                                                     userName={creditor?.name || ''}
                                                     userId={creditor?._id || ''}
                                                     profilePhoto={creditor?.profilePhoto || ''}

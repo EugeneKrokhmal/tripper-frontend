@@ -29,6 +29,7 @@ export interface TripMapProps {
 }
 
 export interface TripParticipantsProps {
+    trip: Trip,
     tripId: string;
     userId: string;
     isOwner: boolean;

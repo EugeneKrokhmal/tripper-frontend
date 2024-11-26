@@ -16,7 +16,6 @@ const ShareTrip: React.FC<ShareTripProps> = ({
     startDate,
     endDate,
     tripDescription,
-    isOwner,
     isAdmin,
     joinLink,
     onGenerateJoinLink,
@@ -39,10 +38,10 @@ const ShareTrip: React.FC<ShareTripProps> = ({
     }, [joinLink]);
 
     useEffect(() => {
-        if (IsShareModalOpen && !linkGenerated && (isOwner || isAdmin)) {
+        if (IsShareModalOpen && !linkGenerated && isAdmin) {
             onGenerateJoinLink();
         }
-    }, [IsShareModalOpen, linkGenerated, isOwner, isAdmin, onGenerateJoinLink]);
+    }, [IsShareModalOpen, linkGenerated, isAdmin, onGenerateJoinLink]);
 
     const handleSendInvite = async () => {
         try {
@@ -108,7 +107,7 @@ const ShareTrip: React.FC<ShareTripProps> = ({
                 <img width="16" src={ShareIcon} alt="" />
                 <span className="text-xs">{t('invite')}</span>
             </button>
-            {(isOwner || isAdmin) && IsShareModalOpen && (
+            {isAdmin && IsShareModalOpen && (
                 <>
                     <Modal onClose={closeShareTripModal}>
                         {linkGenerated ? (

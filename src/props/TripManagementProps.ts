@@ -1,4 +1,5 @@
 import { User } from '../types/User';
+import { Trip } from '../types/Trip';
 
 export interface ShareTripProps {
     tripId: string;
@@ -16,7 +17,9 @@ export interface ShareTripProps {
 }
 
 export interface EditTripFormProps {
+    trip: Trip;
     participants: User[];
+    administrators: string[],
     id: string;
     initialTripName: string;
     initialTripDescription: string;
@@ -35,5 +38,5 @@ export interface EditTripFormProps {
     }) => void;
     onCancel: () => void;
     onImageUploadSuccess: (imageUrl: string) => void;
-    onParticipantDelete: (userId: string) => void;
+    onParticipantDelete: (updatedParticipants: User[]) => void;
 }

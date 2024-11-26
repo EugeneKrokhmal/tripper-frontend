@@ -7,7 +7,7 @@ import UsersTable from '../users/UsersTable';
 
 import type { ExpenseSummaryWidgetProps } from '../../index';
 
-const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidByUser, totalCost, remainingOwedToUser, onAddExpenseClick, isOwner, admins, participants, expenses }) => {
+const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ trip, totalPaidByUser, totalCost, remainingOwedToUser, onAddExpenseClick, isOwner, admins, participants, expenses }) => {
     const { t } = useTranslation();
     const userCost = totalPaidByUser - remainingOwedToUser;
     const [isWidgetOpen, setIsWidgetOpen] = useState(false);
@@ -61,6 +61,7 @@ const ExpenseSummaryWidget: React.FC<ExpenseSummaryWidgetProps> = ({ totalPaidBy
                 <div className={`mt-2 flex flex-col`}>
                     <div className="rounded overflow-scroll h-64">
                         <UsersTable
+                            trip={trip}
                             isOwner={isOwner}
                             admins={admins}
                             participants={participants}

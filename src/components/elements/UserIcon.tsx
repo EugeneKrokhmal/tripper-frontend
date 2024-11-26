@@ -1,14 +1,16 @@
 import React from 'react';
+import AdminIcon from '../../images/icons/admin.png';
 
 interface UserIconProps {
     userName: string;
+    isAdmin?: boolean;
     userId?: string;
     profilePhoto?: string;
     size?: string;
     border?: string;
 }
 
-const UserIcon: React.FC<UserIconProps> = ({ userName, userId, size, profilePhoto, border }) => {
+const UserIcon: React.FC<UserIconProps> = ({ userName, userId, size, profilePhoto, border, isAdmin }) => {
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
 
     let className;
@@ -30,12 +32,17 @@ const UserIcon: React.FC<UserIconProps> = ({ userName, userId, size, profilePhot
             break;
     }
     return (
-        <img
-            key={userId}
-            className={`${className} ${border} transition-all rounded-full object-cover`}
-            src={(profilePhoto || profilePhoto === 'undefined') ? `${API_BASE_URL}/${profilePhoto}` : `https://ui-avatars.com/api/?name=${userName}&background=random`}
-            alt={userName}
-        />
+        <div className="relative">
+            <img
+                key={userId}
+                className={`${className} ${border} transition-all rounded-full object-cover`}
+                src={(profilePhoto || profilePhoto === 'undefined') ? `${API_BASE_URL}/${profilePhoto}` : `https://ui-avatars.com/api/?name=${userName}&background=random`}
+                alt={userName}
+            />
+            {isAdmin && (
+                <img className="absolute bottom-0 -right-1 w-2/5" src={AdminIcon}/>
+            )}
+        </div>
     );
 };
 

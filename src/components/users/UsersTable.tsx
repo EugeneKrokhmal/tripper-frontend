@@ -3,11 +3,13 @@ import { useTranslation } from 'react-i18next';
 
 import Price from '../Price';
 import UserIcon from '../elements/UserIcon';
+import { isAdmin } from '../../services/usersService';
 
 import { getInvolvedExpenses } from '../../utils/tripUtils';
 import type { UsersTableProps } from '../../index';
 
 const UsersTable: React.FC<UsersTableProps> = ({
+    trip,
     admins,
     participants,
     expenses,
@@ -40,6 +42,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
                                 <div className="flex gap-2 items-center">
                                     <div className="">
                                         <UserIcon
+                                            isAdmin={isAdmin(trip, participant._id)}
                                             userName={participant.name}
                                             userId={participant._id}
                                             profilePhoto={participant.profilePhoto}

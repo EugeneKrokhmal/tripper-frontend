@@ -1,7 +1,9 @@
 import { Expense } from '../types/Expense';
 import { User } from '../types/User';
+import { Trip } from '../types/Trip';
 
 export interface ExpensesListProps {
+    trip: Trip,
     userId: string;
     isOwner: boolean;
     expenses: Expense[];
@@ -14,6 +16,7 @@ export interface ExpensesListProps {
 }
 
 export interface ExpenseSummaryWidgetProps {
+    trip: Trip,
     totalPaidByUser: number;
     totalCost: number;
     fairShare: number;
@@ -36,6 +39,7 @@ export interface ExpenseSummaryProps {
 }
 
 export interface ExpenseFormProps {
+    trip: Trip,
     isOwner: boolean;
     userId: string;
     participants: any[];

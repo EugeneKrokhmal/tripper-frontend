@@ -7,6 +7,7 @@ export interface Trip {
     image: string;
     creator: User;
     participants: User[];
+    administrators: string[];
     startDate: string;
     endDate: string;
     location: Location;

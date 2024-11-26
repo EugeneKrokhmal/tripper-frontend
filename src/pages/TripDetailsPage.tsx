@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useTranslation } from 'react-i18next';
 import { useCurrency } from '../context/CurrencyContext';
+import { isAdmin } from '../services/usersService';
 
 import TripParticipants from '../components/trips/TripParticipants';
 import TripInfo from '../components/trips/TripInfo';
@@ -228,7 +229,7 @@ const TripDetailsPage: React.FC = () => {
                     src={imageUrl}
                     alt={trip?.location?.destination || 'Trip image'}
                 />
-                {(isOwner || trip.administrators.includes(userId)) && (
+                {isAdmin(trip, userId || '') && (
                     <>
                         <ShareTrip {...{
                             tripId: trip._id,
@@ -238,14 +239,16 @@ const TripDetailsPage: React.FC = () => {
                             endDate: trip.endDate,
                             tripDescription: trip.description,
                             isOwner,
-                            isAdmin: trip.administrators.includes(userId),
+                            isAdmin: isAdmin(trip, userId || ''),
                             joinLink,
                             onGenerateJoinLink: handleGenerateJoinLink,
                             loadingJoinLink,
                             error,
                         }} />
                         <EditTripForm {...{
+                            trip: trip,
                             participants: trip.participants,
+                            administrators: trip.administrators,
                             id: trip._id,
                             initialTripName: trip.name,
                             initialTripDescription: trip.description,
@@ -268,6 +271,7 @@ const TripDetailsPage: React.FC = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-screen-xl mx-auto px-4 pb-36">
                 {/* Expense Summary */}
                 <ExpenseSummaryWidget {...{
+                    trip,
                     totalPaidByUser,
                     totalCost,
                     fairShare,
@@ -301,6 +305,7 @@ const TripDetailsPage: React.FC = () => {
 
                     <div className="rounded bg-zinc-50 dark:bg-zinc-900 p-4 mb-4">
                         <TripParticipants {...{
+                            trip: trip,
                             tripId: tripId || '',
                             userId: userId || '',
                             isOwner,
@@ -316,6 +321,7 @@ const TripDetailsPage: React.FC = () => {
                     }} />
 
                     <ExpenseSettlementTable {...{
+                        trip: trip,
                         tripId: tripId || '',
                         settlements,
                         settlementHistory: trip.settlementHistory || [],
@@ -330,7 +336,7 @@ const TripDetailsPage: React.FC = () => {
                         tripId: tripId || '',
                         token: token || '',
                         isOwner,
-                        isAdmin: trip.administrators.includes(userId),
+                        isAdmin: isAdmin(trip, userId || ''),
                         API_BASE_URL,
                         OPEN_CAGE_API_KEY: process.env.REACT_APP_OPENCAGE_API_KEY || '',
                     }} />
@@ -350,6 +356,7 @@ const TripDetailsPage: React.FC = () => {
                     </div>
 
                     <ExpensesList {...{
+                        trip: trip,
                         userId: userId || '',
                         isOwner,
                         expenses,
@@ -367,6 +374,7 @@ const TripDetailsPage: React.FC = () => {
             {isAddExpenseModalOpen && (
                 <Modal onClose={closeAddExpenseModal}>
                     <ExpenseForm {...{
+                        trip: trip,
                         isOwner,
                         userId: userId || '',
                         participants: trip.participants,
