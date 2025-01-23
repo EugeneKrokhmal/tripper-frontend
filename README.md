@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# Tripper App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+Tripper is a **trip planning and expense management platform** designed to simplify group travel. It offers tools for organizing trips, tracking expenses, and ensuring fair financial settlements among participants.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Key Features
 
-### `npm start`
+### 1. **Trip Planning**
+- Create and manage trips by entering details such as:
+  - **Trip Name**
+  - **Destination**
+  - **Start/End Dates**
+  - **Description**
+- Organize itineraries, add destinations, and manage activities with features like:
+  - **Add Activity**
+  - **Edit Activity**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. **Group Travel Management**
+- Invite friends and family to trips via:
+  - Email invitations.
+  - Sharing a unique invite link.
+- Roles for participants:
+  - **Owner**
+  - **Participant**
+  - **Admin**
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3. **Expense Tracking and Splitting**
+- Track expenses during trips.
+- Support for expense splitting:
+  - **Even Splits**
+  - **Specific Splits** (customizable for participants).
+- Tools for settling debts and managing financial transactions in real-time.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 4. **Real-Time Settlements**
+- Settlement summary displays:
+  - **Who owes money**
+  - **Who is owed**
+  - **How much**
+- Tracks settled and unsettled debts for financial transparency.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 5. **Weather and Location Insights**
+- Displays current weather conditions for trip destinations.
+- Includes links to maps for exploring locations.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 6. **Multilingual Support**
+- Supports multiple languages:
+  - **English**
+  - **Ukrainian**
+  - **Polish**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 7. **Mobile-Friendly Interface**
+- Fully responsive design for seamless use on mobile devices.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+### 8. **User Account and Privacy**
+- Secure user authentication with features like:
+  - **Login**
+  - **Register**
+  - **Reset Password**
+- Emphasis on:
+  - Data privacy.
+  - User control over account information.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Purpose
+Tripper aims to **simplify group travel** by providing tools for:
+- Organizing and planning trips.
+- Tracking and splitting expenses.
+- Ensuring financial fairness among participants.
+- Enhancing collaboration and communication during trips.
